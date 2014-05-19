@@ -60,6 +60,9 @@ static int current_power_profile = PROFILE_BALANCED;
 
 #define TAP_TO_WAKE_NODE "/proc/touchpanel/double_tap_enable"
 
+// Custom Lineage hints
+const static power_hint_t POWER_HINT_SET_PROFILE = (power_hint_t)0x00000111;
+
 static int sysfs_write(const char *path, char *s)
 {
     char buf[80];
