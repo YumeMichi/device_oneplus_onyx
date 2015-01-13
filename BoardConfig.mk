@@ -161,6 +161,10 @@ TARGET_USES_INTERACTION_BOOST := true
 # QCOM hardware
 BOARD_USES_QCOM_HARDWARE := true
 
+# Releasetools
+TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_onyx
+TARGET_RELEASETOOLS_EXTENSIONS := $(PLATFORM_PATH)
+
 # Recovery
 TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/rootdir/etc/fstab.qcom
 
