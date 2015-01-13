@@ -249,6 +249,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.power@1.1-service.onyx
 
+# Recovery
+PRODUCT_PACKAGES += \
+    librecovery_updater_onyx
+
 # RIL
 PRODUCT_PACKAGES += \
     libcnefeatureconfig \
