@@ -1472,6 +1472,7 @@ int QCamera2HardwareInterface::prepareTorchCamera()
             !m_stateMachine.isPreviewReady() &&
             ( m_channels[QCAMERA_CH_TYPE_PREVIEW] == NULL ) ) {
         rc = addChannel(QCAMERA_CH_TYPE_PREVIEW);
+        waitDefferedWork(mMetadataJob);
     }
 
     return rc;
