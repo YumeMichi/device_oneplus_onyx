@@ -1385,6 +1385,7 @@ struct LocEngInit : public LocMsg {
     }
     inline virtual void proc() const {
         loc_eng_reinit(*mLocEng);
+        mLocEng->adapter->setGpsLock(1);
         // set the capabilities
         mLocEng->adapter->sendMsg(new LocEngSetCapabilities(mLocEng));
     }
