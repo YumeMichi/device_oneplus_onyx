@@ -1,5 +1,6 @@
 on early-init
     write /sys/block/mmcblk0/bdi/read_ahead_kb 512
+    write /sys/class/mmc_host/mmc0/clk_scaling/scale_down_in_low_wr_load 1
 
 on enable-low-power
     write /sys/module/lpm_levels/enable_low_power/l2 4
