@@ -4553,17 +4553,49 @@ int32_t QCameraParameters::initDefaultParameters()
  *              NO_ERROR  -- success
  *              none-zero failure code
  *==========================================================================*/
+#define CAM0_PIC_TBL_SIZE 21
+static cam_dimension_t new_pic_sizes_cam0[CAM0_PIC_TBL_SIZE] = {
+    {4208, 3120},
+    {4160, 3120},
+    {4160, 2340},
+    {4000, 3000},
+    {4096, 2160},
+    {3200, 2400},
+    {3200, 1800},
+    {2592, 1944},
+    {2048, 1536},
+    {1920, 1080},
+    {1600, 1200},
+    {1280, 960},
+    {1280, 768},
+    {1280, 720},
+    {1024, 768},
+    {800, 600},
+    {800, 480},
+    {720, 480},
+    {640, 480},
+    {352, 288},
+    {320, 240}
+};
+
 int32_t QCameraParameters::init(cam_capability_t *capabilities,
                                 mm_camera_vtbl_t *mmOps,
                                 QCameraAdjustFPS *adjustFPS,
                                 QCameraTorchInterface *torch)
 {
     int32_t rc = NO_ERROR;
+    int i;
 
     m_pCapability = capabilities;
     m_pCamOpsTbl = mmOps;
     m_AdjustFPS = adjustFPS;
     m_pTorch = torch;
+
+    if (m_pCapability->position == CAM_POSITION_BACK) {
+        for (i = 0; i < CAM0_PIC_TBL_SIZE; i++)
+            m_pCapability->picture_sizes_tbl[i] = new_pic_sizes_cam0[i];
+        m_pCapability->picture_sizes_tbl_cnt = CAM0_PIC_TBL_SIZE;
+    }
 
     //Allocate Set Param Buffer
     m_pParamHeap = new QCameraHeapMemory(QCAMERA_ION_USE_CACHE);
