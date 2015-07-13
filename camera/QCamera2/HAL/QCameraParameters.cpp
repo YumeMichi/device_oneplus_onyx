@@ -1956,7 +1956,7 @@ int32_t QCameraParameters::setSceneFocusMode(const QCameraParameters& params)
                 isAutoFocusModeSupported = TRUE;
         }
         if (isAutoFocusModeSupported) {
-            rc = setFocusMode(FOCUS_MODE_AUTO);
+            rc = setFocusMode(FOCUS_MODE_CONTINUOUS_PICTURE);
         } else {
             rc = setFocusMode(FOCUS_MODE_FIXED);
         }
