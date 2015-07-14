@@ -19,8 +19,7 @@ LOCAL_SRC_FILES := \
     wrapper/QualcommCamera.cpp
 
 LOCAL_CFLAGS = -Wall
-#Debug logs are enabled
-#LOCAL_CFLAGS += -DDISABLE_DEBUG_LOG
+LOCAL_CFLAGS += -DDISABLE_DEBUG_LOG
 
 LOCAL_C_INCLUDES := \
     $(LOCAL_PATH)/../stack/common \
