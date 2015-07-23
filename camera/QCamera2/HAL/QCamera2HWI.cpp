@@ -422,11 +422,24 @@ int QCamera2HardwareInterface::store_meta_data_in_buffers(
 int QCamera2HardwareInterface::start_recording(struct camera_device *device)
 {
     int ret = NO_ERROR;
+    int width, height;
     QCamera2HardwareInterface *hw =
         reinterpret_cast<QCamera2HardwareInterface *>(device->priv);
     if (!hw) {
         ALOGE("NULL camera device");
         return BAD_VALUE;
+    }
+    // Configure preview window for 4K
+    hw->mParameters.getVideoSize(&width, &height);
+    if ((width > 1920) && (height > 1080)) {
+        android::CameraParameters params;
+        params.unflatten(android::String8(hw->get_parameters(device)));
+        params.set("preview-size", (width == 3840) ? "3840x2160" : "4096x2160");
+        params.set("preview-format", "nv12-venus");
+        hw->set_parameters(device, strdup(params.flatten().string()));
+        // Restart preview to propagate changes to preview window
+        hw->stop_preview(device);
+        hw->start_preview(device);
     }
     CDBG_HIGH("[KPI Perf] %s: E PROFILE_START_RECORDING", __func__);
     hw->lockAPI();
@@ -747,7 +760,20 @@ char* QCamera2HardwareInterface::get_parameters(struct camera_device *device)
     int32_t rc = hw->processAPI(QCAMERA_SM_EVT_GET_PARAMS, NULL);
     if (rc == NO_ERROR) {
         hw->waitAPIResult(QCAMERA_SM_EVT_GET_PARAMS, &apiResult);
-        ret = apiResult.params;
+        // Mask nv12-venus to userspace to prevent framework crash
+        if (hw->mParameters.getRecordingHintValue()) {
+            int width, height;
+            hw->mParameters.getVideoSize(&width, &height);
+            if ((width > 1920) && (height > 1080)) {
+                android::CameraParameters params;
+                params.unflatten(android::String8(hw->m_apiResult.params));
+                params.set("preview-format", "yuv420sp");
+                ret = strdup(params.flatten().string());
+            }
+        }
+
+        if (ret == NULL)
+            ret = apiResult.params;
     }
     hw->unlockAPI();
 
