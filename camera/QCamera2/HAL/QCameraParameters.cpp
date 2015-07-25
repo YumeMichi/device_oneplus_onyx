@@ -4542,19 +4542,6 @@ int32_t QCameraParameters::initDefaultParameters()
     return rc;
 }
 
-/*===========================================================================
- * FUNCTION   : init
- *
- * DESCRIPTION: initialize parameter obj
- *
- * PARAMETERS :
- *   @capabilities  : ptr to camera capabilities
- *   @mmops         : ptr to memory ops table for mapping/unmapping
- *
- * RETURN     : int32_t type of status
- *              NO_ERROR  -- success
- *              none-zero failure code
- *==========================================================================*/
 #define CAM0_PIC_TBL_SIZE 21
 static cam_dimension_t new_pic_sizes_cam0[CAM0_PIC_TBL_SIZE] = {
     {4208, 3120},
@@ -4615,6 +4602,33 @@ static cam_dimension_t new_prvw_sizes_cam0[CAM0_PRVW_TBL_SIZE] = {
     {320, 240}
 };
 
+#define CAM1_VID_TBL_SIZE 10
+static cam_dimension_t new_vid_sizes_cam1[CAM1_VID_TBL_SIZE] = {
+    {1920, 1080},
+    {1280, 720},
+    {864, 480},
+    {800, 480},
+    {720, 480},
+    {640, 480},
+    {480, 320},
+    {352, 288},
+    {320, 240},
+    {176, 144}
+};
+
+/*===========================================================================
+ * FUNCTION   : init
+ *
+ * DESCRIPTION: initialize parameter obj
+ *
+ * PARAMETERS :
+ *   @capabilities  : ptr to camera capabilities
+ *   @mmops         : ptr to memory ops table for mapping/unmapping
+ *
+ * RETURN     : int32_t type of status
+ *              NO_ERROR  -- success
+ *              none-zero failure code
+ *==========================================================================*/
 int32_t QCameraParameters::init(cam_capability_t *capabilities,
                                 mm_camera_vtbl_t *mmOps,
                                 QCameraAdjustFPS *adjustFPS,
@@ -4628,6 +4642,7 @@ int32_t QCameraParameters::init(cam_capability_t *capabilities,
     m_AdjustFPS = adjustFPS;
     m_pTorch = torch;
 
+    // Inject modified video/preview size tables
     if (m_pCapability->position == CAM_POSITION_BACK) {
         for (i = 0; i < CAM0_PIC_TBL_SIZE; i++)
             m_pCapability->picture_sizes_tbl[i] = new_pic_sizes_cam0[i];
@@ -4644,6 +4659,14 @@ int32_t QCameraParameters::init(cam_capability_t *capabilities,
         for (i = 0; i < CAM0_PRVW_TBL_SIZE; i++)
             m_pCapability->preview_sizes_tbl[i] = new_prvw_sizes_cam0[i];
         m_pCapability->preview_sizes_tbl_cnt = CAM0_PRVW_TBL_SIZE;
+    } else if (m_pCapability->position == CAM_POSITION_FRONT) {
+        for (i = 0; i < CAM1_VID_TBL_SIZE; i++)
+            m_pCapability->video_sizes_tbl[i] = new_vid_sizes_cam1[i];
+        m_pCapability->video_sizes_tbl_cnt = CAM1_VID_TBL_SIZE;
+
+        for (i = 0; i < CAM1_VID_TBL_SIZE; i++)
+            m_pCapability->livesnapshot_sizes_tbl[i] = new_vid_sizes_cam1[i];
+        m_pCapability->livesnapshot_sizes_tbl_cnt = CAM1_VID_TBL_SIZE;
     }
 
     //Allocate Set Param Buffer
