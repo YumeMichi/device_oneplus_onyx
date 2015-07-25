@@ -4637,6 +4637,10 @@ int32_t QCameraParameters::init(cam_capability_t *capabilities,
             m_pCapability->video_sizes_tbl[i] = new_vid_sizes_cam0[i];
         m_pCapability->video_sizes_tbl_cnt = CAM0_VID_TBL_SIZE;
 
+        for (i = 0; i < CAM0_VID_TBL_SIZE; i++)
+            m_pCapability->livesnapshot_sizes_tbl[i] = new_vid_sizes_cam0[i];
+        m_pCapability->livesnapshot_sizes_tbl_cnt = CAM0_VID_TBL_SIZE;
+
         for (i = 0; i < CAM0_PRVW_TBL_SIZE; i++)
             m_pCapability->preview_sizes_tbl[i] = new_prvw_sizes_cam0[i];
         m_pCapability->preview_sizes_tbl_cnt = CAM0_PRVW_TBL_SIZE;
