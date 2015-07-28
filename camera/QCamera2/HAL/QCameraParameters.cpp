@@ -1952,7 +1952,7 @@ int32_t QCameraParameters::setSceneFocusMode(const QCameraParameters& params)
     if(sceneModeSet && m_pCapability->supported_focus_modes_cnt > 0){
         bool isAutoFocusModeSupported = FALSE;
         for(int i=0;i < m_pCapability->supported_focus_modes_cnt; i++){
-             if(CAM_FOCUS_MODE_AUTO == m_pCapability->supported_focus_modes[i])
+             if(CAM_FOCUS_MODE_CONTINOUS_PICTURE == m_pCapability->supported_focus_modes[i])
                 isAutoFocusModeSupported = TRUE;
         }
         if (isAutoFocusModeSupported) {
