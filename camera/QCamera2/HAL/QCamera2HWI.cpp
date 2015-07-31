@@ -429,12 +429,24 @@ int QCamera2HardwareInterface::start_recording(struct camera_device *device)
         ALOGE("NULL camera device");
         return BAD_VALUE;
     }
-    // Configure preview window for 4K
+    // Use nv12-venus preview format for 720p and higher
     hw->mParameters.getVideoSize(&width, &height);
-    if ((width > 1920) && (height > 1080)) {
+    if ((width * height) >= (1280 * 720)) {
         android::CameraParameters params;
         params.unflatten(android::String8(hw->get_parameters(device)));
-        params.set("preview-size", (width == 3840) ? "3840x2160" : "4096x2160");
+
+        // Set preview size
+        if (width == 4096 && height == 2160)
+            params.set("preview-size", "4096x2160");
+        else if (width == 3840 && height == 2160)
+            params.set("preview-size", "3840x2160");
+        else if (width == 1920 && height == 1080)
+            params.set("preview-size", "1920x1080");
+        else if (width == 1280 && height == 960)
+            params.set("preview-size", "1280x960");
+        else if (width == 1280 && height == 720)
+            params.set("preview-size", "1280x720");
+
         params.set("preview-format", "nv12-venus");
         hw->set_parameters(device, strdup(params.flatten().string()));
         // Restart preview to propagate changes to preview window
@@ -764,7 +776,7 @@ char* QCamera2HardwareInterface::get_parameters(struct camera_device *device)
         if (hw->mParameters.getRecordingHintValue()) {
             int width, height;
             hw->mParameters.getVideoSize(&width, &height);
-            if ((width > 1920) && (height > 1080)) {
+            if ((width * height) >= (1280 * 720)) {
                 android::CameraParameters params;
                 params.unflatten(android::String8(hw->m_apiResult.params));
                 params.set("preview-format", "yuv420sp");
