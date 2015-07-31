@@ -4634,7 +4634,7 @@ int32_t QCameraParameters::init(cam_capability_t *capabilities,
                                 QCameraTorchInterface *torch)
 {
     int32_t rc = NO_ERROR;
-    int i;
+    int i, x;
 
     m_pCapability = capabilities;
     m_pCamOpsTbl = mmOps;
@@ -4659,19 +4659,17 @@ int32_t QCameraParameters::init(cam_capability_t *capabilities,
             m_pCapability->preview_sizes_tbl[i] = new_prvw_sizes_cam0[i];
         m_pCapability->preview_sizes_tbl_cnt = CAM0_PRVW_TBL_SIZE;
 
-        // Add 120FPS and 90FPS HFR mode up to 1080p
-        for (i = CAM_HFR_MODE_OFF; i < CAM_HFR_MODE_150FPS; i++) {
-            int x;
-            m_pCapability->hfr_tbl[i].mode = (cam_hfr_mode_t)i;
-            m_pCapability->hfr_tbl[i].dim = (cam_dimension_t){1920, 1080};
-            m_pCapability->hfr_tbl[i].frame_skip = 0;
-            m_pCapability->hfr_tbl[i].livesnapshot_sizes_tbl_cnt =
-                                            m_pCapability->hfr_tbl[CAM_HFR_MODE_60FPS].livesnapshot_sizes_tbl_cnt;
-            for (x = 0; x < m_pCapability->hfr_tbl[i].livesnapshot_sizes_tbl_cnt; x++)
-                m_pCapability->hfr_tbl[i].livesnapshot_sizes_tbl[x] =
-                                            m_pCapability->hfr_tbl[CAM_HFR_MODE_60FPS].livesnapshot_sizes_tbl[x];
-        }
-        m_pCapability->hfr_tbl_cnt = 4;
+        // Add 90FPS HFR mode up to 720p
+        x = CAM_HFR_MODE_90FPS;
+        m_pCapability->hfr_tbl[x].mode = (cam_hfr_mode_t)x;
+        m_pCapability->hfr_tbl[x].dim = (cam_dimension_t){1280, 720};
+        m_pCapability->hfr_tbl[x].frame_skip = 0;
+        m_pCapability->hfr_tbl[x].livesnapshot_sizes_tbl_cnt =
+                                        m_pCapability->hfr_tbl[CAM_HFR_MODE_120FPS].livesnapshot_sizes_tbl_cnt;
+        for (i = 0; i < m_pCapability->hfr_tbl[x].livesnapshot_sizes_tbl_cnt; i++)
+            m_pCapability->hfr_tbl[x].livesnapshot_sizes_tbl[i] =
+                                        m_pCapability->hfr_tbl[CAM_HFR_MODE_60FPS].livesnapshot_sizes_tbl[i];
+        m_pCapability->hfr_tbl_cnt = 3;
     } else if (m_pCapability->position == CAM_POSITION_FRONT) {
         for (i = 0; i < CAM1_VID_TBL_SIZE; i++)
             m_pCapability->video_sizes_tbl[i] = new_vid_sizes_cam1[i];
