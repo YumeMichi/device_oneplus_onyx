@@ -4567,14 +4567,13 @@ static cam_dimension_t new_pic_sizes_cam0[CAM0_PIC_TBL_SIZE] = {
     {320, 240}
 };
 
-#define CAM0_VID_TBL_SIZE 14
+#define CAM0_VID_TBL_SIZE 13
 static cam_dimension_t new_vid_sizes_cam0[CAM0_VID_TBL_SIZE] = {
     {4096, 2160},
     {3840, 2160},
     {1920, 1080},
     {1280, 960},
     {1280, 720},
-    {864, 480},
     {800, 480},
     {720, 480},
     {640, 480},
