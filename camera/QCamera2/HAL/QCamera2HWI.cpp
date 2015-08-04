@@ -429,7 +429,7 @@ int QCamera2HardwareInterface::start_recording(struct camera_device *device)
         ALOGE("NULL camera device");
         return BAD_VALUE;
     }
-    // Use nv12-venus preview format for 720p and higher
+    // Preview window changes for 720p and higher
     hw->mParameters.getVideoSize(&width, &height);
     if ((width * height) >= (1280 * 720)) {
         android::CameraParameters params;
@@ -447,7 +447,16 @@ int QCamera2HardwareInterface::start_recording(struct camera_device *device)
         else if (width == 1280 && height == 720)
             params.set("preview-size", "1280x720");
 
-        params.set("preview-format", "nv12-venus");
+        const char *hfrStr = params.get("video-hfr");
+        const char *hsrStr = params.get("video-hsr");
+
+        // Use yuv420sp for high framerates
+        if ((hfrStr != NULL && strcmp(hfrStr, "off")) ||
+            (hsrStr != NULL && strcmp(hsrStr, "off")))
+            params.set("preview-format", "yuv420sp");
+        else
+            params.set("preview-format", "nv12-venus");
+
         hw->set_parameters(device, strdup(params.flatten().string()));
         // Restart preview to propagate changes to preview window
         hw->stop_preview(device);
