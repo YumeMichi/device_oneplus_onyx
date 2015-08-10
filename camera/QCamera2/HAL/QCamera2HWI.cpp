@@ -435,17 +435,23 @@ int QCamera2HardwareInterface::start_recording(struct camera_device *device)
         android::CameraParameters params;
         params.unflatten(android::String8(hw->get_parameters(device)));
 
-        // Set preview size
-        if (width == 4096 && height == 2160)
+        // Set preview size and picture size to video size
+        if (width == 4096 && height == 2160) {
             params.set("preview-size", "4096x2160");
-        else if (width == 3840 && height == 2160)
+            params.set("picture-size", "4096x2160");
+        } else if (width == 3840 && height == 2160) {
             params.set("preview-size", "3840x2160");
-        else if (width == 1920 && height == 1080)
+            params.set("picture-size", "3840x2160");
+        } else if (width == 1920 && height == 1080) {
             params.set("preview-size", "1920x1080");
-        else if (width == 1280 && height == 960)
+            params.set("picture-size", "1920x1080");
+        } else if (width == 1280 && height == 960) {
             params.set("preview-size", "1280x960");
-        else if (width == 1280 && height == 720)
+            params.set("picture-size", "1280x960");
+        } else if (width == 1280 && height == 720) {
             params.set("preview-size", "1280x720");
+            params.set("picture-size", "1280x720");
+	}
 
         const char *hfrStr = params.get("video-hfr");
         const char *hsrStr = params.get("video-hsr");
