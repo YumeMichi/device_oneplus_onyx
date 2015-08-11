@@ -1868,6 +1868,7 @@ int32_t QCameraParameters::setFocusMode(const QCameraParameters& params)
     const char *str = params.get(KEY_FOCUS_MODE);
     const char *prev_str = get(KEY_FOCUS_MODE);
 
+#if 0 // Allow frontend to control scene focus mode
     //Find whether scene mode is Auto or not. We should set focus mode set by app
     //only in Auto scene mode.  For other scene modes, Focus mode corresponding to
     //a scene is decided and set in backend. In HAL, it is taken care in setScenePreferences.
@@ -1877,9 +1878,15 @@ int32_t QCameraParameters::setFocusMode(const QCameraParameters& params)
         if (!strcmp(scene_str, SCENE_MODE_AUTO))
             isAutoSceneMode = TRUE;
     }
+#endif
+
     if (str != NULL) {
         if (prev_str == NULL ||
+#if 0 // Allow frontend to control scene focus mode
             (strcmp(str, prev_str) != 0 && isAutoSceneMode)){
+#else
+            (strcmp(str, prev_str) != 0)){
+#endif
                 rc = setFocusMode(str);
         }
     }
