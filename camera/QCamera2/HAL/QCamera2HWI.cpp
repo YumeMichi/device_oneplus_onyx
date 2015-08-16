@@ -442,6 +442,9 @@ int QCamera2HardwareInterface::start_recording(struct camera_device *device)
         } else if (width == 3840 && height == 2160) {
             params.set("preview-size", "3840x2160");
             params.set("picture-size", "3840x2160");
+        } else if (width == 2560 && height == 1440) {
+            params.set("preview-size", "2560x1440");
+            params.set("picture-size", "2560x1440");
         } else if (width == 1920 && height == 1080) {
             params.set("preview-size", "1920x1080");
             params.set("picture-size", "1920x1080");
