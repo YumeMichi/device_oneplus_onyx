@@ -790,20 +790,23 @@ char* QCamera2HardwareInterface::get_parameters(struct camera_device *device)
     int32_t rc = hw->processAPI(QCAMERA_SM_EVT_GET_PARAMS, NULL);
     if (rc == NO_ERROR) {
         hw->waitAPIResult(QCAMERA_SM_EVT_GET_PARAMS, &apiResult);
+
+        android::CameraParameters params;
+        params.unflatten(android::String8(apiResult.params));
+
         // Mask nv12-venus to userspace to prevent framework crash
         if (hw->mParameters.getRecordingHintValue()) {
             int width, height;
             hw->mParameters.getVideoSize(&width, &height);
             if ((width * height) >= (1280 * 720)) {
-                android::CameraParameters params;
-                params.unflatten(android::String8(hw->m_apiResult.params));
                 params.set("preview-format", "yuv420sp");
-                ret = strdup(params.flatten().string());
             }
         }
 
-        if (ret == NULL)
-            ret = apiResult.params;
+        // Set exposure-time-values param for CameraNext slow-shutter
+        params.set("exposure-time-values", "0");
+
+        ret = strdup(params.flatten().string());
     }
     hw->unlockAPI();
 
