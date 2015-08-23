@@ -5515,6 +5515,15 @@ int32_t  QCameraParameters::setExposureTime(const char *expTimeStr)
         int32_t min_exp_time = m_pCapability->min_exposure_time; /* 200 */
         int32_t max_exp_time = m_pCapability->max_exposure_time; /* 2000000 */
 
+        // Cap exposure time to upper/lower limits without returning an error
+        // to prevent crashes in CameraNext
+        if (expTimeUs) {
+            if (expTimeUs > max_exp_time)
+                expTimeUs = max_exp_time;
+            else if (expTimeUs < min_exp_time)
+                expTimeUs = min_exp_time;
+        }
+
         // expTime == 0 means not to use manual exposure time.
         if (expTimeUs == 0 ||
             (expTimeUs >= min_exp_time && expTimeUs <= max_exp_time)) {
