@@ -1128,6 +1128,11 @@ int32_t QCameraParameters::setPreviewSize(const QCameraParameters& params)
             // set the new value
             CDBG_HIGH("%s: Requested preview size %d x %d", __func__, width, height);
             CameraParameters::setPreviewSize(width, height);
+
+            // Disable video HDR for 4k DCI
+            if ((width * height) == (4096 * 2160))
+                setVideoHDR(VALUE_OFF);
+
             return NO_ERROR;
         }
     }
@@ -2456,8 +2461,17 @@ int32_t QCameraParameters::setSceneDetect(const QCameraParameters& params)
  *==========================================================================*/
 int32_t QCameraParameters::setVideoHDR(const QCameraParameters& params)
 {
-    const char *str = params.get(KEY_QC_VIDEO_HDR);
+    const char *str;
     const char *prev_str = get(KEY_QC_VIDEO_HDR);
+    int width, height;
+
+    // Disable video HDR for 4k DCI
+    params.getPreviewSize(&width, &height);
+    if ((width * height) == (4096 * 2160))
+        str = VALUE_OFF;
+    else
+        str = params.get(KEY_QC_VIDEO_HDR);
+
     if (str != NULL) {
         if (prev_str == NULL ||
             strcmp(str, prev_str) != 0) {
