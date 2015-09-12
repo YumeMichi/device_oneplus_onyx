@@ -5700,6 +5700,8 @@ int32_t QCameraParameters::setFlash(const char *flashStr)
             if ( NULL != m_pTorch ) {
                 if ( value == CAM_FLASH_MODE_TORCH && !m_bRecordingHint_new) {
                     m_pTorch->prepareTorchCamera();
+                    // Set preview size to lowest to fix torch w/ trusted-face usecase
+                    CameraParameters::setPreviewSize(320, 240);
                 } else {
                     m_bReleaseTorchCamera = true;
                 }
