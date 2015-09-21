@@ -36,7 +36,8 @@
 #define LOWER(a)               ((a) & 0xFFFF)
 #define UPPER(a)               (((a)>>16) & 0xFFFF)
 #define CHANGE_ENDIAN_16(a)  ((0x00FF & ((a)>>8)) | (0xFF00 & ((a)<<8)))
-#define ROUND(a)((a >= 0) ? (long)(a + 0.5) : (long)(a - 0.5))
+#define ROUND(a) \
+        ((a >= 0) ? (uint32_t)(a + 0.5) : (uint32_t)(a - 0.5))
 
 #define AAA_EXIF_BUF_SIZE   10
 #define AE_EXIF_SIZE        2
@@ -411,7 +412,7 @@ int process_3a_data(cam_ae_params_t *p_ae_params, cam_awb_params_t *p_awb_params
       p_ae_params->line_count, p_ae_params->real_gain);
 
     /* Exposure time */
-    if (p_ae_params->exp_time == 0) {
+    if (0.0f >= p_ae_params->exp_time) {
       val_rat.num = 0;
       val_rat.denom = 0;
     } else {
@@ -430,7 +431,7 @@ int process_3a_data(cam_ae_params_t *p_ae_params, cam_awb_params_t *p_awb_params
     /* Shutter Speed*/
     if (p_ae_params->exp_time > 0) {
       shutter_speed_value = log10(1/p_ae_params->exp_time)/log10(2);
-      val_srat.num = shutter_speed_value * 1000;
+      val_srat.num = (int32_t)(shutter_speed_value * 1000.0f);
       val_srat.denom = 1000;
     } else {
       val_srat.num = 0;
@@ -444,7 +445,7 @@ int process_3a_data(cam_ae_params_t *p_ae_params, cam_awb_params_t *p_awb_params
 
     /* ISO */
     short val_short;
-    val_short = p_ae_params->iso_value;
+    val_short = (short) p_ae_params->iso_value;
     rc = addExifEntry(exif_info, EXIFTAGID_ISO_SPEED_RATING, EXIF_SHORT,
       sizeof(val_short)/2, &val_short);
     if (rc) {
@@ -452,7 +453,7 @@ int process_3a_data(cam_ae_params_t *p_ae_params, cam_awb_params_t *p_awb_params
     }
 
     /* Gain */
-    val_short = p_ae_params->real_gain;
+    val_short = (short) p_ae_params->real_gain;
     rc = addExifEntry(exif_info, EXIFTAGID_GAIN_CONTROL, EXIF_SHORT,
       sizeof(val_short)/2, &val_short);
     if (rc) {
