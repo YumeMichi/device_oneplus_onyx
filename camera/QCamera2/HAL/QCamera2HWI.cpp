@@ -1224,7 +1224,7 @@ int QCamera2HardwareInterface::openCamera()
 
     //check if video size 4k x 2k support is enabled
     property_get("persist.camera.4k2k.enable", value, "0");
-    enable_4k2k = atoi(value) > 0 ? 1 : 0;
+    enable_4k2k = 1; //atoi(value) > 0 ? 1 : 0;
     ALOGD("%s: enable_4k2k is %d", __func__, enable_4k2k);
     if (!enable_4k2k) {
        //if the 4kx2k size exists in the supported preview size or
