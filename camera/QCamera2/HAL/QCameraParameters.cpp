@@ -5703,8 +5703,9 @@ int32_t QCameraParameters::setFlash(const char *flashStr)
             if ( NULL != m_pTorch ) {
                 if ( value == CAM_FLASH_MODE_TORCH && !m_bRecordingHint_new) {
                     m_pTorch->prepareTorchCamera();
-                    // Set preview size to lowest to fix torch w/ trusted-face usecase
-                    CameraParameters::setPreviewSize(320, 240);
+                    // Set preview size to 1080p to fix torch w/ trusted-face usecase,
+                    // without breaking camera in some silly banking apps (like BofA)
+                    CameraParameters::setPreviewSize(1920, 1080);
                 } else {
                     m_bReleaseTorchCamera = true;
                 }
