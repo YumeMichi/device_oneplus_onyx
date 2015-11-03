@@ -1280,7 +1280,7 @@ int32_t mm_stream_qbuf(mm_stream_t *my_obj, mm_camera_buf_def_t *buf)
                 my_obj, my_obj->stream_info->stream_type);
         }
     } else {
-        CDBG_HIGH("%s: VIDIOC_QBUF buf_index %d,stream type %d,frame_idx %d,queued cnt %d",
+        CDBG("%s: VIDIOC_QBUF buf_index %d,stream type %d,frame_idx %d,queued cnt %d",
                    __func__,buffer.index,
                    my_obj->stream_info->stream_type,
                    buf->frame_idx, my_obj->queued_buffer_count);
