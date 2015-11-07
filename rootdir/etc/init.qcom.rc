@@ -172,6 +172,10 @@ on boot
     chown radio radio /data/misc/radio/copy_complete
     chmod 0660 /data/misc/radio/copy_complete
 
+    # msm-thermal-simple (for power HAL usage)
+    chown system system /sys/kernel/msm_thermal/user_maxfreq
+    chmod 0660 /sys/kernel/msm_thermal/user_maxfreq
+
 on post-fs
     # Reverse Keys
     write /proc/s1302/key_rep 1
