@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2014 The CyanogenMod Project
+# Copyright (C) 2015 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,10 +14,7 @@
 # limitations under the License.
 #
 
-# inherit from Oppo common
--include device/oppo/common/BoardConfigCommon.mk
-
-PLATFORM_PATH := device/oneplus/bacon
+PLATFORM_PATH := device/oneplus/onyx
 
 # Include path
 TARGET_SPECIFIC_HEADER_PATH := $(PLATFORM_PATH)/include
@@ -40,31 +37,22 @@ TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_VARIANT := krait
 
-# Assertions
-TARGET_BOARD_INFO_FILE ?= $(PLATFORM_PATH)/board-info.txt
-
 # Kernel
 BOARD_KERNEL_BASE := 0x00000000
-BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=bacon user_debug=31 msm_rtb.filter=0x3F ehci-hcd.park=3 androidboot.bootdevice=msm_sdcc.1
-BOARD_KERNEL_PAGESIZE := 2048
+BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom user_debug=23 msm_rtb.filter=0x3b7 ehci-hcd.park=3 androidboot.bootdevice=msm_sdcc.1 androidboot.selinux=permissiveBOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_SEPARATED_DT := true
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000 --tags_offset 0x01e00000
 BOARD_DTBTOOL_ARGS := -2
 TARGET_KERNEL_ARCH := arm
-TARGET_KERNEL_CONFIG := cyanogenmod_bacon_defconfig
+TARGET_KERNEL_CONFIG := cyanogenmod_onyx_defconfig
 TARGET_KERNEL_SOURCE := kernel/oneplus/msm8974
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := arm-linux-androideabi-
-
-# Enable DIAG on debug builds
-ifneq ($(TARGET_BUILD_VARIANT),user)
-TARGET_KERNEL_ADDITIONAL_CONFIG:= cyanogenmod_debug_config
-endif
 
 # ANT+
 BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
 
 # Assert
-TARGET_OTA_ASSERT_DEVICE := bacon,A0001
+TARGET_OTA_ASSERT_DEVICE := onyx,E1003
 
 # Audio
 BOARD_USES_ALSA_AUDIO := true
@@ -155,7 +143,7 @@ TARGET_USE_COMPAT_GRALLOC_PERFORM := true
 
 # Init
 TARGET_INIT_VENDOR_LIB := libinit_msm
-TARGET_LIBINIT_DEFINES_FILE := device/oneplus/bacon/init/init_bacon.cpp
+TARGET_LIBINIT_DEFINES_FILE := device/oneplus/onyx/init/init_onyx.cpp
 
 # Keymaster
 TARGET_KEYMASTER_WAIT_FOR_QSEE := true
@@ -176,7 +164,7 @@ BOARD_USES_QCOM_HARDWARE := true
 TARGET_RIL_VARIANT := caf
 
 # Recovery
-TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/rootdir/etc/fstab.bacon
+TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/rootdir/etc/fstab.onyx
 
 # RPC
 TARGET_NO_RPC := true
@@ -213,4 +201,4 @@ TARGET_LDPRELOAD := libNimsWrap.so
 endif
 endif
 
--include vendor/oneplus/bacon/BoardConfigVendor.mk
+-include vendor/oneplus/onyx/BoardConfigVendor.mk

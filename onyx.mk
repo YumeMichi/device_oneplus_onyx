@@ -21,22 +21,19 @@ endif
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay vendor/extra/overlays/phone-1080p
 
-# Haters gonna hate..
-PRODUCT_CHARACTERISTICS := nosdcard
-
 # Config scripts
 PRODUCT_PACKAGES += \
     init.qcom.bt.sh
 
 # Ramdisk
 PRODUCT_PACKAGES += \
-    libinit_bacon \
-    fstab.bacon \
-    init.bacon.rc \
+    libinit_onyx \
+    fstab.onyx \
+    init.onyx.rc \
     init.qcom.power.rc \
     init.qcom.usb.rc \
     init.recovery.qcom.rc \
-    ueventd.bacon.rc
+    ueventd.onyx.rc
 
 # ANT+
 PRODUCT_PACKAGES += \
@@ -97,7 +94,7 @@ TARGET_SCREEN_WIDTH := 1080
 
 # Camera
 PRODUCT_PACKAGES += \
-    camera.bacon
+    camera.x
 
 # Charger
 PRODUCT_PACKAGES += \
@@ -238,7 +235,7 @@ endif
 
 # Recovery
 PRODUCT_EXTRA_RECOVERY_KEYS += \
-    $(LOCAL_PATH)/bacon
+    $(LOCAL_PATH)/x
 
 # Thermal config
 PRODUCT_COPY_FILES += \
@@ -307,7 +304,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.default_network=9
 
 # Call the proprietary setup
-$(call inherit-product-if-exists, vendor/oneplus/bacon/bacon-vendor.mk)
+$(call inherit-product-if-exists, vendor/oneplus/x/x-vendor.mk)
 
 ifneq ($(QCPATH),)
 $(call inherit-product-if-exists, $(QCPATH)/prebuilt_HY11/target/product/msm8974/prebuilt.mk)

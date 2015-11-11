@@ -1,7 +1,7 @@
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
-LOCAL_MODULE := camera.bacon
+LOCAL_MODULE := camera.x
 LOCAL_SRC_FILES := CameraWrapper.cpp
 
 LOCAL_C_INCLUDES := \
