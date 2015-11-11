@@ -162,7 +162,7 @@ BOARD_USES_QCOM_HARDWARE := true
 TARGET_RIL_VARIANT := caf
 
 # Recovery
-TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/rootdir/etc/fstab.onyx
+TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/ramdisk/fstab.onyx
 
 # RPC
 TARGET_NO_RPC := true
