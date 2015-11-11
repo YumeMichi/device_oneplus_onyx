@@ -27,20 +27,12 @@ vendor/lib/soundfx/libqcvirt.so
 
 # DRM
 bin/qseecomd
-#etc/permissions/com.google.widevine.software.drm.xml
-#framework/com.google.widevine.software.drm.jar
 lib/libQSEEComAPI.so:vendor/lib/libQSEEComAPI.so
-#lib/libdrmdecrypt.so
 vendor/lib/libdrmdiag.so
 vendor/lib/libdrmfs.so
 vendor/lib/libdrmtime.so
 vendor/lib/librpmb.so
 vendor/lib/libssd.so
-#vendor/lib/libwvdrm_L3.so
-#vendor/lib/libwvm.so
-#vendor/lib/libWVStreamControlAPI_L3.so
-#vendor/lib/drm/libdrmwvmplugin.so
-#vendor/lib/mediadrm/libwvdrmengine.so
 
 # GPS
 -priv-app/com.qualcomm.location/com.qualcomm.location.apk
@@ -99,20 +91,11 @@ vendor/lib/libscale.so
 etc/firmware/a330_pfp.fw
 etc/firmware/a330_pm4.fw
 
-# Listen service
-#vendor/lib/liblistenhardware.so
-#vendor/lib/liblistenjni.so
-#-vendor/lib/liblisten.so
-#vendor/lib/liblistensoundmodel.so
-
 # Media
 -vendor/lib/libHevcSwDecoder.so
 vendor/lib/libI420colorconvert.so
-#vendor/lib/libmmosal.so
-#vendor/lib/libmmparser.so
 vendor/lib/libmm-color-convertor.so
 vendor/lib/libDivxDrm.so
-#vendor/lib/libExtendedExtractor.so
 vendor/lib/libOmxAacDec.so
 vendor/lib/libOmxAmrwbplusDec.so
 vendor/lib/libOmxEvrcDec.so
@@ -197,5 +180,4 @@ etc/firmware/venus.mbn
 etc/firmware/venus.mdt
 
 # WiFi
-#-lib/libwpa_qmi_eap_proxy.so
 lib/libwcnss_qmi.so
