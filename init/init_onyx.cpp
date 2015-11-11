@@ -1,6 +1,5 @@
 /*
-   Copyright (c) 2014, The CyanogenMod Project
-
+   Copyright (c) 2015, The CyanogenMod Project
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions are
    met:
@@ -13,7 +12,6 @@
     * Neither the name of The Linux Foundation nor the names of its
       contributors may be used to endorse or promote products derived
       from this software without specific prior written permission.
-
    THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED
    WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT
@@ -34,25 +32,30 @@
 #include "log.h"
 #include "util.h"
 
-static void import_kernel_nv(char *name, int for_emulator)
-{
-    char *value = strchr(name, '=');
-    int name_len = strlen(name);
+#include "init_msm.h"
 
-    if (value == 0) return;
-    *value++ = 0;
-    if (name_len == 0) return;
+void init_msm_properties(unsigned long msm_id, unsigned long msm_ver, char *board_type) {
+    char device[PROP_VALUE_MAX];
+    char rf_version[PROP_VALUE_MAX];
+    int rc;
 
-    if (!strcmp(name,"oppo.rf_version")) {
-        property_set("ro.oppo.rf_version", value);
-    }
-    else if (!strcmp(name,"oppo.pcb_version")) {
-        property_set("ro.oppo.pcb_version", value);
+    UNUSED(msm_id);
+    UNUSED(msm_ver);
+    UNUSED(board_type);
+
+    rc = property_get("ro.cm.device", device);
+    if (!rc || !ISMATCH(device, "onyx"))
+        return;
+
+    property_get("ro.boot.rf_version", rf_version);
+
+    if (strstr(rf_version, "102")) {
+        /* Asia/Europe */
+        property_set("ro.product.model", "ONE E1003");
+        property_set("ro.rf_version", "TDD_FDD_Eu");
+    } else {
+        /* TODO: Track other firmwares, default is EU for now */
+        property_set("ro.product.model", "ONE E1003");
+        property_set("ro.rf_version", "TDD_FDD_Eu");
     }
 }
-
-void init_msm_properties(unsigned long msm_id, unsigned long msm_ver, char *board_type)
-{
-    import_kernel_cmdline(0, import_kernel_nv);
-}
-
