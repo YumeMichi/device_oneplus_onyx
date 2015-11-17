@@ -3,5 +3,5 @@
     "remote":      "github",
     "repository":  "ashwinr64/android_kernel_oneplus_onyx",
     "target_path": "kernel/oneplus/onyx"
-  },
+  }
 ]
