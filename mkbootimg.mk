@@ -1,14 +1,22 @@
 PLATFORM_PATH := device/oneplus/onyx
 
 CM_DTB_FILES = $(wildcard $(TOP)/$(TARGET_KERNEL_SOURCE)/arch/arm/boot/*.dtb)
+CM_DTS_FILES = $(wildcard $(TOP)/$(TARGET_KERNEL_SOURCE)/arch/arm/boot/dts/project/14001_HW/$(DTS_NAME)*.dts)
+CM_DTS_FILES += $(wildcard $(TOP)/$(TARGET_KERNEL_SOURCE)/arch/arm/boot/dts/project/15055_HW_11/$(DTS_NAME)*.dts)
+CM_DTS_FILES += $(wildcard $(TOP)/$(TARGET_KERNEL_SOURCE)/arch/arm/boot/dts/project/15055_HW_12/$(DTS_NAME)*.dts)
+CM_DTS_FILES += $(wildcard $(TOP)/$(TARGET_KERNEL_SOURCE)/arch/arm/boot/dts/project/15055_HW_13/$(DTS_NAME)*.dts)
+CM_DTS_FILES += $(wildcard $(TOP)/$(TARGET_KERNEL_SOURCE)/arch/arm/boot/dts/project/15055_HW_14/$(DTS_NAME)*.dts)
+CM_DTS_FILES += $(wildcard $(TOP)/$(TARGET_KERNEL_SOURCE)/arch/arm/boot/dts/project/15055_HW_15/$(DTS_NAME)*.dts)
 CM_DTS_FILE = $(lastword $(subst /, ,$(1)))
 DTB_FILE := $(addprefix $(KERNEL_OUT)/arch/arm/boot/,$(patsubst %.dts,%.dtb,$(call CM_DTS_FILE,$(1))))
 ZIMG_FILE = $(addprefix $(KERNEL_OUT)/arch/arm/boot/,$(patsubst %.dts,%-zImage,$(call CM_DTS_FILE,$(1))))
 KERNEL_ZIMG = $(KERNEL_OUT)/arch/arm/boot/zImage
+DTC = $(KERNEL_OUT)/scripts/dtc/dtc
 
 define append-cm-dtb
 mkdir -p $(KERNEL_OUT)/arch/arm/boot;\
-$(foreach d, $(CM_DTB_FILES), \
+$(foreach d, $(CM_DTS_FILES), \
+    $(DTC) -p 1024 -O dtb -o $(call CM_DTB_FILES,$(d)) $(d); \
     cat $(KERNEL_ZIMG) $(call DTB_FILE,$(d)) > $(call ZIMG_FILE,$(d));)
 endef
 
