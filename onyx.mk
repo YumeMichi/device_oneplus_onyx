@@ -200,32 +200,18 @@ PRODUCT_PACKAGES += \
     libtinyxml \
     libxml2
 
-# USB
+# Props
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    persist.sys.isUsbOtgEnabled=true \
-    persist.sys.usb.config=mtp
-
-# System properties
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    camera2.portability.force_api=1
-
-# System properties
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.hwc.mdpcomp.enable=true \
-    persist.timed.enable=true \
-    ro.opengles.version=196608 \
-    ro.telephony.default_network=9 \
-    ro.use_data_netmgrd=true \
-    persist.data.netmgrd.qos.enable=true \
-    persist.data.tcpackprio.enable=true \
-    ro.data.large_tcp_window_size=true \
+    camera2.portability.force_api=1 \
     telephony.lteOnGsmDevice=1 \
-    wifi.interface=wlan0 \
-    wifi.supplicant_scan_interval=15 \
-    ro.qualcomm.perf.cores_online=2 \
-    ro.vendor.extension_library=libqti-perfd-client.so \
-    ro.telephony.call_ring.multiple=0 \
-    ro.telephony.default_network=9
+    persist.netmon.linger=5000
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    drm.service.enabled=true \
+    persist.power.useautobrightadj=true \
+    persist.radio.apm_sim_not_pwdn=1 \
+    persist.radio.multisim.config=dsds \
+    ro.vendor.extension_library=libqti-perfd-client.so
 
 # Call the proprietary setup
 $(call inherit-product-if-exists, vendor/oneplus/onyx/onyx-vendor.mk)
