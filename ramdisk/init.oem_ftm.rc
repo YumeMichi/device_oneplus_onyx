@@ -1,0 +1,72 @@
+# this file should import init.rc and then add some oem defined service
+
+#this service is a non-use service and just use to duplicate real console service
+service console /system/bin/xxx
+    class core
+    console
+    disabled
+    user root
+    group shell log
+    oneshot
+    seclabel u:r:shell:s0
+
+#this service is a non-use service and just use to duplicate real surfaceflinger service
+service surfaceflinger /system/bin/xxx
+    class core
+    oneshot
+    disabled
+
+#this service is a non-use service and just use to duplicate real servicemanager service
+service servicemanager /system/bin/xxx
+    class core
+    oneshot
+    disabled
+
+import /init.rc
+
+on post-fs-data
+    chmod 0666 /dev/block/mmcblk0p23
+    chmod 0666 /dev/param
+
+service wcnss-service-f /system/bin/wcnss_service -f
+    class main
+    user root
+    group system wifi radio
+    oneshot
+    disabled
+
+service factory /system/bin/factory
+    class late_start
+    disabled
+
+service ftm_power_config /system/bin/sh /ftm_power_config.sh
+    class late_start
+    user root
+    disabled
+    oneshot
+
+on oem_ftm
+    chown system system /system/bin/factory
+    chmod 0777  /system/bin/factory
+    chown system system system/bin/ptt_socket_app
+    chmod 0777  /system/bin/ptt_socket_app
+
+on property:ro.wandrfmode=0
+    start self-init
+    start qmuxd
+    start wcnss-service-f
+    start factory
+    start ftm_power_config
+
+on property:ro.wandrfmode=1
+    start self-init
+    start qmuxd
+    start wcnss-service-f
+    start ptt_ffbm
+    start ftm_power_config
+
+on property:ro.wandrfmode=2
+    start self-init
+    start qcom-c_main-sh
+    start ftm_power_config
+    write /sys/class/power_supply/battery/charging_enabled 0
