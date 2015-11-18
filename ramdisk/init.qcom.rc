@@ -25,7 +25,6 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 #ifdef VENDOR_EDIT
-#jiangyg@PM, 2013/10/21, add for oem devices 
 import init.oem.rc
 import init.oem.debug.rc
 import init.oneplus.rc
@@ -40,36 +39,10 @@ on early-init
 on init
     # Set permissions for persist partition
     mkdir /persist 0771 system system
-    # See storage config details at http://source.android.com/tech/storage/
-    mkdir /mnt/shell/emulated 0700 shell shell
-    mkdir /storage/emulated 0555 root root
-    mkdir /mnt/media_rw/sdcard1 0700 media_rw media_rw
-    mkdir /storage/sdcard1 0700 root root
-#ifdef VENDOR_EDIT
-    mkdir /mnt/media_rw/UDiskA 0700 media_rw media_rw
-    mkdir /mnt/media_rw/UDiskB 0700 media_rw media_rw
-    mkdir /mnt/media_rw/UDiskC 0700 media_rw media_rw
-    mkdir /mnt/media_rw/UDiskD 0700 media_rw media_rw
-    mkdir /mnt/media_rw/UDiskE 0700 media_rw media_rw
-    mkdir /mnt/media_rw/UDiskF 0700 media_rw media_rw
-    mkdir /storage/UDiskA 0700 root root
-    mkdir /storage/UDiskB 0700 root root
-    mkdir /storage/UDiskC 0700 root root
-    mkdir /storage/UDiskD 0700 root root
-    mkdir /storage/UDiskE 0700 root root
-    mkdir /storage/UDiskF 0700 root root
-#endif
-
-    export EXTERNAL_STORAGE /storage/emulated/legacy
-    export SECONDARY_STORAGE /storage/sdcard1
-    export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
-    export EMULATED_STORAGE_TARGET /storage/emulated
 
     # Support legacy paths
-    symlink /storage/emulated/legacy /sdcard
-    symlink /storage/emulated/legacy /mnt/sdcard
-    symlink /storage/emulated/legacy /storage/sdcard0
-    symlink /mnt/shell/emulated/0 /storage/emulated/legacy
+    symlink /sdcard /mnt/sdcard
+    symlink /sdcard /storage/sdcard0
 
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
@@ -328,15 +301,6 @@ on property:persist.sys.ssr.restart_level=*
 
 on property:sys.boot_completed=1
     write /dev/kmsg "Boot completed "
-
-#ifdef VENDOR_EDIT
-#modify by yangrujin@2015/9/10, no usable, comment out
-#on property:persist.radio.atfwd.start=false
-#    stop atfwd
-#
-#on property:radio.atfwd.start=false
-#    stop atfwd
-#endif
 
 # corefile limit and ETB enabling
 on property:persist.debug.trace=1
@@ -692,32 +656,14 @@ service qcom-post-boot /system/bin/sh /system/etc/init.qcom.post_boot.sh
     disabled
     oneshot
 
-#ifdef VENDOR_EDIT
-#modify by yangrujin@2015/9/10, no usable, comment out
-#service wifi-sdio-on /system/bin/sh /system/etc/init.qcom.sdio.sh
-#    class late_start
-#    group wifi inet
-#    disabled
-#    oneshot
-#endif
-
 service wifi-crda /system/bin/sh /system/etc/init.crda.sh
    class late_start
    user root
    disabled
    oneshot
 
-
 on property:sys.boot_completed=1
     start qcom-post-boot
-
-#ifdef VENDOR_EDIT
-#modify by yangrujin@2015/9/10, no usable, comment out
-#service atfwd /system/bin/ATFWD-daemon
-#    class late_start
-#    user system
-#    group system radio
-#endif
 
 service hostapd /system/bin/hostapd -dd /data/hostapd/hostapd.conf
     class late_start
@@ -751,17 +697,6 @@ service ril-daemon2 /system/bin/rild -c 2
     disabled
     group radio cache inet misc audio sdcard_r sdcard_rw diag qcom_diag log
 
-#ifdef VENDOR_EDIT
-#modify by yangrujin@2015/9/10, no usable, comment out
-#service ril-daemon3 /system/bin/rild -c 3
-#    class main
-#    socket rild3 stream 660 root radio
-#    socket rild-debug3 stream 660 radio system
-#    user root
-#    disabled
-#    group radio cache inet misc audio sdcard_r sdcard_rw diag qcom_diag log
-#endif
-
 service usb_uicc_enable /system/bin/sh /system/etc/init.qcom.uicc.sh
     class late_start
     user root
@@ -786,31 +721,6 @@ service profiler_daemon /system/bin/profiler_daemon
     group root
     disabled
 
-# virtual sdcard daemon running as media_rw (1023)
-service sdcard /system/bin/sdcard -u 1023 -g 1023 -l -r 50 /data/media /mnt/shell/emulated
-    class late_start
-
-service fuse_sdcard1 /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw/sdcard1 /storage/sdcard1
-    class late_start
-    disabled
-
-service fuse_uicc0 /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw/uicc0 /storage/uicc0
-    class late_start
-    disabled
-
-service fuse_uicc1 /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw/uicc1 /storage/uicc1
-    class late_start
-    disabled
-
-#ifdef VENDOR_EDIT
-service fuse_UDiskA /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw/UDiskA /storage/UDiskA
-    class late_start
-    disabled
-#endif
-
-on property:ro.fuse_sdcard=true
-    start sdcard
-
 # Binding fuse mount point to /storage/emulated/legacy
 on property:init.svc.sdcard=running
     wait /mnt/shell/emulated/0
@@ -830,34 +740,6 @@ service ssr_diag /system/bin/ssr_diag
     user system
     group system
     disabled
-
-#ifdef VENDOR_EDIT
-#modify by yangrujin@2015/9/10, no usable, comment out
-# Define fastmmi
-#service fastmmi /system/bin/mmi
-#    user root
-#    group root
-#    disabled
-
-#service fastmmisrv /system/bin/sh /init.qcom.factory.sh
-#    user root
-#    disabled
-#    oneshot
-
-#on ffbm
-#    start fastmmisrv
-
-#service hvdcp /system/bin/hvdcp
-#    class core
-#    user root
-#    disabled
-
-#on property:persist.usb.hvdcp.detect=true
-#    start hvdcp
-
-#on property:persist.usb.hvdcp.detect=false
-#    stop hvdcp
-#endif
 
 service charger_monitor /system/bin/charger_monitor
     user system
@@ -887,22 +769,3 @@ service diag_mdlog_stop /system/bin/diag_mdlog -k
     group system qcom_diag sdcard_rw sdcard_r media_rw
     disabled
     oneshot
-
-#ifdef VENDOR_EDIT
-#modify by yangrujin@2015/9/10, no usable, comment out
-#service qlogd /system/xbin/qlogd
-#    class main
-#    disabled
-#on property:persist.sys.qlogd=1
-#    start qlogd
-#on property:persist.sys.qlogd=0
-#    stop qlogd
-
-#service rootagent /system/bin/sh /system/etc/init.qcom.rootagent.sh
-#    disabled
-#    oneshot
-#on property:persist.sys.rootagent=1
-#    start rootagent
-#on property:persist.sys.rootagent=0
-#    stop rootagent
-#endif

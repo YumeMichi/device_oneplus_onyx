@@ -148,17 +148,6 @@ service thermal-engine /system/bin/thermal-engine
    socket thermal-recv-passive-client stream 0666 system system
    group root
 
-#ifdef VENDOR_EDIT
-#sync 14001 5.0 modification
-#service security-check1 /sbin/security_boot_check system
-#    class core
-#    oneshot
-
-#service security-check2 /sbin/security_boot_check recovery
-#    class core
-#    oneshot
-#endif /*VENDOR_EDIT*/
-
 service time_daemon /system/bin/time_daemon
    class late_start
    user root
@@ -229,45 +218,11 @@ service usf-post-boot /system/bin/sh /system/etc/usf_post_boot.sh
 on property:init.svc.bootanim=stopped
     start usf-post-boot
 
-#Removed ims related feature to improve our android performance.
-#service imsqmidaemon /system/bin/imsqmidaemon
-#    class main
-#    user system
-#    socket ims_qmid stream 0660 system radio
-#    group radio net_raw log qcom_diag
-#
-#service imsdatadaemon /system/bin/imsdatadaemon
-#    class main
-#    user system
-#    socket ims_datad stream 0660 system radio
-#    group system wifi radio inet net_raw log qcom_diag net_admin
-#    disabled
-#
 service wcnss-service /system/bin/wcnss_service
     class main
     user system
     group system wifi radio
     oneshot
-
-#on property:sys.ims.QMI_DAEMON_STATUS=1
-#    start imsdatadaemon
-#
-#service ims_rtp_daemon /system/bin/ims_rtp_daemon
-#   class main
-#   user system
-#   socket ims_rtpd stream 0660 system radio
-#   group radio net_raw diag qcom_diag log
-#   disabled
-#
-#service imscmservice /system/bin/imscmservice
-#   class main
-#   user system
-#   group radio net_raw diag qcom_diag log
-#   disabled
-#
-#on property:sys.ims.DATA_DAEMON_STATUS=1
-#   start ims_rtp_daemon
-#   start imscmservice
 
 service ppd /system/bin/mm-pp-daemon
     class late_start
@@ -287,14 +242,3 @@ service nqs /system/bin/nqs
     socket nqs_qsb_comm stream 660 system system
     user system
     group drmrpc
-##ifndef VENDOR_EDIT jialong.wu remove for power saving
-#service pfm /system/bin/pfm
-#    class late_start
-#    user system
-#    group system drmrpc mount
-
-#service ml_daemon /system/bin/ml_daemon
-#    class core
-#    user root
-#    group root
-##endif
