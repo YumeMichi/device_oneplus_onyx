@@ -204,4 +204,7 @@ TARGET_LDPRELOAD := libNimsWrap.so
 endif
 endif
 
+# To be removed
+BLOCK_BASED_OTA := false
+
 -include vendor/oneplus/onyx/BoardConfigVendor.mk
