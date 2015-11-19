@@ -162,3 +162,6 @@ af.resampler.quality=4
 persist.audio.DiracEnable=true
 persist.audio.DiracHeadset=2
 persist.data.qmi.adb_logmask=0
+
+# Screen density
+ro.sf.lcd_density=480
