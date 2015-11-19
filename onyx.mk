@@ -42,25 +42,6 @@ PRODUCT_PACKAGES += \
     libqcomvoiceprocessing \
     tinymix
 
-PRODUCT_PROPERTY_OVERRIDES += \
-    mm.enable.smoothstreaming=true \
-    mm.enable.qcom_parser=3310129 \
-    ro.qc.sdk.audio.fluencetype=fluence \
-    persist.audio.fluence.voicecall=true \
-    audio.offload.buffer.size.kb=32 \
-    audio.offload.video=true \
-    av.streaming.offload.enable=true \
-    use.voice.path.for.pcm.voip=true \
-    audio.offload.multiple.enabled=false \
-    audio.offload.gapless.enabled=true \
-    media.aac_51_output_enabled=true \
-    audio.offload.pcm.16bit.enable=false \
-    audio.offload.pcm.24bit.enable=true
-
-# Bluetooth
-PRODUCT_PROPERTY_OVERRIDES +=
-    bluetooth.hfp.client=1
-
 # Boot animation
 TARGET_SCREEN_HEIGHT := 1920
 TARGET_SCREEN_WIDTH := 1080
