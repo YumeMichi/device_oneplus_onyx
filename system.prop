@@ -158,7 +158,6 @@ ro.hwui.text_large_cache_height=1024
 
 #disable dsp gapless mode by default
 audio.offload.gapless.enabled=false
-af.resampler.quality=4
 persist.audio.DiracEnable=true
 persist.audio.DiracHeadset=2
 persist.data.qmi.adb_logmask=0
