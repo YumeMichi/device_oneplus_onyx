@@ -178,8 +178,11 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
     dhcpcd.conf \
-    libwpa_client \
     hostapd \
+    hostapd.accept \
+    hostapd.deny \
+    hostapd_default.conf \
+    libwpa_client \
     wpa_supplicant \
     wpa_supplicant.conf
 
