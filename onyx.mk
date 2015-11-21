@@ -176,12 +176,12 @@ endif
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
 
-
 PRODUCT_PACKAGES += \
     dhcpcd.conf \
     libwpa_client \
     hostapd \
-    wpa_supplicant
+    wpa_supplicant \
+    wpa_supplicant.conf
 
 PRODUCT_PACKAGES += \
     wcnss_service
