@@ -593,3 +593,25 @@ service ssr_diag /system/bin/ssr_diag
     disabled
     user system
     group system
+
+service_redefine ril-daemon /system/bin/rild
+    class main
+    socket rild stream 660 root radio
+    socket rild-debug stream 660 radio system
+    socket cutback stream 660 media radio
+    user root
+    group radio cache inet misc audio sdcard_rw qcom_oncrpc qcom_diag log net_raw
+
+service ril-daemon2 /system/bin/rild -c 2
+    class main
+    socket rild2 stream 660 root radio
+    socket rild-debug2 stream 660 radio system
+    user root
+    group radio cache inet misc audio sdcard_rw qcom_oncrpc qcom_diag log net_raw
+    disabled
+
+service rild2-wrapper /system/bin/sh /init.qcom.ril.sh
+    class late_start
+    user root
+    group root
+    oneshot
