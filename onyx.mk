@@ -190,32 +190,78 @@ PRODUCT_PACKAGES += \
     libtinyxml \
     libxml2
 
-# Props
+# USB
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    camera2.portability.force_api=1 \
-    telephony.lteOnGsmDevice=1 \
-    persist.netmon.linger=5000
+    persist.sys.isUsbOtgEnabled=true
 
+# System properties
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    camera2.portability.force_api=1
+
+# System properties
 PRODUCT_PROPERTY_OVERRIDES += \
-    drm.service.enabled=true \
-    persist.power.useautobrightadj=true \
-    persist.radio.apm_sim_not_pwdn=1 \
-    persist.radio.multisim.config=dsds \
+    persist.hwc.mdpcomp.enable=true \
+    persist.timed.enable=true \
+    ro.opengles.version=196608 \
+    ro.use_data_netmgrd=true \
+    persist.data.netmgrd.qos.enable=true \
+    persist.data.tcpackprio.enable=true \
+    ro.data.large_tcp_window_size=true \
+    wifi.interface=wlan0 \
+    ro.telephony.default_network=9 \
+    telephony.lteOnGsmDevice=1 \
+    wifi.supplicant_scan_interval=15 \
     ro.vendor.extension_library=libqti-perfd-client.so
+
+# Enable optional sensor types
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.prj_name=15055 \
+    ro.qti.sensors.smd=true \
+    ro.qti.sensors.ir_proximity=true \
+    ro.qti.sensors.game_rv=true \
+    ro.qti.sensors.georv=true \
+    ro.qti.sensors.smgr_mag_cal_en=true \
+    ro.qti.sensors.step_detector=true \
+    ro.qti.sensors.step_counter=true
+    ro.qti.sensors.tap=false \
+    ro.qti.sensors.facing=false \
+    ro.qti.sensors.tilt=false \
+    ro.qti.sensors.amd=false \
+    ro.qti.sensors.rmd=false \
+    ro.qti.sensors.vmd=false \
+    ro.qti.sensors.pedometer=false \
+    ro.qti.sensors.pam=false \
+    ro.qti.sdk.sensors.gestures=false
+
+#Radio props
+PRODUCT_PROPERTY_OVERRIDES += \
+	persist.dpm.feature=7 \
+	persist.dpm.nsrm.bkg.evt=3955 \
+	persist.env.fastdorm.enabled=true \
+	persist.radio.adb_log_lvl=0x18 \
+	persist.radio.adb_log_on=1 \
+	persist.radio.data_no_toggle=1 \
+	persist.radio.disable_flexmap=1 \
+	persist.radio.eons.enabled=false \
+	persist.radio.msim.stackid_0=0 \
+	persist.radio.msim.stackid_1=1 \
+	persist.radio.multisim.config=dsds \
+	persist.radio.ril_payload_on=0
 
 PRODUCT_PROPERTY_OVERRIDES += \
     mm.enable.smoothstreaming=true \
-    mm.enable.qcom_parser=3310129 \
-    ro.qc.sdk.audio.fluencetype=fluence \
+    mm.enable.qcom_parser=3314291 \
+    ro.qc.sdk.audio.fluencetype=none \
     persist.audio.fluence.voicecall=true \
     audio.offload.buffer.size.kb=32 \
-    audio.offload.video=true \
+    av.offload.enable=true \
     av.streaming.offload.enable=true \
     use.voice.path.for.pcm.voip=true \
     audio.offload.multiple.enabled=false \
     audio.offload.gapless.enabled=true \
+    tunnel.audio.encode=true \
     media.aac_51_output_enabled=true \
-    audio.offload.pcm.16bit.enable=false \
+    audio.offload.pcm.16bit.enable=true \
     audio.offload.pcm.24bit.enable=true
 
 # Call the proprietary setup
