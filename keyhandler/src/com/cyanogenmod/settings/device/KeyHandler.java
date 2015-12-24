@@ -27,9 +27,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.hardware.camera2.CameraManager;
-import android.hardware.camera2.CameraCharacteristics;
-import android.hardware.camera2.CameraAccessException;
+import android.hardware.TorchManager;
 import android.media.session.MediaSessionLegacyHelper;
 import android.net.Uri;
 import android.os.Handler;
@@ -43,11 +41,10 @@ import android.os.UserHandle;
 import android.os.Vibrator;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.provider.Settings.Global;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.WindowManagerGlobal;
-
-import cyanogenmod.providers.CMSettings;
 
 import com.android.internal.os.DeviceKeyHandler;
 import com.android.internal.util.ArrayUtils;
@@ -64,22 +61,28 @@ public class KeyHandler implements DeviceKeyHandler {
             "com.android.keyguard.action.DISMISS_KEYGUARD_SECURELY";
 
     // Supported scancodes
-    private static final int FLIP_CAMERA_SCANCODE = 249;
+    private static final int KEY_DOUBLE_TAP = 249;
     private static final int GESTURE_CIRCLE_SCANCODE = 250;
-    private static final int GESTURE_SWIPE_DOWN_SCANCODE = 251;
+    private static final int GESTURE_TWO_SWIPE_SCANCODE = 251;
     private static final int GESTURE_V_SCANCODE = 252;
     private static final int GESTURE_LTR_SCANCODE = 253;
     private static final int GESTURE_GTR_SCANCODE = 254;
+    private static final int MODE_MUTE = 600;
+    private static final int MODE_DO_NOT_DISTURB = 601;
+    private static final int MODE_NORMAL = 602;
 
     private static final int GESTURE_WAKELOCK_DURATION = 3000;
 
     private static final int[] sSupportedGestures = new int[] {
-        FLIP_CAMERA_SCANCODE,
+        KEY_DOUBLE_TAP,
         GESTURE_CIRCLE_SCANCODE,
-        GESTURE_SWIPE_DOWN_SCANCODE,
+        GESTURE_TWO_SWIPE_SCANCODE,
         GESTURE_V_SCANCODE,
         GESTURE_LTR_SCANCODE,
-        GESTURE_GTR_SCANCODE
+        GESTURE_GTR_SCANCODE,
+        MODE_MUTE,
+        MODE_DO_NOT_DISTURB,
+        MODE_NORMAL
     };
 
     private final Context mContext;
@@ -87,15 +90,15 @@ public class KeyHandler implements DeviceKeyHandler {
     private KeyguardManager mKeyguardManager;
     private EventHandler mEventHandler;
     private SensorManager mSensorManager;
-    private CameraManager mCameraManager;
-    private String mRearCameraId;
-    private boolean mTorchEnabled;
+    private TorchManager mTorchManager;
     private Sensor mProximitySensor;
     private Vibrator mVibrator;
-    WakeLock mProximityWakeLock;
-    WakeLock mGestureWakeLock;
+    private WakeLock mProximityWakeLock;
+    private WakeLock mGestureWakeLock;
     private int mProximityTimeOut;
     private boolean mProximityWakeSupported;
+
+    private boolean mNotificationSliderVibrate;
 
     public KeyHandler(Context context) {
         mContext = context;
@@ -106,9 +109,9 @@ public class KeyHandler implements DeviceKeyHandler {
 
         final Resources resources = mContext.getResources();
         mProximityTimeOut = resources.getInteger(
-                org.cyanogenmod.platform.internal.R.integer.config_proximityCheckTimeout);
+                com.android.internal.R.integer.config_proximityCheckTimeout);
         mProximityWakeSupported = resources.getBoolean(
-                org.cyanogenmod.platform.internal.R.bool.config_proximityCheckOnWake);
+                com.android.internal.R.bool.config_proximityCheckOnWake);
 
         if (mProximityWakeSupported) {
             mSensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
@@ -121,40 +124,6 @@ public class KeyHandler implements DeviceKeyHandler {
         if (mVibrator == null || !mVibrator.hasVibrator()) {
             mVibrator = null;
         }
-
-        mCameraManager = (CameraManager) mContext.getSystemService(Context.CAMERA_SERVICE);
-        mCameraManager.registerTorchCallback(new MyTorchCallback(), mEventHandler);
-
-        // Get first rear camera id
-        try {
-            for (final String cameraId : mCameraManager.getCameraIdList()) {
-                CameraCharacteristics characteristics =
-                        mCameraManager.getCameraCharacteristics(cameraId);
-                int cOrientation = characteristics.get(CameraCharacteristics.LENS_FACING);
-                if (cOrientation == CameraCharacteristics.LENS_FACING_BACK) {
-                    mRearCameraId = cameraId;
-                    break;
-                }
-            }
-        } catch (CameraAccessException e) {
-            // Ignore
-        }
-    }
-
-    private class MyTorchCallback extends CameraManager.TorchCallback {
-        @Override
-        public void onTorchModeChanged(String cameraId, boolean enabled) {
-            if (!cameraId.equals(mRearCameraId))
-                return;
-            mTorchEnabled = enabled;
-        }
-
-        @Override
-        public void onTorchModeUnavailable(String cameraId) {
-            if (!cameraId.equals(mRearCameraId))
-                return;
-            mTorchEnabled = false;
-        }
     }
 
     private void ensureKeyguardManager() {
@@ -164,15 +133,18 @@ public class KeyHandler implements DeviceKeyHandler {
         }
     }
 
+    private void ensureTorchManager() {
+        if (mTorchManager == null) {
+            mTorchManager = (TorchManager) mContext.getSystemService(Context.TORCH_SERVICE);
+        }
+    }
+
     private class EventHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
             KeyEvent event = (KeyEvent) msg.obj;
-            switch (event.getScanCode()) {
-            case FLIP_CAMERA_SCANCODE:
-                if (event.getAction() == KeyEvent.ACTION_UP) {
-                    break;
-                }
+            int scanCode = event.getScanCode();
+            switch (scanCode) {
             case GESTURE_CIRCLE_SCANCODE:
                 ensureKeyguardManager();
                 final String action;
@@ -184,26 +156,20 @@ public class KeyHandler implements DeviceKeyHandler {
                             UserHandle.CURRENT);
                     action = MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA;
                 }
-                mPowerManager.wakeUp(SystemClock.uptimeMillis(), "wakeup-gesture");
+                mPowerManager.wakeUp(SystemClock.uptimeMillis());
                 Intent intent = new Intent(action, null);
                 startActivitySafely(intent);
                 doHapticFeedback();
                 break;
-            case GESTURE_SWIPE_DOWN_SCANCODE:
+            case GESTURE_TWO_SWIPE_SCANCODE:
                 dispatchMediaKeyWithWakeLockToMediaSession(KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE);
                 doHapticFeedback();
                 break;
             case GESTURE_V_SCANCODE:
-                if (mRearCameraId != null) {
-                    mGestureWakeLock.acquire(GESTURE_WAKELOCK_DURATION);
-                    try {
-                        mCameraManager.setTorchMode(mRearCameraId, !mTorchEnabled);
-                        mTorchEnabled = !mTorchEnabled;
-                    } catch (CameraAccessException e) {
-                        // Ignore
-                    }
-                    doHapticFeedback();
-                }
+                ensureTorchManager();
+                mGestureWakeLock.acquire(GESTURE_WAKELOCK_DURATION);
+                mTorchManager.toggleTorch();
+                doHapticFeedback();
                 break;
             case GESTURE_LTR_SCANCODE:
                 dispatchMediaKeyWithWakeLockToMediaSession(KeyEvent.KEYCODE_MEDIA_PREVIOUS);
@@ -213,22 +179,42 @@ public class KeyHandler implements DeviceKeyHandler {
                 dispatchMediaKeyWithWakeLockToMediaSession(KeyEvent.KEYCODE_MEDIA_NEXT);
                 doHapticFeedback();
                 break;
+            case MODE_MUTE:
+            case MODE_DO_NOT_DISTURB:
+            case MODE_NORMAL:
+                int zenMode = Global.ZEN_MODE_OFF;
+                if (scanCode == MODE_MUTE) {
+                    zenMode = Global.ZEN_MODE_NO_INTERRUPTIONS;
+                } else if (scanCode == MODE_DO_NOT_DISTURB) {
+                    zenMode = Global.ZEN_MODE_IMPORTANT_INTERRUPTIONS;
+                }
+                Global.putInt(mContext.getContentResolver(), Global.ZEN_MODE,
+                        zenMode);
+                if (mNotificationSliderVibrate) {
+                    doHapticFeedback();
+                }
+                mNotificationSliderVibrate = true;
+                break;
             }
         }
     }
 
     public boolean handleKeyEvent(KeyEvent event) {
-        if (event.getAction() != KeyEvent.ACTION_UP
-                && event.getScanCode() != FLIP_CAMERA_SCANCODE) {
+        if (event.getAction() != KeyEvent.ACTION_UP) {
             return false;
         }
         boolean isKeySupported = ArrayUtils.contains(sSupportedGestures, event.getScanCode());
         if (isKeySupported && !mEventHandler.hasMessages(GESTURE_REQUEST)) {
+            if (event.getScanCode() == KEY_DOUBLE_TAP && !mPowerManager.isScreenOn()) {
+                mPowerManager.wakeUpWithProximityCheck(SystemClock.uptimeMillis());
+                doHapticFeedback();
+                return true;
+            }
             Message msg = getMessageForKeyEvent(event);
             boolean defaultProximity = mContext.getResources().getBoolean(
-                org.cyanogenmod.platform.internal.R.bool.config_proximityCheckOnWakeEnabledByDefault);
-            boolean proximityWakeCheckEnabled = CMSettings.System.getInt(mContext.getContentResolver(),
-                    CMSettings.System.PROXIMITY_ON_WAKE, defaultProximity ? 1 : 0) == 1;
+                com.android.internal.R.bool.config_proximityCheckOnWakeEnabledByDefault);
+            boolean proximityWakeCheckEnabled = Settings.System.getInt(mContext.getContentResolver(),
+                    Settings.System.PROXIMITY_ON_WAKE, defaultProximity ? 1 : 0) == 1;
             if (mProximityWakeSupported && proximityWakeCheckEnabled && mProximitySensor != null) {
                 mEventHandler.sendMessageDelayed(msg, mProximityTimeOut);
                 processEvent(event);
