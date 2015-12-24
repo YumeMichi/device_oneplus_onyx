@@ -158,10 +158,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
     frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml
 
-# Power
-PRODUCT_PACKAGES += \
-    power.onyx
-
 # Proprietary wifi display, if available
 ifneq ($(QCPATH),)
 PRODUCT_BOOT_JARS += WfdCommon
