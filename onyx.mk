@@ -26,7 +26,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/dt.img:dt.img
 
-
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay vendor/extra/overlays/phone-1080p
 
@@ -167,15 +166,23 @@ endif
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
 
+# WiFi
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/wifi/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
+    $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
+    $(LOCAL_PATH)/wifi/WCNSS_qcom_wlan_nv.bin:system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin
+
 PRODUCT_PACKAGES += \
     dhcpcd.conf \
-    hostapd \
-    hostapd.accept \
-    hostapd.deny \
-    hostapd_default.conf \
     libwpa_client \
+    hostapd \
     wpa_supplicant \
-    wpa_supplicant.conf
+    wpa_supplicant.conf \
+    wpa_supplicant_overlay.conf \
+    p2p_supplicant_overlay.conf \
+    hostapd_default.conf \
+    hostapd.accept \
+    hostapd.deny
 
 PRODUCT_PACKAGES += \
     wcnss_service
