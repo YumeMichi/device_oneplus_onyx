@@ -2,10 +2,10 @@
 # system.prop for OnePlus X
 #
 
+# Lcd Density
 ro.sf.lcd_density=480
 
-#Radio
-
+# Radio
 rild.libpath=/vendor/lib/libril-qc-qmi-1.so
 rild.libargs=-d /dev/smd0
 persist.rild.nitz_plmn=
@@ -24,10 +24,7 @@ ro.use_data_netmgrd=true
 persist.data.netmgrd.qos.enable=true
 ro.data.large_tcp_window_size=true
 persist.radio.multisim.config=dsds
-
-# sdcard
-persist.fuse_sdcard=true
-
+ro.telephony.ril.config=simactivation
 
 # sensors
 ro.qc.sdk.sensors.gestures=true
