@@ -118,13 +118,8 @@ service ril-daemon1 /system/bin/rild -c 2
     group radio cache inet misc audio sdcard_rw qcom_oncrpc qcom_diag log net_raw diag
     disabled
 
-service ril-init-script /system/bin/sh /system/etc/init.qcom.ril.sh
+service ril-init-script /system/bin/sh /init.qcom.ril.sh
     class late_start
     user root
     group root
     oneshot
-
-# Binding fuse mount point to /storage/emulated/legacy
-on property:init.svc.sdcard=running
-    wait /mnt/shell/emulated/0
-    mount none /mnt/shell/emulated/0 /storage/emulated/legacy bind
