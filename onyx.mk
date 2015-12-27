@@ -103,6 +103,11 @@ $(call add-product-dex-preopt-module-config,com.cyanogenmod.keyhandler,disable)
 PRODUCT_PACKAGES += \
     keystore.msm8974
 
+# FM
+PRODUCT_PACKAGES += \
+    FMRadio \
+    libfmjni
+
 # Lights
 PRODUCT_PACKAGES += \
     lights.msm8974
