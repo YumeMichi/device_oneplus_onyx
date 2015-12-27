@@ -28,7 +28,7 @@ on init
     symlink /sdcard /storage/sdcard0
 	
 # Preload BoringSSL-compat 
-export LD_PRELOAD "/system/lib/libboringssl-compat.so"
+export LD_PRELOAD "/system/lib/libboringssl-compat.so system/lib/libOP.so"
 
 on boot
 	export_rc /system/etc/init.cne.rc

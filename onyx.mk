@@ -81,6 +81,10 @@ PRODUCT_PACKAGES += \
 # libstlport
 PRODUCT_PACKAGES += \
     libstlport
+	
+# libOP
+PRODUCT_PACKAGES += \
+    libOP
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/gps/gps.conf:system/etc/gps.conf \
