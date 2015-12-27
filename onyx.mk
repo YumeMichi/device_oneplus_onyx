@@ -62,6 +62,10 @@ PRODUCT_PACKAGES += \
     make_ext4fs \
     setup_fs
 
+# BoringSSL-compat
+PRODUCT_PACKAGES += \
+    libboringssl-compat
+
 # Graphics
 PRODUCT_PACKAGES += \
     copybit.msm8974 \

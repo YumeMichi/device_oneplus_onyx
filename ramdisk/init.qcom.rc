@@ -26,6 +26,9 @@ on init
     mkdir /firmware 0771 system system
     symlink /sdcard /mnt/sdcard
     symlink /sdcard /storage/sdcard0
+	
+# Preload BoringSSL-compat 
+export LD_PRELOAD "/system/lib/libboringssl-compat.so"
 
 on boot
 	export_rc /system/etc/init.cne.rc
