@@ -16,7 +16,7 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
-LOCAL_SRC_FILES := ril.c mdmcutback.c
+LOCAL_SRC_FILES := ril.c
 LOCAL_SHARED_LIBRARIES := libbinder
 LOCAL_MODULE := libOP
 LOCAL_MODULE_TAGS := optional
