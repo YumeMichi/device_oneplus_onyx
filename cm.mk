@@ -27,7 +27,7 @@ $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 PRODUCT_NAME := cm_onyx
 PRODUCT_DEVICE := onyx
 PRODUCT_MANUFACTURER := OnePlus
-PRODUCT_MODEL := onyx
+PRODUCT_MODEL := Oneplus X
 
 PRODUCT_GMS_CLIENTID_BASE := android-oneplus
 
