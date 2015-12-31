@@ -99,7 +99,7 @@ on post-fs-data
     chmod 0660 /sys/class/leds/torch-light/brightness
 
 on fs
-    mount_all ./fstab.onyx
+    mount_all ./fstab.qcom
     restorecon_recursive /persist
 
 service_redefine ril-daemon /system/bin/rild
