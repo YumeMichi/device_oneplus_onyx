@@ -277,7 +277,7 @@ framework/qcnvitems.jar
 framework/qcrilhook.jar
 lib/libmdmdetect.so
 lib/libparam.so
-lib/libril.so
+-lib/libril.so
 vendor/lib/libNimsWrap.so
 vendor/lib/libcne.so
 vendor/lib/libcneapiclient.so
