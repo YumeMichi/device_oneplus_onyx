@@ -49,7 +49,6 @@ audio.offload.pcm.16bit.enable=true
 audio.offload.pcm.24bit.enable=true
 
 # Bluetooth
-bluetooth.hfp.client=1
 qcom.bluetooth.soc=smd
 ro.bluetooth.hfp.ver=1.7
 ro.qualcomm.bt.hci_transport=smd
