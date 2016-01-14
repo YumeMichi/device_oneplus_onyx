@@ -26,15 +26,17 @@
 <!-- IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                          -->
 <audio_platform_info>
     <acdb_ids>
-		<device name="SND_DEVICE_OUT_HANDSET" acdb_id="103" />
-		<device name="SND_DEVICE_OUT_SPEAKER" acdb_id="15" />
-		<device name="SND_DEVICE_OUT_VOICE_SPEAKER" acdb_id="15" />
-		<device name="SND_DEVICE_IN_HANDSET_MIC" acdb_id="41" />
-		<device name="SND_DEVICE_IN_SPEAKER_MIC" acdb_id="42" />
-		<device name="SND_DEVICE_IN_VOICE_SPEAKER_MIC" acdb_id="42" />
-		<device name="SND_DEVICE_IN_HDMI_MIC" acdb_id="119" />
-		<device name="SND_DEVICE_IN_CAMCORDER_MIC" acdb_id="35" />
-		<device name="SND_DEVICE_IN_VOICE_SPEAKER_DMIC" acdb_id="42" />
+        <device name="SND_DEVICE_OUT_SPEAKER" acdb_id="15" />
+        <device name="SND_DEVICE_OUT_VOICE_SPEAKER" acdb_id="15" />
+        <!-- INPUT DEVICES -->
+        <device name="SND_DEVICE_IN_HANDSET_MIC" acdb_id="41" />
+        <device name="SND_DEVICE_IN_HANDSET_MIC_AEC" acdb_id="109" />
+        <device name="SND_DEVICE_IN_HANDSET_MIC_NS" acdb_id="110" />
+        <device name="SND_DEVICE_IN_HANDSET_MIC_AEC_NS" acdb_id="111" />
+        <device name="SND_DEVICE_IN_SPEAKER_MIC" acdb_id="43" />
+        <device name="SND_DEVICE_IN_SPEAKER_MIC_AEC" acdb_id="115" />
+        <device name="SND_DEVICE_IN_SPEAKER_MIC_NS" acdb_id="116" />
+        <device name="SND_DEVICE_IN_SPEAKER_MIC_AEC_NS" acdb_id="117" />
     </acdb_ids>
 
     <backend_names>
