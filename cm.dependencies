@@ -1,13 +1,8 @@
 [
   {
     "remote":      "github",
-    "repository":  "ashwinr64/android_kernel_oneplus_onyx",
+    "repository":  "android_kernel_oneplus_onyx",
     "target_path": "kernel/oneplus/onyx"
-  },
-  {
-    "remote":      "github",
-    "repository":  "ashwinr64/android_vendor_oneplus_onyx",
-    "target_path": "vendor/oneplus/onyx"
   },
   {
     "repository": "android_external_sony_boringssl-compat",
