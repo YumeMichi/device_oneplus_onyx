@@ -50,6 +50,7 @@
     </pcm_ids>
 
     <device_names>
-        <!-- empty -->
+        <device name="SND_DEVICE_IN_VOICE_SPEAKER_MIC" alias="voice-speaker-dmic-ef" />
+        <device name="SND_DEVICE_IN_SPEAKER_MIC" alias="speaker-dmic-endfire" />
     </device_names>
 </audio_platform_info>
