@@ -1,5 +1,5 @@
 #
-# Copyright 2015 The CyanogenMod Project
+# Copyright 2016 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,8 +14,8 @@
 # limitations under the License.
 #
 
-import /init.qcom.usb.rc
-import /init.qcom.power.rc
+import init.onyx.usb.rc
+import init.onyx.power.rc
 
 on early-init
     mount debugfs debugfs /sys/kernel/debug
@@ -25,6 +25,11 @@ on init
     # Set permissions for persist partition
     mkdir /persist 0771 system system
     mkdir /firmware 0771 system system
+    symlink /sdcard /mnt/sdcard
+    symlink /sdcard /storage/sdcard0
+
+# Pass required symbols for OOS Blobs
+export LD_SHIM_LIBS /system/vendor/lib/libqomx_jpegenc.so|libboringssl-compat.so:/system/bin/rild|libOP.so:/system/lib/libril.so|libOP.so
 
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
@@ -174,6 +179,64 @@ on boot
     write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 1
     write /sys/module/lowmemorykiller/parameters/vmpressure_file_min 53059
 
+on post-fs
+    # Touchscreen
+    chown system radio /proc/touchpanel/double_tap_enable
+    chmod 0660 /proc/touchpanel/double_tap_enable
+
+    chown root system /proc/touchpanel/camera_enable
+    chmod 0660 /proc/touchpanel/camera_enable
+
+    chown root system /proc/touchpanel/music_enable
+    chmod 0660 /proc/touchpanel/music_enable
+
+    chown root system /proc/touchpanel/flashlight_enable
+    chmod 0660 /proc/touchpanel/flashlight_enable
+
+    chown root system /proc/touchpanel/glove_mode_enable
+    chmod 0660 /proc/touchpanel/glove_mode_enable
+
+    chown system system /sys/devices/virtual/graphics/fb0/cabc
+    chmod 0660 /sys/devices/virtual/graphics/fb0/cabc
+
+    chown system system /sys/devices/virtual/graphics/fb0/sre
+    chmod 0660 /sys/devices/virtual/graphics/fb0/sre
+
+    chown system system /sys/devices/virtual/graphics/fb0/color_enhance
+    chmod 0660 /sys/devices/virtual/graphics/fb0/color_enhance
+
+    chown system system /sys/devices/virtual/graphics/fb0/rgb
+    chmod 0660 /sys/devices/virtual/graphics/fb0/rgb
+
+    chown system system /sys/devices/virtual/graphics/fb0/aco
+    chmod 0660 /sys/devices/virtual/graphics/fb0/aco
+
+    chown system system /sys/devices/virtual/graphics/fb0/dyn_pu
+    chmod 0660 /sys/devices/virtual/graphics/fb0/dyn_pu
+
+    chown system system /sys/class/timed_output/vibrator/vtg_level
+    chown system system /sys/class/timed_output/vibrator/vtg_max
+    chown system system /sys/class/timed_output/vibrator/vtg_min
+    chmod 0644 /sys/class/timed_output/vibrator/vtg_level
+    chmod 0644 /sys/class/timed_output/vibrator/vtg_max
+    chmod 0644 /sys/class/timed_output/vibrator/vtg_min
+
+    # LEDs
+    chown system system /sys/class/leds/red/blink
+    chown system system /sys/class/leds/blue/blink
+    chown system system /sys/class/leds/green/blink
+    chmod 0644 /sys/class/leds/red/blink
+    chmod 0644 /sys/class/leds/blue/blink
+    chmod 0644 /sys/class/leds/green/blink
+
+    # Tri-state keys
+    chown system system /sys/devices/tri_state_key.86/keyCode_top
+    chown system system /sys/devices/tri_state_key.86/keyCode_middle
+    chown system system /sys/devices/tri_state_key.86/keyCode_bottom
+    chmod 0644 /sys/devices/tri_state_key.86/keyCode_top
+    chmod 0644 /sys/devices/tri_state_key.86/keyCode_middle
+    chmod 0644 /sys/devices/tri_state_key.86/keyCode_bottom
+
 on post-fs-data
     mkdir /data/media 0770 media_rw media_rw
 
@@ -249,51 +312,14 @@ on post-fs-data
 
     mkdir /data/audio/ 0770 media audio
 
-    # Touchscreen
-    chown system radio /proc/touchpanel/double_tap_enable
-    chmod 0660 /proc/touchpanel/double_tap_enable
-
-    chown root system /proc/touchpanel/camera_enable
-    chmod 0660 /proc/touchpanel/camera_enable
-
-    chown root system /proc/touchpanel/music_enable
-    chmod 0660 /proc/touchpanel/music_enable
-
-    chown root system /proc/touchpanel/flashlight_enable
-    chmod 0660 /proc/touchpanel/flashlight_enable
-
-    chown root system /proc/touchpanel/keypad_enable
-    chmod 0660 /proc/touchpanel/keypad_enable
-
-    chown system system /sys/devices/virtual/graphics/fb0/cabc
-    chmod 0660 /sys/devices/virtual/graphics/fb0/cabc
-
-    chown system system /sys/devices/virtual/graphics/fb0/sre
-    chmod 0660 /sys/devices/virtual/graphics/fb0/sre
-
-    chown system system /sys/devices/virtual/graphics/fb0/color_enhance
-    chmod 0660 /sys/devices/virtual/graphics/fb0/color_enhance
-
-    chown system system /sys/devices/virtual/graphics/fb0/rgb
-    chmod 0660 /sys/devices/virtual/graphics/fb0/rgb
-
-    chown system system /sys/devices/virtual/graphics/fb0/aco
-    chmod 0660 /sys/devices/virtual/graphics/fb0/aco
-
-    chown system system /sys/devices/virtual/graphics/fb0/dyn_pu
-    chmod 0660 /sys/devices/virtual/graphics/fb0/dyn_pu
-
-    chown system system /sys/class/timed_output/vibrator/vtg_level
-    chown system system /sys/class/timed_output/vibrator/vtg_max
-    chown system system /sys/class/timed_output/vibrator/vtg_min
-    chmod 0644 /sys/class/timed_output/vibrator/vtg_level
-    chmod 0644 /sys/class/timed_output/vibrator/vtg_max
-    chmod 0644 /sys/class/timed_output/vibrator/vtg_min
-
     setprop vold.post_fs_data_done 1
 
     #Create folder for mm-qcamera-daemon
     mkdir /data/camera 0770 media camera
+
+    # Torch
+    chown system camera /sys/class/leds/torch-light/brightness
+    chmod 0660 /sys/class/leds/torch-light/brightness
 
     #Create PERFD deamon related dirs
     mkdir /data/misc/perfd 0755 root system
@@ -305,17 +331,18 @@ on post-fs-data
     mkdir /data/misc/camera 0770 camera camera
 
 on fs
+    mount_all ./fstab.onyx
+    restorecon_recursive /persist
+    mkdir /persist/data 0700 system system
+    mkdir /persist/data/sfs 0700 system system
+    mkdir /persist/data/tz 0700 system system
+
     mkdir /dev/usb-ffs 0770 shell shell
     mkdir /dev/usb-ffs/adb 0770 shell shell
     mount functionfs adb /dev/usb-ffs/adb uid=2000,gid=2000
     write /sys/class/android_usb/android0/f_ffs/aliases adb
     mkdir /dev/bus 0755 root root
     mkdir /dev/bus/usb 0755 root root
-
-    restorecon_recursive   /persist
-    mkdir /persist/data 0700 system system
-    mkdir /persist/data/sfs 0700 system system
-    mkdir /persist/data/tz 0700 system system
 
 on property:init.svc.wpa_supplicant=stopped
     stop dhcpcd
@@ -354,6 +381,9 @@ on property:ro.data.large_tcp_window_size=true
 
 on property:persist.env.fastdorm.enabled=true
     setprop persist.radio.data_no_toggle 1
+
+on property:sys.boot_completed=1
+	write /proc/otg_config/otg_switch 1
 
 service cnd /system/bin/cnd
     class late_start
@@ -519,13 +549,13 @@ on property:vold.decrypt=trigger_restart_framework
     start config_bluetooth
     start wcnss-service
 
-service config_bluetooth /system/bin/sh /system/etc/init.qcom.bt.sh "onboot"
+service config_bluetooth /system/bin/sh /init.onyx.bt.sh "onboot"
     class core
     user root
     group bluetooth net_bt_admin qcom_diag radio
     oneshot
 
-service hciattach /system/bin/sh /system/etc/init.qcom.bt.sh
+service hciattach /system/bin/sh /init.onyx.bt.sh
     class late_start
     user bluetooth
     group bluetooth net_bt_admin qcom_diag radio
@@ -600,3 +630,25 @@ service pfm /system/bin/pfm
     class late_start
     user system
     group system drmrpc mount
+
+service_redefine ril-daemon /system/bin/rild
+    class main
+    socket rild stream 660 root radio
+    socket rild-debug stream 660 radio system
+    socket cutback stream 660 media radio
+    user root
+    group radio cache inet misc audio sdcard_rw qcom_oncrpc qcom_diag log net_raw diag
+
+service ril-daemon1 /system/bin/rild -c 2
+    class main
+    socket rild2 stream 660 root radio
+    socket rild-debug2 stream 660 radio system
+    user root
+    group radio cache inet misc audio sdcard_rw qcom_oncrpc qcom_diag log net_raw diag
+    disabled
+
+service ril-init-script /system/bin/sh /init.onyx.ril.sh
+    class late_start
+    user root
+    group root
+    oneshot

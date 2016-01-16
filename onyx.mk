@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2015 The CyanogenMod Project
+# Copyright (C) 2016 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,11 +17,20 @@
 # Prebuilts
 PRODUCT_COPY_FILES += \
      $(call find-copy-subdir-files,*,${LOCAL_PATH}/prebuilt/system,system)
-	 
+
 # Ramdisk
-PRODUCT_COPY_FILES += \
-     $(call find-copy-subdir-files,*,${LOCAL_PATH}/ramdisk,root)
-	 
+PRODUCT_PACKAGES += \
+    fstab.onyx \
+    init.onyx.rc \
+    init.onyx.power.rc \
+    init.onyx.usb.rc \
+    init.recovery.onyx.rc \
+    ueventd.onyx.rc
+
+PRODUCT_PACKAGES += \
+    init.onyx.bt.sh \
+    init.onyx.ril.sh
+
 # Prebuilt DT
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/dt.img:dt.img
