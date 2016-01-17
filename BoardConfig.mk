@@ -14,6 +14,9 @@
 # limitations under the License.
 #
 
+# inherit from Oppo common
+-include device/oppo/common/BoardConfigCommon.mk
+
 PLATFORM_PATH := device/oneplus/onyx
 
 # Include path
@@ -150,9 +153,6 @@ TARGET_KEYMASTER_WAIT_FOR_QSEE := true
 
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
-
-# Power HAL
-TARGET_POWERHAL_VARIANT := qcom
 
 # Protobuf-c
 PROTOBUF_SUPPORTED := true

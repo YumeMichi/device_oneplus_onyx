@@ -293,3 +293,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Call the proprietary setup
 $(call inherit-product-if-exists, vendor/oneplus/onyx/onyx-vendor.mk)
+
+# Inherit from oppo-common
+$(call inherit-product, device/oppo/common/common.mk)
