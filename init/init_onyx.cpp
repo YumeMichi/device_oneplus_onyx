@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2015, The CyanogenMod Project
+   Copyright (c) 2016, The CyanogenMod Project
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions are
    met:
@@ -34,7 +34,7 @@
 
 #include "init_msm.h"
 
-void init_msm_properties(unsigned long msm_id, unsigned long msm_ver, char *board_type) {
+void init_msm_properties(unsigned long msm_id,unsigned long msm_ver, char *board_type) {
     char device[PROP_VALUE_MAX];
     char rf_version[PROP_VALUE_MAX];
     int rc;
@@ -49,13 +49,17 @@ void init_msm_properties(unsigned long msm_id, unsigned long msm_ver, char *boar
 
     property_get("ro.boot.rf_version", rf_version);
 
-    if (strstr(rf_version, "102")) {
+    if (strstr(rf_version, "101")) {
+        /* Chinese */
+        property_set("ro.product.model", "ONE E1001");
+        property_set("ro.rf_version", "TDD_FDD_Ch_All");
+} else if (strstr(rf_version, "102")) {
         /* Asia/Europe */
         property_set("ro.product.model", "ONE E1003");
         property_set("ro.rf_version", "TDD_FDD_Eu");
-    } else {
-        /* TODO: Track other firmwares, default is EU for now */
-        property_set("ro.product.model", "ONE E1003");
-        property_set("ro.rf_version", "TDD_FDD_Eu");
+    } else if (strstr(rf_version, "103")){
+        /* America */
+        property_set("ro.product.model", "ONE E1005");
+        property_set("ro.rf_version", "TDD_FDD_Am");
     }
 }

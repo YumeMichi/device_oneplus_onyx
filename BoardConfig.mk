@@ -143,6 +143,7 @@ TARGET_USE_COMPAT_GRALLOC_PERFORM := true
 # Init
 TARGET_INIT_VENDOR_LIB := libinit_msm
 TARGET_LIBINIT_DEFINES_FILE := device/oneplus/onyx/init/init_onyx.cpp
+TARGET_UNIFIED_DEVICE := true
 
 # Keymaster
 TARGET_KEYMASTER_WAIT_FOR_QSEE := true
