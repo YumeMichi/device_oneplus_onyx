@@ -1,4 +1,4 @@
-/* Copyright (c) 2011-2015, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2011-2014, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -55,7 +55,7 @@ public:
                                 void* locationExt,
                                 enum loc_sess_status status,
                                 LocPosTechMask loc_technology_mask);
-    virtual void reportSv(GnssSvStatus &svStatus,
+    virtual void reportSv(GpsSvStatus &svStatus,
                           GpsLocationExtended &locationExtended,
                           void* svExt);
     virtual void reportStatus(GpsStatusValue status);
@@ -64,6 +64,7 @@ public:
     virtual void stopFixInt();
     virtual void getZppInt();
     virtual void setUlpProxy(UlpProxyBase* ulp);
+    virtual void shutdown();
 };
 
 typedef void (*loc_msg_sender)(void* loc_eng_data_p, void* msgp);
@@ -88,11 +89,10 @@ public:
 
     LocEngAdapter(LOC_API_ADAPTER_EVENT_MASK_T mask,
                   void* owner, ContextBase* context,
-                  LocThread::tCreate tCreator);
+                  MsgTask::tCreate tCreator);
     virtual ~LocEngAdapter();
 
     virtual void setUlpProxy(UlpProxyBase* ulp);
-    void setXtraUserAgent();
     inline void requestUlp(unsigned long capabilities) {
         mContext->requestUlp(mInternalAdapter, capabilities);
     }
@@ -269,7 +269,7 @@ public:
                                 void* locationExt,
                                 enum loc_sess_status status,
                                 LocPosTechMask loc_technology_mask);
-    virtual void reportSv(GnssSvStatus &svStatus,
+    virtual void reportSv(GpsSvStatus &svStatus,
                           GpsLocationExtended &locationExtended,
                           void* svExt);
     virtual void reportStatus(GpsStatusValue status);
@@ -284,7 +284,6 @@ public:
     virtual bool requestSuplES(int connHandle);
     virtual bool reportDataCallOpened();
     virtual bool reportDataCallClosed();
-    virtual void reportGpsMeasurementData(GpsData &gpsMeasurementData);
 
     inline const LocPosMode& getPositionMode() const
     {return mFixCriteria;}
@@ -305,7 +304,6 @@ public:
         mPowerVote = powerOn ? (mPowerVote | POWER_VOTE_VALUE) :
                                (mPowerVote & ~POWER_VOTE_VALUE);
         requestPowerVote();
-        mContext->modemPowerVote(powerOn);
     }
     inline bool getPowerVote() const {
         return (mPowerVote & POWER_VOTE_VALUE) != 0 ;
@@ -336,16 +334,6 @@ public:
         return mLocApi->getGpsLock();
     }
 
-    /*
-      Update Registration Mask
-     */
-    void updateRegistrationMask(LOC_API_ADAPTER_EVENT_MASK_T event,
-                                loc_registration_mask_status isEnabled);
-
-    /*
-      Set Gnss Constellation Config
-     */
-    bool gnssConstellationConfig();
 };
 
 #endif //LOC_API_ENG_ADAPTER_H
