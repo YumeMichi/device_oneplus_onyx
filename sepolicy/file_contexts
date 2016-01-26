@@ -18,3 +18,6 @@
 # BT/WiFi MAC
 /persist/.genmac                                        u:object_r:wifi_data_file:s0
 /persist/.bt_nv.bin                                     u:object_r:bluetooth_data_file:s0
+
+# Backlight
+/sys/class/leds/lcd-backlight/brightness                u:object_r:proc_touchpanel:s0
