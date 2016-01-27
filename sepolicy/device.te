@@ -1,1 +1,2 @@
 type nvbackup_block_device, dev_type;
+type drm_block_device, dev_type;
