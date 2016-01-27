@@ -7,3 +7,6 @@ allow system_server vibeamp_sysfs:file rw_file_perms;
 
 # examine battery state
 r_dir_file(system_server, sysfs_usb_supply);
+
+allow system_server sensors_persist_file:dir search;
+allow system_server sensors_persist_file:file read;
