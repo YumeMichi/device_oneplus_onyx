@@ -31,10 +31,6 @@ PRODUCT_PACKAGES += \
     init.onyx.bt.sh \
     init.onyx.ril.sh
 
-# Prebuilt DT
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/dt.img:dt.img
-
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay vendor/extra/overlays/phone-1080p
 
