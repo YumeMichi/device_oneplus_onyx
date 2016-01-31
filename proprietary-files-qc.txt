@@ -48,7 +48,7 @@ etc/firmware/leia_pfp_470.fw
 etc/firmware/leia_pm4_470.fw
 
 # GPS
-# priv-app/com.qualcomm.location/com.qualcomm.location.apk
+# -priv-app/com.qualcomm.location/com.qualcomm.location.apk
 bin/loc_launcher
 bin/location-mq
 bin/lowi-server
@@ -119,7 +119,7 @@ vendor/lib/liblisten.so
 vendor/lib/liblistensoundmodel.so
 
 # Media
-vendor/lib/libHevcSwDecoder.so
+-vendor/lib/libHevcSwDecoder.so
 vendor/lib/libI420colorconvert.so
 vendor/lib/libmmosal.so
 vendor/lib/libmmparser.so
@@ -143,7 +143,7 @@ vendor/lib/libqti-perfd-client.so
 # Postprocessing
 bin/mm-pp-daemon
 vendor/lib/libdisp-aba.so
-vendor/lib/libmm-abl.so
+-vendor/lib/libmm-abl.so
 vendor/lib/libmm-abl-oem.so
 
 # Qualcomm framework
@@ -167,8 +167,8 @@ vendor/lib/libsmemlog.so
 vendor/lib/libsystem_health_mon.so
 
 # Radio
-priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk
-app/shutdownlistener/shutdownlistener.apk
+-priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk
+-app/shutdownlistener/shutdownlistener.apk
 bin/netmgrd
 bin/qmuxd
 bin/radish
@@ -206,9 +206,9 @@ vendor/lib/libthermalioctl.so
 
 # Time services
 bin/time_daemon
-vendor/lib/libtime_genoff.so
-vendor/lib/libTimeService.so
-app/TimeService/TimeService.apk
+-vendor/lib/libtime_genoff.so
+-vendor/lib/libTimeService.so
+-app/TimeService/TimeService.apk
 
 # Venus (media) firmware
 etc/firmware/venus.b01

@@ -8,7 +8,7 @@ OUTDIR=vendor/$VENDOR/$DEVICE
 MAKEFILE=../../../$OUTDIR/$DEVICE-vendor-blobs.mk
 
 (cat << EOF) > $MAKEFILE
-# Copyright (C) 2015 The CyanogenMod Project
+# Copyright (C) 2016 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -78,7 +78,7 @@ for FILE in `egrep -v '(^#|^$)' proprietary-files.txt`; do
 done
 
 (cat << EOF) > ../../../$OUTDIR/$DEVICE-vendor.mk
-# Copyright (C) 2015 The CyanogenMod Project
+# Copyright (C) 2016 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -99,6 +99,8 @@ DEVICE_PACKAGE_OVERLAYS += vendor/$VENDOR/$DEVICE/overlay
 
 PRODUCT_PACKAGES += \\
     com.qualcomm.location \\
+    PPPreference \\
+    QuickBoot \\
     qcrilmsgtunnel \\
     shutdownlistener
 
@@ -110,15 +112,6 @@ PRODUCT_PACKAGES += \\
     TimeService
 
 PRODUCT_PACKAGES += \\
-    libscale \\
-
-PRODUCT_PACKAGES += \\
-    libwvdrmengine \\
-    libwvdrm_L3 \\
-    libwvm \\
-    libWVStreamControlAPI_L3
-
-PRODUCT_PACKAGES += \\
     libqmi \\
     libmdmdetect \\
     libqmiservices \\
@@ -127,13 +120,12 @@ PRODUCT_PACKAGES += \\
     libdiag \\
     libqmi_client_qmux \\
     libdsutils \\
-#    libwpa_qmi_eap_proxy
 
 \$(call inherit-product, vendor/$VENDOR/$DEVICE/$DEVICE-vendor-blobs.mk)
 EOF
 
 (cat << EOF) > ../../../$OUTDIR/BoardConfigVendor.mk
-# Copyright (C) 2015 The CyanogenMod Project
+# Copyright (C) 2016 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -151,7 +143,7 @@ EOF
 EOF
 
 (cat << EOF) > ../../../$OUTDIR/Android.mk
-# Copyright (C) 2015 The CyanogenMod Project
+# Copyright (C) 2016 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
