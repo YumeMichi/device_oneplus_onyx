@@ -180,6 +180,9 @@ on boot
     write /sys/module/lowmemorykiller/parameters/vmpressure_file_min 53059
 
 on post-fs
+    # Reverse Keys
+	write /proc/s1302/key_rep 1
+
     # Touchscreen
     chown system radio /proc/touchpanel/double_tap_enable
     chmod 0660 /proc/touchpanel/double_tap_enable
