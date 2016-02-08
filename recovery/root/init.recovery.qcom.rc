@@ -31,8 +31,8 @@ on boot
     write /sys/module/blu_plug/parameters/max_online 4
     write /sys/module/blu_plug/parameters/min_online 4
     write /sys/module/blu_plug/parameters/max_cores_screenoff 4
-    write /proc/touchpanel/gesture_enable 1
-    write /proc/otg_config/otg_switch 1
+	write /proc/otg_config/otg_switch 1
+	write /proc/touchpanel/double_tap_enable 1
 
 on fs
     chmod 0660 /dev/qseecom
