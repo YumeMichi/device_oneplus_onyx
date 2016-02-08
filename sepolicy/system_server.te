@@ -10,3 +10,5 @@ r_dir_file(system_server, sysfs_usb_supply);
 
 allow system_server sensors_persist_file:dir search;
 allow system_server sensors_persist_file:file read;
+allow system_server sensors_persist_file:file open;
+allow system_server sensors_persist_file:file getattr;
