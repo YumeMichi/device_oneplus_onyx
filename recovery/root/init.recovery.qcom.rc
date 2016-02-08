@@ -35,6 +35,7 @@ on boot
 	write /proc/touchpanel/double_tap_enable 1
 	write /sys/class/leds/red/trigger "battery-charging"
     write /sys/class/leds/green/trigger "battery-full"
+    write /proc/touchpanel/keypad_enable 0
 
 on fs
     chmod 0660 /dev/qseecom
