@@ -1159,11 +1159,45 @@ int32_t QCameraParameters::setPictureSize(const QCameraParameters& params)
     CDBG("Requested picture size %d x %d", width, height);
 
     // Validate the picture size
+    if(!m_reprocScaleParam.isScaleEnabled()){
+        for (size_t i = 0; i < m_pCapability->picture_sizes_tbl_cnt; ++i) {
+            if (width ==  m_pCapability->picture_sizes_tbl[i].width
+               && height ==  m_pCapability->picture_sizes_tbl[i].height) {
+                // check if need to restart preview in case of picture size change
+                int old_width, old_height;
+                CameraParameters::getPictureSize(&old_width, &old_height);
+                if ((m_bZslMode || m_bRecordingHint) &&
+                    (width != old_width || height != old_height)) {
+                    m_bNeedRestart = true;
+                }
 
+                // set the new value
+                CDBG_HIGH("%s: Requested picture size %d x %d", __func__, width, height);
                 CameraParameters::setPictureSize(width, height);
+                return NO_ERROR;
+            }
+        }
+    }else{
+        //should use scaled picture size table to validate
+        if(m_reprocScaleParam.setValidatePicSize(width, height) == NO_ERROR){
+            // check if need to restart preview in case of picture size change
+            int old_width, old_height;
+            CameraParameters::getPictureSize(&old_width, &old_height);
+            if ((m_bZslMode || m_bRecordingHint) &&
+                (width != old_width || height != old_height)) {
+                m_bNeedRestart = true;
+            }
 
+            // set the new value
+            char val[32];
+            sprintf(val, "%dx%d", width, height);
+            CDBG_HIGH("%s: picture size requested %s", __func__, val);
+            updateParamEntry(KEY_PICTURE_SIZE, val);
+            return NO_ERROR;
+        }
+    }
     ALOGE("Invalid picture size requested: %dx%d", width, height);
-    return NO_ERROR;
+    return BAD_VALUE;
 }
 
 /*===========================================================================
@@ -1191,6 +1225,11 @@ int32_t QCameraParameters::setVideoSize(const QCameraParameters& params)
     } else {
         params.getVideoSize(&width, &height);
     }
+    // Validate the video size
+    for (size_t i = 0; i < m_pCapability->video_sizes_tbl_cnt; ++i) {
+        if (width ==  m_pCapability->video_sizes_tbl[i].width
+                && height ==  m_pCapability->video_sizes_tbl[i].height) {
+            // check if need to restart preview in case of video size change
             int old_width, old_height;
             CameraParameters::getVideoSize(&old_width, &old_height);
             if (m_bRecordingHint &&
@@ -1199,9 +1238,14 @@ int32_t QCameraParameters::setVideoSize(const QCameraParameters& params)
             }
 
             // set the new value
+            CDBG_HIGH("%s: Requested video size %d x %d", __func__, width, height);
             CameraParameters::setVideoSize(width, height);
             return NO_ERROR;
+        }
+    }
 
+    ALOGE("Invalid video size requested: %dx%d", width, height);
+    return BAD_VALUE;
 }
 
 /*===========================================================================
@@ -1978,13 +2022,15 @@ int32_t QCameraParameters::setBrightness(const QCameraParameters& params)
        return NO_ERROR;
     }
     if (currentBrightness !=  brightness) {
-        if (brightness >= 0 &&
-            brightness <= 6) {
+        if (brightness >= m_pCapability->brightness_ctrl.min_value &&
+            brightness <= m_pCapability->brightness_ctrl.max_value) {
             CDBG(" new brightness value : %d ", brightness);
             return setBrightness(brightness);
         } else {
-            ALOGE("%s: invalid value %d out of (0, 6)",
-                  __func__, brightness);
+            ALOGE("%s: invalid value %d out of (%d, %d)",
+                  __func__, brightness,
+                  m_pCapability->brightness_ctrl.min_value,
+                  m_pCapability->brightness_ctrl.max_value);
             return BAD_VALUE;
         }
     } else {
@@ -2015,13 +2061,15 @@ int32_t QCameraParameters::setSharpness(const QCameraParameters& params)
        return NO_ERROR;
     }
     if (prev_sharp !=  shaprness) {
-        if((shaprness >= 0) &&
-           (shaprness <= 36)) {
+        if((shaprness >= m_pCapability->sharpness_ctrl.min_value) &&
+           (shaprness <= m_pCapability->sharpness_ctrl.max_value)) {
             CDBG(" new sharpness value : %d ", shaprness);
             return setSharpness(shaprness);
         } else {
-            ALOGE("%s: invalid value %d out of (0, 36)",
-                  __func__, shaprness);
+            ALOGE("%s: invalid value %d out of (%d, %d)",
+                  __func__, shaprness,
+                  m_pCapability->sharpness_ctrl.min_value,
+                  m_pCapability->sharpness_ctrl.max_value);
             return BAD_VALUE;
         }
     } else {
@@ -2052,13 +2100,15 @@ int32_t QCameraParameters::setSkinToneEnhancement(const QCameraParameters& param
        return NO_ERROR;
     }
     if (prev_sceFactor != sceFactor) {
-        if((sceFactor >= -100) &&
-           (sceFactor <= 100)) {
+        if((sceFactor >= m_pCapability->sce_ctrl.min_value) &&
+           (sceFactor <= m_pCapability->sce_ctrl.max_value)) {
             CDBG(" new Skintone Enhancement value : %d ", sceFactor);
             return setSkinToneEnhancement(sceFactor);
         } else {
-            ALOGE("%s: invalid value %d out of (-100, 100)",
-                  __func__, sceFactor);
+            ALOGE("%s: invalid value %d out of (%d, %d)",
+                  __func__, sceFactor,
+                  m_pCapability->sce_ctrl.min_value,
+                  m_pCapability->sce_ctrl.max_value);
             return BAD_VALUE;
         }
     } else {
@@ -2089,13 +2139,15 @@ int32_t QCameraParameters::setSaturation(const QCameraParameters& params)
        return NO_ERROR;
     }
     if (prev_sat !=  saturation) {
-        if((saturation >= 0) &&
-           (saturation <= 10)) {
+        if((saturation >= m_pCapability->saturation_ctrl.min_value) &&
+           (saturation <= m_pCapability->saturation_ctrl.max_value)) {
             CDBG(" new saturation value : %d ", saturation);
             return setSaturation(saturation);
         } else {
-            ALOGE("%s: invalid value %d out of (0, 10)",
-                  __func__, saturation);
+            ALOGE("%s: invalid value %d out of (%d, %d)",
+                  __func__, saturation,
+                  m_pCapability->saturation_ctrl.min_value,
+                  m_pCapability->saturation_ctrl.max_value);
             return BAD_VALUE;
         }
     } else {
@@ -2126,14 +2178,16 @@ int32_t QCameraParameters::setContrast(const QCameraParameters& params)
        return NO_ERROR;
     }
     if (prev_contrast !=  contrast) {
-        if((contrast >= 0) &&
-           (contrast <= 10)) {
+        if((contrast >= m_pCapability->contrast_ctrl.min_value) &&
+           (contrast <= m_pCapability->contrast_ctrl.max_value)) {
             CDBG(" new contrast value : %d ", contrast);
             int32_t rc = setContrast(contrast);
             return rc;
         } else {
-            ALOGE("%s: invalid value %d out of (0, 10)",
-                  __func__, contrast);
+            ALOGE("%s: invalid value %d out of (%d, %d)",
+                  __func__, contrast,
+                  m_pCapability->contrast_ctrl.min_value,
+                  m_pCapability->contrast_ctrl.max_value);
             return BAD_VALUE;
         }
     } else {
@@ -2164,13 +2218,15 @@ int32_t QCameraParameters::setExposureCompensation(const QCameraParameters & par
        return NO_ERROR;
     }
     if (prev_expComp != expComp) {
-        if((expComp >= -12) &&
-           (expComp <= 12)) {
+        if((expComp >= m_pCapability->exposure_compensation_min) &&
+           (expComp <= m_pCapability->exposure_compensation_max)) {
             CDBG(" new Exposure Compensation value : %d ", expComp);
             return setExposureCompensation(expComp);
         } else {
-            ALOGE("%s: invalid value %d out of (-12, 12)",
-                  __func__, expComp);
+            ALOGE("%s: invalid value %d out of (%d, %d)",
+                  __func__, expComp,
+                  m_pCapability->exposure_compensation_min,
+                  m_pCapability->exposure_compensation_max);
             return BAD_VALUE;
         }
     } else {
@@ -2480,9 +2536,10 @@ int32_t QCameraParameters::setZoom(const QCameraParameters& params)
 
     int zoomLevel = params.getInt(KEY_ZOOM);
     if((zoomLevel < 0) ||
-       (zoomLevel >= 78)) {
-        ALOGE("%s: invalid value %d out of (0, 78)",
-              __func__, zoomLevel);
+       (zoomLevel >= m_pCapability->zoom_ratio_tbl_cnt)) {
+        ALOGE("%s: invalid value %d out of (%d, %d)",
+              __func__, zoomLevel,
+              0, m_pCapability->zoom_ratio_tbl_cnt-1);
         return BAD_VALUE;
     }
 
@@ -3920,16 +3977,72 @@ int32_t QCameraParameters::initDefaultParameters()
     set(QCameraParameters::KEY_FOCUS_DISTANCES, "Infinity,Infinity,Infinity");
     set(KEY_QC_AUTO_HDR_SUPPORTED, VALUE_TRUE);
     // Set supported preview sizes
-    set(KEY_SUPPORTED_PREVIEW_SIZES, "4096x2160,3840x2160,1920x1080,1440x1080,1280x960,1280x720,768x432,720x480,640x480,576x432,384x288,352x288,320x240");    CameraParameters::setPreviewSize(1920, 1080);
+    if (m_pCapability->preview_sizes_tbl_cnt > 0 &&
+        m_pCapability->preview_sizes_tbl_cnt <= MAX_SIZES_CNT) {
+        String8 previewSizeValues = createSizesString(
+                m_pCapability->preview_sizes_tbl, m_pCapability->preview_sizes_tbl_cnt);
+        set(KEY_SUPPORTED_PREVIEW_SIZES, previewSizeValues.string());
+        CDBG_HIGH("%s: supported preview sizes: %s", __func__, previewSizeValues.string());
+        // Set default preview size
+        CameraParameters::setPreviewSize(m_pCapability->preview_sizes_tbl[0].width,
+                                         m_pCapability->preview_sizes_tbl[0].height);
+    } else {
+        ALOGE("%s: supported preview sizes cnt is 0 or exceeds max!!!", __func__);
+    }
 
     // Set supported video sizes
-    set(KEY_SUPPORTED_VIDEO_SIZES, "4096x2160,3840x2160,1920x1080,1280x960,1280x720,800x480,720x480,640x480,480x320,352x288");
-    CameraParameters::setVideoSize(1920, 1080);
-    set(KEY_PREFERRED_PREVIEW_SIZE_FOR_VIDEO, "1920x1080");
+    if (m_pCapability->video_sizes_tbl_cnt > 0 &&
+        m_pCapability->video_sizes_tbl_cnt <= MAX_SIZES_CNT) {
+        String8 videoSizeValues = createSizesString(
+                m_pCapability->video_sizes_tbl, m_pCapability->video_sizes_tbl_cnt);
+        set(KEY_SUPPORTED_VIDEO_SIZES, videoSizeValues.string());
+        CDBG_HIGH("%s: supported video sizes: %s", __func__, videoSizeValues.string());
+        // Set default video size
+        CameraParameters::setVideoSize(m_pCapability->video_sizes_tbl[0].width,
+                                       m_pCapability->video_sizes_tbl[0].height);
+
+        //Set preferred Preview size for video
+        String8 vSize = createSizesString(&m_pCapability->video_sizes_tbl[0], 1);
+        set(KEY_PREFERRED_PREVIEW_SIZE_FOR_VIDEO, vSize.string());
+    } else {
+        ALOGE("%s: supported video sizes cnt is 0 or exceeds max!!!", __func__);
+    }
 
     // Set supported picture sizes
-    set(KEY_SUPPORTED_PICTURE_SIZES, "4160x3120,4000x3000,4096x2160,3840x2160,3264x2448,3120x3120,2592x1944,2048x1536,1920x1080,1600x1200,1280x960,1280x768,1280x720,1088x1088,1024x768,800x600,800x480,720x480,640x480,352x288,320x240");
-    CameraParameters::setPictureSize(1920, 1080);
+    if (m_pCapability->picture_sizes_tbl_cnt > 0 &&
+        m_pCapability->picture_sizes_tbl_cnt <= MAX_SIZES_CNT) {
+        String8 pictureSizeValues = createSizesString(
+                m_pCapability->picture_sizes_tbl, m_pCapability->picture_sizes_tbl_cnt);
+        set(KEY_SUPPORTED_PICTURE_SIZES, pictureSizeValues.string());
+        CDBG_HIGH("%s: supported pic sizes: %s", __func__, pictureSizeValues.string());
+        // Set default picture size to the smallest resolution
+        CameraParameters::setPictureSize(
+           m_pCapability->picture_sizes_tbl[m_pCapability->picture_sizes_tbl_cnt-1].width,
+           m_pCapability->picture_sizes_tbl[m_pCapability->picture_sizes_tbl_cnt-1].height);
+    } else {
+        ALOGE("%s: supported picture sizes cnt is 0 or exceeds max!!!", __func__);
+    }
+
+    // Need check if scale should be enabled
+    if (m_pCapability->scale_picture_sizes_cnt > 0 &&
+        m_pCapability->scale_picture_sizes_cnt <= MAX_SCALE_SIZES_CNT){
+        //get scale size, enable scaling. And re-set picture size table with scale sizes
+        m_reprocScaleParam.setScaleEnable(true);
+        int rc_s = m_reprocScaleParam.setScaleSizeTbl(
+            m_pCapability->scale_picture_sizes_cnt, m_pCapability->scale_picture_sizes,
+            m_pCapability->picture_sizes_tbl_cnt, m_pCapability->picture_sizes_tbl);
+        if(rc_s == NO_ERROR){
+            String8 scaledPictureSizeValues = createSizesString(
+                m_pCapability->scale_picture_sizes, m_pCapability->scale_picture_sizes_cnt);
+            set(KEY_QC_SCALED_PICTURE_SIZES, scaledPictureSizeValues.string());
+            ALOGE("%s: scaled supported pic sizes: %s", __func__, scaledPictureSizeValues.string());
+        }else{
+            m_reprocScaleParam.setScaleEnable(false);
+            ALOGE("%s: reset scaled picture size table failed.", __func__);
+        }
+    }else{
+        m_reprocScaleParam.setScaleEnable(false);
+    }
 
     // Set supported thumbnail sizes
     set(KEY_SUPPORTED_JPEG_THUMBNAIL_SIZES, "512x288,480x288,256x154,432x288,320x320,320x240,176x144,0x0");
@@ -3998,50 +4111,79 @@ int32_t QCameraParameters::initDefaultParameters()
     }
 
     // set focus position, we should get them from m_pCapability
-    set(KEY_QC_MIN_FOCUS_POS_INDEX, 0);
-    set(KEY_QC_MAX_FOCUS_POS_INDEX, 1023);
-    set(KEY_QC_MIN_FOCUS_POS_DAC, 0);
-    set(KEY_QC_MAX_FOCUS_POS_DAC, 1023);
+    m_pCapability->min_focus_pos[CAM_MANUAL_FOCUS_MODE_INDEX] = 0;
+    m_pCapability->max_focus_pos[CAM_MANUAL_FOCUS_MODE_INDEX] = 1023;
+    set(KEY_QC_MIN_FOCUS_POS_INDEX, m_pCapability->min_focus_pos[CAM_MANUAL_FOCUS_MODE_INDEX]);
+    set(KEY_QC_MAX_FOCUS_POS_INDEX, m_pCapability->max_focus_pos[CAM_MANUAL_FOCUS_MODE_INDEX]);
+
+    m_pCapability->min_focus_pos[CAM_MANUAL_FOCUS_MODE_DAC_CODE] = 0;
+    m_pCapability->max_focus_pos[CAM_MANUAL_FOCUS_MODE_DAC_CODE] = 1023;
+    set(KEY_QC_MIN_FOCUS_POS_DAC, m_pCapability->min_focus_pos[CAM_MANUAL_FOCUS_MODE_DAC_CODE]);
+    set(KEY_QC_MAX_FOCUS_POS_DAC, m_pCapability->max_focus_pos[CAM_MANUAL_FOCUS_MODE_DAC_CODE]);
 
     // Set Saturation
-    set(KEY_QC_MIN_SATURATION, 0);
-    set(KEY_QC_MAX_SATURATION, 10);
-    set(KEY_QC_SATURATION_STEP, 1);
-    setSaturation(1);
+    m_pCapability->saturation_ctrl.min_value = 0;
+    m_pCapability->saturation_ctrl.max_value = 10;
+    m_pCapability->saturation_ctrl.step = 1;
+    m_pCapability->saturation_ctrl.def_value = 1;
+    set(KEY_QC_MIN_SATURATION, m_pCapability->saturation_ctrl.min_value);
+    set(KEY_QC_MAX_SATURATION, m_pCapability->saturation_ctrl.max_value);
+    set(KEY_QC_SATURATION_STEP, m_pCapability->saturation_ctrl.step);
+    setSaturation(m_pCapability->saturation_ctrl.def_value);
 
     // Set Sharpness
-    set(KEY_QC_MIN_SHARPNESS, 0);
-    set(KEY_QC_MAX_SHARPNESS, 36);
-    set(KEY_QC_SHARPNESS_STEP, 6);
-    setSharpness(12);
+    m_pCapability->sharpness_ctrl.min_value = 0;
+    m_pCapability->sharpness_ctrl.max_value = 36;
+    m_pCapability->sharpness_ctrl.step = 6;
+    m_pCapability->sharpness_ctrl.def_value = 12;
+    set(KEY_QC_MIN_SHARPNESS, m_pCapability->sharpness_ctrl.min_value);
+    set(KEY_QC_MAX_SHARPNESS, m_pCapability->sharpness_ctrl.max_value);
+    set(KEY_QC_SHARPNESS_STEP, m_pCapability->sharpness_ctrl.step);
+    setSharpness(m_pCapability->sharpness_ctrl.def_value);
 
     // Set Contrast
-    set(KEY_QC_MIN_CONTRAST, 0);
-    set(KEY_QC_MAX_CONTRAST, 10);
-    set(KEY_QC_CONTRAST_STEP, 1);
-    setContrast(5);
+    m_pCapability->contrast_ctrl.min_value = 0;
+    m_pCapability->contrast_ctrl.max_value = 10;
+    m_pCapability->contrast_ctrl.step = 1;
+    m_pCapability->contrast_ctrl.def_value = 5;
+    set(KEY_QC_MIN_CONTRAST, m_pCapability->contrast_ctrl.min_value);
+    set(KEY_QC_MAX_CONTRAST, m_pCapability->contrast_ctrl.max_value);
+    set(KEY_QC_CONTRAST_STEP, m_pCapability->contrast_ctrl.step);
+    setContrast(m_pCapability->contrast_ctrl.def_value);
 
     // Set SCE factor
-    set(KEY_QC_MIN_SCE_FACTOR, -100);
-    set(KEY_QC_MAX_SCE_FACTOR, 100);
-    set(KEY_QC_SCE_FACTOR_STEP, 10);
-    setSkinToneEnhancement(0);
+    m_pCapability->sce_ctrl.min_value = -100;
+    m_pCapability->sce_ctrl.max_value = 100;
+    m_pCapability->sce_ctrl.step = 10;
+    m_pCapability->sce_ctrl.def_value = 0;
+    set(KEY_QC_MIN_SCE_FACTOR, m_pCapability->sce_ctrl.min_value); // -100
+    set(KEY_QC_MAX_SCE_FACTOR, m_pCapability->sce_ctrl.max_value); // 100
+    set(KEY_QC_SCE_FACTOR_STEP, m_pCapability->sce_ctrl.step);     // 10
+    setSkinToneEnhancement(m_pCapability->sce_ctrl.def_value);     // 0
 
     // Set Brightness
-    set(KEY_QC_MIN_BRIGHTNESS, 0);
-    set(KEY_QC_MAX_BRIGHTNESS, 6);
-    set(KEY_QC_BRIGHTNESS_STEP, 1);
-    setBrightness(3);
+    m_pCapability->brightness_ctrl.min_value = 0;
+    m_pCapability->brightness_ctrl.max_value = 6;
+    m_pCapability->brightness_ctrl.step = 1;
+    m_pCapability->brightness_ctrl.def_value = 3;
+    set(KEY_QC_MIN_BRIGHTNESS, m_pCapability->brightness_ctrl.min_value); // 0
+    set(KEY_QC_MAX_BRIGHTNESS, m_pCapability->brightness_ctrl.max_value); // 6
+    set(KEY_QC_BRIGHTNESS_STEP, m_pCapability->brightness_ctrl.step);     // 1
+    setBrightness(m_pCapability->brightness_ctrl.def_value);
 
     // Set Auto exposure
     set(KEY_QC_SUPPORTED_AUTO_EXPOSURE, "frame-average,center-weighted,spot-metering,center-weighted,spot-metering-adv,center-weighted-adv");
     setAutoExposure(AUTO_EXPOSURE_FRAME_AVG);
 
     // Set Exposure Compensation
-    set(KEY_MAX_EXPOSURE_COMPENSATION, 12);
-    set(KEY_MIN_EXPOSURE_COMPENSATION, -12);
-    setFloat(KEY_EXPOSURE_COMPENSATION_STEP, (float)1/6);
-    setExposureCompensation(m_pCapability->exposure_compensation_default);
+    m_pCapability->exposure_compensation_max = 12;
+    m_pCapability->exposure_compensation_min = -12;
+    m_pCapability->exposure_compensation_step = (float)1/6;
+    m_pCapability->exposure_compensation_default = 0;
+    set(KEY_MAX_EXPOSURE_COMPENSATION, m_pCapability->exposure_compensation_max); // 12
+    set(KEY_MIN_EXPOSURE_COMPENSATION, m_pCapability->exposure_compensation_min); // -12
+    setFloat(KEY_EXPOSURE_COMPENSATION_STEP, m_pCapability->exposure_compensation_step); // 1/6
+    setExposureCompensation(m_pCapability->exposure_compensation_default); // 0
 
     // Set Antibanding
     set(KEY_SUPPORTED_ANTIBANDING, "off,60hz,50hz,auto");
@@ -4091,13 +4233,50 @@ int32_t QCameraParameters::initDefaultParameters()
     setSelectableZoneAf(FOCUS_ALGO_AUTO);
 
     // Set Zoom Ratios
+    m_pCapability->zoom_supported = 1;
+    m_pCapability->zoom_ratio_tbl_cnt = MAX_ZOOMS_CNT;
     set(KEY_ZOOM_RATIOS, "100,102,104,107,109,112,114,117,120,123,125,128,131,135,138,141,144,148,151,155,158,162,166,170,174,178,182,186,190,195,200,204,209,214,219,224,229,235,240,246,251,257,263,270,276,282,289,296,303,310,317,324,332,340,348,356,364,373,381,390,400,409,418,428,438,448,459,470,481,492,503,515,527,540,552,565,578,592,606");
-    set(KEY_MAX_ZOOM, 78);
+    set(KEY_MAX_ZOOM, m_pCapability->zoom_ratio_tbl_cnt - 1);
     setZoom(0);
 
     // Set Bracketing/HDR
     set(KEY_QC_SUPPORTED_AE_BRACKET_MODES, "Off,AE-Bracket");
     setAEBracket(AE_BRACKET_OFF);
+
+    //Set AF Bracketing.
+    for(int i=0;i < m_pCapability->supported_focus_modes_cnt; i++) {
+        if ((CAM_FOCUS_MODE_AUTO == m_pCapability->supported_focus_modes[i]) &&
+                ((m_pCapability->qcom_supported_feature_mask &
+                        CAM_QCOM_FEATURE_UBIFOCUS) > 0)) {
+            String8 afBracketingValues = createValuesStringFromMap(
+                    AF_BRACKETING_MODES_MAP,
+                    sizeof(AF_BRACKETING_MODES_MAP) / sizeof(QCameraMap));
+            set(KEY_QC_SUPPORTED_AF_BRACKET_MODES, afBracketingValues);
+            setAFBracket(AF_BRACKET_OFF);
+         }
+    }
+
+    //Set Chroma Flash.
+    if ((m_pCapability->supported_flash_modes_cnt > 0) &&
+            (m_pCapability->qcom_supported_feature_mask &
+            CAM_QCOM_FEATURE_CHROMA_FLASH) > 0) {
+        String8 chromaFlashValues = createValuesStringFromMap(
+                CHROMA_FLASH_MODES_MAP,
+                sizeof(CHROMA_FLASH_MODES_MAP) / sizeof(QCameraMap));
+        set(KEY_QC_SUPPORTED_CHROMA_FLASH_MODES, chromaFlashValues);
+        setChromaFlash(CHROMA_FLASH_OFF);
+    }
+
+    //Set Opti Zoom.
+    if (m_pCapability->zoom_supported &&
+            (m_pCapability->qcom_supported_feature_mask &
+            CAM_QCOM_FEATURE_OPTIZOOM) > 0){
+        String8 optiZoomValues = createValuesStringFromMap(
+                OPTI_ZOOM_MODES_MAP,
+                sizeof(OPTI_ZOOM_MODES_MAP) / sizeof(QCameraMap));
+        set(KEY_QC_SUPPORTED_OPTI_ZOOM_MODES, optiZoomValues);
+        setOptiZoom(OPTI_ZOOM_OFF);
+    }
 
     // Set Denoise
     set(KEY_QC_SUPPORTED_DENOISE, "denoise-off,denoise-on");
@@ -4413,16 +4592,6 @@ int32_t QCameraParameters::init(cam_capability_t *capabilities,
             capabilities->livesnapshot_sizes_tbl[i] = new_vid_sizes_cam1[i];
         capabilities->livesnapshot_sizes_tbl_cnt = CAM1_VID_TBL_SIZE;
     }
-
-    // For CTS
-    capabilities->fps_ranges_tbl_cnt = 2;
-    capabilities->fps_ranges_tbl[1].min_fps = 30.0f;
-    capabilities->fps_ranges_tbl[1].max_fps = 30.0f;
-    capabilities->fps_ranges_tbl[1].video_min_fps = 30.0f;
-    capabilities->fps_ranges_tbl[1].video_max_fps = 30.0f;
-
-    // Set default sharpness to 1
-    capabilities->sharpness_ctrl.def_value = 6;
 
     m_pCapability = capabilities;
     m_pCamOpsTbl = mmOps;
