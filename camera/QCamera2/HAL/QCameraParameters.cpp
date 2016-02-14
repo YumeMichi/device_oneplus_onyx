@@ -3986,6 +3986,8 @@ int32_t QCameraParameters::initDefaultParameters()
                            sizeof(hal_version),
                            &hal_version);
 
+    bool isRearCam = m_pCapability->position == CAM_POSITION_BACK;
+
     /*************************Initialize Values******************************/
     // Set read only parameters from camera capability
     set(KEY_SMOOTH_ZOOM_SUPPORTED, VALUE_FALSE);
@@ -3999,9 +4001,15 @@ int32_t QCameraParameters::initDefaultParameters()
     set(KEY_MAX_NUM_DETECTED_FACES_SW, 5);
     set(KEY_QC_MAX_NUM_REQUESTED_FACES, 5);
     // Set focal length, horizontal view angle, and vertical view angle
-    setFloat(KEY_FOCAL_LENGTH, 3.79);
-    setFloat(KEY_HORIZONTAL_VIEW_ANGLE, 63.1);
-    setFloat(KEY_VERTICAL_VIEW_ANGLE, 49.1);
+    if (isRearCam) {
+        setFloat(KEY_FOCAL_LENGTH, 3.79);
+        setFloat(KEY_HORIZONTAL_VIEW_ANGLE, 63.1);
+        setFloat(KEY_VERTICAL_VIEW_ANGLE, 49.1);
+    } else {
+        setFloat(KEY_FOCAL_LENGTH, 3.37);
+        setFloat(KEY_HORIZONTAL_VIEW_ANGLE, 56.3);
+        setFloat(KEY_VERTICAL_VIEW_ANGLE, 43.7);
+    }
     set(QCameraParameters::KEY_FOCUS_DISTANCES, "Infinity,Infinity,Infinity");
     set(KEY_QC_AUTO_HDR_SUPPORTED, VALUE_TRUE);
     // Set supported preview sizes
@@ -4091,34 +4099,59 @@ int32_t QCameraParameters::initDefaultParameters()
     set(KEY_VIDEO_FRAME_FORMAT, PIXEL_FORMAT_YUV420SP);
 
     // Set supported picture formats
-    set(KEY_SUPPORTED_PICTURE_FORMATS, "jpeg,bayer-mipi-10grbg,bayer-ideal-qcom-10grbg,bayer-qcom-10grbg,yuv422sp");
+    if (isRearCam) {
+        set(KEY_SUPPORTED_PICTURE_FORMATS, "jpeg,bayer-mipi-10grbg,bayer-ideal-qcom-10grbg,bayer-qcom-10grbg,yuv422sp");
+    } else {
+        set(KEY_SUPPORTED_PICTURE_FORMATS, "jpeg,bayer-mipi-10bggr,bayer-ideal-qcom-10bggr,bayer-qcom-10bggr,yuv422sp");
+    }
 
     // Set default picture Format
     CameraParameters::setPictureFormat(PIXEL_FORMAT_JPEG);
 
     // Set raw image size
-    set(KEY_QC_RAW_PICUTRE_SIZE, "4208x3120");
+    if (isRearCam) {
+        set(KEY_QC_RAW_PICUTRE_SIZE, "4208x3120");
+    } else {
+        set(KEY_QC_RAW_PICUTRE_SIZE, "3264x2448");
+    }
 
     //set default jpeg quality and thumbnail quality
     set(KEY_JPEG_QUALITY, 100);
     set(KEY_JPEG_THUMBNAIL_QUALITY, 85);
 
     // Set FPS ranges
-    set(KEY_SUPPORTED_PREVIEW_FPS_RANGE, "(7500,30060),(7500,60000),(7500,120000)");
-    m_default_fps_range = (cam_fps_range_t){7.5, 30.0, 30.0, 120.0};
+    if (isRearCam) {
+        set(KEY_SUPPORTED_PREVIEW_FPS_RANGE, "(7500,30060),(7500,60000),(7500,120000)");
+        m_default_fps_range = (cam_fps_range_t){7.5, 30.0, 30.0, 120.0};
+    } else {
+        set(KEY_SUPPORTED_PREVIEW_FPS_RANGE, "(7500,30000),(15000,30000)");
+        m_default_fps_range = (cam_fps_range_t){7.5, 30.0, 30.0, 30.0};
+    }
 
     //Set video fps same as preview fps
-    setPreviewFpsRange(7.5, 30.0, 30.0, 120.0);
+    if (isRearCam) {
+        setPreviewFpsRange(7.5, 30.0, 30.0, 120.0);
+    } else {
+        setPreviewFpsRange(7.5, 30.0, 30.0, 30.0);
+    }
 
     // Set legacy preview fps
     set(KEY_SUPPORTED_PREVIEW_FRAME_RATES, "8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30");
     CameraParameters::setPreviewFrameRate(30);
 
     // Set supported focus modes
-    set(KEY_SUPPORTED_FOCUS_MODES, "auto,infinity,macro,continuous-video,continuous-picture,manual");
+    if (isRearCam) {
+        set(KEY_SUPPORTED_FOCUS_MODES, "auto,infinity,macro,continuous-video,continuous-picture,manual");
+    } else {
+        set(KEY_SUPPORTED_FOCUS_MODES, "fixed");
+    }
 
     // Set default focus mode and update corresponding parameter buf
-    setFocusMode(FOCUS_MODE_CONTINUOUS_PICTURE);
+    if (isRearCam) {
+        setFocusMode(FOCUS_MODE_CONTINUOUS_PICTURE);
+    } else {
+        setFocusMode(FOCUS_MODE_FIXED);
+    }
 
     // Set focus areas
     if (m_pCapability->max_num_focus_areas > MAX_ROI) {
@@ -4232,7 +4265,11 @@ int32_t QCameraParameters::initDefaultParameters()
     set(KEY_QC_MAX_WB_CCT, m_pCapability->max_wb_cct);
 
     // Set Flash mode
-    set(KEY_SUPPORTED_FLASH_MODES, "off,auto,on,torch");
+    if (isRearCam) {
+        set(KEY_SUPPORTED_FLASH_MODES, "off,auto,on,torch");
+    } else {
+        set(KEY_SUPPORTED_FLASH_MODES, "off");
+    }
     setFlash(FLASH_MODE_OFF);
 
     // Set Scene Mode
@@ -4250,7 +4287,11 @@ int32_t QCameraParameters::initDefaultParameters()
     set(KEY_QC_MAX_EXPOSURE_TIME, m_pCapability->max_exposure_time);
 
     // Set HFR
-    set(KEY_QC_SUPPORTED_VIDEO_HIGH_FRAME_RATE_MODES, "60,120,off");
+    if (isRearCam) {
+        set(KEY_QC_SUPPORTED_VIDEO_HIGH_FRAME_RATE_MODES, "60,120,off");
+    } else {
+        set(KEY_QC_SUPPORTED_VIDEO_HIGH_FRAME_RATE_MODES, "off");
+    }
     set(KEY_QC_VIDEO_HIGH_SPEED_RECORDING, "off");
     set(KEY_QC_VIDEO_HIGH_FRAME_RATE, "off");
     set(KEY_QC_SUPPORTED_HFR_SIZES, "1920x1080,1280x720");
@@ -4524,6 +4565,25 @@ static cam_dimension_t new_prvw_sizes_cam0[CAM0_PRVW_TBL_SIZE] = {
     {320, 240}
 };
 
+#define CAM1_PIC_TBL_SIZE 15
+static cam_dimension_t new_pic_sizes_cam1[CAM1_PIC_TBL_SIZE] = {
+    {3264, 2448},
+    {2592, 1944},
+    {2048, 1536},
+    {1920, 1080},
+    {1600, 1200},
+    {1280, 960},
+    {1280, 768},
+    {1280, 720},
+    {1024, 768},
+    {800, 600},
+    {800, 480},
+    {720, 480},
+    {640, 480},
+    {352, 288},
+    {320, 240}
+};
+
 #define CAM1_VID_TBL_SIZE 11
 static cam_dimension_t new_vid_sizes_cam1[CAM1_VID_TBL_SIZE] = {
     {2560, 1440},
@@ -4607,6 +4667,10 @@ int32_t QCameraParameters::init(cam_capability_t *capabilities,
                                         capabilities->hfr_tbl[CAM_HFR_MODE_60FPS].livesnapshot_sizes_tbl[i];
         capabilities->hfr_tbl_cnt = 3;
     } else if (capabilities->position == CAM_POSITION_FRONT) {
+        for (i = 0; i < CAM1_PIC_TBL_SIZE; i++)
+            capabilities->picture_sizes_tbl[i] = new_pic_sizes_cam1[i];
+        capabilities->picture_sizes_tbl_cnt = CAM1_PIC_TBL_SIZE;
+
         for (i = 0; i < CAM1_VID_TBL_SIZE; i++)
             capabilities->video_sizes_tbl[i] = new_vid_sizes_cam1[i];
         capabilities->video_sizes_tbl_cnt = CAM1_VID_TBL_SIZE;
