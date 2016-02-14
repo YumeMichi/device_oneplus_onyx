@@ -43,3 +43,8 @@ PRODUCT_MANUFACTURER := OnePlus
 #TARGET_KERNEL_CONFIG := onyx_defconfig
 #TARGET_VARIANT_CONFIG := onyx_defconfig
 #TARGET_SELINUX_CONFIG := onyx_defconfig
+
+# enable stock zip packages flash
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    ro.build.product=ONE \
+    ro.product.device=ONE
