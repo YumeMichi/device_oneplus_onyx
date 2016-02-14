@@ -4125,7 +4125,7 @@ int32_t QCameraParameters::initDefaultParameters()
     m_pCapability->saturation_ctrl.min_value = 0;
     m_pCapability->saturation_ctrl.max_value = 10;
     m_pCapability->saturation_ctrl.step = 1;
-    m_pCapability->saturation_ctrl.def_value = 1;
+    m_pCapability->saturation_ctrl.def_value = 5;
     set(KEY_QC_MIN_SATURATION, m_pCapability->saturation_ctrl.min_value);
     set(KEY_QC_MAX_SATURATION, m_pCapability->saturation_ctrl.max_value);
     set(KEY_QC_SATURATION_STEP, m_pCapability->saturation_ctrl.step);
