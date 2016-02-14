@@ -4414,8 +4414,7 @@ int32_t QCameraParameters::initDefaultParameters()
     setDISValue(VALUE_DISABLE);
 
     // Set Histogram
-    set(KEY_QC_SUPPORTED_HISTOGRAM_MODES,
-        m_pCapability->histogram_supported ? enableDisableValues : "");
+    set(KEY_QC_SUPPORTED_HISTOGRAM_MODES, enableDisableValues);
     set(KEY_QC_HISTOGRAM, VALUE_DISABLE);
 
     //Set Red Eye Reduction
