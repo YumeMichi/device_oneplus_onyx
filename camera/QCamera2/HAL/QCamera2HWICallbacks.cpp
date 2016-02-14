@@ -1306,6 +1306,14 @@ void QCamera2HardwareInterface::metadata_stream_cb_routine(mm_camera_super_buf_t
     if(pMetaData->is_ae_params_valid) {
         pme->mExifParams.ae_params = pMetaData->ae_params;
         pme->mFlashNeeded = pMetaData->ae_params.flash_needed;
+        /* Cap exposure time to 1/30th of a second */
+        if (pMetaData->ae_params.real_gain > 2.0f) {
+            if (!pme->mParameters.getExpTime30Fps())
+                pme->mParameters.setExpTime30Fps(1);
+        } else {
+            if (pme->mParameters.getExpTime30Fps())
+                pme->mParameters.setExpTime30Fps(0);
+        }
     }
     if(pMetaData->is_awb_params_valid) {
         pme->mExifParams.awb_params = pMetaData->awb_params;
