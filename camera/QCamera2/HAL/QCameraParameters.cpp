@@ -4715,6 +4715,152 @@ static cam_dimension_t new_prvw_sizes_cam1[CAM1_PRVW_TBL_SIZE] = {
     {320, 240}
 };
 
+#define PRVW_FMT_TBL_SIZE 3
+static cam_format_t new_prvw_fmts[PRVW_FMT_TBL_SIZE] = {
+    CAM_FORMAT_YUV_420_NV21,
+    CAM_FORMAT_YUV_420_YV12,
+    CAM_FORMAT_YUV_420_NV12_VENUS
+};
+
+#define CAM0_FPS_TBL_SIZE 3
+static cam_fps_range_t new_fps_ranges_cam0[CAM0_FPS_TBL_SIZE] = {
+    {7.5, 30.06, 0.0, 0.0},
+    {7.5, 60.0, 0.0, 0.0},
+    {7.5, 120.0, 0.0, 0.0}
+};
+
+#define CAM1_FPS_TBL_SIZE 2
+static cam_fps_range_t new_fps_ranges_cam1[CAM1_FPS_TBL_SIZE] = {
+    {7.5, 30.0, 0.0, 0.0},
+    {15.0, 30.0, 0.0, 0.0}
+};
+
+#define CAM0_FOCUS_MODES_SIZE 6
+static cam_focus_mode_type new_focus_modes_cam0[CAM0_FOCUS_MODES_SIZE] = {
+    CAM_FOCUS_MODE_AUTO,
+    CAM_FOCUS_MODE_INFINITY,
+    CAM_FOCUS_MODE_MACRO,
+    CAM_FOCUS_MODE_CONTINOUS_VIDEO,
+    CAM_FOCUS_MODE_CONTINOUS_PICTURE,
+    CAM_FOCUS_MODE_MANUAL
+};
+
+#define AEC_MODES_SIZE 5
+static cam_auto_exposure_mode_type new_aec_modes[AEC_MODES_SIZE] = {
+    CAM_AEC_MODE_FRAME_AVERAGE,
+    CAM_AEC_MODE_CENTER_WEIGHTED,
+    CAM_AEC_MODE_SPOT_METERING,
+    CAM_AEC_MODE_SPOT_METERING_ADV,
+    CAM_AEC_MODE_CENTER_WEIGHTED_ADV
+};
+
+#define ANTIBANDING_MODES_SIZE 4
+static cam_antibanding_mode_type new_antibanding_modes[ANTIBANDING_MODES_SIZE] = {
+    CAM_ANTIBANDING_MODE_OFF,
+    CAM_ANTIBANDING_MODE_60HZ,
+    CAM_ANTIBANDING_MODE_50HZ,
+    CAM_ANTIBANDING_MODE_AUTO
+};
+
+#define EFFECT_MODES_SIZE 12
+static cam_effect_mode_type new_effect_modes[EFFECT_MODES_SIZE] = {
+    CAM_EFFECT_MODE_OFF,
+    CAM_EFFECT_MODE_MONO,
+    CAM_EFFECT_MODE_NEGATIVE,
+    CAM_EFFECT_MODE_SOLARIZE,
+    CAM_EFFECT_MODE_SEPIA,
+    CAM_EFFECT_MODE_POSTERIZE,
+    CAM_EFFECT_MODE_WHITEBOARD,
+    CAM_EFFECT_MODE_BLACKBOARD,
+    CAM_EFFECT_MODE_AQUA,
+    CAM_EFFECT_MODE_EMBOSS,
+    CAM_EFFECT_MODE_SKETCH,
+    CAM_EFFECT_MODE_NEON
+};
+
+#define WB_MODES_SIZE 9
+static cam_wb_mode_type new_wb_modes[WB_MODES_SIZE] = {
+    CAM_WB_MODE_AUTO,
+    CAM_WB_MODE_INCANDESCENT,
+    CAM_WB_MODE_FLUORESCENT,
+    CAM_WB_MODE_WARM_FLUORESCENT,
+    CAM_WB_MODE_DAYLIGHT,
+    CAM_WB_MODE_CLOUDY_DAYLIGHT,
+    CAM_WB_MODE_TWILIGHT,
+    CAM_WB_MODE_SHADE,
+    CAM_WB_MODE_CCT
+};
+
+#define CAM0_FLASH_MODES_SIZE 4
+static cam_flash_mode_t new_flash_modes_cam0[CAM0_FLASH_MODES_SIZE] = {
+    CAM_FLASH_MODE_OFF,
+    CAM_FLASH_MODE_AUTO,
+    CAM_FLASH_MODE_ON,
+    CAM_FLASH_MODE_TORCH
+};
+
+#define SCENE_MODES_SIZE 20
+static cam_scene_mode_type new_scene_modes[SCENE_MODES_SIZE] = {
+    CAM_SCENE_MODE_OFF,
+    CAM_SCENE_MODE_AUTO,
+    CAM_SCENE_MODE_LANDSCAPE,
+    CAM_SCENE_MODE_SNOW,
+    CAM_SCENE_MODE_BEACH,
+    CAM_SCENE_MODE_SUNSET,
+    CAM_SCENE_MODE_NIGHT,
+    CAM_SCENE_MODE_PORTRAIT,
+    CAM_SCENE_MODE_BACKLIGHT,
+    CAM_SCENE_MODE_SPORTS,
+    CAM_SCENE_MODE_ANTISHAKE,
+    CAM_SCENE_MODE_FLOWERS,
+    CAM_SCENE_MODE_CANDLELIGHT,
+    CAM_SCENE_MODE_FIREWORKS,
+    CAM_SCENE_MODE_PARTY,
+    CAM_SCENE_MODE_NIGHT_PORTRAIT,
+    CAM_SCENE_MODE_THEATRE,
+    CAM_SCENE_MODE_ACTION,
+    CAM_SCENE_MODE_AR,
+    CAM_SCENE_MODE_HDR
+};
+
+#define ISO_MODES_SIZE 8
+static cam_iso_mode_type new_iso_modes[ISO_MODES_SIZE] = {
+    CAM_ISO_MODE_AUTO,
+    CAM_ISO_MODE_DEBLUR,
+    CAM_ISO_MODE_100,
+    CAM_ISO_MODE_200,
+    CAM_ISO_MODE_400,
+    CAM_ISO_MODE_800,
+    CAM_ISO_MODE_1600,
+    CAM_ISO_MODE_3200
+};
+
+#define FOCUS_ALGOS_SIZE 4
+static cam_focus_algorithm_type new_focus_algos[FOCUS_ALGOS_SIZE] = {
+    CAM_FOCUS_ALGO_AUTO,
+    CAM_FOCUS_ALGO_SPOT,
+    CAM_FOCUS_ALGO_CENTER_WEIGHTED,
+    CAM_FOCUS_ALGO_AVERAGE
+};
+
+#define ZOOM_RATIOS_SIZE 79
+static int new_zoom_ratios[ZOOM_RATIOS_SIZE] = {
+    100, 102, 104, 107, 109, 112,
+    114, 117, 120, 123, 125, 128,
+    131, 135, 138, 141, 144, 148,
+    151, 155, 158, 162, 166, 170,
+    174, 178, 182, 186, 190, 195,
+    200, 204, 209, 214, 219, 224,
+    229, 235, 240, 246, 251, 257,
+    263, 270, 276, 282, 289, 296,
+    303, 310, 317, 324, 332, 340,
+    348, 356, 364, 373, 381, 390,
+    400, 409, 418, 428, 438, 448,
+    459, 470, 481, 492, 503, 515,
+    527, 540, 552, 565, 578, 592,
+    606
+};
+
 /*===========================================================================
  * FUNCTION   : init
  *
@@ -4736,8 +4882,110 @@ int32_t QCameraParameters::init(cam_capability_t *capabilities,
     int32_t rc = NO_ERROR;
     int i, x;
 
-    // Inject modified video/preview size tables
+    // Configure both cameras from scratch
+    capabilities->smooth_zoom_supported = 0;
+    capabilities->zoom_supported = 1;
+    capabilities->video_snapshot_supported = 1;
+    capabilities->video_stablization_supported = 0;
+    capabilities->auto_exposure_lock_supported = 1;
+    capabilities->auto_wb_lock_supported = 1;
+    capabilities->qcom_supported_feature_mask = 1663;
+    capabilities->max_num_roi = 5;
+    capabilities->auto_hdr_supported = 1;
+
+    for (i = 0; i < PRVW_FMT_TBL_SIZE; i++)
+        capabilities->supported_preview_fmts[i] = new_prvw_fmts[i];
+    capabilities->supported_preview_fmt_cnt = PRVW_FMT_TBL_SIZE;
+
+    capabilities->supported_raw_fmts[0] = CAM_FORMAT_JPEG;
+    capabilities->supported_raw_fmt_cnt = 1;
+
+    capabilities->max_num_focus_areas = 5;
+    capabilities->max_num_metering_areas = 5;
+
+    capabilities->saturation_ctrl.min_value = 0;
+    capabilities->saturation_ctrl.max_value = 10;
+    capabilities->saturation_ctrl.step = 1;
+    capabilities->saturation_ctrl.def_value = 5;
+
+    capabilities->sharpness_ctrl.min_value = 0;
+    capabilities->sharpness_ctrl.max_value = 36;
+    capabilities->sharpness_ctrl.step = 6;
+    capabilities->sharpness_ctrl.def_value = 12;
+
+    capabilities->contrast_ctrl.min_value = 0;
+    capabilities->contrast_ctrl.max_value = 10;
+    capabilities->contrast_ctrl.step = 1;
+    capabilities->contrast_ctrl.def_value = 5;
+
+    capabilities->sce_ctrl.min_value = -100;
+    capabilities->sce_ctrl.max_value = 100;
+    capabilities->sce_ctrl.step = 10;
+    capabilities->sce_ctrl.def_value = 0;
+
+    capabilities->brightness_ctrl.min_value = 0;
+    capabilities->brightness_ctrl.max_value = 6;
+    capabilities->brightness_ctrl.step = 1;
+    capabilities->brightness_ctrl.def_value = 3;
+
+    for (i = 0; i < AEC_MODES_SIZE; i++)
+        capabilities->supported_aec_modes[i] = new_aec_modes[i];
+    capabilities->supported_aec_modes_cnt = AEC_MODES_SIZE;
+
+    capabilities->exposure_compensation_max = 12;
+    capabilities->exposure_compensation_min = -12;
+    capabilities->exposure_compensation_step = (float)1/6;
+    capabilities->exposure_compensation_default = 0;
+
+    for (i = 0; i < ANTIBANDING_MODES_SIZE; i++)
+        capabilities->supported_antibandings[i] = new_antibanding_modes[i];
+    capabilities->supported_antibandings_cnt = ANTIBANDING_MODES_SIZE;
+
+    for (i = 0; i < EFFECT_MODES_SIZE; i++)
+        capabilities->supported_effects[i] = new_effect_modes[i];
+    capabilities->supported_effects_cnt = EFFECT_MODES_SIZE;
+
+    for (i = 0; i < WB_MODES_SIZE; i++)
+        capabilities->supported_white_balances[i] = new_wb_modes[i];
+    capabilities->supported_white_balances_cnt = WB_MODES_SIZE;
+
+    for (i = 0; i < SCENE_MODES_SIZE; i++)
+        capabilities->supported_scene_modes[i] = new_scene_modes[i];
+    capabilities->supported_scene_modes_cnt = SCENE_MODES_SIZE;
+
+    for (i = 0; i < ISO_MODES_SIZE; i++)
+        capabilities->supported_iso_modes[i] = new_iso_modes[i];
+    capabilities->supported_iso_modes_cnt = ISO_MODES_SIZE;
+
+    for (i = 0; i < FOCUS_ALGOS_SIZE; i++)
+        capabilities->supported_focus_algos[i] = new_focus_algos[i];
+    capabilities->supported_focus_algos_cnt = FOCUS_ALGOS_SIZE;
+
+    for (i = 0; i < ZOOM_RATIOS_SIZE; i++)
+        capabilities->zoom_ratio_tbl[i] = new_zoom_ratios[i];
+    capabilities->zoom_ratio_tbl_cnt = ZOOM_RATIOS_SIZE;
+
+    capabilities->histogram_supported = 1;
+
     if (capabilities->position == CAM_POSITION_BACK) {
+        capabilities->focal_length = 3.79;
+        capabilities->hor_view_angle = 63.1;
+        capabilities->ver_view_angle = 49.1;
+        capabilities->raw_dim.width = 4208;
+        capabilities->raw_dim.height = 3120;
+
+        for (i = 0; i < CAM0_FLASH_MODES_SIZE; i++)
+            capabilities->supported_flash_modes[i] = new_flash_modes_cam0[i];
+        capabilities->supported_flash_modes_cnt = CAM0_FLASH_MODES_SIZE;
+
+        for (i = 0; i < CAM0_FOCUS_MODES_SIZE; i++)
+            capabilities->supported_focus_modes[i] = new_focus_modes_cam0[i];
+        capabilities->supported_focus_modes_cnt = CAM0_FOCUS_MODES_SIZE;
+
+        for (i = 0; i < CAM0_FPS_TBL_SIZE; i++)
+            capabilities->fps_ranges_tbl[i] = new_fps_ranges_cam0[i];
+        capabilities->fps_ranges_tbl_cnt = CAM0_FPS_TBL_SIZE;
+
         for (i = 0; i < CAM0_PIC_TBL_SIZE; i++)
             capabilities->picture_sizes_tbl[i] = new_pic_sizes_cam0[i];
         capabilities->picture_sizes_tbl_cnt = CAM0_PIC_TBL_SIZE;
@@ -4754,18 +5002,41 @@ int32_t QCameraParameters::init(cam_capability_t *capabilities,
             capabilities->preview_sizes_tbl[i] = new_prvw_sizes_cam0[i];
         capabilities->preview_sizes_tbl_cnt = CAM0_PRVW_TBL_SIZE;
 
-        // Add 90FPS HFR mode up to 720p
-        x = CAM_HFR_MODE_90FPS;
-        capabilities->hfr_tbl[x].mode = (cam_hfr_mode_t)x;
-        capabilities->hfr_tbl[x].dim = (cam_dimension_t){1280, 720};
-        capabilities->hfr_tbl[x].frame_skip = 0;
-        capabilities->hfr_tbl[x].livesnapshot_sizes_tbl_cnt =
-                                        capabilities->hfr_tbl[CAM_HFR_MODE_120FPS].livesnapshot_sizes_tbl_cnt;
-        for (i = 0; i < capabilities->hfr_tbl[x].livesnapshot_sizes_tbl_cnt; i++)
-            capabilities->hfr_tbl[x].livesnapshot_sizes_tbl[i] =
-                                        capabilities->hfr_tbl[CAM_HFR_MODE_60FPS].livesnapshot_sizes_tbl[i];
+        for (i = 0; i < 3; i++) {
+            int x;
+            cam_hfr_mode_t hfr_mode = (cam_hfr_mode_t)(CAM_HFR_MODE_120FPS - i);
+            if (hfr_mode == CAM_HFR_MODE_90FPS)
+                hfr_mode = (cam_hfr_mode_t)(hfr_mode - 1);
+            capabilities->hfr_tbl[i].mode = hfr_mode;
+            if (capabilities->hfr_tbl[i].mode == CAM_HFR_MODE_60FPS)
+                capabilities->hfr_tbl[i].dim = (cam_dimension_t){1920, 1080};
+            else
+                capabilities->hfr_tbl[i].dim = (cam_dimension_t){1280, 720};
+            capabilities->hfr_tbl[i].frame_skip = 0;
+            capabilities->hfr_tbl[i].livesnapshot_sizes_tbl_cnt = capabilities->livesnapshot_sizes_tbl_cnt;
+            for (x = 0; x < capabilities->livesnapshot_sizes_tbl_cnt; x++)
+                capabilities->hfr_tbl[i].livesnapshot_sizes_tbl[x] = capabilities->livesnapshot_sizes_tbl[x];
+        }
         capabilities->hfr_tbl_cnt = 3;
     } else if (capabilities->position == CAM_POSITION_FRONT) {
+        capabilities->focal_length = 3.37;
+        capabilities->hor_view_angle = 56.3;
+        capabilities->ver_view_angle = 43.7;
+        capabilities->raw_dim.width = 3264;
+        capabilities->raw_dim.height = 2448;
+
+        capabilities->supported_focus_modes[0] = CAM_FOCUS_MODE_FIXED;
+        capabilities->supported_focus_modes_cnt = 1;
+
+        capabilities->supported_flash_modes_cnt = 0;
+
+        capabilities->hfr_tbl[0].mode = CAM_HFR_MODE_OFF;
+        capabilities->hfr_tbl_cnt = 1;
+
+        for (i = 0; i < CAM1_FPS_TBL_SIZE; i++)
+            capabilities->fps_ranges_tbl[i] = new_fps_ranges_cam1[i];
+        capabilities->fps_ranges_tbl_cnt = CAM1_FPS_TBL_SIZE;
+
         for (i = 0; i < CAM1_PIC_TBL_SIZE; i++)
             capabilities->picture_sizes_tbl[i] = new_pic_sizes_cam1[i];
         capabilities->picture_sizes_tbl_cnt = CAM1_PIC_TBL_SIZE;
