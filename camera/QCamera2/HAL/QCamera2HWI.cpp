@@ -566,7 +566,7 @@ void QCamera2HardwareInterface::release_recording_frame(
         ALOGE("NULL camera device");
         return;
     }
-    CDBG_HIGH("%s: E", __func__);
+    CDBG("%s: E", __func__);
     hw->lockAPI();
     qcamera_api_result_t apiResult;
     int32_t ret = hw->processAPI(QCAMERA_SM_EVT_RELEASE_RECORIDNG_FRAME, (void *)opaque);
@@ -574,7 +574,7 @@ void QCamera2HardwareInterface::release_recording_frame(
         hw->waitAPIResult(QCAMERA_SM_EVT_RELEASE_RECORIDNG_FRAME, &apiResult);
     }
     hw->unlockAPI();
-    CDBG_HIGH("%s: X", __func__);
+    CDBG("%s: X", __func__);
 }
 
 /*===========================================================================
@@ -2241,7 +2241,7 @@ int QCamera2HardwareInterface::releaseRecordingFrame(const void * opaque)
     int32_t rc = UNKNOWN_ERROR;
     QCameraVideoChannel *pChannel =
         (QCameraVideoChannel *)m_channels[QCAMERA_CH_TYPE_VIDEO];
-    CDBG_HIGH("%s: opaque data = %p", __func__,opaque);
+    CDBG("%s: opaque data = %p", __func__,opaque);
     if(pChannel != NULL) {
         rc = pChannel->releaseFrame(opaque, mStoreMetaDataInFrame > 0);
     }
@@ -3739,12 +3739,12 @@ int32_t QCamera2HardwareInterface::sendEvtNotify(int32_t msg_type,
 int32_t QCamera2HardwareInterface::processAutoFocusEvent(cam_auto_focus_data_t &focus_data)
 {
     int32_t ret = NO_ERROR;
-    CDBG_HIGH("%s: E",__func__);
+    CDBG("%s: E",__func__);
 
     m_currentFocusState = focus_data.focus_state;
 
     cam_focus_mode_type focusMode = mParameters.getFocusMode();
-    CDBG_HIGH("[AF_DBG] %s: focusMode=%d, m_currentFocusState=%d, m_bAFRunning=%d",
+    CDBG("[AF_DBG] %s: focusMode=%d, m_currentFocusState=%d, m_bAFRunning=%d",
          __func__, focusMode, m_currentFocusState, isAFRunning());
 
     switch (focusMode) {
@@ -3796,16 +3796,16 @@ int32_t QCamera2HardwareInterface::processAutoFocusEvent(cam_auto_focus_data_t &
     case CAM_FOCUS_MODE_FIXED:
     case CAM_FOCUS_MODE_EDOF:
     default:
-        CDBG_HIGH("%s: no ops for autofocus event in focusmode %d", __func__, focusMode);
+        CDBG("%s: no ops for autofocus event in focusmode %d", __func__, focusMode);
         break;
     }
 
     // we save cam_auto_focus_data_t.focus_pos to parameters,
     // in any focus mode.
-    CDBG_HIGH("%s, update focus position: %d", __func__, focus_data.focus_pos);
+    CDBG("%s, update focus position: %d", __func__, focus_data.focus_pos);
     mParameters.updateCurrentFocusPosition(focus_data.focus_pos);
 
-    CDBG_HIGH("%s: X",__func__);
+    CDBG("%s: X",__func__);
     return ret;
 }
 
@@ -4430,6 +4430,7 @@ int32_t QCamera2HardwareInterface::addVideoChannel()
     }
 
     m_channels[QCAMERA_CH_TYPE_VIDEO] = pChannel;
+
     return rc;
 }
 
