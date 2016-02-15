@@ -1201,7 +1201,7 @@ int QCamera2HardwareInterface::openCamera()
     mCameraHandle->ops->register_event_notify(mCameraHandle->camera_handle,
                                               camEvtHandle,
                                               (void *) this);
-
+#if 0
     /* get max pic size for jpeg work buf calculation*/
     for(i = 0; i < gCamCapability[mCameraId]->picture_sizes_tbl_cnt - 1; i++)
     {
@@ -1214,6 +1214,15 @@ int QCamera2HardwareInterface::openCamera()
         m_max_pic_height = l_curr_height;
       }
     }
+#endif
+    if (mCameraId) { // front cam
+        m_max_pic_width = 3264;
+        m_max_pic_height = 2448;
+    } else { // back cam
+        m_max_pic_width = 4208;
+        m_max_pic_height = 3120;
+    }
+
     //reset the preview and video sizes tables in case they were changed earlier
     copyList(savedSizes[mCameraId].all_preview_sizes, gCamCapability[mCameraId]->preview_sizes_tbl,
              savedSizes[mCameraId].all_preview_sizes_cnt);
