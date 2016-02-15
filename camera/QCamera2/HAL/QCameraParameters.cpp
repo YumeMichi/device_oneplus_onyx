@@ -4796,7 +4796,7 @@ static cam_flash_mode_t new_flash_modes_cam0[CAM0_FLASH_MODES_SIZE] = {
     CAM_FLASH_MODE_TORCH
 };
 
-#define SCENE_MODES_SIZE 20
+#define SCENE_MODES_SIZE 19
 static cam_scene_mode_type new_scene_modes[SCENE_MODES_SIZE] = {
     CAM_SCENE_MODE_OFF,
     CAM_SCENE_MODE_AUTO,
@@ -4816,8 +4816,7 @@ static cam_scene_mode_type new_scene_modes[SCENE_MODES_SIZE] = {
     CAM_SCENE_MODE_NIGHT_PORTRAIT,
     CAM_SCENE_MODE_THEATRE,
     CAM_SCENE_MODE_ACTION,
-    CAM_SCENE_MODE_AR,
-    CAM_SCENE_MODE_HDR
+    CAM_SCENE_MODE_AR
 };
 
 #define ISO_MODES_SIZE 8
@@ -4888,7 +4887,7 @@ int32_t QCameraParameters::init(cam_capability_t *capabilities,
     capabilities->auto_wb_lock_supported = 1;
     capabilities->qcom_supported_feature_mask = 1663;
     capabilities->max_num_roi = 5;
-    capabilities->auto_hdr_supported = 1;
+    capabilities->auto_hdr_supported = 0;
 
     for (i = 0; i < PRVW_FMT_TBL_SIZE; i++)
         capabilities->supported_preview_fmts[i] = new_prvw_fmts[i];
