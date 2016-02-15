@@ -5830,6 +5830,7 @@ int32_t QCameraParameters::setZoom(int zoom_level)
  *==========================================================================*/
 int32_t  QCameraParameters::setISOValue(const char *isoValue)
 {
+#if 0
     char iso[PROPERTY_VALUE_MAX];
     int32_t continous_iso = 0;
     // Check if continuous ISO is set
@@ -5858,6 +5859,8 @@ int32_t  QCameraParameters::setISOValue(const char *isoValue)
     ALOGE("Invalid ISO value: %s",
           (isoValue == NULL) ? "NULL" : isoValue);
     return BAD_VALUE;
+#endif
+    return NO_ERROR;
 }
 
 /*===========================================================================
@@ -5874,6 +5877,7 @@ int32_t  QCameraParameters::setISOValue(const char *isoValue)
  *==========================================================================*/
 int32_t  QCameraParameters::setExposureTime(const char *expTimeStr)
 {
+#if 0
     if (expTimeStr != NULL) {
         int32_t expTimeUs = atoi(expTimeStr);
         int32_t min_exp_time = m_pCapability->min_exposure_time; /* 200 */
@@ -5893,19 +5897,18 @@ int32_t  QCameraParameters::setExposureTime(const char *expTimeStr)
             (expTimeUs >= min_exp_time && expTimeUs <= max_exp_time)) {
             CDBG_HIGH("%s, exposure time: %d", __func__, expTimeUs);
             updateParamEntry(KEY_QC_EXPOSURE_TIME, expTimeStr);
-            if (!mExpTime30Fps) {
-                AddSetParmEntryToBatch(m_pParamBuf,
+            return AddSetParmEntryToBatch(m_pParamBuf,
                                           CAM_INTF_PARM_EXPOSURE_TIME,
                                           sizeof(expTimeUs),
                                           &expTimeUs);
-            }
-            return NO_ERROR;
         }
     }
 
     ALOGE("Invalid exposure time, value: %s",
           (expTimeStr == NULL) ? "NULL" : expTimeStr);
     return BAD_VALUE;
+#endif
+    return NO_ERROR;
 }
 
 /*===========================================================================
