@@ -1307,7 +1307,8 @@ void QCamera2HardwareInterface::metadata_stream_cb_routine(mm_camera_super_buf_t
         pme->mExifParams.ae_params = pMetaData->ae_params;
         pme->mFlashNeeded = pMetaData->ae_params.flash_needed;
         /* Cap exposure time to 1/30th of a second */
-        if (pMetaData->ae_params.real_gain > 2.0f) {
+        if (pMetaData->ae_params.real_gain > 2.0f &&
+               !pme->mParameters.isHfrMode()) {
             if (!pme->mParameters.getExpTime30Fps())
                 pme->mParameters.setExpTime30Fps(1);
         } else {
