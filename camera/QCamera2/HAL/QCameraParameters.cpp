@@ -609,7 +609,7 @@ const QCameraParameters::QCameraMap QCameraParameters::CDS_MODES_MAP[] = {
 #define MIN_PP_BUF_CNT 1
 #define TOTAL_RAM_SIZE_512MB 536870912
 
-int mExpTime30Fps = 0;
+static int mExpTime30Fps = 0;
 
 /*===========================================================================
  * FUNCTION   : QCameraParameters
@@ -3544,7 +3544,7 @@ int32_t QCameraParameters::setWaveletDenoise(const QCameraParameters& params)
             return setWaveletDenoise(DENOISE_OFF);
         }
     }
-    const char *str = "denoise-on";
+    const char *str = DENOISE_ON;
     const char *prev_str = get(KEY_QC_DENOISE);
     if (str != NULL) {
         if (prev_str == NULL ||
@@ -4167,6 +4167,7 @@ int32_t QCameraParameters::initDefaultParameters()
         setPreviewFpsRange(min_fps, max_fps, min_fps, max_fps);
 
         // Set legacy preview fps
+        default_fps_index = 0;
         String8 fpsValues = createFpsString(m_pCapability->fps_ranges_tbl[default_fps_index]);
         set(KEY_SUPPORTED_PREVIEW_FRAME_RATES, fpsValues.string());
         CDBG_HIGH("%s: supported fps rates: %s", __func__, fpsValues.string());
@@ -4336,8 +4337,8 @@ int32_t QCameraParameters::initDefaultParameters()
     setISOValue(ISO_AUTO);
 
     // Set exposure time, we should get them from m_pCapability
-    m_pCapability->min_exposure_time = 100;
-    m_pCapability->max_exposure_time = 16000000;
+    m_pCapability->min_exposure_time = 200;
+    m_pCapability->max_exposure_time = 2000000;
     set(KEY_QC_MIN_EXPOSURE_TIME, m_pCapability->min_exposure_time);
     set(KEY_QC_MAX_EXPOSURE_TIME, m_pCapability->max_exposure_time);
     //setExposureTime("0");
@@ -4862,7 +4863,7 @@ int32_t QCameraParameters::init(cam_capability_t *capabilities,
                                 QCameraTorchInterface *torch)
 {
     int32_t rc = NO_ERROR;
-    int i, x;
+    int i;
 
     // Configure both cameras from scratch
     capabilities->smooth_zoom_supported = 0;
@@ -4879,7 +4880,7 @@ int32_t QCameraParameters::init(cam_capability_t *capabilities,
         capabilities->supported_preview_fmts[i] = new_prvw_fmts[i];
     capabilities->supported_preview_fmt_cnt = PRVW_FMT_TBL_SIZE;
 
-    capabilities->supported_raw_fmts[0] = CAM_FORMAT_JPEG;
+    capabilities->supported_raw_fmts[0] = CAM_FORMAT_YUV_422_NV16;
     capabilities->supported_raw_fmt_cnt = 1;
 
     capabilities->max_num_focus_areas = 5;
@@ -4984,22 +4985,21 @@ int32_t QCameraParameters::init(cam_capability_t *capabilities,
             capabilities->preview_sizes_tbl[i] = new_prvw_sizes_cam0[i];
         capabilities->preview_sizes_tbl_cnt = CAM0_PRVW_TBL_SIZE;
 
-        for (i = 0; i < 3; i++) {
-            int x;
-            cam_hfr_mode_t hfr_mode = (cam_hfr_mode_t)(CAM_HFR_MODE_120FPS - i);
-            if (hfr_mode == CAM_HFR_MODE_90FPS)
-                hfr_mode = (cam_hfr_mode_t)(hfr_mode - 1);
-            capabilities->hfr_tbl[i].mode = hfr_mode;
-            if (capabilities->hfr_tbl[i].mode == CAM_HFR_MODE_60FPS)
-                capabilities->hfr_tbl[i].dim = (cam_dimension_t){1920, 1080};
-            else
-                capabilities->hfr_tbl[i].dim = (cam_dimension_t){1280, 720};
-            capabilities->hfr_tbl[i].frame_skip = 0;
-            capabilities->hfr_tbl[i].livesnapshot_sizes_tbl_cnt = capabilities->livesnapshot_sizes_tbl_cnt;
-            for (x = 0; x < capabilities->livesnapshot_sizes_tbl_cnt; x++)
-                capabilities->hfr_tbl[i].livesnapshot_sizes_tbl[x] = capabilities->livesnapshot_sizes_tbl[x];
-        }
-        capabilities->hfr_tbl_cnt = 3;
+        capabilities->hfr_tbl_cnt = 2;
+
+        capabilities->hfr_tbl[0].mode = CAM_HFR_MODE_60FPS;
+        capabilities->hfr_tbl[0].dim = (cam_dimension_t){1920, 1080};
+        capabilities->hfr_tbl[0].frame_skip = 0;
+        capabilities->hfr_tbl[0].livesnapshot_sizes_tbl_cnt = capabilities->livesnapshot_sizes_tbl_cnt;
+        for (i = 0; i < capabilities->livesnapshot_sizes_tbl_cnt; i++)
+            capabilities->hfr_tbl[0].livesnapshot_sizes_tbl[i] = capabilities->livesnapshot_sizes_tbl[i];
+
+        capabilities->hfr_tbl[1].mode = CAM_HFR_MODE_120FPS;
+        capabilities->hfr_tbl[1].dim = (cam_dimension_t){1280, 720};
+        capabilities->hfr_tbl[1].frame_skip = 0;
+        capabilities->hfr_tbl[1].livesnapshot_sizes_tbl_cnt = capabilities->livesnapshot_sizes_tbl_cnt;
+        for (i = 0; i < capabilities->livesnapshot_sizes_tbl_cnt; i++)
+            capabilities->hfr_tbl[1].livesnapshot_sizes_tbl[i] = capabilities->livesnapshot_sizes_tbl[i];
     } else if (capabilities->position == CAM_POSITION_FRONT) {
         capabilities->focal_length = 3.37;
         capabilities->hor_view_angle = 56.3;
