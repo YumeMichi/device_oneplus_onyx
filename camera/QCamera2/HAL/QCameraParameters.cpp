@@ -1237,9 +1237,15 @@ int32_t QCameraParameters::setVideoSize(const QCameraParameters& params)
             CDBG("%s: Requested video size %d x %d", __func__, width, height);
             CameraParameters::setVideoSize(width, height);
 
-            // Set preview size to video size for 4k
-            if (m_bRecordingHint && ((width * height) >= (3840 * 2160)))
-                CameraParameters::setPreviewSize(width, height);
+            if (m_bRecordingHint) {
+                // Set preview size to video size for 4k
+                if ((width * height) >= (3840 * 2160))
+                    CameraParameters::setPreviewSize(width, height);
+                // Don't allow video preview size below 720p to prevent
+                // dead preview stream
+                else if ((width * height) <= (1280 * 720))
+                    CameraParameters::setPreviewSize(1280, 720);
+            }
             return NO_ERROR;
         }
     }
