@@ -3839,7 +3839,7 @@ void QCameraParameters::setExpTime30Fps(int onOff)
     mExpTime30Fps = onOff;
 
     if (onOff > 0)
-        expTimeUs = 33333;
+        expTimeUs = 33000;
     else
         expTimeUs = 0;
 
