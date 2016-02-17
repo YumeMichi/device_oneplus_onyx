@@ -2,7 +2,7 @@
 <!--
 /*
 ** Copyright 2013, The Android Open Source Project
-** Copyright 2014, The CyanogenMod Project
+** Copyright 2016, The CyanogenMod Project
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
@@ -26,8 +26,19 @@
     data icon on devices -->
     <bool name="config_hspa_data_distinguishable">true</bool>
 
-    <!-- Doze: does this device support STATE_DOZE and STATE_DOZE_SUSPEND?  -->
-    <bool name="doze_display_state_supported">true</bool>
+    <!-- Doze: pulse parameter - how long does it take to fade in? -->
+    <integer name="doze_pulse_duration_in">900</integer>
+
+    <!-- Doze: pulse parameter - once faded in, how long does it stay visible? -->
+    <integer name="doze_pulse_duration_visible">3000</integer>
+
+    <!-- Doze: pulse parameter - how long does it take to fade out? -->
+    <integer name="doze_pulse_duration_out">600</integer>
+
+    <!-- Doze: when to pulse after a buzzworthy notification arrives -->
+    <string name="doze_pulse_schedule" translatable="false">5s,15s,30s,60s</string>
+	
+    <!-- Doze: should the pickup sensor be used as a pulse signal? -->
     <bool name="doze_pulse_on_pick_up">true</bool>
 
 </resources>
