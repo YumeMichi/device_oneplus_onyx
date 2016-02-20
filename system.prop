@@ -39,3 +39,6 @@ ro.gps.agps_provider=1
 
 # cabl is handled by the panel
 ro.qualcomm.cabl=0
+
+# Snap
+persist.camera.cpp.duplication=false
