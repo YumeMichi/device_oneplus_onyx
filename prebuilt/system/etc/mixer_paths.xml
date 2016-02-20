@@ -524,8 +524,12 @@
         <ctl name="MultiMedia8 Mixer AFE_PCM_TX" value="1" />
     </path>
 
-    <path name="fm-virtual-record capture-fm">
+    <path name="fm-virtual-record">
         <ctl name="MultiMedia2 Mixer INTERNAL_FM_TX" value="1" />
+    </path>
+
+    <path name="fm-virtual-record capture-fm">
+        <path name="fm-virtual-record"  />
     </path>
 
     <path name="voice-call">

@@ -37,7 +37,6 @@ on early-boot
     write /sys/kernel/boot_adsp/boot 1
 
 on boot
-    # bluetooth
     chown bluetooth bluetooth /sys/module/bluetooth_power/parameters/power
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
@@ -46,8 +45,10 @@ on boot
     chown bluetooth bluetooth /sys/module/hci_uart/parameters/ath_btwrite
     chown system system /sys/module/sco/parameters/disable_esco
     chown bluetooth bluetooth /sys/module/hci_smd/parameters/hcismd_set
+    chown system system /sys/module/radio_iris_transport/parameters/fmsmd_set
     chmod 0660 /sys/module/bluetooth_power/parameters/power
     chmod 0660 /sys/module/hci_smd/parameters/hcismd_set
+    chmod 0660 /sys/module/radio_iris_transport/parameters/fmsmd_set
     chmod 0660 /sys/class/rfkill/rfkill0/state
     chmod 0660 /proc/bluetooth/sleep/proto
     chown bluetooth bluetooth /dev/ttyHS0
@@ -345,6 +346,12 @@ on fs
 
 on property:init.svc.wpa_supplicant=stopped
     stop dhcpcd
+
+on property:hw.fm.init=1
+    write /sys/module/radio_iris_transport/parameters/fmsmd_set 1
+
+on property:hw.fm.init=0
+    write /sys/module/radio_iris_transport/parameters/fmsmd_set 0
 
 service rmt_storage /system/bin/rmt_storage
     class core
