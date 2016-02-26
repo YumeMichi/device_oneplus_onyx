@@ -636,8 +636,8 @@ public:
     bool isAdvCamFeaturesEnabled() {return isUbiFocusEnabled() ||
         isChromaFlashEnabled() || isOptiZoomEnabled() || isHDREnabled();}
     int32_t setIntEvent(cam_int_evt_params_t params);
-    void setExpTime30Fps(int onOff);
-    int getExpTime30Fps();
+    void setPrvwExpTime(uint32_t expTimeUs);
+    int getPrvwExpTime();
 
 private:
     int32_t setPreviewSize(const QCameraParameters& );
