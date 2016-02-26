@@ -1306,14 +1306,45 @@ void QCamera2HardwareInterface::metadata_stream_cb_routine(mm_camera_super_buf_t
     if(pMetaData->is_ae_params_valid) {
         pme->mExifParams.ae_params = pMetaData->ae_params;
         pme->mFlashNeeded = pMetaData->ae_params.flash_needed;
-        /* Cap exposure time to 1/30th of a second */
-        if (pMetaData->ae_params.real_gain > 2.0f &&
-               !pme->mParameters.isHfrMode()) {
-            if (!pme->mParameters.getExpTime30Fps())
-                pme->mParameters.setExpTime30Fps(1);
+
+        /* Antishake & 30 FPS video algorithm */
+        float real_gain = pMetaData->ae_params.real_gain;
+        uint32_t old_exp_time = pme->mParameters.getPrvwExpTime();
+#define EXP_TIME_OVERRIDE_DISABLE 0
+#define EXP_TIME_US_30FPS 33000
+#define EXP_TIME_US_40FPS 25000
+#define EXP_TIME_US_60FPS 16666
+
+#define REAL_GAIN_THRESH_GAP 1.0f
+#define REAL_GAIN_30FPS_THRESH 38.0f
+#define REAL_GAIN_40FPS_THRESH 24.0f
+#define REAL_GAIN_MIN_THRESH 2.0f /* Lowest gain we can safely leverage to reduce exp time */
+
+        if (pme->mParameters.getRecordingHintValue()) {
+            /* Enforce 30 FPS video */
+            if (real_gain > REAL_GAIN_MIN_THRESH && !pme->mParameters.isHfrMode())
+                pme->mParameters.setPrvwExpTime(EXP_TIME_US_30FPS);
+            else
+                pme->mParameters.setPrvwExpTime(EXP_TIME_OVERRIDE_DISABLE);
+        } else if (real_gain > REAL_GAIN_30FPS_THRESH) { /* 1/30th of a second */
+            pme->mParameters.setPrvwExpTime(EXP_TIME_US_30FPS);
+        } else if (real_gain > REAL_GAIN_40FPS_THRESH) { /* 1/40th of a second */
+            /* threshold = (real_gain * (1/30 / 1/40)) + cushion */
+            float thresh = (real_gain * 4.0f / 3.0f) + REAL_GAIN_THRESH_GAP;
+
+            /* Prevent thrashing with 1/30th sec case */
+            if (old_exp_time != EXP_TIME_US_30FPS || thresh < REAL_GAIN_30FPS_THRESH)
+                pme->mParameters.setPrvwExpTime(EXP_TIME_US_40FPS);
+        } else if (real_gain > REAL_GAIN_MIN_THRESH) { /* 1/60th of a second */
+            /* threshold = (real_gain * (1/40 / 1/60)) + cushion */
+            float thresh = (real_gain * 3.0f / 2.0f) + REAL_GAIN_THRESH_GAP;
+
+            /* Prevent thrashing with 1/40th sec case */
+            if (old_exp_time != EXP_TIME_US_40FPS || thresh < REAL_GAIN_40FPS_THRESH)
+                pme->mParameters.setPrvwExpTime(EXP_TIME_US_60FPS);
         } else {
-            if (pme->mParameters.getExpTime30Fps())
-                pme->mParameters.setExpTime30Fps(0);
+            /* Disable exp-time override for ISO <= 200 */
+            pme->mParameters.setPrvwExpTime(EXP_TIME_OVERRIDE_DISABLE);
         }
     }
     if(pMetaData->is_awb_params_valid) {

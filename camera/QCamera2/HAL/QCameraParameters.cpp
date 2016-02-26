@@ -609,7 +609,7 @@ const QCameraParameters::QCameraMap QCameraParameters::CDS_MODES_MAP[] = {
 #define MIN_PP_BUF_CNT 1
 #define TOTAL_RAM_SIZE_512MB 536870912
 
-static int mExpTime30Fps = 0;
+static uint32_t mPrvwExpTimeUs = 0;
 
 /*===========================================================================
  * FUNCTION   : QCameraParameters
@@ -3838,27 +3838,24 @@ int32_t QCameraParameters::setLongshotParam(const QCameraParameters& params)
     return NO_ERROR;
 }
 
-void QCameraParameters::setExpTime30Fps(int onOff)
+void QCameraParameters::setPrvwExpTime(uint32_t expTimeUs)
 {
-    int32_t expTimeUs;
+    if (mPrvwExpTimeUs == expTimeUs)
+        return;
 
-    mExpTime30Fps = onOff;
-
-    if (onOff > 0)
-        expTimeUs = 33000;
-    else
-        expTimeUs = 0;
+    mPrvwExpTimeUs = expTimeUs;
 
     AddSetParmEntryToBatch(m_pParamBuf,
                            CAM_INTF_PARM_EXPOSURE_TIME,
                            sizeof(expTimeUs),
                            &expTimeUs);
+
     commitParameters();
 }
 
-int QCameraParameters::getExpTime30Fps()
+int QCameraParameters::getPrvwExpTime()
 {
-    return mExpTime30Fps;
+    return mPrvwExpTimeUs;
 }
 
 /*===========================================================================
