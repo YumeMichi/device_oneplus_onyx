@@ -511,6 +511,20 @@ void QCamera2HardwareInterface::stop_recording(struct camera_device *device)
         hw->waitAPIResult(QCAMERA_SM_EVT_STOP_RECORDING, &apiResult);
     }
     hw->unlockAPI();
+
+    // Fix panorama in Google Camera after recording video
+    android::CameraParameters params;
+    params.unflatten(android::String8(hw->get_parameters(device)));
+
+    String8 str3 = hw->mParameters.createSizesString(&res3, 1); // 1920x1080
+
+    // Set video size back to default (1080p; needed after 4k is used)
+    params.set("video-size", str3);
+
+    // Disable recording hint
+    hw->mParameters.setRecordingHintValue(0);
+    hw->set_parameters(device, strdup(params.flatten().string()));
+
     CDBG_HIGH("[KPI Perf] %s: X", __func__);
 }
 
