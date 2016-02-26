@@ -388,7 +388,6 @@ on property:persist.env.fastdorm.enabled=true
     setprop persist.radio.data_no_toggle 1
 
 on property:sys.boot_completed=1
-	write /proc/otg_config/otg_switch 1
     # Temp hack to fix torch not being registered on boot
     restart media
 
