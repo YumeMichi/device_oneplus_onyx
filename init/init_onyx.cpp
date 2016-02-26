@@ -53,7 +53,7 @@ void init_msm_properties(unsigned long msm_id,unsigned long msm_ver, char *board
         /* Chinese */
         property_set("ro.product.model", "ONE E1001");
         property_set("ro.rf_version", "TDD_FDD_Ch_All");
-} else if (strstr(rf_version, "102")) {
+    } else if (strstr(rf_version, "102")) {
         /* Asia/Europe */
         property_set("ro.product.model", "ONE E1003");
         property_set("ro.rf_version", "TDD_FDD_Eu");

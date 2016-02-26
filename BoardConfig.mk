@@ -19,9 +19,6 @@
 
 PLATFORM_PATH := device/oneplus/onyx
 
-# Include path
-TARGET_SPECIFIC_HEADER_PATH := $(PLATFORM_PATH)/include
-
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := MSM8974
 TARGET_NO_BOOTLOADER := true
@@ -42,11 +39,11 @@ TARGET_CPU_VARIANT := krait
 
 # Kernel
 BOARD_KERNEL_BASE := 0x00000000
-BOARD_KERNEL_CMDLINE := androidboot.hardware=onyx user_debug=23 msm_rtb.filter=0x3b7 ehci-hcd.park=3 androidboot.bootdevice=msm_sdcc.1
+BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom user_debug=23 msm_rtb.filter=0x3b7 ehci-hcd.park=3 androidboot.bootdevice=msm_sdcc.1
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_SEPARATED_DT := true
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100
-TARGET_CUSTOM_DTBTOOL := dtbToolONYX
+TARGET_CUSTOM_DTBTOOL := dtbToolonyx
 TARGET_KERNEL_ARCH := arm
 TARGET_KERNEL_CONFIG := cm_onyx_defconfig
 TARGET_KERNEL_SOURCE := kernel/oneplus/onyx
@@ -56,7 +53,7 @@ TARGET_KERNEL_CROSS_COMPILE_PREFIX := arm-linux-androideabi-
 BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
 
 # Assert
-TARGET_OTA_ASSERT_DEVICE := onyx,E1003,ONE
+TARGET_OTA_ASSERT_DEVICE := onyx,OnePlus,E1003,ONE
 
 # Audio
 BOARD_USES_ALSA_AUDIO := true
@@ -73,22 +70,16 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(PLATFORM_PATH)/bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_QCOM := true
 QCOM_BT_USE_SMD_TTY := true
-FEATURE_QCRIL_UIM_SAP_SERVER_MODE := true
 
 # Camera
 USE_DEVICE_SPECIFIC_CAMERA := true
-COMMON_GLOBAL_CFLAGS += -DOPPO_CAMERA_HARDWARE -DCAMERA_VENDOR_L_COMPAT
 
 # Charger
 BOARD_CHARGER_DISABLE_INIT_BLANK := true
 
 # CM Hardware
-BOARD_USES_CYANOGEN_HARDWARE := true
 BOARD_HARDWARE_CLASS += $(PLATFORM_PATH)/cmhw
 TARGET_TAP_TO_WAKE_NODE := "/proc/touchpanel/double_tap_enable"
-
-# Enable transparent compression in the build
-# TARGET_TRANSPARENT_COMPRESSION_METHOD := lz4
 
 # Enable dexpreopt to speed boot time
 ifeq ($(HOST_OS),linux)
@@ -119,10 +110,6 @@ TARGET_USERIMAGES_USE_F2FS := true
 # Workaround for factory issue
 BOARD_VOLD_CRYPTFS_MIGRATE := true
 
-# Flags
-COMMON_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
-COMMON_GLOBAL_CPPFLAGS += -DNO_SECURE_DISCARD
-
 # FM
 TARGET_QCOM_NO_FM_FIRMWARE := true
 
@@ -148,7 +135,7 @@ TARGET_USE_COMPAT_GRALLOC_PERFORM := true
 
 # Init
 TARGET_INIT_VENDOR_LIB := libinit_msm
-TARGET_LIBINIT_DEFINES_FILE := device/oneplus/onyx/init/init_onyx.cpp
+TARGET_LIBINIT_DEFINES_FILE := $(PLATFORM_PATH)/init/init_onyx.cpp
 TARGET_UNIFIED_DEVICE := true
 
 # Keymaster
@@ -167,7 +154,7 @@ BOARD_USES_QCOM_HARDWARE := true
 TARGET_RIL_VARIANT := caf
 
 # Recovery
-TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/rootdir/etc/fstab.onyx
+TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/rootdir/etc/fstab.qcom
 
 # RPC
 TARGET_NO_RPC := true
@@ -182,7 +169,6 @@ BOARD_SEPOLICY_DIRS += \
 BOARD_HAS_QCOM_WLAN              := true
 BOARD_HAS_QCOM_WLAN_SDK          := true
 BOARD_WLAN_DEVICE                := qcwcn
-#CONFIG_EAP_PROXY                 := qmi
 BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_qcwcn
 BOARD_HOSTAPD_DRIVER             := NL80211

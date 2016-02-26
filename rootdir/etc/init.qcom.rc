@@ -14,8 +14,8 @@
 # limitations under the License.
 #
 
-import init.onyx.usb.rc
-import init.onyx.power.rc
+import init.qcom.usb.rc
+import init.qcom.power.rc
 
 on early-init
     mount debugfs debugfs /sys/kernel/debug
@@ -28,8 +28,7 @@ on init
     symlink /sdcard /mnt/sdcard
     symlink /sdcard /storage/sdcard0
 
-# Pass required symbols for OOS Blobs
-export LD_SHIM_LIBS /system/vendor/lib/libqomx_jpegenc.so|libboringssl-compat.so:/system/bin/rild|libOP.so:/system/lib/libril.so|libOP.so
+    export LD_SHIM_LIBS "/system/vendor/lib/libqomx_jpegenc.so|libboringssl-compat.so:/system/lib/libril.so|libshim_ril.so"
 
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
@@ -331,7 +330,7 @@ on post-fs-data
     mkdir /data/misc/camera 0770 camera camera
 
 on fs
-    mount_all ./fstab.onyx
+    mount_all /fstab.qcom
     restorecon_recursive /persist
     mkdir /persist/data 0700 system system
     mkdir /persist/data/sfs 0700 system system
@@ -550,13 +549,13 @@ on property:vold.decrypt=trigger_restart_framework
     start config_bluetooth
     start wcnss-service
 
-service config_bluetooth /system/bin/sh /init.onyx.bt.sh "onboot"
+service config_bluetooth /system/bin/sh /init.qcom.bt.sh "onboot"
     class core
     user root
     group bluetooth net_bt_admin qcom_diag radio
     oneshot
 
-service hciattach /system/bin/sh /init.onyx.bt.sh
+service hciattach /system/bin/sh /init.qcom.bt.sh
     class late_start
     user bluetooth
     group bluetooth net_bt_admin qcom_diag radio
@@ -632,24 +631,9 @@ service pfm /system/bin/pfm
     user system
     group system drmrpc mount
 
-service_redefine ril-daemon /system/bin/rild
-    class main
-    socket rild stream 660 root radio
-    socket rild-debug stream 660 radio system
-    socket cutback stream 660 media radio
-    user root
-    group radio cache inet misc audio sdcard_rw qcom_oncrpc qcom_diag log net_raw diag
-
-service ril-daemon1 /system/bin/rild -c 2
+service ril-daemon2 /system/bin/rild -c 2
     class main
     socket rild2 stream 660 root radio
     socket rild-debug2 stream 660 radio system
     user root
     group radio cache inet misc audio sdcard_rw qcom_oncrpc qcom_diag log net_raw diag
-    disabled
-
-service ril-init-script /system/bin/sh /init.onyx.ril.sh
-    class late_start
-    user root
-    group root
-    oneshot

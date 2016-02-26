@@ -185,5 +185,5 @@
 /dev/uio1                 0660   system     system
 /dev/uio2                 0660   system     system
 
-#Persistent
-/dev/block/mmcblk0p26		0600	system	system
+# Add device block for FRP
+/dev/block/bootdevice/by-name/config    0660   system     system

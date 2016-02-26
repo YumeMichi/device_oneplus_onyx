@@ -2,10 +2,12 @@
 # system.prop for OnePlus X
 #
 
-# Lcd Density
-ro.sf.lcd_density=480
+ro.build.product=OnePlus
+ro.product.device=OnePlus
+ro.build.description=OnePlus
+ro.build.fingerprint=OnePlus/OnePlus/OnePlus:5.1.1/LMY47V/1441677661:user/release-keys
 
-# Radio
+# RIL
 rild.libpath=/vendor/lib/libril-qc-qmi-1.so
 rild.libargs=-d /dev/smd0
 persist.rild.nitz_plmn=
@@ -19,6 +21,8 @@ persist.rild.nitz_short_ons_2=
 persist.rild.nitz_short_ons_3=
 ril.subscription.types=NV,RUIM
 DEVICE_PROVISIONED=1
+ro.telephony.default_network=9
+telephony.lteOnGsmDevice=1
 persist.radio.rat_on=combine
 ro.use_data_netmgrd=true
 persist.data.netmgrd.qos.enable=true
@@ -26,19 +30,86 @@ ro.data.large_tcp_window_size=true
 persist.radio.multisim.config=dsds
 ro.telephony.ril.config=simactivation
 
-# sensors
+# Audio
+mm.enable.smoothstreaming=true
+mm.enable.qcom_parser=3314291
+ro.qc.sdk.audio.fluencetype=none
+persist.audio.fluence.voicecall=true
+audio.offload.buffer.size.kb=32
+av.offload.enable=true
+av.streaming.offload.enable=true
+use.voice.path.for.pcm.voip=true
+audio.offload.multiple.enabled=false
+audio.offload.gapless.enabled=true
+tunnel.audio.encode=true
+media.aac_51_output_enabled=true
+audio.offload.pcm.16bit.enable=true
+audio.offload.pcm.24bit.enable=true
+
+# Bluetooth
+bluetooth.hfp.client=1
+ro.bluetooth.alwaysbleon=true
+
+# Camera
+persist.camera.cpp.duplication=false
+
+# GPS
+persist.gps.qc_nlp_in_use=1
+persist.loc.nlp_name=com.qualcomm.location
+ro.gps.agps_provider=1
+ro.pip.gated=0
+
+# Graphics
+debug.sf.hw=1
+debug.egl.hw=1
+debug.composition.type=c2d
+persist.hwc.mdpcomp.enable=true
+debug.mdpcomp.4k2kSplit=1
+debug.mdpcomp.logs=0
+dev.pm.dyn_samplingrate=1
+persist.demo.hdmirotationlock=false
+ro.hdmi.enable=true
+persist.speaker.prot.enable=false
+qcom.hw.aac.encoder=true
+ro.opengles.version=196608
+ro.sf.lcd_density=480
+ro.qualcomm.cabl=0
+
+# QC vendor extension
+ro.vendor.extension_library=libqti-perfd-client.so
+ro.frp.pst=/dev/block/bootdevice/by-name/config
+drm.service.enabled=true
+
+# QMI
+persist.data.qmi.adb_logmask=0
+
+# Sensors
 ro.qc.sdk.sensors.gestures=true
 ro.qc.sdk.gestures.camera=false
 ro.qc.sdk.camera.facialproc=false
+ro.prj_name=15055
+ro.qti.sensors.smd=true
+ro.qti.sensors.ir_proximity=true
+ro.qti.sensors.game_rv=true
+ro.qti.sensors.georv=true
+ro.qti.sensors.smgr_mag_cal_en=true
+ro.qti.sensors.step_detector=true
+ro.qti.sensors.step_counter=true
+ro.qti.sensors.tap=false
+ro.qti.sensors.facing=false
+ro.qti.sensors.tilt=false
+ro.qti.sensors.amd=false
+ro.qti.sensors.rmd=false
+ro.qti.sensors.vmd=false
+ro.qti.sensors.pedometer=false
+ro.qti.sensors.pam=false
+ro.qti.sdk.sensors.gestures=false
 ro.qti.sensors.bte=true
 ro.qti.sensors.gtap=true
 ro.qti.sensors.vmd=true
 
-# gps
-ro.gps.agps_provider=1
+# Time services
+persist.timed.enable=true
 
-# cabl is handled by the panel
-ro.qualcomm.cabl=0
-
-# Snap
-persist.camera.cpp.duplication=false
+# Wifi
+wifi.interface=wlan0
