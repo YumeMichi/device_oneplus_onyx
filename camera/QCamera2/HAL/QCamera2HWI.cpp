@@ -5669,14 +5669,11 @@ int32_t QCamera2HardwareInterface::preparePreview()
     } else {
         bool recordingHint = mParameters.getRecordingHintValue();
         if(recordingHint) {
-            cam_dimension_t videoSize;
-            mParameters.getVideoSize(&videoSize.width, &videoSize.height);
-            if (!is4k2kResolution(&videoSize)) {
-               rc = addChannel(QCAMERA_CH_TYPE_SNAPSHOT);
-               if (rc != NO_ERROR) {
-                   return rc;
-               }
+            rc = addChannel(QCAMERA_CH_TYPE_SNAPSHOT);
+            if (rc != NO_ERROR) {
+                return rc;
             }
+
             rc = addChannel(QCAMERA_CH_TYPE_VIDEO);
             if (rc != NO_ERROR) {
                 delChannel(QCAMERA_CH_TYPE_SNAPSHOT);
@@ -6350,28 +6347,6 @@ bool QCamera2HardwareInterface::isCACEnabled()
 }
 
 /*===========================================================================
- * FUNCTION   : is4k2kResolution
- *
- * DESCRIPTION: if resolution is 4k x 2k or true 4k x 2k
- *
- * PARAMETERS : none
- *
- * RETURN     : true: needed
- *              false: no need
- *==========================================================================*/
-bool QCamera2HardwareInterface::is4k2kResolution(cam_dimension_t* resolution)
-{
-   bool enabled = false;
-   if ((resolution->width == 4096 && resolution->height == 2160) ||
-       (resolution->width == 3840 && resolution->height == 2160) ) {
-      enabled = true;
-   }
-   return enabled;
-}
-
-
-/*===========================================================================
- *
  * FUNCTION   : isPreviewRestartEnabled
  *
  * DESCRIPTION: Check whether preview should be restarted automatically
