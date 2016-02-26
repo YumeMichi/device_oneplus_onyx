@@ -29,7 +29,7 @@
             16 - App switch
             32 - Camera
             64 - Volume rocker
-			83 - Profile Toggle
+            83 - Profile Toggle
          For example, a device with Home, Back and Menu keys would set this
          config to 7. -->
     <integer name="config_deviceHardwareKeys">83</integer>
@@ -44,7 +44,7 @@
             16 - App switch
             32 - Camera
             64 - Volume rocker
-			83 - Profile Toggle
+            83 - Profile Toggle
          For example, a device with Home, Back and Menu keys would set this
          config to 7. -->
     <integer name="config_deviceHardwareWakeKeys">64</integer>
@@ -60,25 +60,7 @@
          policy/src/com/android/internal/policy/impl/PhoneWindowManager.java -->
     <integer name="config_longPressOnHomeBehavior">3</integer>
 
-    <integer name="config_longPressOnMenuBehavior">2</integer>
-
-    <!-- Control the behavior when the user double-taps the home button.
-            0 - Nothing
-            1 - Menu
-            2 - Recent apps view in SystemUI
-            3 - Launch assist intent
-            4 - Voice Search
-            5 - In-app Search
-         This needs to match the constants in
-         policy/src/com/android/internal/policy/impl/PhoneWindowManager.java -->
-    <integer name="config_doubleTapOnHomeBehavior">0</integer>
-
-    <!-- If this is true, the screen will fade off. -->
-    <bool name="config_animateScreenLights">false</bool>
-
-    <!-- The duration (in milliseconds) that the radio will scan for a signal
-         when there's no network connection. If the scan doesn't timeout, use zero -->
-    <integer name="config_radioScanningTimeout">0</integer>
+    <integer name="config_longPressOnAppSwitchBehavior">1</integer>
 
     <!-- Boolean indicating whether the wifi chipset has background scan support -->
     <bool translatable="false" name="config_wifi_background_scan_support">true</bool>
@@ -162,16 +144,10 @@
     <!-- If this is true, the screen will come on when you unplug usb/power/whatever. -->
     <bool name="config_unplugTurnsOnScreen">true</bool>
 
-    <!-- reference volume index for music stream to limit headphone volume and display warning -->
-    <integer name="config_safe_media_volume_index">9</integer>
-
     <bool name="config_enableWifiDisplay">true</bool>
 
     <!-- Set to true to add links to Cell Broadcast app from Settings and MMS app. -->
     <bool name="config_cellBroadcastAppLinks">true</bool>
-
-    <!-- Make things go fast -->
-    <bool name="config_ui_enableFadingMarquee">false</bool>
 
     <!-- Set to true if the wifi display supports compositing content stored
          in gralloc protected buffers.  For this to be true, there must exist
@@ -190,13 +166,7 @@
     <!-- Device specific options -->
 
     <!-- Default LED on time for notification LED in milliseconds. -->
-    <integer name="config_defaultNotificationLedOn">500</integer>
-
-    <!-- Default LED off time for notification LED in milliseconds. -->
-    <integer name="config_defaultNotificationLedOff">5000</integer>
-
-    <!-- Is the notification LED intrusive? Used to decide if there should be a disable option -->
-    <bool name="config_intrusiveNotificationLed">true</bool>
+    <integer name="config_defaultNotificationLedOn">2000</integer>
 
     <!-- Is the battery LED intrusive? Used to decide if there should be a disable option -->
     <bool name="config_intrusiveBatteryLed">true</bool>
@@ -214,18 +184,11 @@
          The default is false. -->
     <bool name="config_lidControlsSleep">true</bool>
 
-    <!-- Indicate whether to allow the device to suspend when the screen is off
-         due to the proximity sensor.  This resource should only be set to true
-         if the sensor HAL correctly handles the proximity sensor as a wake-up source.
-         Otherwise, the device may fail to wake out of suspend reliably.
-         The default is false. -->
-    <bool name="config_suspendWhenScreenOffDueToProximity">true</bool>
-
     <!-- Is the device capable of hot swapping an ICC Card -->
     <bool name="config_hotswapCapable">true</bool>
 
     <!-- Flag specifying whether VoLTE & VT is availasble on device -->
-    <bool name="config_device_volte_available">false</bool>
+    <bool name="config_device_volte_available">true</bool>
 
     <!--  Maximum number of supported users -->
     <integer name="config_multiuserMaximumUsers">4</integer>
@@ -243,19 +206,10 @@
 
          Must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLevels">
-        <item>2</item>
-        <item>7</item>
         <item>15</item>
-        <item>50</item>
-        <item>100</item>
-        <item>200</item>
-        <item>400</item>
+        <item>150</item>
         <item>1000</item>
-        <item>2000</item>
-        <item>3000</item>
         <item>5000</item>
-        <item>10000</item>
-        <item>30000</item>
     </integer-array>
 
     <!-- Array of output values for LCD backlight corresponding to the LUX values
@@ -263,38 +217,25 @@
          than the size of the config_autoBrightnessLevels array.
          This must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLcdBacklightValues">
-        <item>13</item>   <!-- 0-2 -->
-        <item>25</item>   <!-- 3-7 -->
-        <item>32</item>   <!-- 5-15 -->
-        <item>41</item>   <!-- 15-50 -->
-        <item>52</item>   <!-- 50-100 -->
-        <item>62</item>   <!-- 100-200 -->
-        <item>69</item>   <!-- 200-400 -->
-        <item>78</item>   <!-- 400-1000 -->
-        <item>88</item>   <!-- 1000-2000 -->
-        <item>134</item>  <!-- 2000-3000 -->
-        <item>178</item>  <!-- 3000-5000 -->
-        <item>225</item>  <!-- 5000-10000 -->
-        <item>255</item>  <!-- 10000-30000 -->
-        <item>255</item>  <!-- 30000+ -->
+        <item>20</item>
+        <item>80</item>
+        <item>130</item>
+        <item>190</item>
+        <item>255</item>
     </integer-array>
 
     <!-- Minimum screen brightness setting allowed by the power manager.
          The user is forbidden from setting the brightness below this level. -->
     <integer name="config_screenBrightnessSettingMinimum">2</integer>
 
-    <!-- Maximum screen brightness allowed by the power manager.
-         The user is forbidden from setting the brightness above this level. -->
-    <integer name="config_screenBrightnessSettingMaximum">255</integer>
-
     <!-- Default screen brightness setting.
          Must be in the range specified by minimum and maximum. -->
-    <integer name="config_screenBrightnessSettingDefault">102</integer>
+    <integer name="config_screenBrightnessSettingDefault">79</integer>
 
     <!-- Screen brightness used to dim the screen when the user activity
          timeout expires.  May be less than the minimum allowed brightness setting
          that can be set by the user. -->
-    <integer name="config_screenBrightnessDim">10</integer>
+    <integer name="config_screenBrightnessDim">2</integer>
 
     <!-- Default color for notification LED is white. -->
     <color name="config_defaultNotificationColor">#ffffffff</color>
@@ -314,20 +255,22 @@
     <!-- Vibrator pattern for feedback about a long screen/key press -->
     <integer-array name="config_longPressVibePattern">
         <item>0</item>
-        <item>25</item>
-        <item>10</item>
+        <item>47</item>
+        <item>7</item>
     </integer-array>
 
     <!-- Vibrator pattern for feedback about touching a virtual key -->
     <integer-array name="config_virtualKeyVibePattern">
         <item>0</item>
-        <item>25</item>
-        <item>8</item>
+        <item>45</item>
+        <item>7</item>
     </integer-array>
 
     <!-- Vibrator pattern for a very short but reliable vibration for soft keyboard tap -->
     <integer-array name="config_keyboardTapVibePattern">
-        <item>25</item>
+        <item>0</item>
+        <item>41</item>
+        <item>7</item>
     </integer-array>
 
     <!-- Doze mode -->

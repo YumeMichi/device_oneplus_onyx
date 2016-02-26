@@ -37,7 +37,7 @@
 
     <!-- Doze: when to pulse after a buzzworthy notification arrives -->
     <string name="doze_pulse_schedule" translatable="false">5s,15s,30s,60s</string>
-	
+
     <!-- Doze: should the pickup sensor be used as a pulse signal? -->
     <bool name="doze_pulse_on_pick_up">true</bool>
 
