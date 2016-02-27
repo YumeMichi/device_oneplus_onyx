@@ -193,6 +193,13 @@ vendor/lib/libscale.so
 etc/firmware/a330_pfp.fw
 etc/firmware/a330_pm4.fw
 
+# Keymaster
+vendor/firmware/keymaster/keymaster.b00
+vendor/firmware/keymaster/keymaster.b01
+vendor/firmware/keymaster/keymaster.b02
+vendor/firmware/keymaster/keymaster.b03
+vendor/firmware/keymaster/keymaster.mdt
+
 # Listen service
 vendor/lib/liblisten.so
 vendor/lib/liblistenhardware.so
