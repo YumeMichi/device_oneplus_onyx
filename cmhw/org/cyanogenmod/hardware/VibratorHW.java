@@ -22,22 +22,22 @@ import org.cyanogenmod.hardware.util.FileUtils;
 
 public class VibratorHW {
 
-    private static String AMP_PATH = "/sys/devices/virtual/timed_output/vibrator/vmax_mv";
+    private static String AMP_PATH = "/sys/devices/virtual/timed_output/vibrator/vtg_level";
 
     public static boolean isSupported() {
         return new File(AMP_PATH).exists();
     }
 
     public static int getMaxIntensity()  {
-        return 3596;
+        return 31;
     }
 
     public static int getMinIntensity()  {
-        return 116;
+        return 12;
     }
 
     public static int getWarningThreshold()  {
-        return 3248;
+        return 31;
     }
 
     public static int getCurIntensity()  {
@@ -45,7 +45,7 @@ public class VibratorHW {
     }
 
     public static int getDefaultIntensity()  {
-        return 3000;
+        return 31;
     }
 
     public static boolean setIntensity(int intensity)  {
