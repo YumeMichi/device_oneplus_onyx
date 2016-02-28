@@ -45,4 +45,7 @@ typedef struct SocketListenParam {
     RIL_SOCKET_TYPE type;
 } SocketListenParam;
 
+void RIL_register_socket (RIL_RadioFunctions *(*rilUimInit)
+        (const struct RIL_Env *, int, char **), RIL_SOCKET_TYPE socketType, int argc, char **argv) {}
+
 #endif
