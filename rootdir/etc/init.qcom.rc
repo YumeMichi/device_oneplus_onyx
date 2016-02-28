@@ -241,12 +241,12 @@ on post-fs
     chmod 0660 /sys/class/leds/torch-light/brightness
 
     # Tri-state keys
-    chown system system /sys/devices/tri_state_key.86/keyCode_top
-    chown system system /sys/devices/tri_state_key.86/keyCode_middle
-    chown system system /sys/devices/tri_state_key.86/keyCode_bottom
-    chmod 0644 /sys/devices/tri_state_key.86/keyCode_top
-    chmod 0644 /sys/devices/tri_state_key.86/keyCode_middle
-    chmod 0644 /sys/devices/tri_state_key.86/keyCode_bottom
+    chown root system /proc/tri-state-key/keyCode_top
+    chown root system /proc/tri-state-key/keyCode_middle
+    chown root system /proc/tri-state-key/keyCode_bottom
+    chmod 0660 /proc/tri-state-key/keyCode_top
+    chmod 0660 /proc/tri-state-key/keyCode_middle
+    chmod 0660 /proc/tri-state-key/keyCode_bottom
 
 on post-fs-data
     mkdir /data/media 0770 media_rw media_rw
