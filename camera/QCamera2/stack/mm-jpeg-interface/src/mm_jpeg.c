@@ -1326,8 +1326,8 @@ static OMX_ERRORTYPE mm_jpeg_configure_job_params(
 
   /* set metadata */
   ret = mm_jpeg_metadata(p_session);
-  CDBG_ERROR("%s: config makernote data failed", __func__);
   if (OMX_ErrorNone != ret) {
+    CDBG_ERROR("%s: config makernote data failed", __func__);
     return ret;
   }
 
