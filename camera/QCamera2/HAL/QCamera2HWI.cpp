@@ -1710,8 +1710,7 @@ int QCamera2HardwareInterface::initCapabilities(int cameraId,mm_camera_vtbl_t *c
     gCamCapability[cameraId]->auto_exposure_lock_supported = 1;
     gCamCapability[cameraId]->auto_wb_lock_supported = 1;
     gCamCapability[cameraId]->qcom_supported_feature_mask = 1663;
-    gCamCapability[cameraId]->min_required_pp_mask |= CAM_QCOM_FEATURE_EFFECT |
-                                                        CAM_QCOM_FEATURE_SHARPNESS;
+    gCamCapability[cameraId]->min_required_pp_mask |= CAM_QCOM_FEATURE_SHARPNESS;
     gCamCapability[cameraId]->max_num_roi = 5;
     gCamCapability[cameraId]->auto_hdr_supported = 1;
 
