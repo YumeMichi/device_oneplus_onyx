@@ -1697,9 +1697,9 @@ int QCamera2HardwareInterface::initCapabilities(int cameraId,mm_camera_vtbl_t *c
                                         sizeof(cam_capability_t));
 
     // Configure both cameras from scratch
-    gCamCapability[cameraId]->hdr_bracketing_setting.exp_val.values[0] = 0;
-    gCamCapability[cameraId]->hdr_bracketing_setting.exp_val.values[1] = -6;
-    gCamCapability[cameraId]->hdr_bracketing_setting.exp_val.values[2] = 6;
+    gCamCapability[cameraId]->hdr_bracketing_setting.exp_val.values[0] = -6;
+    gCamCapability[cameraId]->hdr_bracketing_setting.exp_val.values[1] = 6;
+    gCamCapability[cameraId]->hdr_bracketing_setting.exp_val.values[2] = 0;
     gCamCapability[cameraId]->hdr_bracketing_setting.num_frames = 3;
     gCamCapability[cameraId]->hdr_bracketing_setting.exp_val.mode = CAM_EXP_BRACKETING_ON;
 
