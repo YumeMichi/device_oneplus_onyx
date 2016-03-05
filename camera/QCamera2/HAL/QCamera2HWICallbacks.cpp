@@ -1326,25 +1326,27 @@ void QCamera2HardwareInterface::metadata_stream_cb_routine(mm_camera_super_buf_t
                 pme->mParameters.setPrvwExpTime(EXP_TIME_US_30FPS);
             else
                 pme->mParameters.setPrvwExpTime(EXP_TIME_OVERRIDE_DISABLE);
-        } else if (real_gain > REAL_GAIN_30FPS_THRESH) { /* 1/30th of a second */
-            pme->mParameters.setPrvwExpTime(EXP_TIME_US_30FPS);
-        } else if (real_gain > REAL_GAIN_40FPS_THRESH) { /* 1/40th of a second */
-            /* threshold = (real_gain * (1/30 / 1/40)) + cushion */
-            float thresh = (real_gain * 4.0f / 3.0f) + REAL_GAIN_THRESH_GAP;
+        } else if (!pme->mParameters.isManualMode()) {
+            if (real_gain > REAL_GAIN_30FPS_THRESH) { /* 1/30th of a second */
+                pme->mParameters.setPrvwExpTime(EXP_TIME_US_30FPS);
+            } else if (real_gain > REAL_GAIN_40FPS_THRESH) { /* 1/40th of a second */
+                /* threshold = (real_gain * (1/30 / 1/40)) + cushion */
+                float thresh = (real_gain * 4.0f / 3.0f) + REAL_GAIN_THRESH_GAP;
 
-            /* Prevent thrashing with 1/30th sec case */
-            if (old_exp_time != EXP_TIME_US_30FPS || thresh < REAL_GAIN_30FPS_THRESH)
-                pme->mParameters.setPrvwExpTime(EXP_TIME_US_40FPS);
-        } else if (real_gain > REAL_GAIN_MIN_THRESH) { /* 1/60th of a second */
-            /* threshold = (real_gain * (1/40 / 1/60)) + cushion */
-            float thresh = (real_gain * 3.0f / 2.0f) + REAL_GAIN_THRESH_GAP;
+                /* Prevent thrashing with 1/30th sec case */
+                if (old_exp_time != EXP_TIME_US_30FPS || thresh < REAL_GAIN_30FPS_THRESH)
+                    pme->mParameters.setPrvwExpTime(EXP_TIME_US_40FPS);
+            } else if (real_gain > REAL_GAIN_MIN_THRESH) { /* 1/60th of a second */
+                /* threshold = (real_gain * (1/40 / 1/60)) + cushion */
+                float thresh = (real_gain * 3.0f / 2.0f) + REAL_GAIN_THRESH_GAP;
 
-            /* Prevent thrashing with 1/40th sec case */
-            if (old_exp_time != EXP_TIME_US_40FPS || thresh < REAL_GAIN_40FPS_THRESH)
-                pme->mParameters.setPrvwExpTime(EXP_TIME_US_60FPS);
-        } else {
-            /* Disable exp-time override for ISO <= 200 */
-            pme->mParameters.setPrvwExpTime(EXP_TIME_OVERRIDE_DISABLE);
+                /* Prevent thrashing with 1/40th sec case */
+                if (old_exp_time != EXP_TIME_US_40FPS || thresh < REAL_GAIN_40FPS_THRESH)
+                    pme->mParameters.setPrvwExpTime(EXP_TIME_US_60FPS);
+            } else {
+                /* Disable exp-time override for ISO <= 200 */
+                pme->mParameters.setPrvwExpTime(EXP_TIME_OVERRIDE_DISABLE);
+            }
         }
     }
     if(pMetaData->is_awb_params_valid) {
