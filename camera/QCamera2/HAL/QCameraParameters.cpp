@@ -3872,6 +3872,14 @@ bool QCameraParameters::isManualMode()
     return manualMode;
 }
 
+uint32_t QCameraParameters::getCameraId()
+{
+    if (m_pCapability->position == CAM_POSITION_BACK)
+        return 0;
+    else
+        return 1;
+}
+
 /*===========================================================================
  * FUNCTION   : updateParameters
  *
