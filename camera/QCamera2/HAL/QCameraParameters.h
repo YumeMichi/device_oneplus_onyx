@@ -638,6 +638,7 @@ public:
     int32_t setIntEvent(cam_int_evt_params_t params);
     void setPrvwExpTime(uint32_t expTimeUs);
     int getPrvwExpTime();
+    bool isManualMode();
 
 private:
     int32_t setPreviewSize(const QCameraParameters& );
