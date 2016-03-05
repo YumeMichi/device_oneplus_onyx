@@ -245,6 +245,9 @@ typedef struct {
   /* 3a parameters */
   mm_jpeg_exif_params_t cam_exif_params;
 
+  /* camera position */
+  uint32_t position;
+
 } mm_jpeg_encode_job_t;
 
 typedef struct {

@@ -1107,6 +1107,19 @@ OMX_ERRORTYPE mm_jpeg_session_config_common(mm_jpeg_job_session_t *p_session)
   mm_jpeg_encode_job_t *p_jobparams = &p_session->encode_job;
   QOMX_EXIF_INFO exif_info;
 
+  /* Set aperture value based on cam used */
+  if (!p_jobparams->position) {
+    if (p_jobparams->p_metadata->is_sensor_params_valid)
+      p_jobparams->p_metadata->sensor_params.aperture_value = 2.2f;
+    else
+      p_jobparams->cam_exif_params.sensor_params.aperture_value = 2.2f;
+  } else {
+    if (p_jobparams->p_metadata->is_sensor_params_valid)
+      p_jobparams->p_metadata->sensor_params.aperture_value = 2.4f;
+    else
+      p_jobparams->cam_exif_params.sensor_params.aperture_value = 2.4f;
+  }
+
   /* set rotation */
   memset(&rotate, 0, sizeof(rotate));
   rotate.nPortIndex = 1;
