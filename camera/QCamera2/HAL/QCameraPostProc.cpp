@@ -1582,6 +1582,7 @@ int32_t QCameraPostProcessor::encodeData(qcamera_jpeg_data_t *jpeg_job_data,
     jpg_job.encode_job.session_id = mJpegSessionId;
     jpg_job.encode_job.src_index = main_frame->buf_idx;
     jpg_job.encode_job.dst_index = 0;
+    jpg_job.encode_job.position = m_parent->mParameters.getCameraId();
 
     if (mJpegMemOpt) {
         jpg_job.encode_job.dst_index = jpg_job.encode_job.src_index;
