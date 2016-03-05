@@ -1581,7 +1581,7 @@ static cam_flash_mode_t new_flash_modes_cam0[CAM0_FLASH_MODES_SIZE] = {
     CAM_FLASH_MODE_TORCH
 };
 
-#define SCENE_MODES_SIZE 19
+#define SCENE_MODES_SIZE 20
 static cam_scene_mode_type new_scene_modes[SCENE_MODES_SIZE] = {
     CAM_SCENE_MODE_OFF,
     CAM_SCENE_MODE_AUTO,
@@ -1601,6 +1601,7 @@ static cam_scene_mode_type new_scene_modes[SCENE_MODES_SIZE] = {
     CAM_SCENE_MODE_NIGHT_PORTRAIT,
     CAM_SCENE_MODE_THEATRE,
     CAM_SCENE_MODE_ACTION,
+    CAM_SCENE_MODE_HDR,
     CAM_SCENE_MODE_AR
 };
 
@@ -1696,6 +1697,12 @@ int QCamera2HardwareInterface::initCapabilities(int cameraId,mm_camera_vtbl_t *c
                                         sizeof(cam_capability_t));
 
     // Configure both cameras from scratch
+    gCamCapability[cameraId]->hdr_bracketing_setting.exp_val.values[0] = 0;
+    gCamCapability[cameraId]->hdr_bracketing_setting.exp_val.values[1] = -6;
+    gCamCapability[cameraId]->hdr_bracketing_setting.exp_val.values[2] = 6;
+    gCamCapability[cameraId]->hdr_bracketing_setting.num_frames = 3;
+    gCamCapability[cameraId]->hdr_bracketing_setting.exp_val.mode = CAM_EXP_BRACKETING_ON;
+
     gCamCapability[cameraId]->smooth_zoom_supported = 0;
     gCamCapability[cameraId]->zoom_supported = 1;
     gCamCapability[cameraId]->video_snapshot_supported = 1;
@@ -1706,7 +1713,7 @@ int QCamera2HardwareInterface::initCapabilities(int cameraId,mm_camera_vtbl_t *c
     gCamCapability[cameraId]->min_required_pp_mask |= CAM_QCOM_FEATURE_EFFECT |
                                                         CAM_QCOM_FEATURE_SHARPNESS;
     gCamCapability[cameraId]->max_num_roi = 5;
-    gCamCapability[cameraId]->auto_hdr_supported = 0;
+    gCamCapability[cameraId]->auto_hdr_supported = 1;
 
     for (i = 0; i < PRVW_FMT_TBL_SIZE; i++)
         gCamCapability[cameraId]->supported_preview_fmts[i] = new_prvw_fmts[i];
