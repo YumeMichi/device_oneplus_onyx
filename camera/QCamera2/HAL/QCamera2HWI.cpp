@@ -1732,7 +1732,7 @@ int QCamera2HardwareInterface::initCapabilities(int cameraId,mm_camera_vtbl_t *c
     gCamCapability[cameraId]->sharpness_ctrl.min_value = 0;
     gCamCapability[cameraId]->sharpness_ctrl.max_value = 36;
     gCamCapability[cameraId]->sharpness_ctrl.step = 6;
-    gCamCapability[cameraId]->sharpness_ctrl.def_value = 24;
+    gCamCapability[cameraId]->sharpness_ctrl.def_value = 12;
 
     gCamCapability[cameraId]->contrast_ctrl.min_value = 0;
     gCamCapability[cameraId]->contrast_ctrl.max_value = 10;
