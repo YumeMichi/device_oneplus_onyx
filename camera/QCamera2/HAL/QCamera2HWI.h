@@ -69,8 +69,13 @@ inline void __null_log(int, const char *, const char *, ...) {}
 
 #ifdef CDBG
 #undef CDBG
-#define CDBG(...) do{} while(0)
 #endif
+#define CDBG(...) do{} while(0)
+
+#ifdef CDBG_HIGH
+#undef CDBG_HIGH
+#endif
+#define CDBG_HIGH(...) do{} while(0)
 
 #else
 
