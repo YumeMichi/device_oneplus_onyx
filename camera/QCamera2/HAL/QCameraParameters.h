@@ -886,6 +886,9 @@ private:
     bool m_bAeBracketingEnabled;
     int32_t mFlashValue;
     int32_t mFlashDaemonValue;
+    uint32_t mPrvwExpTimeUs;
+    bool mIsManualIso;
+    bool mIsManualExpTime;
 
 };
 
