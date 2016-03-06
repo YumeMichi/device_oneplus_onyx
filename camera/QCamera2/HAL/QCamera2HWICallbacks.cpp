@@ -1326,10 +1326,7 @@ void QCamera2HardwareInterface::metadata_stream_cb_routine(mm_camera_super_buf_t
                 pme->mParameters.setPrvwExpTime(EXP_TIME_US_30FPS);
             else
                 pme->mParameters.setPrvwExpTime(EXP_TIME_OVERRIDE_DISABLE);
-        } else if (pme->mParameters.isManualMode()) {
-            /* Disable exp-time override for manual mode */
-            pme->mParameters.setPrvwExpTime(EXP_TIME_OVERRIDE_DISABLE);
-        } else {
+        } else if (!pme->mParameters.isManualMode()) {
             if (real_gain > REAL_GAIN_30FPS_THRESH) { /* 1/30th of a second */
                 pme->mParameters.setPrvwExpTime(EXP_TIME_US_30FPS);
             } else if (real_gain > REAL_GAIN_40FPS_THRESH) { /* 1/40th of a second */
