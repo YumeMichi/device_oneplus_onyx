@@ -3501,8 +3501,16 @@ int32_t QCameraParameters::setNoDisplayMode(const QCameraParameters& params)
  *==========================================================================*/
 int32_t QCameraParameters::setZslMode(const QCameraParameters& params)
 {
-    const char *str_val  = params.get(KEY_QC_ZSL);
+    const char *str_val;
     const char *prev_val  = get(KEY_QC_ZSL);
+
+    // Artifacts appear when disabling ZSL for front cam
+    // Exposure for HDR is wrong when ZSL is disabled
+    if (m_pCapability->position == CAM_POSITION_FRONT || m_bHDREnabled) {
+        str_val = VALUE_ON;
+    } else {
+        str_val = params.get(KEY_QC_ZSL);
+    }
 
     if (str_val != NULL) {
         if (prev_val == NULL || strcmp(str_val, prev_val) != 0) {
@@ -3908,6 +3916,8 @@ int32_t QCameraParameters::updateParameters(QCameraParameters& params,
         goto UPDATE_PARAM_DONE;
     }
 
+    if ((rc = setSceneMode(params)))                    final_rc = rc;
+
     if ((rc = setPreviewSize(params)))                  final_rc = rc;
     if ((rc = setVideoSize(params)))                    final_rc = rc;
     if ((rc = setPictureSize(params)))                  final_rc = rc;
@@ -3946,7 +3956,6 @@ int32_t QCameraParameters::updateParameters(QCameraParameters& params,
     if ((rc = setExposureCompensation(params)))         final_rc = rc;
     if ((rc = setWhiteBalance(params)))                 final_rc = rc;
     if ((rc = setWBManualCCT(params)))                  final_rc = rc;
-    if ((rc = setSceneMode(params)))                    final_rc = rc;
     if ((rc = setFocusAreas(params)))                   final_rc = rc;
     if ((rc = setFocusPosition(params)))                final_rc = rc;
     if ((rc = setMeteringAreas(params)))                final_rc = rc;
