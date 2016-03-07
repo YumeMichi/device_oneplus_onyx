@@ -89,24 +89,6 @@ vendor/lib/libactuator_dw9800w_camcorder.so
 vendor/lib/libactuator_dw9800w_camera.so
 
 # Camera Chromatix
-vendor/lib/libchromatix_imx214_common.so
-vendor/lib/libchromatix_imx214_default_video.so
-vendor/lib/libchromatix_imx214_hfr_120.so
-vendor/lib/libchromatix_imx214_hfr_60.so
-vendor/lib/libchromatix_imx214_liveshot.so
-vendor/lib/libchromatix_imx214_preview.so
-vendor/lib/libchromatix_imx214_preview_binning.so
-vendor/lib/libchromatix_imx214_snapshot.so
-vendor/lib/libchromatix_imx214_snapshot_hdr.so
-vendor/lib/libchromatix_imx214_video_binning.so
-vendor/lib/libchromatix_ov5648_common.so
-vendor/lib/libchromatix_ov5648_default_video.so
-vendor/lib/libchromatix_ov5648_liveshot.so
-vendor/lib/libchromatix_ov5648_preview.so
-vendor/lib/libchromatix_ov5648_preview_fb.so
-vendor/lib/libchromatix_ov5648_video_cmcc.so
-vendor/lib/libchromatix_ov5648_zsl.so
-vendor/lib/libchromatix_ov5648_zsl_fb.so
 vendor/lib/libchromatix_ov8858_common.so
 vendor/lib/libchromatix_ov8858_default_video.so
 vendor/lib/libchromatix_ov8858_liveshot.so
