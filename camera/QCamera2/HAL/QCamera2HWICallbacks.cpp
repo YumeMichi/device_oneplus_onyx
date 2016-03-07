@@ -1319,12 +1319,13 @@ void QCamera2HardwareInterface::metadata_stream_cb_routine(mm_camera_super_buf_t
 #define REAL_GAIN_30FPS_THRESH 38.0f
 #define REAL_GAIN_40FPS_THRESH 24.0f
 #define REAL_GAIN_MIN_THRESH 2.0f /* Lowest gain we can safely leverage to reduce exp time */
+#define REAL_GAIN_DISABLE_THRESH 1.1f /* Disable override here to prevent thrashing and over-exposure */
 
         if (pme->mParameters.getRecordingHintValue()) {
             /* Enforce 30 FPS video */
             if (real_gain > REAL_GAIN_MIN_THRESH && !pme->mParameters.isHfrMode())
                 pme->mParameters.setPrvwExpTime(EXP_TIME_US_30FPS);
-            else
+            else if (real_gain < REAL_GAIN_DISABLE_THRESH)
                 pme->mParameters.setPrvwExpTime(EXP_TIME_OVERRIDE_DISABLE);
         } else if (!pme->mParameters.isManualMode()) {
             if (real_gain > REAL_GAIN_30FPS_THRESH) { /* 1/30th of a second */
@@ -1343,8 +1344,7 @@ void QCamera2HardwareInterface::metadata_stream_cb_routine(mm_camera_super_buf_t
                 /* Prevent thrashing with 1/40th sec case */
                 if (old_exp_time != EXP_TIME_US_40FPS || thresh < REAL_GAIN_40FPS_THRESH)
                     pme->mParameters.setPrvwExpTime(EXP_TIME_US_60FPS);
-            } else {
-                /* Disable exp-time override for ISO <= 200 */
+            } else if (real_gain < REAL_GAIN_DISABLE_THRESH) {
                 pme->mParameters.setPrvwExpTime(EXP_TIME_OVERRIDE_DISABLE);
             }
         }
