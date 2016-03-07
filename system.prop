@@ -54,8 +54,7 @@ ro.bluetooth.alwaysbleon=true
 persist.camera.cpp.duplication=false
 
 # GPS
-persist.gps.qc_nlp_in_use=1
-persist.loc.nlp_name=com.qualcomm.location
+persist.gps.qc_nlp_in_use=0
 ro.gps.agps_provider=1
 ro.pip.gated=0
 
