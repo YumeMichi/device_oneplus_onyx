@@ -162,6 +162,7 @@ WITH_LZMA_OTA := true
 #TW_TARGET_USES_QCOM_BSP := true
 
 # RIL
+BOARD_RIL_CLASS += ../../../device/oneplus/onyx/ril
 TARGET_RIL_VARIANT := caf
 
 # RPC
