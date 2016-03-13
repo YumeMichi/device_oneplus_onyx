@@ -1536,9 +1536,8 @@ static cam_auto_exposure_mode_type new_aec_modes[AEC_MODES_SIZE] = {
     CAM_AEC_MODE_CENTER_WEIGHTED_ADV
 };
 
-#define ANTIBANDING_MODES_SIZE 4
+#define ANTIBANDING_MODES_SIZE 3
 static cam_antibanding_mode_type new_antibanding_modes[ANTIBANDING_MODES_SIZE] = {
-    CAM_ANTIBANDING_MODE_OFF,
     CAM_ANTIBANDING_MODE_60HZ,
     CAM_ANTIBANDING_MODE_50HZ,
     CAM_ANTIBANDING_MODE_AUTO
