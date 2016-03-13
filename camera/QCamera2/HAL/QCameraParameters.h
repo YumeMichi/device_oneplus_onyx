@@ -640,6 +640,7 @@ public:
     int getPrvwExpTime();
     bool isManualMode();
     uint32_t getCameraId();
+    bool is60HzAntibanding();
 
 private:
     int32_t setPreviewSize(const QCameraParameters& );
@@ -889,7 +890,7 @@ private:
     uint32_t mPrvwExpTimeUs;
     bool mIsManualIso;
     bool mIsManualExpTime;
-
+    bool m_bIs60HzAntibanding;
 };
 
 }; // namespace qcamera
