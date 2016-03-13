@@ -458,6 +458,9 @@ private:
     bool processUFDumps(qcamera_jpeg_evt_payload_t *evt);
     void captureDone();
 
+    void processAntishakeAlgo(QCamera2HardwareInterface *pme,
+                            float real_gain);
+
     static void copyList(cam_dimension_t* src_list,
                    cam_dimension_t* dst_list, uint8_t len);
     static void camEvtHandle(uint32_t camera_handle,
