@@ -671,8 +671,8 @@ QCameraParameters::QCameraParameters()
       mFlashValue(CAM_FLASH_MODE_OFF),
       mFlashDaemonValue(CAM_FLASH_MODE_OFF),
       mPrvwExpTimeUs(0),
-      mIsManualIso(false),
-      mIsManualExpTime(false),
+      m_bIsManualIso(false),
+      m_bIsManualExpTime(false),
       m_bIs60HzAntibanding(false)
 {
     char value[PROPERTY_VALUE_MAX];
@@ -758,8 +758,8 @@ QCameraParameters::QCameraParameters(const String8 &params)
     mFlashValue(CAM_FLASH_MODE_OFF),
     mFlashDaemonValue(CAM_FLASH_MODE_OFF),
     mPrvwExpTimeUs(0),
-    mIsManualIso(false),
-    mIsManualExpTime(false),
+    m_bIsManualIso(false),
+    m_bIsManualExpTime(false),
     m_bIs60HzAntibanding(false)
 {
     memset(&m_LiveSnapshotSize, 0, sizeof(m_LiveSnapshotSize));
@@ -3875,10 +3875,10 @@ int QCameraParameters::getPrvwExpTime()
 
 bool QCameraParameters::isManualMode()
 {
-    if (mIsManualIso && !mIsManualExpTime)
+    if (m_bIsManualIso && !m_bIsManualExpTime)
         setPrvwExpTime(0);
 
-    return mIsManualIso || mIsManualExpTime;
+    return m_bIsManualIso || m_bIsManualExpTime;
 }
 
 uint32_t QCameraParameters::getCameraId()
@@ -5439,9 +5439,9 @@ int32_t  QCameraParameters::setISOValue(const char *isoValue)
                                    isoValue);
 
         if (value != CAM_ISO_MODE_AUTO) {
-            mIsManualIso = true;
+            m_bIsManualIso = true;
         } else {
-            mIsManualIso = false;
+            m_bIsManualIso = false;
         }
 
         if (value != NAME_NOT_FOUND) {
@@ -5480,13 +5480,13 @@ int32_t  QCameraParameters::setExposureTime(const char *expTimeStr)
         // Cap exposure time to upper/lower limits without returning an error
         // to prevent crashes in CameraNext
         if (expTimeUs) {
-            mIsManualExpTime = true;
+            m_bIsManualExpTime = true;
             if (expTimeUs > max_exp_time)
                 expTimeUs = max_exp_time;
             else if (expTimeUs < min_exp_time)
                 expTimeUs = min_exp_time;
         } else {
-            mIsManualExpTime = false;
+            m_bIsManualExpTime = false;
         }
 
         // expTime == 0 means not to use manual exposure time.

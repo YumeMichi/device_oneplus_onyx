@@ -888,8 +888,8 @@ private:
     int32_t mFlashValue;
     int32_t mFlashDaemonValue;
     uint32_t mPrvwExpTimeUs;
-    bool mIsManualIso;
-    bool mIsManualExpTime;
+    bool m_bIsManualIso;
+    bool m_bIsManualExpTime;
     bool m_bIs60HzAntibanding;
 };
 
