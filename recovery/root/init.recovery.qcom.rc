@@ -19,20 +19,26 @@ on boot
     write /sys/devices/system/cpu/cpufreq/blu_active/hispeed_freq 1497600
     write /sys/devices/system/cpu/cpufreq/blu_active/go_hispeed_load 90
     write /sys/devices/system/cpu/cpufreq/blu_active/min_sample_time 40000
-    write /sys/devices/system/cpu/cpufreq/blu_active/timer_rate 40000
+    write /sys/devices/system/cpu/cpufreq/blu_active/timer_rate 30000
     write /sys/devices/system/cpu/cpufreq/blu_active/above_hispeed_delay "20000 1400000:40000 1700000:20000"
-    write /sys/devices/system/cpu/cpufreq/blu_active/boostpulse_duration 80000
+    write /sys/devices/system/cpu/cpufreq/blu_active/boostpulse_duration 500000
     write /sys/devices/system/cpu/cpufreq/blu_active/timer_slack 30000
     write /sys/devices/system/cpu/cpufreq/blu_active/io_is_busy 1
+	write /sys/devices/system/cpu/cpufreq/blu_active/target_loads "85 1500000:90 1800000:70"
     write /sys/devices/system/cpu/cpufreq/blu_active/input_boost_freq 1190400
     write /sys/devices/system/cpu/cpufreq/blu_active/max_freq_hysteresis 100000
+    write /sys/devices/system/cpu/cpufreq/blu_active/low_load_down_threshold 5
+	write /sys/devices/system/cpu/cpufreq/blu_active/fastlane 1
+	
     write /sys/block/mmcblk0/queue/scheduler fiops
     write /sys/block/mmcblk0/bdi/read_ahead_kb 512
     write /sys/block/mmcblk1/queue/scheduler fiops
     write /sys/block/mmcblk1/bdi/read_ahead_kb 512
+	
     write /sys/module/blu_plug/parameters/max_online 4
     write /sys/module/blu_plug/parameters/min_online 4
     write /sys/module/blu_plug/parameters/max_cores_screenoff 4
+	
 	write /proc/otg_config/otg_switch 1
 	write /proc/touchpanel/double_tap_enable 1
 	write /sys/class/leds/red/trigger "battery-charging"
