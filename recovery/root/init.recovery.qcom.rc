@@ -6,6 +6,8 @@ service sbinqseecomd /sbin/qseecomd
     seclabel u:r:recovery:s0
 
 on boot
+    write /sys/module/msm_thermal/core_control/enabled 0
+	
     write /sys/devices/system/cpu/cpu0/online 1
     write /sys/devices/system/cpu/cpu1/online 1
     write /sys/devices/system/cpu/cpu2/online 1
@@ -36,6 +38,8 @@ on boot
 	write /sys/class/leds/red/trigger "battery-charging"
     write /sys/class/leds/green/trigger "battery-full"
     write /proc/touchpanel/keypad_enable 0
+	
+	write /sys/module/msm_thermal/core_control/enabled 1
 
 on fs
     chmod 0660 /dev/qseecom
