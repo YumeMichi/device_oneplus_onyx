@@ -117,6 +117,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     charger_res_images
 
+# Data
+PRODUCT_PACKAGES += \
+    librmnetctl \
+    rmnetcli
+
 # Graphics
 PRODUCT_PACKAGES += \
     copybit.msm8974 \
@@ -201,8 +206,7 @@ PRODUCT_PACKAGES += \
 # RIL
 PRODUCT_PACKAGES += \
     libcnefeatureconfig \
-    libxml2 \
-    libshim_ril
+    libxml2
 
 # Sensors
 PRODUCT_COPY_FILES += \
