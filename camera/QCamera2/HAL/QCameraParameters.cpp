@@ -4490,8 +4490,8 @@ int32_t QCameraParameters::initDefaultParameters()
     setMCEValue(VALUE_ENABLE);
 
     // Set DIS
-    set(KEY_QC_SUPPORTED_DIS_MODES, enableDisableValues);
-    setDISValue(VALUE_DISABLE);
+    //set(KEY_QC_SUPPORTED_DIS_MODES, enableDisableValues);
+    //setDISValue(VALUE_DISABLE);
 
     // Set Histogram
     set(KEY_QC_SUPPORTED_HISTOGRAM_MODES,
