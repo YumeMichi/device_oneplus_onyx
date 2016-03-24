@@ -7785,7 +7785,7 @@ int QCameraParameters::getBurstNum()
  *==========================================================================*/
 int QCameraParameters::getJpegQuality()
 {
-    return 100;
+    return 95;
 }
 
 
