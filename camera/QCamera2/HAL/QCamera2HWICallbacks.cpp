@@ -1127,33 +1127,43 @@ void QCamera2HardwareInterface::snapshot_raw_stream_cb_routine(mm_camera_super_b
     CDBG_HIGH("[KPI Perf] %s : END", __func__);
 }
 
-/***** Antishake & 30 FPS video algorithm *****/
+/***** Antishake and 30 FPS video algorithm *****/
 #define EXP_TIME_OVERRIDE_DISABLE 0
 
 /* 60 Hz */
-#define EXP_TIME_US_30FPS 33333 /* High */
-#define EXP_TIME_US_40FPS 25000 /* Mid */
-#define EXP_TIME_US_60FPS 16667 /* Low */
+#define EXP_TIME_US_20FPS 50000 /* Very high thresh */
+#define EXP_TIME_US_30FPS 33333 /* High thresh */
+#define EXP_TIME_US_40FPS 25000 /* Mid thresh */
+#define EXP_TIME_US_60FPS 16667 /* Low thresh */
 
 /* 50 Hz */
-#define EXP_TIME_US_33FPS 30000 /* Mid */
-#define EXP_TIME_US_50FPS 20000 /* Low */
+#define EXP_TIME_US_25FPS 40000 /* High thresh */
+#define EXP_TIME_US_33FPS 30000 /* Mid thresh */
+#define EXP_TIME_US_50FPS 20000 /* Low thresh */
 
+/*
+ * Gain threshs must be calculated to conform to gain-transition
+ * threshs. These values cannot be arbitrary. All values are calculated
+ * using the highest thresh (REAL_GAIN_VERY_HIGH_THRESH for 60 Hz,
+ * REAL_GAIN_HIGH_THRESH for 50 Hz) as the base value.
+ */
 #define REAL_GAIN_THRESH_GAP 1.0f
-#define REAL_GAIN_HIGH_THRESH 38.0f
-#define REAL_GAIN_MID_THRESH 24.0f
+#define REAL_GAIN_VERY_HIGH_THRESH 22.0f
+#define REAL_GAIN_HIGH_THRESH 12.0f
+#define REAL_GAIN_MID_THRESH 6.0f
 #define REAL_GAIN_LOW_THRESH 2.0f /* Lowest gain we can safely leverage to reduce exp time */
 #define REAL_GAIN_DISABLE_THRESH 1.1f /* Disable override here to prevent thrashing and over-exposure */
+
 void QCamera2HardwareInterface::processAntishakeAlgo(QCamera2HardwareInterface *pme,
                                                     float real_gain)
 {
     uint32_t old_exp_time = pme->mParameters.getPrvwExpTime();
-    bool is_60hz = pme->mParameters.is60HzAntibanding();
+    bool is_60Hz = pme->mParameters.is60HzAntibanding();
 
     if (pme->mParameters.getRecordingHintValue()) {
         /* Enforce 30 FPS video */
         if (real_gain > REAL_GAIN_LOW_THRESH && !pme->mParameters.isHfrMode()) {
-            if (is_60hz)
+            if (is_60Hz)
                 pme->mParameters.setPrvwExpTime(EXP_TIME_US_30FPS);
             else
                 pme->mParameters.setPrvwExpTime(EXP_TIME_US_33FPS);
@@ -1161,33 +1171,48 @@ void QCamera2HardwareInterface::processAntishakeAlgo(QCamera2HardwareInterface *
             pme->mParameters.setPrvwExpTime(EXP_TIME_OVERRIDE_DISABLE);
         }
     } else if (!pme->mParameters.isManualMode()) {
+        /* Antishake for camera */
         if (real_gain < REAL_GAIN_DISABLE_THRESH) {
                 pme->mParameters.setPrvwExpTime(EXP_TIME_OVERRIDE_DISABLE);
-        } else if (is_60hz) {
-            if (real_gain > REAL_GAIN_HIGH_THRESH) { /* 1/30th of a second */
-                pme->mParameters.setPrvwExpTime(EXP_TIME_US_30FPS);
+        } else if (is_60Hz) { /* Execute with 60 Hz banding compensation */
+            if (real_gain > REAL_GAIN_VERY_HIGH_THRESH) { /* 1/20th of a second */
+                pme->mParameters.setPrvwExpTime(EXP_TIME_US_20FPS);
+            } else if (real_gain > REAL_GAIN_HIGH_THRESH) { /* 1/30th of a second */
+                /* threshold = (real_gain * (1/20 / 1/30)) + cushion */
+                float thresh = (real_gain * EXP_TIME_US_20FPS / EXP_TIME_US_30FPS)
+                                                                + REAL_GAIN_THRESH_GAP;
+                /* Prevent thrashing with 1/20th sec case */
+                if (old_exp_time != EXP_TIME_US_20FPS || thresh < REAL_GAIN_VERY_HIGH_THRESH)
+                    pme->mParameters.setPrvwExpTime(EXP_TIME_US_30FPS);
             } else if (real_gain > REAL_GAIN_MID_THRESH) { /* 1/40th of a second */
                 /* threshold = (real_gain * (1/30 / 1/40)) + cushion */
-                float thresh = (real_gain * 4.0f / 3.0f) + REAL_GAIN_THRESH_GAP;
-
+                float thresh = (real_gain * EXP_TIME_US_30FPS / EXP_TIME_US_40FPS)
+                                                                + REAL_GAIN_THRESH_GAP;
                 /* Prevent thrashing with 1/30th sec case */
                 if (old_exp_time != EXP_TIME_US_30FPS || thresh < REAL_GAIN_HIGH_THRESH)
                     pme->mParameters.setPrvwExpTime(EXP_TIME_US_40FPS);
             } else if (real_gain > REAL_GAIN_LOW_THRESH) { /* 1/60th of a second */
                 /* threshold = (real_gain * (1/40 / 1/60)) + cushion */
-                float thresh = (real_gain * 3.0f / 2.0f) + REAL_GAIN_THRESH_GAP;
-
+                float thresh = (real_gain * EXP_TIME_US_40FPS / EXP_TIME_US_60FPS)
+                                                                + REAL_GAIN_THRESH_GAP;
                 /* Prevent thrashing with 1/40th sec case */
                 if (old_exp_time != EXP_TIME_US_40FPS || thresh < REAL_GAIN_MID_THRESH)
                     pme->mParameters.setPrvwExpTime(EXP_TIME_US_60FPS);
             }
-        } else {
-            if (real_gain > REAL_GAIN_MID_THRESH) { /* 1/33rd of a second */
-                pme->mParameters.setPrvwExpTime(EXP_TIME_US_33FPS);
+        } else { /* Execute with 50 Hz banding compensation */
+            if (real_gain > REAL_GAIN_HIGH_THRESH) { /* 1/25th of a second */
+                pme->mParameters.setPrvwExpTime(EXP_TIME_US_25FPS);
+            } else if (real_gain > REAL_GAIN_MID_THRESH) { /* 1/33rd of a second */
+                /* threshold = (real_gain * (1/25 / 1/33)) + cushion */
+                float thresh = (real_gain * EXP_TIME_US_25FPS / EXP_TIME_US_33FPS)
+                                                                + REAL_GAIN_THRESH_GAP;
+                /* Prevent thrashing with 1/33rd sec case */
+                if (old_exp_time != EXP_TIME_US_25FPS || thresh < REAL_GAIN_HIGH_THRESH)
+                    pme->mParameters.setPrvwExpTime(EXP_TIME_US_33FPS);
             } else if (real_gain > REAL_GAIN_LOW_THRESH) { /* 1/50th of a second */
                 /* threshold = (real_gain * (1/33 / 1/50)) + cushion */
-                float thresh = (real_gain * 50.0f / 33.0f) + REAL_GAIN_THRESH_GAP;
-
+                float thresh = (real_gain * EXP_TIME_US_33FPS / EXP_TIME_US_50FPS)
+                                                                + REAL_GAIN_THRESH_GAP;
                 /* Prevent thrashing with 1/33rd sec case */
                 if (old_exp_time != EXP_TIME_US_33FPS || thresh < REAL_GAIN_MID_THRESH)
                     pme->mParameters.setPrvwExpTime(EXP_TIME_US_50FPS);
