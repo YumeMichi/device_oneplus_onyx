@@ -1161,14 +1161,15 @@ void QCamera2HardwareInterface::processAntishakeAlgo(QCamera2HardwareInterface *
     bool is_60Hz = pme->mParameters.is60HzAntibanding();
 
     if (pme->mParameters.getRecordingHintValue()) {
-        /* Enforce 30 FPS video */
-        if (real_gain > REAL_GAIN_LOW_THRESH && !pme->mParameters.isHfrMode()) {
+        if (real_gain < REAL_GAIN_DISABLE_THRESH ||
+                pme->mParameters.isHfrMode()) {
+            pme->mParameters.setPrvwExpTime(EXP_TIME_OVERRIDE_DISABLE);
+        } else if (real_gain > REAL_GAIN_LOW_THRESH) {
+            /* Enforce 30 FPS video */
             if (is_60Hz)
                 pme->mParameters.setPrvwExpTime(EXP_TIME_US_30FPS);
             else
                 pme->mParameters.setPrvwExpTime(EXP_TIME_US_33FPS);
-        } else if (real_gain < REAL_GAIN_DISABLE_THRESH) {
-            pme->mParameters.setPrvwExpTime(EXP_TIME_OVERRIDE_DISABLE);
         }
     } else if (!pme->mParameters.isManualMode()) {
         /* Antishake for camera */
