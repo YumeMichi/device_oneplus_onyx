@@ -7009,6 +7009,7 @@ int32_t QCameraParameters::setRedeyeReduction(const char *redeyeStr)
  *==========================================================================*/
 cam_denoise_process_type_t QCameraParameters::getWaveletDenoiseProcessPlate()
 {
+#if 0
     char prop[PROPERTY_VALUE_MAX];
     memset(prop, 0, sizeof(prop));
     cam_denoise_process_type_t processPlate = CAM_WAVELET_DENOISE_CBCR_ONLY;
@@ -7033,6 +7034,8 @@ cam_denoise_process_type_t QCameraParameters::getWaveletDenoiseProcessPlate()
         }
     }
     return processPlate;
+#endif
+    return CAM_WAVELET_DENOISE_STREAMLINED_CBCR;
 }
 
 /*===========================================================================
