@@ -1176,6 +1176,10 @@
         <path name="speaker-mic-DB" />
     </path>
 
+    <path name="line">
+        <path name="headphones" />
+    </path>
+
     <path name="voice-headphones">
         <path name="headphones" />
     </path>
@@ -1183,6 +1187,10 @@
     <path name="voice-headset-mic">
         <path name="headset-mic" />
         <ctl name="ADC2 Volume" value="13" />
+    </path>
+
+    <path name="voice-line">
+        <path name="voice-headphones" />
     </path>
 
     <path name="speaker-and-headphones">
@@ -1224,6 +1232,10 @@
         <ctl name="COMP2 Switch" value="1" />
         <ctl name="LINEOUT2 Volume" value="20" />
         <ctl name="LINEOUT4 Volume" value="20" />
+    </path>
+
+    <path name="speaker-and-line">
+        <path name="speaker-and-headphones" />
     </path>
 
     <path name="usb-headphones">
