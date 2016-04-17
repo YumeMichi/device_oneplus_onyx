@@ -1147,11 +1147,11 @@ void QCamera2HardwareInterface::snapshot_raw_stream_cb_routine(mm_camera_super_b
  * using the highest thresh (REAL_GAIN_VERY_HIGH_THRESH for 60 Hz,
  * REAL_GAIN_HIGH_THRESH for 50 Hz) as the base value.
  */
-#define REAL_GAIN_THRESH_GAP 1.0f
-#define REAL_GAIN_VERY_HIGH_THRESH 22.0f
-#define REAL_GAIN_HIGH_THRESH 12.0f
-#define REAL_GAIN_MID_THRESH 6.0f
-#define REAL_GAIN_LOW_THRESH 2.0f /* Lowest gain we can safely leverage to reduce exp time */
+#define REAL_GAIN_THRESH_GAP 0.5f
+#define REAL_GAIN_VERY_HIGH_THRESH 12.0f
+#define REAL_GAIN_HIGH_THRESH 6.0f
+#define REAL_GAIN_MID_THRESH 4.0f
+#define REAL_GAIN_LOW_THRESH 1.8f /* Lowest gain we can safely leverage to reduce exp time */
 #define REAL_GAIN_DISABLE_THRESH 1.1f /* Disable override here to prevent thrashing and over-exposure */
 
 void QCamera2HardwareInterface::processAntishakeAlgo(QCamera2HardwareInterface *pme,
