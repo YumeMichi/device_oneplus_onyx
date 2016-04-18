@@ -73,6 +73,8 @@ on boot
     mkdir /dev/socket/qmux_gps 0770 gps gps
     chmod 2770 /dev/socket/qmux_gps
 
+    mkdir /persist/bluetooth 0770 bluetooth bluetooth
+
     # Charger
     chown root system /sys/module/qpnp_charger/parameters/charger_monitor
     chown root system /sys/class/power_supply/battery/input_current_max
@@ -544,21 +546,15 @@ on property:vold.decrypt=trigger_restart_framework
     start config_bluetooth
     start wcnss-service
 
-service config_bluetooth /system/bin/sh /init.qcom.bt.sh "onboot"
+service config_bluetooth /system/bin/sh /init.qcom.bt.sh
     class core
     user root
     group bluetooth net_bt_admin qcom_diag radio
     oneshot
-
-service hciattach /system/bin/sh /init.qcom.bt.sh
-    class late_start
-    user bluetooth
-    group bluetooth net_bt_admin qcom_diag radio
     disabled
-    oneshot
 
 on property:bluetooth.hciattach=true
-    start hciattach
+    start config_bluetooth
 
 on property:bluetooth.hciattach=false
     setprop bluetooth.status off
