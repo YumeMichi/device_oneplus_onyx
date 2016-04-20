@@ -1,3 +1,0 @@
-allow untrusted_app block_device:dir { read open };
-allow untrusted_app device:dir { read open };
-allow untrusted_app storage_stub_file:dir getattr;
