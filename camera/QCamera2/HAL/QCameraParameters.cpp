@@ -1750,14 +1750,16 @@ bool QCameraParameters::UpdateHFRFrameRate(const QCameraParameters& params)
     }
 
     // check if HFR is enabled
-    if(hfrStr != NULL && strcmp(hfrStr, "off")){
+    if(hfrStr != NULL &&
+        ((hsrStr != NULL && !strcmp(hsrStr, "off")) || hsrStr == NULL)){
         hfrMode = lookupAttr(HFR_MODES_MAP,
                                sizeof(HFR_MODES_MAP)/sizeof(QCameraMap),
                                hfrStr);
         if(NAME_NOT_FOUND != hfrMode) newHfrMode = hfrMode;
     }
     // check if HSR is enabled
-    else if(hsrStr != NULL && strcmp(hsrStr, "off")){
+    else if(hsrStr != NULL &&
+        ((hfrStr != NULL && !strcmp(hfrStr, "off")) || hfrStr == NULL)){
         hfrMode = lookupAttr(HFR_MODES_MAP,
                                sizeof(HFR_MODES_MAP)/sizeof(QCameraMap),
                                hsrStr);
