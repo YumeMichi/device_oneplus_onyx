@@ -642,6 +642,7 @@ public:
     uint32_t getCameraId();
     bool is60HzAntibanding();
     uint32_t getHfrMode();
+    bool getAppRecordingHint();
 
 private:
     int32_t setPreviewSize(const QCameraParameters& );
@@ -892,6 +893,7 @@ private:
     bool m_bIsManualIso;
     bool m_bIsManualExpTime;
     bool m_bIs60HzAntibanding;
+    bool m_bAppRecordingHint;
 };
 
 }; // namespace qcamera
