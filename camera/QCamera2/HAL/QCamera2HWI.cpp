@@ -811,13 +811,10 @@ char* QCamera2HardwareInterface::get_parameters(struct camera_device *device)
         android::CameraParameters params;
         params.unflatten(android::String8(apiResult.params));
 
-        // Mask nv12-venus to userspace to prevent framework crash
-        if (hw->mParameters.getRecordingHintValue()) {
-            int width, height;
-            hw->mParameters.getVideoSize(&width, &height);
-            if ((width * height) >= (1280 * 720)) {
-                params.set("preview-format", "yuv420sp");
-            }
+        // Hide nv12-venus from userspace to prevent framework crash
+        const char *fmt = params.get("preview-format");
+        if (fmt && !strcmp(fmt, "nv12-venus")) {
+            params.set("preview-format", "yuv420sp");
         }
 
         // Set exposure-time-values param for CameraNext slow-shutter
