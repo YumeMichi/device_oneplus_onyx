@@ -1256,7 +1256,7 @@ void QCamera2HardwareInterface::processAntishakeAlgo(QCamera2HardwareInterface *
         pme->mHfrFrameCount = 0;
     }
 
-    if (pme->mParameters.getRecordingHintValue()) {
+    if (pme->mParameters.getAppRecordingHint()) {
         if (real_gain < REAL_GAIN_DISABLE_THRESH) {
             pme->mParameters.setPrvwExpTime(EXP_TIME_OVERRIDE_DISABLE);
         } else if (real_gain > REAL_GAIN_LOW_THRESH) {
