@@ -641,6 +641,7 @@ public:
     bool isManualMode();
     uint32_t getCameraId();
     bool is60HzAntibanding();
+    uint32_t getHfrMode();
 
 private:
     int32_t setPreviewSize(const QCameraParameters& );

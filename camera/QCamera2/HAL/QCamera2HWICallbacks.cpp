@@ -1127,19 +1127,24 @@ void QCamera2HardwareInterface::snapshot_raw_stream_cb_routine(mm_camera_super_b
     CDBG_HIGH("[KPI Perf] %s : END", __func__);
 }
 
-/***** Antishake and 30 FPS video algorithm *****/
+/***** Antishake, 30 FPS video, and HFR algorithms *****/
 #define EXP_TIME_OVERRIDE_DISABLE 0
 
 /* 60 Hz */
-#define EXP_TIME_US_20FPS 50000 /* Very high thresh */
-#define EXP_TIME_US_30FPS 33333 /* High thresh */
-#define EXP_TIME_US_40FPS 25000 /* Mid thresh */
-#define EXP_TIME_US_60FPS 16667 /* Low thresh */
+#define EXP_TIME_US_20FPS  50000 /* Very high thresh */
+#define EXP_TIME_US_30FPS  33333 /* High thresh */
+#define EXP_TIME_US_40FPS  25000 /* Mid thresh */
+#define EXP_TIME_US_60FPS  16666 /* Low thresh and HFR 60 */
+#define EXP_TIME_US_90FPS  11111 /* HFR 90 */
+#define EXP_TIME_US_120FPS  8333 /* HFR 120 */
 
 /* 50 Hz */
-#define EXP_TIME_US_25FPS 40000 /* High thresh */
-#define EXP_TIME_US_33FPS 30000 /* Mid thresh */
-#define EXP_TIME_US_50FPS 20000 /* Low thresh */
+#define EXP_TIME_US_25FPS  40000 /* High thresh */
+#define EXP_TIME_US_33FPS  30000 /* Mid thresh */
+#define EXP_TIME_US_50FPS  20000 /* Low thresh */
+#define EXP_TIME_US_75FPS  13333 /* HFR 60 */
+#define EXP_TIME_US_100FPS 10000 /* HFR 90 */
+#define EXP_TIME_US_125FPS  8000 /* HFR 120 */
 
 /*
  * Gain threshs must be calculated to conform to gain-transition
@@ -1154,15 +1159,105 @@ void QCamera2HardwareInterface::snapshot_raw_stream_cb_routine(mm_camera_super_b
 #define REAL_GAIN_LOW_THRESH 1.8f /* Lowest gain we can safely leverage to reduce exp time */
 #define REAL_GAIN_DISABLE_THRESH 1.1f /* Disable override here to prevent thrashing and over-exposure */
 
-void QCamera2HardwareInterface::processAntishakeAlgo(QCamera2HardwareInterface *pme,
-                                                    float real_gain)
+/*** HFR ***/
+#define HFR_REAL_GAIN_DISABLE_THRESH 1.001f
+#define BACKEND_EXP_TIME_ERR_MARGIN 0.0001f
+
+#define HFR_60FPS 60
+#define HFR_90FPS 90
+#define HFR_120FPS 120
+
+/* 60 Hz */
+#define HFR_60FPS_60HZ (1.0f / 60.0f)
+#define HFR_90FPS_90HZ (1.0f / 90.0f)
+#define HFR_120FPS_120HZ (1.0f / 120.0f)
+
+/* 50 Hz */
+#define HFR_60FPS_75HZ (1.0f / 75.0f)
+#define HFR_90FPS_100HZ (1.0f / 100.0f)
+#define HFR_120FPS_125HZ (1.0f / 125.0f)
+
+/*
+ * Manually control exp time for HFR mode as HFR chromatix
+ * libraries suffer from blue tint. This allows the use of
+ * the regular video chromatix library for HFR recordings.
+ */
+void QCamera2HardwareInterface::processHfrExpTime(QCamera2HardwareInterface *pme,
+                                        float real_gain, float exp_time,
+                                        uint32_t hfr_mode,
+                                        bool is_60Hz)
 {
+    float max_exp_time;
+    uint32_t new_exp_time;
+
+    switch (hfr_mode) {
+    case HFR_60FPS:
+        if (is_60Hz) {
+            max_exp_time = HFR_60FPS_60HZ;
+            new_exp_time = EXP_TIME_US_60FPS;
+        } else {
+            max_exp_time = HFR_60FPS_75HZ;
+            new_exp_time = EXP_TIME_US_75FPS;
+        }
+        break;
+    case HFR_90FPS:
+        if (is_60Hz) {
+            max_exp_time = HFR_90FPS_90HZ;
+            new_exp_time = EXP_TIME_US_90FPS;
+        } else {
+            max_exp_time = HFR_90FPS_100HZ;
+            new_exp_time = EXP_TIME_US_100FPS;
+        }
+        break;
+    case HFR_120FPS:
+        if (is_60Hz) {
+            max_exp_time = HFR_120FPS_120HZ;
+            new_exp_time = EXP_TIME_US_120FPS;
+        } else {
+            max_exp_time = HFR_120FPS_125HZ;
+            new_exp_time = EXP_TIME_US_125FPS;
+        }
+        break;
+    default:
+        return;
+    }
+
+    /*
+     * Only update exp time once every 3 frames to prevent thrashing.
+     * Make sure exp time is checked on first frame (post-increment
+     * mHfrFrameCount).
+     */
+    if (pme->mHfrFrameCount++ % 3)
+        return;
+
+    /* Account for any rounding when checking backend's exp time */
+    max_exp_time += BACKEND_EXP_TIME_ERR_MARGIN;
+
+    if (exp_time > max_exp_time) {
+        pme->mParameters.setPrvwExpTime(new_exp_time);
+    } else if (real_gain <= HFR_REAL_GAIN_DISABLE_THRESH) {
+        /* Prevent overexposure */
+        pme->mParameters.setPrvwExpTime(EXP_TIME_OVERRIDE_DISABLE);
+    }
+}
+
+void QCamera2HardwareInterface::processAntishakeAlgo(QCamera2HardwareInterface *pme,
+                                                    float real_gain, float exp_time)
+{
+    uint32_t hfr_mode = pme->mParameters.getHfrMode();
     uint32_t old_exp_time = pme->mParameters.getPrvwExpTime();
     bool is_60Hz = pme->mParameters.is60HzAntibanding();
 
+    /* Process HFR exposure-time algo */
+    if (hfr_mode) {
+        pme->processHfrExpTime(pme, real_gain, exp_time, hfr_mode, is_60Hz);
+        return;
+    } else {
+        pme->mHfrFrameCount = 0;
+    }
+
     if (pme->mParameters.getRecordingHintValue()) {
-        if (real_gain < REAL_GAIN_DISABLE_THRESH ||
-                pme->mParameters.isHfrMode()) {
+        if (real_gain < REAL_GAIN_DISABLE_THRESH) {
             pme->mParameters.setPrvwExpTime(EXP_TIME_OVERRIDE_DISABLE);
         } else if (real_gain > REAL_GAIN_LOW_THRESH) {
             /* Enforce 30 FPS video */
@@ -1404,7 +1499,8 @@ void QCamera2HardwareInterface::metadata_stream_cb_routine(mm_camera_super_buf_t
         pme->mFlashNeeded = pMetaData->ae_params.flash_needed;
 
         /* Antishake & 30 FPS video algorithm */
-        pme->processAntishakeAlgo(pme, pMetaData->ae_params.real_gain);
+        pme->processAntishakeAlgo(pme, pMetaData->ae_params.real_gain,
+                                pMetaData->ae_params.exp_time);
     }
     if(pMetaData->is_awb_params_valid) {
         pme->mExifParams.awb_params = pMetaData->awb_params;

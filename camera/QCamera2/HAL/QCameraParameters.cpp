@@ -3896,6 +3896,20 @@ bool QCameraParameters::is60HzAntibanding()
     return m_bIs60HzAntibanding;
 }
 
+uint32_t QCameraParameters::getHfrMode()
+{
+    switch (mHfrMode) {
+    case CAM_HFR_MODE_60FPS:
+        return 60;
+    case CAM_HFR_MODE_90FPS:
+        return 90;
+    case CAM_HFR_MODE_120FPS:
+        return 120;
+    default:
+        return 0;
+    }
+}
+
 /*===========================================================================
  * FUNCTION   : updateParameters
  *
