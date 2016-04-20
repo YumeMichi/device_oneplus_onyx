@@ -673,7 +673,8 @@ QCameraParameters::QCameraParameters()
       mPrvwExpTimeUs(0),
       m_bIsManualIso(false),
       m_bIsManualExpTime(false),
-      m_bIs60HzAntibanding(false)
+      m_bIs60HzAntibanding(false),
+      m_bAppRecordingHint(false)
 {
     char value[PROPERTY_VALUE_MAX];
 #ifndef DISABLE_DEBUG_LOG
@@ -760,7 +761,8 @@ QCameraParameters::QCameraParameters(const String8 &params)
     mPrvwExpTimeUs(0),
     m_bIsManualIso(false),
     m_bIsManualExpTime(false),
-    m_bIs60HzAntibanding(false)
+    m_bIs60HzAntibanding(false),
+    m_bAppRecordingHint(false)
 {
     memset(&m_LiveSnapshotSize, 0, sizeof(m_LiveSnapshotSize));
     m_pTorch = NULL;
@@ -3451,6 +3453,7 @@ int32_t QCameraParameters::setRecordingHint(const QCameraParameters& params)
                                        str);
             if(value != NAME_NOT_FOUND){
                 updateParamEntry(KEY_RECORDING_HINT, str);
+                m_bAppRecordingHint = (value > 0) ? true : false;
                 setRecordingHintValue(value);
                 return NO_ERROR;
             } else {
@@ -3908,6 +3911,11 @@ uint32_t QCameraParameters::getHfrMode()
     default:
         return 0;
     }
+}
+
+bool QCameraParameters::getAppRecordingHint()
+{
+    return m_bAppRecordingHint || m_bRecordingHint;
 }
 
 /*===========================================================================
