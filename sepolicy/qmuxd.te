@@ -1,2 +1,0 @@
-allow qmuxd property_socket:sock_file write;
-allow qmuxd system_prop:property_service set;

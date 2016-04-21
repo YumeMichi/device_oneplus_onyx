@@ -2,6 +2,3 @@ allow qti_init_shell btnvtool_exec:file execute;
 allow qti_init_shell btnvtool_exec:file { read open };
 allow qti_init_shell btnvtool_exec:file execute_no_trans;
 
-allow qti_init_shell qmuxd_socket:dir { add_name search write };
-allow qti_init_shell nv_data_file:file { read write getattr open };
-allow qti_init_shell nv_data_file:dir search;
