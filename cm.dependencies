@@ -14,9 +14,5 @@
   {
     "repository": "android_external_stlport",
     "target_path": "external/stlport"
-  },
-  {
-    "repository": "android_vendor_qcom_opensource_dataservices",
-    "target_path": "vendor/qcom/opensource/dataservices"
   }
 ]
