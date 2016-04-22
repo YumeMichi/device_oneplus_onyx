@@ -529,7 +529,7 @@ const QCameraParameters::QCameraMap QCameraParameters::ANTIBANDING_MODES_MAP[] =
 
 const QCameraParameters::QCameraMap QCameraParameters::ISO_MODES_MAP[] = {
     { ISO_AUTO,  CAM_ISO_MODE_AUTO },
-    { ISO_HJR,   CAM_ISO_MODE_AUTO }, // ISO DEBLUR is broken in the backend
+    { ISO_HJR,   CAM_ISO_MODE_DEBLUR },
     { ISO_100,   CAM_ISO_MODE_100 },
     { ISO_200,   CAM_ISO_MODE_200 },
     { ISO_400,   CAM_ISO_MODE_400 },
@@ -609,6 +609,7 @@ const QCameraParameters::QCameraMap QCameraParameters::CDS_MODES_MAP[] = {
 #define MIN_PP_BUF_CNT 1
 #define TOTAL_RAM_SIZE_512MB 536870912
 
+
 /*===========================================================================
  * FUNCTION   : QCameraParameters
  *
@@ -677,11 +678,9 @@ QCameraParameters::QCameraParameters()
       m_bAppRecordingHint(false)
 {
     char value[PROPERTY_VALUE_MAX];
-#ifndef DISABLE_DEBUG_LOG
     // TODO: may move to parameter instead of sysprop
     property_get("persist.debug.sf.showfps", value, "0");
     m_bDebugFps = atoi(value) > 0 ? true : false;
-#endif
     m_bReleaseTorchCamera = false;
     m_pTorch = NULL;
 
@@ -3520,6 +3519,9 @@ int32_t QCameraParameters::setZslMode(const QCameraParameters& params)
 
     // Artifacts appear when disabling ZSL for front cam
     // Exposure for HDR is wrong when ZSL is disabled
+    // NOTE: Just checking the params for HDR won't work. setSceneMode()
+    // needs to be called before setZslMode(), and then we need to check
+    // m_bHDREnabled.
     if (m_pCapability->position == CAM_POSITION_FRONT || m_bHDREnabled) {
         str_val = VALUE_ON;
     } else {
@@ -3959,6 +3961,7 @@ int32_t QCameraParameters::updateParameters(QCameraParameters& params,
         goto UPDATE_PARAM_DONE;
     }
 
+    // Set scene mode before ZSL, to enable ZSL when HDR is used
     if ((rc = setSceneMode(params)))                    final_rc = rc;
 
     if ((rc = setPreviewSize(params)))                  final_rc = rc;
@@ -5680,9 +5683,6 @@ int32_t QCameraParameters::setFlash(const char *flashStr)
             if ( NULL != m_pTorch ) {
                 if ( value == CAM_FLASH_MODE_TORCH && !m_bRecordingHint_new) {
                     m_pTorch->prepareTorchCamera();
-                    // Set preview size to 1080p to fix torch w/ trusted-face usecase,
-                    // without breaking camera in some silly banking apps (like BofA)
-                    CameraParameters::setPreviewSize(1920, 1080);
                 } else {
                     m_bReleaseTorchCamera = true;
                 }
@@ -7834,6 +7834,13 @@ int QCameraParameters::getBurstNum()
  *==========================================================================*/
 int QCameraParameters::getJpegQuality()
 {
+#if 0
+    int quality = getInt(KEY_JPEG_QUALITY);
+    if (quality < 0) {
+        quality = 85; // set to default quality value
+    }
+    return quality;
+#endif
     return 95;
 }
 
