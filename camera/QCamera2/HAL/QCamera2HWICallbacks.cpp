@@ -1129,7 +1129,7 @@ void QCamera2HardwareInterface::snapshot_raw_stream_cb_routine(mm_camera_super_b
 
 /***** Exposure-time algorithm definitions *****/
 
-/**** Exposure times ****/
+/**** Exposure times (backend uses 6-decimal precision) ****/
 #define EXP_TIME_OVERRIDE_DISABLE 0.0f
 
 /*** 60 Hz ***/
@@ -1137,7 +1137,6 @@ void QCamera2HardwareInterface::snapshot_raw_stream_cb_routine(mm_camera_super_b
 #define EXP_TIME_30FPS 0.033333f /* 1/30 */
 #define EXP_TIME_40FPS 0.025000f /* 1/40 */
 #define EXP_TIME_60FPS 0.016666f /* 1/60 */
-#define EXP_TIME_90FPS 0.011111f /* 1/90 */
 #define EXP_TIME_120FPS 0.008333f /* 1/120 */
 
 /*** 50 Hz ***/
@@ -1145,7 +1144,6 @@ void QCamera2HardwareInterface::snapshot_raw_stream_cb_routine(mm_camera_super_b
 #define EXP_TIME_33FPS 0.030303f /* 1/33 */
 #define EXP_TIME_50FPS 0.020000f /* 1/50 */
 #define EXP_TIME_75FPS 0.013333f /* 1/75 */
-#define EXP_TIME_100FPS 0.010000f /* 1/100 */
 #define EXP_TIME_125FPS 0.008000f /* 1/125 */
 
 /**** Camera-specific ****/
@@ -1170,7 +1168,6 @@ void QCamera2HardwareInterface::snapshot_raw_stream_cb_routine(mm_camera_super_b
 
 /*** HFR ***/
 #define HFR_60FPS 60
-#define HFR_90FPS 90
 #define HFR_120FPS 120
 
 /*
@@ -1251,9 +1248,6 @@ void QCamera2HardwareInterface::processVideoExpTime(QCamera2HardwareInterface *p
     switch (hfrMode) {
     case HFR_60FPS:
         newExpTime = is60Hz ? EXP_TIME_60FPS : EXP_TIME_75FPS;
-        break;
-    case HFR_90FPS:
-        newExpTime = is60Hz ? EXP_TIME_90FPS : EXP_TIME_100FPS;
         break;
     case HFR_120FPS:
         newExpTime = is60Hz ? EXP_TIME_120FPS : EXP_TIME_125FPS;
