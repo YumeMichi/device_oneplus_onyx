@@ -458,12 +458,14 @@ private:
     bool processUFDumps(qcamera_jpeg_evt_payload_t *evt);
     void captureDone();
 
-    void processAntishakeAlgo(QCamera2HardwareInterface *pme,
-                            float real_gain, float exp_time);
-    void processHfrExpTime(QCamera2HardwareInterface *pme,
-                            float real_gain, float exp_time,
-                            uint32_t hfr_mode,
-                            bool is_60Hz);
+    /* Exposure-time algorithms */
+    void processCameraExpTime(QCamera2HardwareInterface *pme,
+                        float currGain, bool is60Hz);
+    void processVideoExpTime(QCamera2HardwareInterface *pme,
+                        float currGain, float currExpTime,
+                        bool is60Hz);
+    void processExpTimeAlgos(QCamera2HardwareInterface *pme,
+                        float currGain, float currExpTime);
 
     static void copyList(cam_dimension_t* src_list,
                    cam_dimension_t* dst_list, uint8_t len);
@@ -648,7 +650,7 @@ private:
     int32_t mOutputCount;
     bool mPreviewFrameSkipValid;
     cam_frame_idx_range_t mPreviewFrameSkipIdxRange;
-    uint64_t mHfrFrameCount;
+    uint64_t mVideoFrameCnt;
 };
 
 }; // namespace qcamera
