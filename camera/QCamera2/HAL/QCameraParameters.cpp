@@ -670,7 +670,7 @@ QCameraParameters::QCameraParameters()
       m_bAeBracketingEnabled(false),
       mFlashValue(CAM_FLASH_MODE_OFF),
       mFlashDaemonValue(CAM_FLASH_MODE_OFF),
-      mPrvwExpTimeUs(0),
+      mPrvwExpTimeReal(0.0f),
       m_bIsManualIso(false),
       m_bIsManualExpTime(false),
       m_bIs60HzAntibanding(false),
@@ -758,7 +758,7 @@ QCameraParameters::QCameraParameters(const String8 &params)
     m_bAeBracketingEnabled(false),
     mFlashValue(CAM_FLASH_MODE_OFF),
     mFlashDaemonValue(CAM_FLASH_MODE_OFF),
-    mPrvwExpTimeUs(0),
+    mPrvwExpTimeReal(0.0f),
     m_bIsManualIso(false),
     m_bIsManualExpTime(false),
     m_bIs60HzAntibanding(false),
@@ -2636,7 +2636,7 @@ int32_t  QCameraParameters::setExposureTime(const QCameraParameters& params)
     if (str != NULL) {
         if (prev_str == NULL ||
             strcmp(str, prev_str) != 0 ||
-            (strcmp(str, "0") && mPrvwExpTimeUs)) {
+            (strcmp(str, "0") && mPrvwExpTimeReal)) {
             return setExposureTime(str);
         }
     }
@@ -3865,12 +3865,20 @@ int32_t QCameraParameters::setLongshotParam(const QCameraParameters& params)
     return NO_ERROR;
 }
 
-void QCameraParameters::setPrvwExpTime(uint32_t expTimeUs)
+void QCameraParameters::setPrvwExpTime(float expTimeReal)
 {
-    if (mPrvwExpTimeUs == expTimeUs)
+    int32_t expTimeUs;
+
+    if (mPrvwExpTimeReal == expTimeReal)
         return;
 
-    mPrvwExpTimeUs = expTimeUs;
+    mPrvwExpTimeReal = expTimeReal;
+
+    /* Convert exp time to microseconds */
+    expTimeReal *= 1000000.0f;
+
+    /* Cast exp time in microseconds to 32-bit signed int for backend */
+    expTimeUs = (int32_t)expTimeReal;
 
     AddSetParmEntryToBatch(m_pParamBuf,
                            CAM_INTF_PARM_EXPOSURE_TIME,
@@ -3882,13 +3890,13 @@ void QCameraParameters::setPrvwExpTime(uint32_t expTimeUs)
 
 int QCameraParameters::getPrvwExpTime()
 {
-    return mPrvwExpTimeUs;
+    return mPrvwExpTimeReal;
 }
 
 bool QCameraParameters::isManualMode()
 {
     if (m_bIsManualIso && !m_bIsManualExpTime)
-        setPrvwExpTime(0);
+        setPrvwExpTime(0.0f);
 
     return m_bIsManualIso || m_bIsManualExpTime;
 }

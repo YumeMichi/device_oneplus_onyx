@@ -636,7 +636,7 @@ public:
     bool isAdvCamFeaturesEnabled() {return isUbiFocusEnabled() ||
         isChromaFlashEnabled() || isOptiZoomEnabled() || isHDREnabled();}
     int32_t setIntEvent(cam_int_evt_params_t params);
-    void setPrvwExpTime(uint32_t expTimeUs);
+    void setPrvwExpTime(float expTimeReal);
     int getPrvwExpTime();
     bool isManualMode();
     uint32_t getCameraId();
@@ -889,7 +889,7 @@ private:
     bool m_bAeBracketingEnabled;
     int32_t mFlashValue;
     int32_t mFlashDaemonValue;
-    uint32_t mPrvwExpTimeUs;
+    float mPrvwExpTimeReal;
     bool m_bIsManualIso;
     bool m_bIsManualExpTime;
     bool m_bIs60HzAntibanding;
