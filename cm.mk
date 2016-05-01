@@ -33,3 +33,6 @@ PRODUCT_GMS_CLIENTID_BASE := android-oneplus
 PRODUCT_BRAND := OnePlus
 TARGET_VENDOR := oneplus
 TARGET_VENDOR_PRODUCT_NAME := onyx
+
+# Unofficial build ID
+TARGET_UNOFFICIAL_BUILD_ID := Sultan
