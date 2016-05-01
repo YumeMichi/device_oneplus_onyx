@@ -110,7 +110,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libboringssl-compat \
     libstlport \
-    libshim_camera \
     Snap
 
 # Charger
