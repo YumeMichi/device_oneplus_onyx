@@ -75,22 +75,40 @@ char const *const LED_BLINK_FILE
         = "/sys/class/leds/red/device/blink";
 
 char const *const LED_DT_RED_BRIGHTNESS
-        = "/sys/class/leds/led:rgb_red/brightness";
+        = "/sys/class/leds/red/brightness";
 
 char const *const LED_DT_GREEN_BRIGHTNESS
-        = "/sys/class/leds/led:rgb_green/brightness";
+        = "/sys/class/leds/green/brightness";
 
 char const *const LED_DT_BLUE_BRIGHTNESS
-        = "/sys/class/leds/led:rgb_blue/brightness";
+        = "/sys/class/leds/blue/brightness";
 
-char const *const LED_DT_RAMP_STEP_FILE
-        = "/sys/class/leds/led:rgb_red/ramp_step_ms";
+char const *const LED_DT_RAMP_STEP_FILE_RED
+        = "/sys/class/leds/red/ramp_step_ms";
 
-char const *const LED_DT_DUTY_FILE
-        = "/sys/class/leds/led:rgb_red/duty_pcts";
+char const *const LED_DT_RAMP_STEP_FILE_GREEN
+        = "/sys/class/leds/green/ramp_step_ms";
 
-char const *const LED_DT_BLINK_FILE
-        = "/sys/class/leds/led:rgb_red/blink";
+char const *const LED_DT_RAMP_STEP_FILE_BLUE
+        = "/sys/class/leds/blue/ramp_step_ms";
+
+char const *const LED_DT_DUTY_FILE_RED
+        = "/sys/class/leds/red/duty_pcts";
+
+char const *const LED_DT_DUTY_FILE_GREEN
+        = "/sys/class/leds/green/duty_pcts";
+
+char const *const LED_DT_DUTY_FILE_BLUE
+        = "/sys/class/leds/blue/duty_pcts";
+
+char const *const LED_DT_BLINK_FILE_RED
+        = "/sys/class/leds/red/blink";
+
+char const *const LED_DT_BLINK_FILE_GREEN
+        = "/sys/class/leds/green/blink";
+
+char const *const LED_DT_BLINK_FILE_BLUE
+        = "/sys/class/leds/blue/blink";
 
 // Number of steps to use in the duty array
 #define LED_DT_DUTY_STEPS       50
@@ -115,7 +133,7 @@ void init_globals(void)
      *
      * Thus, if duty_pcts exists, the driver is DT based.
      */
-    g_led_is_dt = (access(LED_DT_DUTY_FILE, R_OK) == 0);
+    g_led_is_dt = (access(LED_DT_DUTY_FILE_RED, R_OK) == 0);
 }
 
 static int
@@ -236,8 +254,12 @@ set_speaker_light_locked_dt(struct light_device_t *dev,
     unsigned int colorRGB;
 
     if (state == NULL) {
-        write_int(LED_DT_BLINK_FILE, 0);
+        write_int(LED_DT_BLINK_FILE_RED, 0);
+        write_int(LED_DT_BLINK_FILE_GREEN, 0);
+        write_int(LED_DT_BLINK_FILE_BLUE, 0);
         write_int(LED_DT_RED_BRIGHTNESS, 0);
+        write_int(LED_DT_GREEN_BRIGHTNESS, 0);
+        write_int(LED_DT_BLUE_BRIGHTNESS, 0);
         return 0;
     }
 
@@ -274,12 +296,20 @@ set_speaker_light_locked_dt(struct light_device_t *dev,
         }
         p += sprintf(p, "\n");
 
-        write_int(LED_DT_RAMP_STEP_FILE, stepMS);
-        write_string(LED_DT_DUTY_FILE, dutystr);
-        write_int(LED_DT_BLINK_FILE, 1);
+        write_int(LED_DT_RAMP_STEP_FILE_RED, stepMS);
+        write_int(LED_DT_RAMP_STEP_FILE_GREEN, stepMS);
+        write_int(LED_DT_RAMP_STEP_FILE_BLUE, stepMS);
+        write_string(LED_DT_DUTY_FILE_RED, dutystr);
+        write_string(LED_DT_DUTY_FILE_GREEN, dutystr);
+        write_string(LED_DT_DUTY_FILE_BLUE, dutystr);
+        write_int(LED_DT_BLINK_FILE_RED, 1);
+        write_int(LED_DT_BLINK_FILE_GREEN, 1);
+        write_int(LED_DT_BLINK_FILE_BLUE, 1);
     }
     else {
-        write_int(LED_DT_RED_BRIGHTNESS, colorRGB ? 255 : 0);
+        write_int(LED_DT_RED_BRIGHTNESS, (colorRGB >> 16) & 0xFF);
+        write_int(LED_DT_GREEN_BRIGHTNESS, (colorRGB >> 8) & 0xFF);
+        write_int(LED_DT_BLUE_BRIGHTNESS, colorRGB & 0xFF);
     }
 
     return 0;
