@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014-2015, The CyanogenMod Project
+ * Copyright (C) 2016, The CyanogenMod Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@
 #include <string.h>
 #include <unistd.h>
 
-static const char oneplus_mac_prefix[] = { 0xa8, 0x1b, 0x5a };
+static const char oneplus_mac_prefix[] = { 0xc0, 0xee, 0xfb };
 
 int wcnss_init_qmi(void)
 {
