@@ -106,6 +106,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     librmnetctl
 
+# Doze
+PRODUCT_PACKAGES += \
+    OnyxDoze
+
 # Graphics
 PRODUCT_PACKAGES += \
     copybit.msm8974 \
