@@ -110,11 +110,18 @@ char const *const LED_DT_BLINK_FILE_GREEN
 char const *const LED_DT_BLINK_FILE_BLUE
         = "/sys/class/leds/blue/blink";
 
-// Number of steps to use in the duty array
-#define LED_DT_DUTY_STEPS       50
+char const *const LED_DT_PAUSE_LO_FILE_RED
+        = "/sys/class/leds/red/pause_lo";
 
-// Brightness ramp up/down time for blinking
-#define LED_DT_RAMP_MS          500
+char const *const LED_DT_PAUSE_LO_FILE_GREEN
+        = "/sys/class/leds/green/pause_lo";
+
+char const *const LED_DT_PAUSE_LO_FILE_BLUE
+        = "/sys/class/leds/blue/pause_lo";
+
+// Number of steps to use in the duty array
+#define LED_DT_DUTY_STEPS       21
+#define LED_DT_DUTY_LEN		((3 + 1) * LED_DT_DUTY_STEPS + 1)
 
 /**
  * device methods
@@ -245,6 +252,33 @@ set_speaker_light_locked_drv(struct light_device_t *dev,
     return 0;
 }
 
+static void
+generate_duty_str(char *s, float color, int stepsOn)
+{
+    int i, stepScale;
+
+    color /= 255.0f;
+    stepsOn /= 2;
+
+    stepScale = 100 / stepsOn;
+
+    s += sprintf(s, "0");
+
+    for (i = 0; i < stepsOn; i++) {
+        float duty = i * stepScale;
+	duty *= color;
+        s += sprintf(s, ",%d", (int)duty);
+    }
+
+    for (i = 0; i < stepsOn; i++) {
+        float duty = 100 - (i * stepScale);
+	duty *= color;
+        s += sprintf(s, ",%d", (int)duty);
+    }
+
+    s += sprintf(s, "\n");
+}
+
 static int
 set_speaker_light_locked_dt(struct light_device_t *dev,
         struct light_state_t const *state)
@@ -252,6 +286,7 @@ set_speaker_light_locked_dt(struct light_device_t *dev,
     int len;
     int onMS, offMS;
     unsigned int colorRGB;
+    unsigned int colorR, colorG, colorB;
 
     if (state == NULL) {
         write_int(LED_DT_BLINK_FILE_RED, 0);
@@ -276,40 +311,41 @@ set_speaker_light_locked_dt(struct light_device_t *dev,
     }
 
     colorRGB = state->color;
+    colorR = (colorRGB >> 16) & 0xFF;
+    colorG = (colorRGB >> 8) & 0xFF;
+    colorB = colorRGB & 0xFF;
 
     if (onMS > 0 && offMS > 0) {
-        char dutystr[(3+1)*LED_DT_DUTY_STEPS+1];
-        char* p = dutystr;
+        char dutyRed[LED_DT_DUTY_LEN];
+        char dutyGreen[LED_DT_DUTY_LEN];
+        char dutyBlue[LED_DT_DUTY_LEN];
         int stepMS;
-        int n;
 
-        onMS = max(onMS, LED_DT_RAMP_MS);
-        offMS = max(offMS, LED_DT_RAMP_MS);
-        stepMS = (onMS+offMS)/LED_DT_DUTY_STEPS;
+        stepMS = onMS / LED_DT_DUTY_STEPS;
 
-        p += sprintf(p, "0");
-        for (n = 1; n < (onMS/stepMS); ++n) {
-            p += sprintf(p, ",%d", min((100*n*stepMS)/LED_DT_RAMP_MS, 100));
-        }
-        for (n = 0; n < LED_DT_DUTY_STEPS-(onMS/stepMS); ++n) {
-            p += sprintf(p, ",%d", 100 - min((100*n*stepMS)/LED_DT_RAMP_MS, 100));
-        }
-        p += sprintf(p, "\n");
+        generate_duty_str(dutyRed, colorR, LED_DT_DUTY_STEPS);
+        generate_duty_str(dutyGreen, colorG, LED_DT_DUTY_STEPS);
+        generate_duty_str(dutyBlue, colorB, LED_DT_DUTY_STEPS);
 
+        write_int(LED_DT_BLINK_FILE_RED, 0);
+        write_int(LED_DT_BLINK_FILE_GREEN, 0);
+        write_int(LED_DT_BLINK_FILE_BLUE, 0);
+        write_int(LED_DT_PAUSE_LO_FILE_RED, offMS);
+        write_int(LED_DT_PAUSE_LO_FILE_GREEN, offMS);
+        write_int(LED_DT_PAUSE_LO_FILE_BLUE, offMS);
         write_int(LED_DT_RAMP_STEP_FILE_RED, stepMS);
         write_int(LED_DT_RAMP_STEP_FILE_GREEN, stepMS);
         write_int(LED_DT_RAMP_STEP_FILE_BLUE, stepMS);
-        write_string(LED_DT_DUTY_FILE_RED, dutystr);
-        write_string(LED_DT_DUTY_FILE_GREEN, dutystr);
-        write_string(LED_DT_DUTY_FILE_BLUE, dutystr);
+        write_string(LED_DT_DUTY_FILE_RED, dutyRed);
+        write_string(LED_DT_DUTY_FILE_GREEN, dutyGreen);
+        write_string(LED_DT_DUTY_FILE_BLUE, dutyBlue);
         write_int(LED_DT_BLINK_FILE_RED, 1);
         write_int(LED_DT_BLINK_FILE_GREEN, 1);
         write_int(LED_DT_BLINK_FILE_BLUE, 1);
-    }
-    else {
-        write_int(LED_DT_RED_BRIGHTNESS, (colorRGB >> 16) & 0xFF);
-        write_int(LED_DT_GREEN_BRIGHTNESS, (colorRGB >> 8) & 0xFF);
-        write_int(LED_DT_BLUE_BRIGHTNESS, colorRGB & 0xFF);
+    } else {
+        write_int(LED_DT_RED_BRIGHTNESS, colorR);
+        write_int(LED_DT_GREEN_BRIGHTNESS, colorG);
+        write_int(LED_DT_BLUE_BRIGHTNESS, colorB);
     }
 
     return 0;
