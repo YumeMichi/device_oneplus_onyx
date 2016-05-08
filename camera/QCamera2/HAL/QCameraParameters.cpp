@@ -3579,7 +3579,7 @@ int32_t QCameraParameters::setWaveletDenoise(const QCameraParameters& params)
             return setWaveletDenoise(DENOISE_OFF);
         }
     }
-    const char *str = DENOISE_ON;
+    const char *str = params.get(KEY_QC_DENOISE);
     const char *prev_str = get(KEY_QC_DENOISE);
     if (str != NULL) {
         if (prev_str == NULL ||
