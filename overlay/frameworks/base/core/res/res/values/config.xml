@@ -144,9 +144,6 @@
     <!-- Is the device capable of hot swapping an ICC Card -->
     <bool name="config_hotswapCapable">true</bool>
 
-    <!-- Flag specifying whether VoLTE & VT is availasble on device -->
-    <bool name="config_device_volte_available">true</bool>
-
     <!--  Maximum number of supported users -->
     <integer name="config_multiuserMaximumUsers">4</integer>
     <!--  Whether Multiuser UI should be shown -->
