@@ -43,6 +43,7 @@ bluetooth.hfp.client=1
 ro.bluetooth.alwaysbleon=true
 
 # Camera
+camera2.portability.force_api=1
 persist.camera.cpp.duplication=false
 
 # GPS
