@@ -38,6 +38,10 @@ on enable-low-power
     write /sys/devices/system/cpu/cpufreq/interactive/timer_rate 30000
     write /sys/devices/system/cpu/cpufreq/interactive/timer_slack -1
 
+    write /sys/kernel/cpu_input_boost/ib_freqs "1190400 1497600"
+    write /sys/kernel/cpu_input_boost/ib_duration_ms 1400
+    write /sys/kernel/cpu_input_boost/enabled 1
+
     write /sys/kernel/msm_thermal/enabled 0
     write /sys/kernel/msm_thermal/zone0 "1728000 39 38"
     write /sys/kernel/msm_thermal/zone1 "1574400 42 40"
@@ -48,11 +52,6 @@ on enable-low-power
     write /sys/kernel/msm_thermal/zone6 "960000 62 60"
     write /sys/kernel/msm_thermal/sampling_ms 8000
     write /sys/kernel/msm_thermal/enabled 1
-
-    write /sys/module/cpu_boost/parameters/boost_ms 20
-    write /sys/module/cpu_boost/parameters/sync_threshold 1728000
-    write /sys/module/cpu_boost/parameters/input_boost_freq 1497600
-    write /sys/module/cpu_boost/parameters/input_boost_ms 40
 
     setprop sys.io.scheduler deadline
     start mpdecision
