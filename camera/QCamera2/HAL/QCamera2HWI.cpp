@@ -1713,8 +1713,9 @@ int QCamera2HardwareInterface::initCapabilities(int cameraId,mm_camera_vtbl_t *c
         gCamCapability[cameraId]->supported_preview_fmts[i] = new_prvw_fmts[i];
     gCamCapability[cameraId]->supported_preview_fmt_cnt = PRVW_FMT_TBL_SIZE;
 
-    gCamCapability[cameraId]->supported_raw_fmts[0] = CAM_FORMAT_YUV_422_NV16;
-    gCamCapability[cameraId]->supported_raw_fmt_cnt = 1;
+    gCamCapability[cameraId]->supported_raw_fmts[0] = CAM_FORMAT_BAYER_MIPI_RAW_10BPP_RGGB;
+    gCamCapability[cameraId]->supported_raw_fmts[1] = CAM_FORMAT_BAYER_QCOM_RAW_10BPP_RGGB;
+    gCamCapability[cameraId]->supported_raw_fmt_cnt = 2;
 
     gCamCapability[cameraId]->max_num_focus_areas = 5;
     gCamCapability[cameraId]->max_num_metering_areas = 5;
