@@ -130,8 +130,8 @@ TARGET_USES_ION := true
 USE_OPENGL_RENDERER := true
 
 # Init
-TARGET_INIT_VENDOR_LIB := libinit_msm
-TARGET_LIBINIT_DEFINES_FILE := $(PLATFORM_PATH)/init/init_onyx.cpp
+TARGET_INIT_VENDOR_LIB := libinit_onyx
+TARGET_RECOVERY_DEVICE_MODULES := libinit_onyx
 TARGET_UNIFIED_DEVICE := true
 
 # Keymaster
