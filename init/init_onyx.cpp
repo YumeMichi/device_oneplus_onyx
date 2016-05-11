@@ -36,6 +36,7 @@
 
 void vendor_load_properties()
 {
+    char device[PROP_VALUE_MAX];
     char platform[PROP_VALUE_MAX];
     char rf_version[PROP_VALUE_MAX];
     int rc;
@@ -47,7 +48,7 @@ void vendor_load_properties()
     property_get("ro.boot.rf_version", rf_version);
 
     if (strstr(rf_version, "101")) {
-        /* Chinese */
+        /* China */
         property_set("ro.product.model", "ONE E1001");
         property_set("ro.rf_version", "TDD_FDD_Ch_All");
     } else if (strstr(rf_version, "102")) {
@@ -59,4 +60,6 @@ void vendor_load_properties()
         property_set("ro.product.model", "ONE E1005");
         property_set("ro.rf_version", "TDD_FDD_Am");
     }
+    property_get("ro.product.device", device);
+    INFO("Found rf_version : %s setting build properties for %s device\n", rf_version, device);
 }
