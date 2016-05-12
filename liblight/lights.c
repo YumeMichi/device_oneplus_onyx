@@ -101,7 +101,7 @@ char const*const BLUE_RAMP_STEP_MS_FILE
 char const*const RGB_BLINK_FILE
         = "/sys/class/leds/rgb/rgb_blink";
 
-#define RAMP_SIZE 8
+#define RAMP_SIZE 21
 static int BRIGHTNESS_RAMP[RAMP_SIZE];
 #define RAMP_STEP_DURATION 50
 
