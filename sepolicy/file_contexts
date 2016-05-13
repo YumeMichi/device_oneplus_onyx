@@ -27,5 +27,3 @@
 
 # Thermal-engine
 /system/bin/thermal-engine                              u:object_r:thermal-engine_exec:s0
-
-/data/oemnvitems(/.*)?                                  u:object_r:nv_data_file:s0
