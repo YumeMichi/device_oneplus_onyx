@@ -34,6 +34,8 @@ media.aac_51_output_enabled=true
 audio.offload.pcm.16bit.enable=true
 audio.offload.pcm.24bit.enable=true
 audio.deep_buffer.media=true
+ro.qc.sdk.audio.fluencetype=fluence
+persist.audio.fluence.voicecall=true
 
 # Bluetooth
 bluetooth.hfp.client=1
