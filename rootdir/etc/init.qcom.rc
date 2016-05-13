@@ -269,9 +269,6 @@ on post-fs
     chmod 0660 /proc/tri-state-key/keyCode_bottom
 
 on post-fs-data
-    # Create OPPO NV item directory
-    mkdir /data/oemnvitems 0771 radio radio
-
     # Create directory for TZ Apps
     mkdir /data/misc/qsee 0770 system system
 

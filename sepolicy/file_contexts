@@ -18,4 +18,3 @@
 # Backlight
 /sys/class/leds/lcd-backlight/brightness                u:object_r:touchscreen_file:s0
 
-/data/oemnvitems(/.*)?                                  u:object_r:nv_data_file:s0
