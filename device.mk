@@ -227,8 +227,7 @@ PRODUCT_PACKAGES += \
     hostapd.deny
 
 PRODUCT_PACKAGES += \
-    wcnss_service \
-    libwcnss_qmi
+    wcnss_service
 
 # Inherit from oppo-common
 $(call inherit-product, device/oppo/common/common.mk)

@@ -289,3 +289,6 @@ vendor/lib/libthermalioctl.so
 bin/time_daemon
 -vendor/lib/libtime_genoff.so
 -vendor/lib/libTimeService.so
+
+# Wcnss (from ham)
+lib/libwcnss_qmi.so
