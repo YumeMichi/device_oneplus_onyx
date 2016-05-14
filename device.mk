@@ -92,10 +92,6 @@ PRODUCT_PACKAGES += \
     libqcomvoiceprocessing \
     tinymix
 
-# Bluetooth
-PRODUCT_PACKAGES += \
-    bdAddrLoader
-
 # Camera
 PRODUCT_PACKAGES += \
     libboringssl-compat \

@@ -545,9 +545,9 @@ on property:vold.decrypt=trigger_restart_framework
     start config_bluetooth
     start wcnss-service
 
-service config_bdaddr /system/bin/bdAddrLoader -f /persist/.genmac -h -x
+service config_bdaddr /system/bin/btnvtool -O
     class late_start
-    user root
+    user bluetooth
     group bluetooth net_bt_admin qcom_diag radio
     oneshot
 
