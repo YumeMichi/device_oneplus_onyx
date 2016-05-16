@@ -638,7 +638,6 @@ public:
     int32_t setIntEvent(cam_int_evt_params_t params);
     void setPrvwExpTime(float expTimeReal);
     int getPrvwExpTime();
-    bool isManualMode();
     uint32_t getCameraId();
     bool is60HzAntibanding();
     uint32_t getHfrMode();
@@ -891,7 +890,7 @@ private:
     int32_t mFlashDaemonValue;
     float mPrvwExpTimeReal;
     bool m_bIsManualIso;
-    bool m_bIsManualExpTime;
+    int32_t mManualExpTimeUs;
     bool m_bIs60HzAntibanding;
     bool m_bAppRecordingHint;
 };

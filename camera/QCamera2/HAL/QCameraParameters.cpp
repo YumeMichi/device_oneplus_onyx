@@ -673,7 +673,7 @@ QCameraParameters::QCameraParameters()
       mFlashDaemonValue(CAM_FLASH_MODE_OFF),
       mPrvwExpTimeReal(0.0f),
       m_bIsManualIso(false),
-      m_bIsManualExpTime(false),
+      mManualExpTimeUs(0),
       m_bIs60HzAntibanding(false),
       m_bAppRecordingHint(false)
 {
@@ -759,7 +759,7 @@ QCameraParameters::QCameraParameters(const String8 &params)
     mFlashDaemonValue(CAM_FLASH_MODE_OFF),
     mPrvwExpTimeReal(0.0f),
     m_bIsManualIso(false),
-    m_bIsManualExpTime(false),
+    mManualExpTimeUs(0),
     m_bIs60HzAntibanding(false),
     m_bAppRecordingHint(false)
 {
@@ -3871,6 +3871,12 @@ void QCameraParameters::setPrvwExpTime(float expTimeReal)
 {
     int32_t expTimeUs;
 
+    if (m_bIsManualIso)
+        expTimeReal = 0.0f;
+
+    if (mManualExpTimeUs)
+        expTimeReal = (float)mManualExpTimeUs / 1000000.0f;
+
     if (mPrvwExpTimeReal == expTimeReal)
         return;
 
@@ -3893,14 +3899,6 @@ void QCameraParameters::setPrvwExpTime(float expTimeReal)
 int QCameraParameters::getPrvwExpTime()
 {
     return mPrvwExpTimeReal;
-}
-
-bool QCameraParameters::isManualMode()
-{
-    if (m_bIsManualIso && !m_bIsManualExpTime)
-        setPrvwExpTime(0.0f);
-
-    return m_bIsManualIso || m_bIsManualExpTime;
 }
 
 uint32_t QCameraParameters::getCameraId()
@@ -5532,14 +5530,13 @@ int32_t  QCameraParameters::setExposureTime(const char *expTimeStr)
         // Cap exposure time to upper/lower limits without returning an error
         // to prevent crashes in CameraNext
         if (expTimeUs) {
-            m_bIsManualExpTime = true;
             if (expTimeUs > max_exp_time)
                 expTimeUs = max_exp_time;
             else if (expTimeUs < min_exp_time)
                 expTimeUs = min_exp_time;
-        } else {
-            m_bIsManualExpTime = false;
         }
+
+        mManualExpTimeUs = expTimeUs;
 
         // expTime == 0 means not to use manual exposure time.
         if (expTimeUs == 0 ||
