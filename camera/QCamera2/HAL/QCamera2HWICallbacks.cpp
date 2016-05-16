@@ -1256,14 +1256,6 @@ void QCamera2HardwareInterface::processVideoExpTime(QCamera2HardwareInterface *p
         newExpTime = is60Hz ? EXP_TIME_30FPS : EXP_TIME_33FPS;
     }
 
-    /*
-     * Only update exp time once every 3 frames to prevent thrashing.
-     * Make sure exp time is checked on first frame (post-increment
-     * mVideoFrameCnt).
-     */
-    if (pme->mVideoFrameCnt++ % 3)
-        return;
-
     /* Account for any rounding differences when checking backend's exp time */
     maxExpTime = newExpTime + BACKEND_EXP_TIME_ERR_MARGIN;
 
@@ -1282,9 +1274,22 @@ void QCamera2HardwareInterface::processExpTimeAlgos(QCamera2HardwareInterface *p
     bool is60Hz = pme->mParameters.is60HzAntibanding();
 
     if (isCamcorderMode) {
-        pme->processVideoExpTime(pme, currGain, currExpTime, is60Hz);
+        /*
+         * Only update exp time once every 3 frames to prevent thrashing.
+         * Make sure exp time is checked on first frame (post-increment
+         * mVideoFrameCnt).
+         */
+        if (!(pme->mVideoFrameCnt++ % 3))
+            pme->processVideoExpTime(pme, currGain, currExpTime, is60Hz);
+        pme->mCameraFrameCnt = 0;
     } else {
-        pme->processCameraExpTime(pme, currGain, is60Hz);
+        /*
+         * Only update exp time once every 3 frames to prevent thrashing.
+         * Make sure exp time is checked on first frame (post-increment
+         * mCameraFrameCnt).
+         */
+        if (!(pme->mCameraFrameCnt++ % 3))
+            pme->processCameraExpTime(pme, currGain, is60Hz);
         pme->mVideoFrameCnt = 0;
     }
 }
