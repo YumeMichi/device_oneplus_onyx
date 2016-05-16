@@ -1279,14 +1279,12 @@ void QCamera2HardwareInterface::processExpTimeAlgos(QCamera2HardwareInterface *p
                                             float currGain, float currExpTime)
 {
     bool isCamcorderMode = pme->mParameters.getAppRecordingHint();
-    bool isManualMode = pme->mParameters.isManualMode();
     bool is60Hz = pme->mParameters.is60HzAntibanding();
 
     if (isCamcorderMode) {
         pme->processVideoExpTime(pme, currGain, currExpTime, is60Hz);
     } else {
-        if (!isManualMode)
-            pme->processCameraExpTime(pme, currGain, is60Hz);
+        pme->processCameraExpTime(pme, currGain, is60Hz);
         pme->mVideoFrameCnt = 0;
     }
 }
