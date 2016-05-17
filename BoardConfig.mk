@@ -88,9 +88,6 @@ ifeq ($(HOST_OS),linux)
   endif
 endif
 
-# Encryption
-TARGET_HW_DISK_ENCRYPTION := true
-
 # Filesystem
 BOARD_FLASH_BLOCK_SIZE := 131072
 BOARD_BOOTIMAGE_PARTITION_SIZE     := 16777216
