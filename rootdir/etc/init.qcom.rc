@@ -73,6 +73,8 @@ on boot
     mkdir /dev/socket/qmux_gps 0770 gps gps
     chmod 2770 /dev/socket/qmux_gps
 
+    mkdir /persist/bluetooth 0770 bluetooth bluetooth
+
     # Charger
     chown root system /sys/module/qpnp_charger/parameters/charger_monitor
     chown root system /sys/class/power_supply/battery/input_current_max
@@ -290,9 +292,6 @@ on post-fs-data
     mkdir /data/misc/sensors 0775 system system
     restorecon_recursive /data/misc/sensors
 
-    # Create directory used by USF
-    mkdir /data/usf 0700 system system
-
     # Create the directories used by the Wireless subsystem
     mkdir /data/misc/wifi 0770 wifi wifi
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
@@ -378,6 +377,7 @@ on property:hw.fm.init=0
 service rmt_storage /system/bin/rmt_storage
     class core
     user root
+    group system
 
 service rfs_access /system/bin/rfs_access
     class core
@@ -388,7 +388,7 @@ service rfs_access /system/bin/rfs_access
 service qmuxd /system/bin/qmuxd
     class main
     user radio
-    group radio audio bluetooth gps qcom_diag
+    group radio audio bluetooth gps diag qcom_diag
 
 service netmgrd /system/bin/netmgrd
     class main
@@ -405,17 +405,6 @@ service sensors /system/bin/sensors.qcom
 # but only if ro.data.large_tcp_window_size property is set.
 on property:ro.data.large_tcp_window_size=true
     write /proc/sys/net/ipv4/tcp_adv_win_scale  2
-
-on property:persist.env.fastdorm.enabled=true
-    setprop persist.radio.data_no_toggle 1
-
-service cnd /system/bin/cnd
-    class late_start
-    socket cnd stream 660 root inet
-
-service dpmd /system/bin/dpmd
-    class late_start
-    socket dpmd stream 660 root system
 
 service irsc_util /system/bin/irsc_util "/etc/sec_config"
     class main
@@ -509,6 +498,11 @@ service iprenew_bt-pan /system/bin/dhcpcd -n
     disabled
     oneshot
 
+service loc_launcher /system/bin/loc_launcher
+    #loc_launcher will start as root and set its uid to gps
+    class late_start
+    group gps qcom_oncrpc inet net_raw diag qcom_diag net_admin wifi
+
 service qseecomd /system/bin/qseecomd
     class core
     user root
@@ -536,7 +530,7 @@ service qcamerasvr /system/bin/mm-qcamera-daemon
     group camera system inet input graphics
 
 service mpdecision /system/bin/mpdecision --avg_comp
-   class late_start
+   class main
    user root
    group system
    disabled
@@ -547,26 +541,26 @@ service time_daemon /system/bin/time_daemon
     group root
 
 on property:vold.decrypt=trigger_restart_framework
-    start config_bdaddr
+    start config_bt_addr
     start config_bluetooth
     start wcnss-service
 
-service config_bdaddr /system/bin/btnvtool -O
-    class late_start
+service config_bt_addr /system/bin/btnvtool -O
+    class core
     user bluetooth
-    group bluetooth net_bt_admin qcom_diag radio
+    group bluetooth radio
     oneshot
 
 service config_bluetooth /system/bin/sh /init.qcom.bt.sh "onboot"
     class core
     user root
-    group bluetooth net_bt_admin qcom_diag radio
+    group bluetooth net_bt_admin qcom_diag diag radio
     oneshot
 
 service hciattach /system/bin/sh /init.qcom.bt.sh
     class late_start
     user root
-    group bluetooth net_bt_admin qcom_diag radio
+    group bluetooth net_bt_admin qcom_diag diag radio
     disabled
     oneshot
 
@@ -587,23 +581,23 @@ service audiod /system/bin/audiod
    group system
 
 service wcnss-service /system/bin/wcnss_service
-    class late_start
+    class main
     user system
-    group system wifi qcom_diag radio
+    group system wifi qcom_diag diag radio
     oneshot
 
 # diag logging
 service diag_mdlog_start /system/bin/diag_mdlog
     class late_start
     user shell
-    group system qcom_diag sdcard_rw sdcard_r media_rw
+    group system qcom_diag diag sdcard_rw sdcard_r media_rw
     disabled
     oneshot
 
 service diag_mdlog_stop /system/bin/diag_mdlog -k
     class late_start
     user shell
-    group system qcom_diag sdcard_rw sdcard_r media_rw
+    group system qcom_diag diag sdcard_rw sdcard_r media_rw
     disabled
     oneshot
 
