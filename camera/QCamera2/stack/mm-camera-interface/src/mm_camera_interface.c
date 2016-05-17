@@ -1457,6 +1457,16 @@ uint8_t get_num_of_cameras()
         return 0;
     }
 
+    /*
+     * Add delay on boot to prevent access to the camera
+     * sensors before they finish init in the kernel.
+     * Otherwise camera access on boot will fail, and
+     * Android will assume the camera does not exist.
+     */
+    property_get("sys.boot_completed", prop, "0");
+    if (atoi(prop) != 1)
+        usleep(5000 * 1000);
+
     /* lock the mutex */
     pthread_mutex_lock(&g_intf_lock);
 
