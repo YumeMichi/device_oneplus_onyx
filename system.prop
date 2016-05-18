@@ -46,9 +46,8 @@ ro.bluetooth.alwaysbleon=true
 persist.camera.cpp.duplication=false
 
 # GPS
-persist.gps.qc_nlp_in_use=0
+persist.gps.qc_nlp_in_use=1
 ro.gps.agps_provider=1
-ro.pip.gated=0
 
 # Graphics
 debug.sf.hw=1

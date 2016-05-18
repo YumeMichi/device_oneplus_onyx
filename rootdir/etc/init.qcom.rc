@@ -524,6 +524,11 @@ service iprenew_bt-pan /system/bin/dhcpcd -n
     disabled
     oneshot
 
+service loc_launcher /system/bin/loc_launcher
+    #loc_launcher will start as root and set its uid to gps
+    class late_start
+    group gps qcom_oncrpc inet net_raw diag qcom_diag net_admin wifi
+
 service qseecomd /system/bin/qseecomd
     class core
     user root
