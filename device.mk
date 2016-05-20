@@ -104,8 +104,7 @@ PRODUCT_PACKAGES += \
 
 # Data
 PRODUCT_PACKAGES += \
-    librmnetctl \
-    rmnetcli
+    librmnetctl
 
 # Graphics
 PRODUCT_PACKAGES += \
@@ -113,8 +112,7 @@ PRODUCT_PACKAGES += \
     gralloc.msm8974 \
     hwcomposer.msm8974 \
     memtrack.msm8974 \
-    liboverlay \
-    libtinyxml
+    liboverlay
 
 # GPS
 PRODUCT_PACKAGES += \
@@ -165,24 +163,23 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml
 
-# OMX
 PRODUCT_PACKAGES += \
     libc2dcolorconvert \
     libdivxdrmdecrypt \
-    libdashplayer \
     libOmxAacEnc \
     libOmxAmrEnc \
     libOmxCore \
     libOmxEvrcEnc \
     libOmxQcelp13Enc \
     libOmxVdec \
-    libOmxVdecHevc \
     libOmxVenc \
-    libstagefrighthw \
-    qcmediaplayer
+    libstagefrighthw
 
-PRODUCT_BOOT_JARS += \
-    qcmediaplayer
+# Misc dependency packages
+PRODUCT_PACKAGES += \
+    libbson \
+    libnl_2 \
+    libtinyxml
 
 # Power
 PRODUCT_PACKAGES += \
