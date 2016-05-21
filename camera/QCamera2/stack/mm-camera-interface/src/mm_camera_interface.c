@@ -1465,7 +1465,7 @@ uint8_t get_num_of_cameras()
      */
     property_get("sys.boot_completed", prop, "0");
     if (atoi(prop) != 1)
-        usleep(5000 * 1000);
+        usleep(12000 * 1000);
 
     /* lock the mutex */
     pthread_mutex_lock(&g_intf_lock);
