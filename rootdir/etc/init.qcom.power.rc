@@ -51,6 +51,7 @@ on enable-low-power
     write /sys/kernel/msm_thermal/zone4 "1190400 53 50"
     write /sys/kernel/msm_thermal/zone5 "1036800 56 54"
     write /sys/kernel/msm_thermal/zone6 "960000 62 60"
+    write /sys/kernel/msm_thermal/zone7 "729600 79 75"
     write /sys/kernel/msm_thermal/sampling_ms 8000
     write /sys/kernel/msm_thermal/enabled 1
 
