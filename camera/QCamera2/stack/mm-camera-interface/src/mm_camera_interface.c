@@ -1418,7 +1418,7 @@ void get_sensor_info()
  *
  * RETURN     : number of cameras supported
  *==========================================================================*/
-static uint8_t __get_num_of_cameras()
+uint8_t get_num_of_cameras()
 {
     int rc = 0;
     int dev_fd = 0;
@@ -1457,15 +1457,8 @@ static uint8_t __get_num_of_cameras()
         return 0;
     }
 
-    /*
-     * Add delay on boot to prevent access to the camera
-     * sensors before they finish init in the kernel.
-     * Otherwise camera access on boot will fail, and
-     * Android will assume the camera does not exist.
-     */
-    property_get("sys.boot_completed", prop, "0");
-    if (atoi(prop) != 1)
-        usleep(12000 * 1000);
+    /* lock the mutex */
+    pthread_mutex_lock(&g_intf_lock);
 
     while (1) {
         int32_t num_entities = 1;
@@ -1597,40 +1590,15 @@ static uint8_t __get_num_of_cameras()
         memcpy(&g_cam_ctrl.info[1], &temp_info, sizeof(temp_info));
     }
 
+    /* unlock the mutex */
+    pthread_mutex_unlock(&g_intf_lock);
     CDBG("%s: num_cameras=%d\n", __func__, g_cam_ctrl.num_cam);
     return g_cam_ctrl.num_cam;
 }
 
-uint8_t get_num_of_cameras()
-{
-    uint8_t num_cams;
-    int i;
-
-    pthread_mutex_lock(&g_intf_lock);
-
-    /*
-     * Run get_num_of_cameras() 3 times to make sure that g_cam_ctrl
-     * has everything correct, as get_num_of_cameras() is only
-     * executed when the media service starts (this is our best chance
-     * to get everything right).
-     */
-    for (i = 0; i < 3; i++)
-        num_cams = __get_num_of_cameras();
-
-    pthread_mutex_unlock(&g_intf_lock);
-
-    return num_cams;
-}
-
 struct camera_info *get_cam_info(int camera_id)
 {
-    struct camera_info *cam_info;
-
-    pthread_mutex_lock(&g_intf_lock);
-    cam_info = &g_cam_ctrl.info[camera_id];
-    pthread_mutex_unlock(&g_intf_lock);
-
-    return cam_info;
+    return &g_cam_ctrl.info[camera_id];
 }
 
 /*===========================================================================
