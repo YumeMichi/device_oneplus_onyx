@@ -1576,7 +1576,7 @@ static cam_flash_mode_t new_flash_modes_cam0[CAM0_FLASH_MODES_SIZE] = {
     CAM_FLASH_MODE_TORCH
 };
 
-#define SCENE_MODES_SIZE 20
+#define SCENE_MODES_SIZE 19
 static cam_scene_mode_type new_scene_modes[SCENE_MODES_SIZE] = {
     CAM_SCENE_MODE_OFF,
     CAM_SCENE_MODE_AUTO,
@@ -1596,7 +1596,6 @@ static cam_scene_mode_type new_scene_modes[SCENE_MODES_SIZE] = {
     CAM_SCENE_MODE_NIGHT_PORTRAIT,
     CAM_SCENE_MODE_THEATRE,
     CAM_SCENE_MODE_ACTION,
-    CAM_SCENE_MODE_HDR,
     CAM_SCENE_MODE_AR
 };
 
