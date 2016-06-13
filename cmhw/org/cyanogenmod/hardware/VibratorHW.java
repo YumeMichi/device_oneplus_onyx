@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 The CyanogenMod Project
+ * Copyright (C) 2016 The CyanogenMod Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,16 +16,14 @@
 
 package org.cyanogenmod.hardware;
 
-import java.io.File;
-
-import org.cyanogenmod.hardware.util.FileUtils;
+import org.cyanogenmod.internal.util.FileUtils;
 
 public class VibratorHW {
 
     private static String AMP_PATH = "/sys/devices/virtual/timed_output/vibrator/vtg_level";
 
     public static boolean isSupported() {
-        return new File(AMP_PATH).exists();
+        return FileUtils.isFileWritable(AMP_PATH);
     }
 
     public static int getMaxIntensity()  {
