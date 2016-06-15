@@ -14,3 +14,5 @@ allow mediaserver system_server:unix_stream_socket { read write };
 
 # For restarting qcamerasvr at the camera HAL's discretion
 allow mediaserver { system_prop camera_prop }:property_service set;
+
+binder_call(mediaserver, audiod)
