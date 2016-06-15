@@ -147,8 +147,10 @@ on boot
     write /sys/bus/msm_subsys/devices/subsys0/restart_level "related"
     # modem
     write /sys/bus/msm_subsys/devices/subsys1/restart_level "related"
-    # venus
+    # wcnss
     write /sys/bus/msm_subsys/devices/subsys2/restart_level "related"
+    # venus
+    write /sys/bus/msm_subsys/devices/subsys3/restart_level "related"
 
     # Mark the copy complete flag to not completed
     write /data/misc/radio/copy_complete 0
