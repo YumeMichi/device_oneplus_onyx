@@ -38,6 +38,7 @@
 
 #include "QCamera2HWI.h"
 #include "QCameraMem.h"
+#include "QCamera2Capabilities.h"
 
 #define MAP_TO_DRIVER_COORDINATE(val, base, scale, offset) (val * scale / base + offset)
 #define CAMERA_MIN_STREAMING_BUFFERS     3
@@ -1387,259 +1388,6 @@ int QCamera2HardwareInterface::closeCamera()
     return rc;
 }
 
-#define CAM0_PIC_TBL_SIZE 21
-static cam_dimension_t new_pic_sizes_cam0[CAM0_PIC_TBL_SIZE] = {
-    {4208, 3120},
-    {4160, 3120},
-    {4160, 2340},
-    {4000, 3000},
-    {4096, 2160},
-    {3200, 2400},
-    {3200, 1800},
-    {2592, 1944},
-    {2048, 1536},
-    {1920, 1080},
-    {1600, 1200},
-    {1280, 960},
-    {1280, 768},
-    {1280, 720},
-    {1024, 768},
-    {800, 600},
-    {800, 480},
-    {720, 480},
-    {640, 480},
-    {352, 288},
-    {320, 240}
-};
-
-#define CAM0_VID_TBL_SIZE 14
-static cam_dimension_t new_vid_sizes_cam0[CAM0_VID_TBL_SIZE] = {
-    {4096, 2160},
-    {3840, 2160},
-    {2560, 1440},
-    {1920, 1080},
-    {1280, 960},
-    {1280, 720},
-    {800, 480},
-    {720, 480},
-    {640, 480},
-    {480, 320},
-    {352, 288},
-    {320, 240},
-    {176, 144},
-    {160, 120}
-};
-
-#define CAM0_PRVW_TBL_SIZE 16
-static cam_dimension_t new_prvw_sizes_cam0[CAM0_PRVW_TBL_SIZE] = {
-    {4096, 2160},
-    {3840, 2160},
-    {2560, 1440},
-    {1920, 1080},
-    {1440, 1080},
-    {1280, 960},
-    {1280, 720},
-    {864, 480},
-    {800, 480},
-    {768, 432},
-    {720, 480},
-    {640, 480},
-    {576, 432},
-    {480, 320},
-    {384, 288},
-    {320, 240}
-};
-
-#define CAM1_PIC_TBL_SIZE 15
-static cam_dimension_t new_pic_sizes_cam1[CAM1_PIC_TBL_SIZE] = {
-    {3264, 2448},
-    {2592, 1944},
-    {2048, 1536},
-    {1920, 1080},
-    {1600, 1200},
-    {1280, 960},
-    {1280, 768},
-    {1280, 720},
-    {1024, 768},
-    {800, 600},
-    {800, 480},
-    {720, 480},
-    {640, 480},
-    {352, 288},
-    {320, 240}
-};
-
-#define CAM1_VID_TBL_SIZE 11
-static cam_dimension_t new_vid_sizes_cam1[CAM1_VID_TBL_SIZE] = {
-    {2560, 1440},
-    {1920, 1080},
-    {1280, 720},
-    {864, 480},
-    {800, 480},
-    {720, 480},
-    {640, 480},
-    {480, 320},
-    {352, 288},
-    {320, 240},
-    {176, 144}
-};
-
-#define CAM1_PRVW_TBL_SIZE 13
-static cam_dimension_t new_prvw_sizes_cam1[CAM1_PRVW_TBL_SIZE] = {
-    {2560, 1440},
-    {1920, 1080},
-    {1440, 1080},
-    {1280, 960},
-    {1280, 720},
-    {864, 480},
-    {800, 480},
-    {768, 432},
-    {720, 480},
-    {640, 480},
-    {576, 432},
-    {480, 320},
-    {320, 240}
-};
-
-#define PRVW_FMT_TBL_SIZE 3
-static cam_format_t new_prvw_fmts[PRVW_FMT_TBL_SIZE] = {
-    CAM_FORMAT_YUV_420_NV21,
-    CAM_FORMAT_YUV_420_YV12,
-    CAM_FORMAT_YUV_420_NV12_VENUS
-};
-
-#define CAM0_FPS_TBL_SIZE 3
-static cam_fps_range_t new_fps_ranges_cam0[CAM0_FPS_TBL_SIZE] = {
-    {7.5, 30.06, 0.0, 0.0},
-    {7.5, 60.0, 0.0, 0.0},
-    {7.5, 120.0, 0.0, 0.0}
-};
-
-#define CAM1_FPS_TBL_SIZE 2
-static cam_fps_range_t new_fps_ranges_cam1[CAM1_FPS_TBL_SIZE] = {
-    {7.5, 30.0, 0.0, 0.0},
-    {15.0, 30.0, 0.0, 0.0}
-};
-
-#define CAM0_FOCUS_MODES_SIZE 6
-static cam_focus_mode_type new_focus_modes_cam0[CAM0_FOCUS_MODES_SIZE] = {
-    CAM_FOCUS_MODE_AUTO,
-    CAM_FOCUS_MODE_INFINITY,
-    CAM_FOCUS_MODE_MACRO,
-    CAM_FOCUS_MODE_CONTINOUS_VIDEO,
-    CAM_FOCUS_MODE_CONTINOUS_PICTURE,
-    CAM_FOCUS_MODE_MANUAL
-};
-
-#define AEC_MODES_SIZE 5
-static cam_auto_exposure_mode_type new_aec_modes[AEC_MODES_SIZE] = {
-    CAM_AEC_MODE_FRAME_AVERAGE,
-    CAM_AEC_MODE_CENTER_WEIGHTED,
-    CAM_AEC_MODE_SPOT_METERING,
-    CAM_AEC_MODE_SPOT_METERING_ADV,
-    CAM_AEC_MODE_CENTER_WEIGHTED_ADV
-};
-
-#define ANTIBANDING_MODES_SIZE 3
-static cam_antibanding_mode_type new_antibanding_modes[ANTIBANDING_MODES_SIZE] = {
-    CAM_ANTIBANDING_MODE_60HZ,
-    CAM_ANTIBANDING_MODE_50HZ,
-    CAM_ANTIBANDING_MODE_AUTO
-};
-
-#define EFFECT_MODES_SIZE 8
-static cam_effect_mode_type new_effect_modes[EFFECT_MODES_SIZE] = {
-    CAM_EFFECT_MODE_OFF,
-    CAM_EFFECT_MODE_NEGATIVE,
-    CAM_EFFECT_MODE_SOLARIZE,
-    CAM_EFFECT_MODE_WHITEBOARD,
-    CAM_EFFECT_MODE_BLACKBOARD,
-    CAM_EFFECT_MODE_EMBOSS,
-    CAM_EFFECT_MODE_SKETCH,
-    CAM_EFFECT_MODE_NEON
-};
-
-#define WB_MODES_SIZE 9
-static cam_wb_mode_type new_wb_modes[WB_MODES_SIZE] = {
-    CAM_WB_MODE_AUTO,
-    CAM_WB_MODE_INCANDESCENT,
-    CAM_WB_MODE_FLUORESCENT,
-    CAM_WB_MODE_WARM_FLUORESCENT,
-    CAM_WB_MODE_DAYLIGHT,
-    CAM_WB_MODE_CLOUDY_DAYLIGHT,
-    CAM_WB_MODE_TWILIGHT,
-    CAM_WB_MODE_SHADE,
-    CAM_WB_MODE_CCT
-};
-
-#define CAM0_FLASH_MODES_SIZE 4
-static cam_flash_mode_t new_flash_modes_cam0[CAM0_FLASH_MODES_SIZE] = {
-    CAM_FLASH_MODE_OFF,
-    CAM_FLASH_MODE_AUTO,
-    CAM_FLASH_MODE_ON,
-    CAM_FLASH_MODE_TORCH
-};
-
-#define SCENE_MODES_SIZE 19
-static cam_scene_mode_type new_scene_modes[SCENE_MODES_SIZE] = {
-    CAM_SCENE_MODE_OFF,
-    CAM_SCENE_MODE_AUTO,
-    CAM_SCENE_MODE_LANDSCAPE,
-    CAM_SCENE_MODE_SNOW,
-    CAM_SCENE_MODE_BEACH,
-    CAM_SCENE_MODE_SUNSET,
-    CAM_SCENE_MODE_NIGHT,
-    CAM_SCENE_MODE_PORTRAIT,
-    CAM_SCENE_MODE_BACKLIGHT,
-    CAM_SCENE_MODE_SPORTS,
-    CAM_SCENE_MODE_ANTISHAKE,
-    CAM_SCENE_MODE_FLOWERS,
-    CAM_SCENE_MODE_CANDLELIGHT,
-    CAM_SCENE_MODE_FIREWORKS,
-    CAM_SCENE_MODE_PARTY,
-    CAM_SCENE_MODE_NIGHT_PORTRAIT,
-    CAM_SCENE_MODE_THEATRE,
-    CAM_SCENE_MODE_ACTION,
-    CAM_SCENE_MODE_AR
-};
-
-#define ISO_MODES_SIZE 7
-static cam_iso_mode_type new_iso_modes[ISO_MODES_SIZE] = {
-    CAM_ISO_MODE_AUTO,
-    CAM_ISO_MODE_100,
-    CAM_ISO_MODE_200,
-    CAM_ISO_MODE_400,
-    CAM_ISO_MODE_800,
-    CAM_ISO_MODE_1600,
-    CAM_ISO_MODE_3200
-};
-
-#define FOCUS_ALGOS_SIZE 4
-static cam_focus_algorithm_type new_focus_algos[FOCUS_ALGOS_SIZE] = {
-    CAM_FOCUS_ALGO_AUTO,
-    CAM_FOCUS_ALGO_SPOT,
-    CAM_FOCUS_ALGO_CENTER_WEIGHTED,
-    CAM_FOCUS_ALGO_AVERAGE
-};
-
-#define ZOOM_RATIOS_SIZE 79
-static int new_zoom_ratios[ZOOM_RATIOS_SIZE] = {
-    100, 102, 104, 107, 109, 112,
-    114, 117, 120, 123, 125, 128,
-    131, 135, 138, 141, 144, 148,
-    151, 155, 158, 162, 166, 170,
-    174, 178, 182, 186, 190, 195,
-    200, 204, 209, 214, 219, 224,
-    229, 235, 240, 246, 251, 257,
-    263, 270, 276, 282, 289, 296,
-    303, 310, 317, 324, 332, 340,
-    348, 356, 364, 373, 381, 390,
-    400, 409, 418, 428, 438, 448,
-    459, 470, 481, 492, 503, 515,
-    527, 540, 552, 565, 578, 592,
-    606
-};
-
 #define DATA_PTR(MEM_OBJ,INDEX) MEM_OBJ->getPtr( INDEX )
 
 /*===========================================================================
@@ -1713,9 +1461,9 @@ int QCamera2HardwareInterface::initCapabilities(int cameraId,mm_camera_vtbl_t *c
     gCamCapability[cameraId]->max_num_roi = 5;
     gCamCapability[cameraId]->auto_hdr_supported = 1;
 
-    for (i = 0; i < PRVW_FMT_TBL_SIZE; i++)
+    for (i = 0; i < ARRAY_SIZE(new_prvw_fmts); i++)
         gCamCapability[cameraId]->supported_preview_fmts[i] = new_prvw_fmts[i];
-    gCamCapability[cameraId]->supported_preview_fmt_cnt = PRVW_FMT_TBL_SIZE;
+    gCamCapability[cameraId]->supported_preview_fmt_cnt = ARRAY_SIZE(new_prvw_fmts);
 
     gCamCapability[cameraId]->supported_raw_fmts[0] = CAM_FORMAT_BAYER_MIPI_RAW_10BPP_RGGB;
     gCamCapability[cameraId]->supported_raw_fmts[1] = CAM_FORMAT_BAYER_QCOM_RAW_10BPP_RGGB;
@@ -1749,42 +1497,42 @@ int QCamera2HardwareInterface::initCapabilities(int cameraId,mm_camera_vtbl_t *c
     gCamCapability[cameraId]->brightness_ctrl.step = 1;
     gCamCapability[cameraId]->brightness_ctrl.def_value = 3;
 
-    for (i = 0; i < AEC_MODES_SIZE; i++)
+    for (i = 0; i < ARRAY_SIZE(new_aec_modes); i++)
         gCamCapability[cameraId]->supported_aec_modes[i] = new_aec_modes[i];
-    gCamCapability[cameraId]->supported_aec_modes_cnt = AEC_MODES_SIZE;
+    gCamCapability[cameraId]->supported_aec_modes_cnt = ARRAY_SIZE(new_aec_modes);
 
     gCamCapability[cameraId]->exposure_compensation_max = 12;
     gCamCapability[cameraId]->exposure_compensation_min = -12;
     gCamCapability[cameraId]->exposure_compensation_step = (float)1/6;
     gCamCapability[cameraId]->exposure_compensation_default = 0;
 
-    for (i = 0; i < ANTIBANDING_MODES_SIZE; i++)
+    for (i = 0; i < ARRAY_SIZE(new_antibanding_modes); i++)
         gCamCapability[cameraId]->supported_antibandings[i] = new_antibanding_modes[i];
-    gCamCapability[cameraId]->supported_antibandings_cnt = ANTIBANDING_MODES_SIZE;
+    gCamCapability[cameraId]->supported_antibandings_cnt = ARRAY_SIZE(new_antibanding_modes);
 
-    for (i = 0; i < EFFECT_MODES_SIZE; i++)
+    for (i = 0; i < ARRAY_SIZE(new_effect_modes); i++)
         gCamCapability[cameraId]->supported_effects[i] = new_effect_modes[i];
-    gCamCapability[cameraId]->supported_effects_cnt = EFFECT_MODES_SIZE;
+    gCamCapability[cameraId]->supported_effects_cnt = ARRAY_SIZE(new_effect_modes);
 
-    for (i = 0; i < WB_MODES_SIZE; i++)
+    for (i = 0; i < ARRAY_SIZE(new_wb_modes); i++)
         gCamCapability[cameraId]->supported_white_balances[i] = new_wb_modes[i];
-    gCamCapability[cameraId]->supported_white_balances_cnt = WB_MODES_SIZE;
+    gCamCapability[cameraId]->supported_white_balances_cnt = ARRAY_SIZE(new_wb_modes);
 
-    for (i = 0; i < SCENE_MODES_SIZE; i++)
+    for (i = 0; i < ARRAY_SIZE(new_scene_modes); i++)
         gCamCapability[cameraId]->supported_scene_modes[i] = new_scene_modes[i];
-    gCamCapability[cameraId]->supported_scene_modes_cnt = SCENE_MODES_SIZE;
+    gCamCapability[cameraId]->supported_scene_modes_cnt = ARRAY_SIZE(new_scene_modes);
 
-    for (i = 0; i < ISO_MODES_SIZE; i++)
+    for (i = 0; i < ARRAY_SIZE(new_iso_modes); i++)
         gCamCapability[cameraId]->supported_iso_modes[i] = new_iso_modes[i];
-    gCamCapability[cameraId]->supported_iso_modes_cnt = ISO_MODES_SIZE;
+    gCamCapability[cameraId]->supported_iso_modes_cnt = ARRAY_SIZE(new_iso_modes);
 
-    for (i = 0; i < FOCUS_ALGOS_SIZE; i++)
+    for (i = 0; i < ARRAY_SIZE(new_focus_algos); i++)
         gCamCapability[cameraId]->supported_focus_algos[i] = new_focus_algos[i];
-    gCamCapability[cameraId]->supported_focus_algos_cnt = FOCUS_ALGOS_SIZE;
+    gCamCapability[cameraId]->supported_focus_algos_cnt = ARRAY_SIZE(new_focus_algos);
 
-    for (i = 0; i < ZOOM_RATIOS_SIZE; i++)
+    for (i = 0; i < ARRAY_SIZE(new_zoom_ratios); i++)
         gCamCapability[cameraId]->zoom_ratio_tbl[i] = new_zoom_ratios[i];
-    gCamCapability[cameraId]->zoom_ratio_tbl_cnt = ZOOM_RATIOS_SIZE;
+    gCamCapability[cameraId]->zoom_ratio_tbl_cnt = ARRAY_SIZE(new_zoom_ratios);
 
     gCamCapability[cameraId]->histogram_supported = 1;
 
@@ -1799,33 +1547,33 @@ int QCamera2HardwareInterface::initCapabilities(int cameraId,mm_camera_vtbl_t *c
         gCamCapability[cameraId]->raw_dim.width = 4208;
         gCamCapability[cameraId]->raw_dim.height = 3120;
 
-        for (i = 0; i < CAM0_FLASH_MODES_SIZE; i++)
+        for (i = 0; i < ARRAY_SIZE(new_flash_modes_cam0); i++)
             gCamCapability[cameraId]->supported_flash_modes[i] = new_flash_modes_cam0[i];
-        gCamCapability[cameraId]->supported_flash_modes_cnt = CAM0_FLASH_MODES_SIZE;
+        gCamCapability[cameraId]->supported_flash_modes_cnt = ARRAY_SIZE(new_flash_modes_cam0);
 
-        for (i = 0; i < CAM0_FOCUS_MODES_SIZE; i++)
+        for (i = 0; i < ARRAY_SIZE(new_focus_modes_cam0); i++)
             gCamCapability[cameraId]->supported_focus_modes[i] = new_focus_modes_cam0[i];
-        gCamCapability[cameraId]->supported_focus_modes_cnt = CAM0_FOCUS_MODES_SIZE;
+        gCamCapability[cameraId]->supported_focus_modes_cnt = ARRAY_SIZE(new_focus_modes_cam0);
 
-        for (i = 0; i < CAM0_FPS_TBL_SIZE; i++)
+        for (i = 0; i < ARRAY_SIZE(new_fps_ranges_cam0); i++)
             gCamCapability[cameraId]->fps_ranges_tbl[i] = new_fps_ranges_cam0[i];
-        gCamCapability[cameraId]->fps_ranges_tbl_cnt = CAM0_FPS_TBL_SIZE;
+        gCamCapability[cameraId]->fps_ranges_tbl_cnt = ARRAY_SIZE(new_fps_ranges_cam0);
 
-        for (i = 0; i < CAM0_PIC_TBL_SIZE; i++)
+        for (i = 0; i < ARRAY_SIZE(new_pic_sizes_cam0); i++)
             gCamCapability[cameraId]->picture_sizes_tbl[i] = new_pic_sizes_cam0[i];
-        gCamCapability[cameraId]->picture_sizes_tbl_cnt = CAM0_PIC_TBL_SIZE;
+        gCamCapability[cameraId]->picture_sizes_tbl_cnt = ARRAY_SIZE(new_pic_sizes_cam0);
 
-        for (i = 0; i < CAM0_VID_TBL_SIZE; i++)
+        for (i = 0; i < ARRAY_SIZE(new_vid_sizes_cam0); i++)
             gCamCapability[cameraId]->video_sizes_tbl[i] = new_vid_sizes_cam0[i];
-        gCamCapability[cameraId]->video_sizes_tbl_cnt = CAM0_VID_TBL_SIZE;
+        gCamCapability[cameraId]->video_sizes_tbl_cnt = ARRAY_SIZE(new_vid_sizes_cam0);
 
-        for (i = 0; i < CAM0_VID_TBL_SIZE; i++)
+        for (i = 0; i < ARRAY_SIZE(new_vid_sizes_cam0); i++)
             gCamCapability[cameraId]->livesnapshot_sizes_tbl[i] = new_vid_sizes_cam0[i];
-        gCamCapability[cameraId]->livesnapshot_sizes_tbl_cnt = CAM0_VID_TBL_SIZE;
+        gCamCapability[cameraId]->livesnapshot_sizes_tbl_cnt = ARRAY_SIZE(new_vid_sizes_cam0);
 
-        for (i = 0; i < CAM0_PRVW_TBL_SIZE; i++)
+        for (i = 0; i < ARRAY_SIZE(new_prvw_sizes_cam0); i++)
             gCamCapability[cameraId]->preview_sizes_tbl[i] = new_prvw_sizes_cam0[i];
-        gCamCapability[cameraId]->preview_sizes_tbl_cnt = CAM0_PRVW_TBL_SIZE;
+        gCamCapability[cameraId]->preview_sizes_tbl_cnt = ARRAY_SIZE(new_prvw_sizes_cam0);
 
         gCamCapability[cameraId]->hfr_tbl_cnt = 2;
 
@@ -1857,25 +1605,25 @@ int QCamera2HardwareInterface::initCapabilities(int cameraId,mm_camera_vtbl_t *c
         gCamCapability[cameraId]->hfr_tbl[0].mode = CAM_HFR_MODE_OFF;
         gCamCapability[cameraId]->hfr_tbl_cnt = 1;
 
-        for (i = 0; i < CAM1_FPS_TBL_SIZE; i++)
+        for (i = 0; i < ARRAY_SIZE(new_fps_ranges_cam1); i++)
             gCamCapability[cameraId]->fps_ranges_tbl[i] = new_fps_ranges_cam1[i];
-        gCamCapability[cameraId]->fps_ranges_tbl_cnt = CAM1_FPS_TBL_SIZE;
+        gCamCapability[cameraId]->fps_ranges_tbl_cnt = ARRAY_SIZE(new_fps_ranges_cam1);
 
-        for (i = 0; i < CAM1_PIC_TBL_SIZE; i++)
+        for (i = 0; i < ARRAY_SIZE(new_pic_sizes_cam1); i++)
             gCamCapability[cameraId]->picture_sizes_tbl[i] = new_pic_sizes_cam1[i];
-        gCamCapability[cameraId]->picture_sizes_tbl_cnt = CAM1_PIC_TBL_SIZE;
+        gCamCapability[cameraId]->picture_sizes_tbl_cnt = ARRAY_SIZE(new_pic_sizes_cam1);
 
-        for (i = 0; i < CAM1_VID_TBL_SIZE; i++)
+        for (i = 0; i < ARRAY_SIZE(new_vid_sizes_cam1); i++)
             gCamCapability[cameraId]->video_sizes_tbl[i] = new_vid_sizes_cam1[i];
-        gCamCapability[cameraId]->video_sizes_tbl_cnt = CAM1_VID_TBL_SIZE;
+        gCamCapability[cameraId]->video_sizes_tbl_cnt = ARRAY_SIZE(new_vid_sizes_cam1);
 
-        for (i = 0; i < CAM1_PRVW_TBL_SIZE; i++)
+        for (i = 0; i < ARRAY_SIZE(new_prvw_sizes_cam1); i++)
             gCamCapability[cameraId]->preview_sizes_tbl[i] = new_prvw_sizes_cam1[i];
-        gCamCapability[cameraId]->preview_sizes_tbl_cnt = CAM1_PRVW_TBL_SIZE;
+        gCamCapability[cameraId]->preview_sizes_tbl_cnt = ARRAY_SIZE(new_prvw_sizes_cam1);
 
-        for (i = 0; i < CAM1_VID_TBL_SIZE; i++)
+        for (i = 0; i < ARRAY_SIZE(new_vid_sizes_cam1); i++)
             gCamCapability[cameraId]->livesnapshot_sizes_tbl[i] = new_vid_sizes_cam1[i];
-        gCamCapability[cameraId]->livesnapshot_sizes_tbl_cnt = CAM1_VID_TBL_SIZE;
+        gCamCapability[cameraId]->livesnapshot_sizes_tbl_cnt = ARRAY_SIZE(new_vid_sizes_cam1);
     }
 
     //copy the preview sizes and video sizes lists because they
