@@ -1207,11 +1207,15 @@ int QCamera2HardwareInterface::openCamera()
         return ALREADY_EXISTS;
     }
 
-    for (i = 0; i < 5; i++) {
+    mCameraHandle = camera_open(mCameraId);
+    if (!mCameraHandle) {
+        // Restart camera server and try one more time
+        property_set("camera.restart.qcamerasvr", "1");
+        usleep(3000 * 1000);
+        // Re-run get_num_of_cameras() to make sure mm-camera-intf
+        // structs are properly initialized with both cams
+        get_num_of_cameras();
         mCameraHandle = camera_open(mCameraId);
-        if (mCameraHandle)
-            break;
-        usleep(500 * 1000);
     }
 
     if (!mCameraHandle) {
