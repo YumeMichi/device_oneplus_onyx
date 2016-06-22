@@ -180,7 +180,7 @@ BOARD_SEPOLICY_DIRS += \
 TARGET_LD_SHIM_LIBS := \
     /system/vendor/lib/libril-qc-qmi-1.so|libaudioclient_shim.so \
     /system/lib/libgui.so|libshims_sensors.so \
-    /system/vendor/lib/hw/camera.msm8974.so|libshims_camera.so \
+    /system/vendor/lib/hw/camera.vendor.msm8974.so|libshims_camera.so \
     /system/vendor/lib/libmmcamera2_stats_algorithm.so|libshims_atomic.so
 
 # Vendor security patch level
