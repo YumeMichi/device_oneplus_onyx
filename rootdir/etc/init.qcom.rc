@@ -554,7 +554,7 @@ service qcamerasvr /system/bin/mm-qcamera-daemon
     group camera system inet input graphics
 
 service mpdecision /system/bin/mpdecision --avg_comp
-   class late_start
+   class main
    user root
    group system
    disabled
