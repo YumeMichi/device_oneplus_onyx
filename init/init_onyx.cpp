@@ -59,6 +59,10 @@ void vendor_load_properties()
         /* America */
         property_set("ro.product.model", "ONE E1005");
         property_set("ro.rf_version", "TDD_FDD_Am");
+    } else if (strstr(rf_version, "107")){
+        /* China CTCC Version */
+        property_set("ro.product.model", "ONE E1000");
+        property_set("ro.rf_version", "TDD_FDD_ALL_OPTR");
     }
     property_get("ro.product.device", device);
     INFO("Found rf_version : %s setting build properties for %s device\n", rf_version, device);
