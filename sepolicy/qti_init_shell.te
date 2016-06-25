@@ -4,3 +4,6 @@ allow qti_init_shell btnvtool_exec:file execute_no_trans;
 
 allow qti_init_shell nv_data_file:dir { search };
 allow qti_init_shell nv_data_file:file rw_file_perms;
+
+# For restarting media on encrypted devices to make torch tile appear
+allow qti_init_shell { system_prop media_prop }:property_service set;

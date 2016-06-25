@@ -609,3 +609,13 @@ service ril-daemon2 /system/bin/rild -c 2
 # Dirty hack to fix rear camera not working/gone missing
 on property:camera.restart.qcamerasvr=1
     restart qcamerasvr
+
+service restart-media /system/bin/sh /init.restart.media.sh
+    class late_start
+    user root
+    disabled
+    oneshot
+
+# Fix missing torch tile on encrypted devices
+on property:sys.boot_completed=1
+    start restart-media
