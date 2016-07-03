@@ -37,6 +37,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define MAX_REAL_SHARPNESS 7 // Cap backend sharpness value to 7 (out of 36)
+
 #define CAM_MAX_NUM_BUFS_PER_STREAM  (24)
 #define MAX_METADATA_PAYLOAD_SIZE    (1024)
 #define AWB_DEBUG_DATA_SIZE          (7027)
