@@ -606,7 +606,6 @@ const QCameraParameters::QCameraMap QCameraParameters::CDS_MODES_MAP[] = {
 
 #define DEFAULT_CAMERA_AREA "(0, 0, 0, 0, 0)"
 #define DATA_PTR(MEM_OBJ,INDEX) MEM_OBJ->getPtr( INDEX )
-#define MIN_PP_BUF_CNT 1
 #define TOTAL_RAM_SIZE_512MB 536870912
 
 
@@ -7659,11 +7658,7 @@ int QCameraParameters::getMaxUnmatchedFramesInQueue()
  */
 int QCameraParameters::getMinPPBufs()
 {
-    // Ideally we should be getting this from m_pCapability->min_num_pp_bufs. But as of now
-    // this number reported by backend is wrong. It simply adds all the ppbuf requirement by
-    // each module irrespective of whether its connected or not. This has to be enhanced later
-    // to get the exact requirement from backend.
-    return MIN_PP_BUF_CNT;
+    return m_pCapability->min_num_pp_bufs;
 }
 
 /*===========================================================================
