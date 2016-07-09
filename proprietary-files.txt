@@ -203,9 +203,9 @@ vendor/lib/librs_adreno_sha1.so
 vendor/lib/libsc-a3xx.so
 vendor/lib/libscale.so
 
-# Graphics firmware
-etc/firmware/a330_pfp.fw
-etc/firmware/a330_pm4.fw
+# Graphics firmware (from hammerhead)
+vendor/firmware/a330_pfp.fw
+vendor/firmware/a330_pm4.fw
 
 # Keymaster
 vendor/firmware/keymaster/keymaster.b00
