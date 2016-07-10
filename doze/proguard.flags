@@ -1,3 +1,3 @@
--keep class com.cyanogenmod.doze.onyx.* {
+-keep class com.cyanogenmod.settings.doze.* {
   *;
 }
