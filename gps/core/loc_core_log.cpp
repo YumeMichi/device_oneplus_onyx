@@ -116,7 +116,7 @@ static loc_name_val_s_type loc_eng_aiding_data_bits[] =
     NAME_VAL( GPS_DELETE_SADATA ),
     NAME_VAL( GPS_DELETE_RTI ),
     NAME_VAL( GPS_DELETE_CELLDB_INFO ),
-#ifndef PDK_FEATURE_SET
+#if 0
     NAME_VAL( GPS_DELETE_ALMANAC_CORR ),
     NAME_VAL( GPS_DELETE_FREQ_BIAS_EST ),
     NAME_VAL( GLO_DELETE_EPHEMERIS ),
