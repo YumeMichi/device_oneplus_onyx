@@ -1,4 +1,4 @@
-/* Copyright (c) 2011 The Linux Foundation. All rights reserved.
+/* Copyright (c) 2011-2013,2015 The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -9,7 +9,7 @@
  *       copyright notice, this list of conditions and the following
  *       disclaimer in the documentation and/or other materials provided
  *       with the distribution.
- *     * Neither the name of The Linux Foundation nor the names of its
+ *     * Neither the name of The Linux Foundation, nor the names of its
  *       contributors may be used to endorse or promote products derived
  *       from this software without specific prior written permission.
  *
@@ -26,47 +26,42 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
+#ifndef __MSG_TASK__
+#define __MSG_TASK__
 
-#include <hardware/gps.h>
+#include <LocThread.h>
 
-#include <stdlib.h>
-
-extern const GpsInterface* get_gps_interface();
-
-const GpsInterface* gps__get_gps_interface(struct gps_device_t* dev)
-{
-    return get_gps_interface();
-}
-
-static int open_gps(const struct hw_module_t* module, char const* name,
-        struct hw_device_t** device)
-{
-    struct gps_device_t *dev = (struct gps_device_t *) malloc(sizeof(struct gps_device_t));
-
-    if(dev == NULL)
-        return -1;
-
-    memset(dev, 0, sizeof(*dev));
-
-    dev->common.tag = HARDWARE_DEVICE_TAG;
-    dev->common.version = 0;
-    dev->common.module = (struct hw_module_t*)module;
-    dev->get_gps_interface = gps__get_gps_interface;
-
-    *device = (struct hw_device_t*)dev;
-    return 0;
-}
-
-static struct hw_module_methods_t gps_module_methods = {
-    .open = open_gps
+struct LocMsg {
+    inline LocMsg() {}
+    inline virtual ~LocMsg() {}
+    virtual void proc() const = 0;
+    inline virtual void log() const {}
 };
 
-struct hw_module_t HAL_MODULE_INFO_SYM = {
-    .tag = HARDWARE_MODULE_TAG,
-    .module_api_version = 1,
-    .hal_api_version = 0,
-    .id = GPS_HARDWARE_MODULE_ID,
-    .name = "loc_api GPS Module",
-    .author = "Qualcomm USA, Inc.",
-    .methods = &gps_module_methods,
+class MsgTask : public LocRunnable {
+    const void* mQ;
+    LocThread* mThread;
+    friend class LocThreadDelegate;
+protected:
+    virtual ~MsgTask();
+public:
+    MsgTask(LocThread::tCreate tCreator, const char* threadName = NULL, bool joinable = true);
+    MsgTask(const char* threadName = NULL, bool joinable = true);
+    // this obj will be deleted once thread is deleted
+    void destroy();
+    void sendMsg(const LocMsg* msg) const;
+    // Overrides of LocRunnable methods
+    // This method will be repeated called until it returns false; or
+    // until thread is stopped.
+    virtual bool run();
+
+    // The method to be run before thread loop (conditionally repeatedly)
+    // calls run()
+    virtual void prerun();
+
+    // The method to be run after thread loop (conditionally repeatedly)
+    // calls run()
+    inline virtual void postrun() {}
 };
+
+#endif //__MSG_TASK__
