@@ -200,8 +200,7 @@ PRODUCT_PACKAGES += \
 # RIL
 PRODUCT_PACKAGES += \
     libcnefeatureconfig \
-    libxml2 \
-    libshim_ril
+    libxml2
 
 # Sensors
 PRODUCT_COPY_FILES += \

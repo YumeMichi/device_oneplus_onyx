@@ -163,9 +163,6 @@ WITH_LZMA_OTA := true
 #TW_TARGET_USES_QCOM_BSP := true
 
 # RIL
-BOARD_PROVIDES_LIBRIL := true
-BOARD_RIL_CLASS += ../../../device/oneplus/onyx/ril
-TARGET_LDPRELOAD := libNimsWrap.so
 TARGET_RIL_VARIANT := caf
 
 # RPC
