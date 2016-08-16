@@ -103,10 +103,6 @@ PRODUCT_PACKAGES += \
     camera.msm8974 \
     Snap
 
-# Charger
-PRODUCT_PACKAGES += \
-    charger_res_images
-
 # Data
 PRODUCT_PACKAGES += \
     librmnetctl \
