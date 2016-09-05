@@ -7,7 +7,7 @@ LOCAL_CFLAGS += -DUSES_BOOTDEVICE_PATH
 endif
 
 LOCAL_C_INCLUDES := bootable/recovery
-LOCAL_SRC_FILES := recovery_updater.c
+LOCAL_SRC_FILES := recovery_updater.cpp
 LOCAL_MODULE := librecovery_updater_onyx
 LOCAL_MODULE_TAGS := eng
 include $(BUILD_STATIC_LIBRARY)
