@@ -152,26 +152,13 @@ vendor/lib/qcdrm/playready/lib/libtzplayready_customer.so
 
 # GPS (from bacon)
 bin/loc_launcher|b920649a5a083473b51a6234783befc7c61978da
-etc/permissions/com.qti.location.sdk.xml|cb68a566bd77dcc75bb7547199d528289fac01cb
-etc/permissions/com.qualcomm.location.xml|878999ca1861e71cdbda75378164d6113296a428
--framework/com.qti.location.sdk.jar|1b88c1f468032e8f526b23770a07be2b462ebd8a
 -lib/libloc_api_v02.so|36f1f1edbe6a7974afe8515d3326fc274fc57bc5
 -lib/libloc_ds_api.so|99a6f29860dbe0ed6fe3cbfdbb2277a63850f2c0
--priv-app/com.qualcomm.location/com.qualcomm.location.apk|cbb418a86b933329b48e5f411e028ba5f22fe609
-vendor/bin/slim_daemon|1d74532e54bc39efd3fcd978a4dc37d46d40cfcd
 vendor/lib/hw/flp.default.so|c36ec0a3e6563fa8ddb96aaa7d0129249ce1d305
-vendor/lib/libalarmservice_jni.so|a3931acadb6e3451b4a4090dc46a02f5bc1ae2dd
-vendor/lib/libdataitems.so|297ed3635678e5572574f05361a07e943532f05c
 vendor/lib/libflp.so|20994b3ac3ecd2094698ac98463aed97e3ce54ef
 vendor/lib/libgeofence.so|953c2720c98825cdfb2757839f5f86400c11a2d5
 vendor/lib/libizat_core.so|8d1b8f5c26cc9bcdacb402e253048211a6c07ba1
 vendor/lib/liblbs_core.so|aa2eaeccccda819ed213a56091b6beac23da2805
-vendor/lib/liblocationservice.so|fc7624c10082e2e3c79a67df80d053fc559b1122
-vendor/lib/liblocationservice_glue.so|9264066f368fc4deb75a81370ff0c00bf4c0aca1
-vendor/lib/liblowi_client.so|c51520cadcd6486c02a1a4c42dd8e6ad0926db11
-vendor/lib/libslimclient.so|99857d93c3486b9bb19c316eedec93a8448fabdc
-vendor/lib/libxtwifi_ulp_adaptor.so|9b17e50bf11032f31a6bc7e45a1f633bedfe6bba
-vendor/lib/libulp2.so|7f0b8d5a6fbef2bbbc8a009849de1a0a5392e240
 
 # Graphics
 vendor/lib/egl/eglsubAndroid.so
