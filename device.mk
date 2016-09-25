@@ -113,6 +113,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     OnyxDoze
 
+# Gello
+PRODUCT_PACKAGES += \
+    Gello
+
 # Graphics
 PRODUCT_PACKAGES += \
     copybit.msm8974 \
