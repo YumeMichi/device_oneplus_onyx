@@ -101,7 +101,6 @@ PRODUCT_PACKAGES += \
 # Camera
 PRODUCT_PACKAGES += \
     camera.msm8974 \
-    libstlport \
     Snap
 
 # Charger
