@@ -318,7 +318,7 @@ vendor/lib/libsensor_user_cal.so
 vendor/lib/libusndroute.so
 
 # Thermal
-bin/thermal-engine
+vendor/bin/thermal-engine
 vendor/lib/libthermalclient.so
 vendor/lib/libthermalioctl.so
 
