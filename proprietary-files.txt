@@ -276,8 +276,9 @@ vendor/lib/libsmemlog.so
 vendor/lib/libsystem_health_mon.so
 
 # Radio (from ham)
--priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk
 -app/shutdownlistener/shutdownlistener.apk
+-lib/libril.so
+-priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk
 bin/netmgrd
 bin/qmuxd
 bin/radish
@@ -287,9 +288,9 @@ etc/data/dsi_config.xml
 etc/data/netmgr_config.xml
 etc/permissions/qcnvitems.xml
 etc/permissions/qcrilhook.xml
+framework/ConnectivityExt.jar
 framework/qcnvitems.jar
 framework/qcrilhook.jar
-framework/ConnectivityExt.jar
 lib/libmdmdetect.so
 vendor/lib/libconfigdb.so
 vendor/lib/liblqe.so
