@@ -210,6 +210,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sensors/sensor_def_qcomdev.conf:system/etc/sensors/sensor_def_qcomdev.conf
 
+PRODUCT_PACKAGES += \
+    libshims_sensors
+
 # USB
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
