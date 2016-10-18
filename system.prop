@@ -40,6 +40,7 @@ audio.offload.pcm.24bit.enable=true
 
 # Bluetooth
 bluetooth.hfp.client=1
+qcom.bluetooth.soc=smd
 ro.bluetooth.alwaysbleon=true
 
 # Camera
