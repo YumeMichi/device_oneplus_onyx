@@ -56,7 +56,7 @@ on enable-low-power
     write /sys/kernel/msm_thermal/sampling_ms 8000
     write /sys/kernel/msm_thermal/enabled 1
 
-    setprop sys.io.scheduler deadline
+    setprop sys.io.scheduler cfq
     start mpdecision
 
 on charger
