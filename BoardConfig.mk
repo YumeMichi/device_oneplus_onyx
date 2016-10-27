@@ -19,6 +19,9 @@
 
 PLATFORM_PATH := device/oneplus/onyx
 
+# Assertions
+TARGET_BOARD_INFO_FILE ?= $(PLATFORM_PATH)/board-info.txt
+
 # Bootloader
 TARGET_BOOTLOADER_BOARD_NAME := MSM8974
 TARGET_NO_BOOTLOADER := true
