@@ -1035,7 +1035,19 @@
     </path>
 
     <path name="speaker-mic">
-        <path name="adc5" />
+     <ctl name="AIF1_CAP Mixer SLIM TX7" value="1" />
+     <ctl name="AIF1_CAP Mixer SLIM TX8" value="1" />
+     <ctl name="SLIM TX7 MUX" value="DEC4" />
+     <ctl name="DEC4 MUX" value="ADC3" />
+     <ctl name="SLIM TX8 MUX" value="DEC3" />
+     <ctl name="DEC3 MUX" value="ADC4" />
+     <ctl name="SLIM_0_TX Channels" value="Two" />
+     <ctl name="SLIM_0_RX Format" value="S16_LE" />
+     <ctl name="ADC3 Volume" value="8" />
+     <ctl name="ADC4 Volume" value="12" />
+     <ctl name="DEC3 Volume" value="84" />
+     <ctl name="DEC4 Volume" value="84" />
+     <ctl name="left Profile" value="1"/> 
     </path>
 
     <path name="speaker-mic-liquid">
