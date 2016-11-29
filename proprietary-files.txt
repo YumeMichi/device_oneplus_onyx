@@ -259,7 +259,6 @@ vendor/lib/libsystem_health_mon.so
 
 # Radio
 -app/shutdownlistener/shutdownlistener.apk
--lib/libril.so
 -priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk
 bin/netmgrd
 bin/qmuxd
