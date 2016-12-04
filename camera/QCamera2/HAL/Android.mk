@@ -2,6 +2,15 @@ LOCAL_PATH:= $(call my-dir)
 
 include $(CLEAR_VARS)
 
+LOCAL_CLANG_CFLAGS += \
+    -Wno-error=unused-private-field \
+    -Wno-error=strlcpy-strlcat-size \
+    -Wno-error=gnu-designator \
+    -Wno-error=unused-variable \
+    -Wno-error=format \
+    -Wno-error=unused-parameter \
+    -Wno-error=sign-compare
+
 LOCAL_SRC_FILES := \
     QCamera2Factory.cpp \
     QCamera2Hal.cpp \
