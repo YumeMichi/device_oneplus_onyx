@@ -46,5 +46,5 @@ PRODUCT_MANUFACTURER := OnePlus
 
 # enable stock zip packages flash
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    ro.build.product=ONE \
-    ro.product.device=ONE
+    ro.build.product=OnePlus \
+    ro.product.device=OnePlus
