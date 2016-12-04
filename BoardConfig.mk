@@ -58,4 +58,4 @@ TW_EXTRA_LANGUAGES := true
 BOARD_CUSTOM_BOOTIMG_MK := device/oneplus/onyx/custombootimg.mk
 
 # Assertions
-TARGET_BOARD_INFO_FILE ?= device/oneplus/onyx/board-info.txt
+TARGET_BOARD_INFO_FILE := device/oneplus/onyx/board-info.txt
