@@ -15,9 +15,8 @@
 # Old slim_ap executable
 /system/vendor/bin/slim_ap_daemon                       u:object_r:location_exec:s0
 
-# BT/WiFi MAC
+# WiFi MAC
 /persist/.genmac                                        u:object_r:wifi_data_file:s0
-/persist/.bt_nv.bin                                     u:object_r:bluetooth_data_file:s0
 
 # Backlight
 /sys/class/leds/lcd-backlight/brightness                u:object_r:touchscreen_file:s0
