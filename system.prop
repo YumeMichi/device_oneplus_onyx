@@ -115,6 +115,9 @@ ro.qti.sensors.bte=true
 ro.qti.sensors.gtap=true
 ro.qti.sensors.vmd=true
 
+# Storage
+ro.sys.sdcardfs=true
+
 # Time services
 persist.timed.enable=true
 
