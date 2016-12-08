@@ -188,6 +188,7 @@ TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_onyx
 TARGET_RELEASETOOLS_EXTENSIONS := $(PLATFORM_PATH)
 
 # Recovery
+LZMA_RAMDISK_TARGETS := recovery
 TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/rootdir/etc/fstab.qcom
 
 # RIL
