@@ -152,13 +152,8 @@
     {RIL_REQUEST_PULL_LCEDATA, dispatchVoid, responseLceData},
     {RIL_REQUEST_GET_ACTIVITY_INFO, dispatchVoid, responseActivityData},
     {RIL_REQUEST_SIM_GET_ATR, dispatchInts, responseString},
-    {RIL_REQUEST_CAF_SIM_OPEN_CHANNEL_WITH_P2, dispatchOpenChannelWithP2, responseInts},
-    {RIL_REQUEST_GET_ADN_RECORD, dispatchVoid, responseInts},
-    {RIL_REQUEST_UPDATE_ADN_RECORD, dispatchAdnRecord, responseInts},
-//add by xufei
     {0, NULL, NULL}, 
     {RIL_REQUEST_FACTORY_MODE_NV_PROCESS, dispatchInts, responseVoid}, 
-    //add end
 	//TongJing.Shi@EXP.DataComm.Phone, 2013.08.31, Modify for
 	{RIL_REQUEST_FACTORY_MODE_MODEM_GPIO,  dispatchInts, responseVoid},
     //DuYuanHua@OnLineRD.AirService.RIL, 2012/09/26, Add for EngineerMode
@@ -167,19 +162,21 @@
     {RIL_REQUEST_REPORT_BOOTUPNVRESTOR_STATE,  dispatchVoid, responseVoid},
 	//Wenlong.Cai@OnlineRD.AirService.Module, 2013/12/09, Add for get rffe device information
     {RIL_REQUEST_GET_RFFE_DEV_INFO,  dispatchInts, responseInts},
-
     //zhunn@OnLineRD.AirService.Framework, 2013/02/19, add for skip RIL_REQUEST_OEM_BASE+6
     {0, NULL, NULL},                   
-
-    
 	//dengql@OnLineRD.AirService.RIL, 2012/09/26, Add for NFC E-wallet
     {RIL_REQUEST_SIM_TRANSMIT_BASIC, dispatchSIM_IO, responseSIM_IO},
- //add for test
+    //add for test
     {0, NULL, NULL},                   
     {0, NULL, NULL},                   
     {RIL_REQUEST_SIM_TRANSMIT_CHANNEL, dispatchSIM_IO, responseSIM_IO},
-//yangli@OnlineRD.AirService.Module, 2014/05/20, Add for send msg to make modem reset, {
+    //yangli@OnlineRD.AirService.Module, 2014/05/20, Add for send msg to make modem reset, {
     {RIL_REQUEST_GO_TO_ERROR_FATAL, dispatchVoid, responseVoid},
     {RIL_REQUEST_GET_MDM_BASEBAND, dispatchVoid, responseString},
     //yangli@OnlineRD.AirService.Module, 2014/09/22, Add for set only tdd-lte    
     {RIL_REQUEST_SET_TDD_LTE, dispatchInts, responseVoid},
+    {RIL_REQUEST_CAF_SIM_OPEN_CHANNEL_WITH_P2, dispatchOpenChannelWithP2, responseInts},
+    {RIL_REQUEST_GET_ADN_RECORD, dispatchVoid, responseInts},
+    {RIL_REQUEST_UPDATE_ADN_RECORD, dispatchAdnRecord, responseInts},
+    {RIL_REQUEST_SET_CARRIER_RESTRICTIONS, dispatchSetCarrierRestrictions, responseInts},
+    {RIL_REQUEST_GET_CARRIER_RESTRICTIONS, dispatchGetCarrierRestrictions, responseCarrierRestrictions},

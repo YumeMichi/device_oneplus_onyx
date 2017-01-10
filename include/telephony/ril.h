@@ -66,9 +66,14 @@ extern "C" {
  *
  * RIL_VERSION = 13 : This version includes new wakelock semantics and as the first
  *                    strongly versioned version it enforces structure use.
+ * RIL_VERSION = 14 : New data structures are added, namely RIL_CarrierMatchType,
+ *                    RIL_Carrier, RIL_CarrierRestrictions and RIL_PCO_Data.
+ *                    New commands added: RIL_REQUEST_SET_CARRIER_RESTRICTIONS,
+ *                    RIL_REQUEST_SET_CARRIER_RESTRICTIONS and
+ *                    RIL_UNSOL_PCO_DATA
  */
-#define RIL_VERSION 11 /* HTC M RIL doesn't support new wakelock semantics */
-#define LAST_IMPRECISE_RIL_VERSION 11
+#define RIL_VERSION 12
+#define LAST_IMPRECISE_RIL_VERSION 12 // Better self-documented name
 #define RIL_VERSION_MIN 6 /* Minimum RIL_VERSION supported */
 
 #define CDMA_ALPHA_INFO_BUFFER_LENGTH 64
@@ -548,7 +553,10 @@ typedef struct {
         RIL_CDMA_SMS_Message* cdmaMessage;
 
         /* Valid field if tech is RADIO_TECH_3GPP. See RIL_REQUEST_SEND_SMS */
-        char**                gsmMessage;
+        char**                gsmMessage;   /* This is an array of pointers where pointers
+                                               are contiguous but elements pointed by those pointers
+                                               are not contiguous
+                                            */
     } message;
 } RIL_IMS_SMS_Message;
 
@@ -590,7 +598,6 @@ typedef struct {
 typedef struct {
     //dengql@OnLineRD.AirService.RIL, 2012/09/26, Add for NFC E-wallet
     int cla;
-
     int command;    /* one of the commands listed for TS 27.007 +CRSM*/
     int fileid;     /* EF id */
     char *path;     /* "pathid" from TS 27.007 +CRSM command.
@@ -604,10 +611,9 @@ typedef struct {
     char *pin2;     /* May be NULL*/
 } RIL_SIM_IO_v5;
 
-typedef struct { 
+typedef struct {
     //dengql@OnLineRD.AirService.RIL, 2012/09/26, Add for NFC E-wallet
     int cla;
-
     int command;    /* one of the commands listed for TS 27.007 +CRSM*/
     int fileid;     /* EF id */
     char *path;     /* "pathid" from TS 27.007 +CRSM command.
@@ -627,7 +633,6 @@ typedef struct {
 typedef struct {
     int sessionid;  /* "sessionid" from TS 27.007 +CGLA command. Should be
                        ignored for +CSIM command. */
-
     /* Following fields are used to derive the APDU ("command" and "length"
        values in TS 27.007 +CSIM and +CGLA commands). */
     int cla;
@@ -704,6 +709,36 @@ typedef struct {
                                         * 0 = not suspended.
                                         */
 } RIL_LceDataInfo;
+
+typedef enum {
+    RIL_MATCH_ALL = 0,          /* Apply to all carriers with the same mcc/mnc */
+    RIL_MATCH_SPN = 1,          /* Use SPN and mcc/mnc to identify the carrier */
+    RIL_MATCH_IMSI_PREFIX = 2,  /* Use IMSI prefix and mcc/mnc to identify the carrier */
+    RIL_MATCH_GID1 = 3,         /* Use GID1 and mcc/mnc to identify the carrier */
+    RIL_MATCH_GID2 = 4,         /* Use GID2 and mcc/mnc to identify the carrier */
+} RIL_CarrierMatchType;
+
+typedef struct {
+    const char * mcc;
+    const char * mnc;
+    RIL_CarrierMatchType match_type;   /* Specify match type for the carrier.
+                                        * If it’s RIL_MATCH_ALL, match_data is null;
+                                        * otherwise, match_data is the value for the match type.
+                                        */
+    const char * match_data;
+} RIL_Carrier;
+
+typedef struct {
+  int32_t len_allowed_carriers;         /* length of array allowed_carriers */
+  int32_t len_excluded_carriers;        /* length of array excluded_carriers */
+  RIL_Carrier * allowed_carriers;       /* whitelist for allowed carriers */
+  RIL_Carrier * excluded_carriers;      /* blacklist for explicitly excluded carriers
+                                         * which match allowed_carriers. Eg. allowed_carriers match
+                                         * mcc/mnc, excluded_carriers has same mcc/mnc and gid1
+                                         * is ABCD. It means except the carrier whose gid1 is ABCD,
+                                         * all carriers with the same mcc/mnc are allowed.
+                                         */
+} RIL_CarrierRestrictions;
 
 /* See RIL_REQUEST_LAST_CALL_FAIL_CAUSE */
 typedef enum {
@@ -912,9 +947,10 @@ typedef struct {
 #define RIL_CARD_MAX_APPS     8
 
 typedef enum {
-    RIL_CARDSTATE_ABSENT   = 0,
-    RIL_CARDSTATE_PRESENT  = 1,
-    RIL_CARDSTATE_ERROR    = 2
+    RIL_CARDSTATE_ABSENT     = 0,
+    RIL_CARDSTATE_PRESENT    = 1,
+    RIL_CARDSTATE_ERROR      = 2,
+    RIL_CARDSTATE_RESTRICTED = 3  /* card is present but not usable due to carrier restrictions.*/
 } RIL_CardState;
 
 typedef enum {
@@ -1655,6 +1691,8 @@ typedef struct {
  * Data profile to modem
  */
 typedef struct {
+    //dengql@OnLineRD.AirService.RIL, 2012/09/26, Add for NFC E-wallet
+    int cla;
     /* id of the data profile */
     int profileId;
     /* the APN to connect to */
@@ -1690,6 +1728,8 @@ typedef struct {
 #define RIL_NUM_TX_POWER_LEVELS     5
 
 typedef struct {
+   //dengql@OnLineRD.AirService.RIL, 2012/09/26, Add for NFC E-wallet
+    int cla;
 
   /* period (in ms) when modem is power collapsed */
   uint32_t sleep_mode_time_ms;
@@ -5140,6 +5180,55 @@ typedef struct {
  */
 #define RIL_REQUEST_SIM_GET_ATR 136
 
+//DuYuanHua@OnLineRD.AirService.RIL, 2012/09/26, Add for EngineerMode
+
+#define RIL_REQUEST_OEM_BASE	137
+
+//xufei@OnLineRD.AirService.RIL, 2012/12/14, Add for factory mode nv process
+#define RIL_REQUEST_FACTORY_MODE_NV_PROCESS 138 //(RIL_REQUEST_OEM_BASE + 1)
+
+//TongJing.Shi@EXP.DataComm.Phone, 2013.08.29, Modify for
+#define RIL_REQUEST_FACTORY_MODE_MODEM_GPIO 139 //(RIL_REQUEST_OEM_BASE + 2)
+
+/**
+ * RIL_REQUEST_GET_BAND_MODE
+ *
+ *  get current band mode 
+ *
+ * "response" is int
+ *
+ * Valid errors:
+ *  SUCCESS
+ *  GENERIC_FAILURE
+ */
+
+#define RIL_REQUEST_GET_BAND_MODE 140 //(RIL_REQUEST_OEM_BASE + 3)
+
+//Zhengpeng.Tan@OnlineRD.AirService.Module, 2013/10/28, Add for  report nv_restore when bootup
+#define RIL_REQUEST_REPORT_BOOTUPNVRESTOR_STATE 141 //(RIL_REQUEST_OEM_BASE + 4)  
+
+//Wenlong.Cai@OnlineRD.AirService.Module, 2013/12/09, Add for get rffe device information
+#define RIL_REQUEST_GET_RFFE_DEV_INFO 142 //(RIL_REQUEST_OEM_BASE + 5)  
+
+//dengql@OnLineRD.AirService.RIL, 2012/09/26, Add for NFC E-wallet
+// "data" is a const RIL_SIM_IO *
+// "response" is a const RIL_SIM_IO_Response *
+#define RIL_REQUEST_SIM_TRANSMIT_BASIC 144 //(RIL_REQUEST_OEM_BASE+7)
+// "data" is a const char * containing the AID of the applet
+// "response" is a int * containing the channel id
+//#define RIL_REQUEST_SIM_OPEN_CHANNEL 145 //(RIL_REQUEST_OEM_BASE+8)
+// "data" is a const int * containing the channel id
+// "response" is NULL
+//#define RIL_REQUEST_SIM_CLOSE_CHANNEL 146 //(RIL_REQUEST_OEM_BASE+9)
+// "data" is a const RIL_SIM_IO *
+// "response" is a const RIL_SIM_IO_Response *
+#define RIL_REQUEST_SIM_TRANSMIT_CHANNEL 147 //(RIL_REQUEST_OEM_BASE+10)
+//yangli@OnlineRD.AirService.Module, 2014/05/20, Add for send msg to make modem reset
+#define RIL_REQUEST_GO_TO_ERROR_FATAL 148 //(RIL_REQUEST_OEM_BASE+11)
+#define RIL_REQUEST_GET_MDM_BASEBAND  149 //(RIL_REQUEST_OEM_BASE+12)
+//yangli@OnlineRD.AirService.Module, 2014/09/22, Add for set only tdd-lte
+#define RIL_REQUEST_SET_TDD_LTE 150  //(RIL_REQUEST_OEM_BASE+13)
+
 /**
  * RIL_REQUEST_CAF_SIM_OPEN_CHANNEL_WITH_P2
  *
@@ -5180,7 +5269,7 @@ typedef struct {
  *  SUCCESS
  *  GENERIC_FAILURE
  */
-#define RIL_REQUEST_GET_ADN_RECORD 138
+#define RIL_REQUEST_GET_ADN_RECORD 151
 
 /**
  * RIL_REQUEST_UPDATE_ADN_RECORD
@@ -5194,60 +5283,58 @@ typedef struct {
  * Valid errors:
  *  Must never fail
  */
-#define RIL_REQUEST_UPDATE_ADN_RECORD 139
-
-//DuYuanHua@OnLineRD.AirService.RIL, 2012/09/26, Add for EngineerMode
-
-#define RIL_REQUEST_OEM_BASE	140
-
-//xufei@OnLineRD.AirService.RIL, 2012/12/14, Add for factory mode nv process
-#define RIL_REQUEST_FACTORY_MODE_NV_PROCESS 141 //(RIL_REQUEST_OEM_BASE + 1)
-
-//TongJing.Shi@EXP.DataComm.Phone, 2013.08.29, Modify for
-#define RIL_REQUEST_FACTORY_MODE_MODEM_GPIO 142 //(RIL_REQUEST_OEM_BASE + 2)
+#define RIL_REQUEST_UPDATE_ADN_RECORD 152
 
 /**
- * RIL_REQUEST_GET_BAND_MODE
+ * RIL_REQUEST_SET_CARRIER_RESTRICTIONS
  *
- *  get current band mode 
+ * Set carrier restrictions for this sim slot. Expected modem behavior:
+ *  If never receives this command
+ *  - Must allow all carriers
+ *  Receives this command with data being NULL
+ *  - Must allow all carriers. If a previously allowed SIM is present, modem must not reload
+ *    the SIM. If a previously disallowed SIM is present, reload the SIM and notify Android.
+ *  Receives this command with a list of carriers
+ *  - Only allow specified carriers, persist across power cycles and FDR. If a present SIM
+ *    is in the allowed list, modem must not reload the SIM. If a present SIM is *not* in
+ *    the allowed list, modem must detach from the registered network and only keep emergency
+ *    service, and notify Android SIM refresh reset with new SIM state being
+ *    RIL_CARDSTATE_RESTRICTED. Emergency service must be enabled.
  *
- * "response" is int
+ * "data" is const RIL_CarrierRestrictions *
+ * A list of allowed carriers and possibly a list of excluded carriers.
+ * If data is NULL, means to clear previous carrier restrictions and allow all carriers
+ *
+ * "response" is int *
+ * ((int *)data)[0] contains the number of allowed carriers which have been set correctly.
+ * On success, it should match the length of list data->allowed_carriers.
+ * If data is NULL, the value must be 0.
  *
  * Valid errors:
- *  SUCCESS
- *  GENERIC_FAILURE
+ *  RIL_E_SUCCESS
+ *  RIL_E_INVALID_ARGUMENTS
+ *  RIL_E_RADIO_NOT_AVAILABLE
+ *  RIL_E_REQUEST_NOT_SUPPORTED
  */
+#define RIL_REQUEST_SET_CARRIER_RESTRICTIONS 153
 
-#define RIL_REQUEST_GET_BAND_MODE 143 //(RIL_REQUEST_OEM_BASE + 3)
-
-//#ifdef VENDOR_EDIT
-//Zhengpeng.Tan@OnlineRD.AirService.Module, 2013/10/28, Add for  report nv_restore when bootup
-#define RIL_REQUEST_REPORT_BOOTUPNVRESTOR_STATE 144 //(RIL_REQUEST_OEM_BASE + 4)  
-
-//Wenlong.Cai@OnlineRD.AirService.Module, 2013/12/09, Add for get rffe device information
-#define RIL_REQUEST_GET_RFFE_DEV_INFO 145 //(RIL_REQUEST_OEM_BASE + 5)  
-
-//dengql@OnLineRD.AirService.RIL, 2012/09/26, Add for NFC E-wallet
-// "data" is a const RIL_SIM_IO *
-// "response" is a const RIL_SIM_IO_Response *
-#define RIL_REQUEST_SIM_TRANSMIT_BASIC 147 //(RIL_REQUEST_OEM_BASE+7)
-// "data" is a const char * containing the AID of the applet
-// "response" is a int * containing the channel id
-//#define RIL_REQUEST_SIM_OPEN_CHANNEL 145 //(RIL_REQUEST_OEM_BASE+8)
-// "data" is a const int * containing the channel id
-// "response" is NULL
-//#define RIL_REQUEST_SIM_CLOSE_CHANNEL 146 //(RIL_REQUEST_OEM_BASE+9)
-// "data" is a const RIL_SIM_IO *
-// "response" is a const RIL_SIM_IO_Response *
-#define RIL_REQUEST_SIM_TRANSMIT_CHANNEL 150 //(RIL_REQUEST_OEM_BASE+10)
-
-//yangli@OnlineRD.AirService.Module, 2014/05/20, Add for send msg to make modem reset, {
-#define RIL_REQUEST_GO_TO_ERROR_FATAL 151 //(RIL_REQUEST_OEM_BASE+11)
-#define RIL_REQUEST_GET_MDM_BASEBAND  152 //(RIL_REQUEST_OEM_BASE+12)
-//}add end
-
-//yangli@OnlineRD.AirService.Module, 2014/09/22, Add for set only tdd-lte
-#define RIL_REQUEST_SET_TDD_LTE 153  //(RIL_REQUEST_OEM_BASE+13)
+/**
+ * RIL_REQUEST_GET_CARRIER_RESTRICTIONS
+ *
+ * Get carrier restrictions for this sim slot. Expected modem behavior:
+ *  Return list of allowed carriers, or null if all carriers are allowed.
+ *
+ * "data" is NULL
+ *
+ * "response" is const RIL_CarrierRestrictions *.
+ * If response is NULL, it means all carriers are allowed.
+ *
+ * Valid errors:
+ *  RIL_E_SUCCESS
+ *  RIL_E_RADIO_NOT_AVAILABLE
+ *  RIL_E_REQUEST_NOT_SUPPORTED
+ */
+#define RIL_REQUEST_GET_CARRIER_RESTRICTIONS 154
 
 /***********************************************************************/
 
@@ -5864,6 +5951,12 @@ typedef struct {
  */
 #define RIL_UNSOL_LCEDATA_RECV 1045
 
+//penghongyi@oem.network add for nv backup response
+#define RIL_UNSOL_OEM_NV_BACKUP_RESPONSE 1046
+
+//Hongyu.Bi@EXP.DataComm.Modem, 2014/02/26, Add for clearcode29/33
+#define RIL_UNSOL_RAC_UPDATE  1047    //czp 1042-->1044 
+
 /**
  * RIL_UNSOL_RESPONSE_ADN_INIT_DONE
  *
@@ -5872,7 +5965,7 @@ typedef struct {
  * "data" is NULL.
  *
  */
-#define RIL_UNSOL_RESPONSE_ADN_INIT_DONE 1046
+#define RIL_UNSOL_RESPONSE_ADN_INIT_DONE 1048
 
 /**
  * RIL_UNSOL_RESPONSE_ADN_RECORDS
@@ -5882,13 +5975,20 @@ typedef struct {
  * "data" is the RIL_ADN structure.
  *
  */
-#define RIL_UNSOL_RESPONSE_ADN_RECORDS 1047
+#define RIL_UNSOL_RESPONSE_ADN_RECORDS 1049
 
-//penghongyi@oem.network add for nv backup response
-#define RIL_UNSOL_OEM_NV_BACKUP_RESPONSE 1048
-
-//Hongyu.Bi@EXP.DataComm.Modem, 2014/02/26, Add for clearcode29/33
-#define RIL_UNSOL_RAC_UPDATE  1049    //czp 1042-->1044  
+ /**
+  * RIL_UNSOL_PCO_DATA
+  *
+  * Called when there is new Carrier PCO data received for a data call.  Ideally
+  * only new data will be forwarded, though this is not required.  Multiple
+  * boxes of carrier PCO data for a given call should result in a series of
+  * RIL_UNSOL_PCO_DATA calls.
+  *
+  * "data" is the RIL_PCO_Data structure.
+  *
+  */
+#define RIL_UNSOL_PCO_DATA 1050
 
 /***********************************************************************/
 
@@ -5900,8 +6000,13 @@ typedef struct {
  * @param request is one of RIL_REQUEST_*
  * @param data is pointer to data defined for that RIL_REQUEST_*
  *        data is owned by caller, and should not be modified or freed by callee
+ *        structures passed as data may contain pointers to non-contiguous memory
  * @param t should be used in subsequent call to RIL_onResponse
- * @param datalen the length of data
+ * @param datalen is the length of "data" which is defined as other argument. It may or may
+ *        not be equal to sizeof(data). Refer to the documentation of individual structures
+ *        to find if pointers listed in the structure are contiguous and counted in the datalen
+ *        length or not.
+ *        (Eg: RIL_IMS_SMS_Message where we don't have datalen equal to sizeof(data))
  *
  */
 typedef void (*RIL_RequestFunc) (int request, void *data,
@@ -5921,8 +6026,13 @@ typedef RIL_RadioState (*RIL_RadioStateRequest)(RIL_SOCKET_ID socket_id);
  * @param request is one of RIL_REQUEST_*
  * @param data is pointer to data defined for that RIL_REQUEST_*
  *        data is owned by caller, and should not be modified or freed by callee
+ *        structures passed as data may contain pointers to non-contiguous memory
  * @param t should be used in subsequent call to RIL_onResponse
- * @param datalen the length of data
+ * @param datalen is the length of "data" which is defined as other argument. It may or may
+ *        not be equal to sizeof(data). Refer to the documentation of individual structures
+ *        to find if pointers listed in the structure are contiguous and counted in the datalen
+ *        length or not.
+ *        (Eg: RIL_IMS_SMS_Message where we don't have datalen equal to sizeof(data))
  *
  */
 typedef void (*RIL_RequestFunc) (int request, void *data,
@@ -6000,6 +6110,19 @@ typedef struct {
                                    NULL if no value. */
 } RIL_SimAuthentication;
 
+typedef struct {
+    int cid;             /* Context ID, uniquely identifies this call */
+    char *bearer_proto;  /* One of the PDP_type values in TS 27.007 section 10.1.1.
+                            For example, "IP", "IPV6", "IPV4V6" */
+    int pco_id;          /* The protocol ID for this box.  Note that only IDs from
+                            FF00H - FFFFH are accepted.  If more than one is included
+                            from the network, multiple calls should be made to send all
+                            of them. */
+    int contents_length; /* The number of octets in the contents. */
+    char *contents;      /* Carrier-defined content.  It is binary, opaque and
+                            loosely defined in LTE Layer 3 spec 24.008 */
+} RIL_PCO_Data;
+
 #ifdef RIL_SHLIB
 struct RIL_Env {
     /**
@@ -6049,9 +6172,7 @@ struct RIL_Env {
     * RIL_onRequestAck will be called by vendor when an Async RIL request was received
     * by them and an ack needs to be sent back to java ril.
     */
-#if (RIL_VERSION > 12)
     void (*OnRequestAck) (RIL_Token t);
-#endif
 };
 
 
@@ -6108,7 +6229,6 @@ void RIL_register (const RIL_RadioFunctions *callbacks);
 void RIL_onRequestComplete(RIL_Token t, RIL_Errno e,
                            void *response, size_t responselen);
 
-#if (RIL_VERSION > 12)
 /**
  * RIL_onRequestAck will be called by vendor when an Async RIL request was received by them and
  * an ack needs to be sent back to java ril. This doesn't mark the end of the command or it's
@@ -6120,7 +6240,6 @@ void RIL_onRequestComplete(RIL_Token t, RIL_Errno e,
  *          routine.
  */
 void RIL_onRequestAck(RIL_Token t);
-#endif
 
 #if defined(ANDROID_MULTI_SIM)
 /**
@@ -6158,7 +6277,6 @@ void RIL_onUnsolicitedResponse(int unsolResponse, const void *data,
 
 void RIL_requestTimedCallback (RIL_TimedCallback callback,
                                void *param, const struct timeval *relativeTime);
-
 
 #endif /* RIL_SHLIB */
 
