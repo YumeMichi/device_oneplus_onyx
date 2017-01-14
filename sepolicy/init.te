@@ -1,3 +1,6 @@
 allow init socket_device:sock_file create;
 allow init socket_device:sock_file setattr;
 allow init proc_touchpanel:file write;
+
+# Allow init to write in debugfs
+allow init debugfs:file write;
