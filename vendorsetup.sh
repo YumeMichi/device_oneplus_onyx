@@ -1,3 +1,3 @@
-add_lunch_combo cm_onyx-user
-add_lunch_combo cm_onyx-userdebug
-add_lunch_combo cm_onyx-eng
+add_lunch_combo lineage_onyx-user
+add_lunch_combo lineage_onyx-userdebug
+add_lunch_combo lineage_onyx-eng
