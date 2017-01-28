@@ -521,8 +521,7 @@ void QCamera2HardwareInterface::stop_recording(struct camera_device *device)
     const char *video_size = params.get("video-size");
     if (video_size && (!strcmp(video_size, "3840x2160") ||
                         !strcmp(video_size, "4096x2160"))) {
-        String8 str3 = hw->mParameters.createSizesString(&res3, 1); // 1920x1080
-        params.set("video-size", str3);
+        params.set("video-size", "1920x1080");
     }
 
     // Disable recording hint
