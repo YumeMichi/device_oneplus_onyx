@@ -1409,7 +1409,7 @@ int QCamera2HardwareInterface::initCapabilities(int cameraId,mm_camera_vtbl_t *c
 {
     int rc = NO_ERROR;
     QCameraHeapMemory *capabilityHeap = NULL;
-    int i;
+    size_t i;
 
     /* Allocate memory for capability buffer */
     capabilityHeap = new QCameraHeapMemory(QCAMERA_ION_USE_CACHE);
