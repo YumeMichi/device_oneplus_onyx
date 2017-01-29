@@ -27,7 +27,7 @@
  *
  */
 
-#define ARRAY_SIZE(a) (int)(sizeof(a)/sizeof((a)[0]))
+#define ARRAY_SIZE(a) (sizeof(a)/sizeof((a)[0]))
 
 static const cam_dimension_t new_pic_sizes_cam0[] = {
     {4208, 3120},
