@@ -1605,9 +1605,6 @@ int QCamera2HardwareInterface::initCapabilities(int cameraId,mm_camera_vtbl_t *c
 
         gCamCapability[cameraId]->supported_flash_modes_cnt = 0;
 
-        gCamCapability[cameraId]->hfr_tbl[0].mode = CAM_HFR_MODE_OFF;
-        gCamCapability[cameraId]->hfr_tbl_cnt = 1;
-
         for (i = 0; i < ARRAY_SIZE(new_fps_ranges_cam1); i++)
             gCamCapability[cameraId]->fps_ranges_tbl[i] = new_fps_ranges_cam1[i];
         gCamCapability[cameraId]->fps_ranges_tbl_cnt = ARRAY_SIZE(new_fps_ranges_cam1);
