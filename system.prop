@@ -55,8 +55,6 @@ ro.bluetooth.alwaysbleon=true
 
 # Camera
 persist.camera.cpp.duplication=false
-media.stagefright.legacyencoder=true
-media.stagefright.less-secure=true
 
 # DPM
 persist.cne.feature=1

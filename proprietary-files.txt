@@ -24,12 +24,8 @@ vendor/lib/soundfx/libqcvirt.so
 
 # Camera
 bin/mm-qcamera-daemon
-lib/hw/camera.msm8974.so
 lib/libFNVfbEngineLib.so
-lib/libmmcamera_interface.so
-lib/libmmjpeg_interface.so
 lib/libopcamerahw_interface.so
-lib/libqomx_core.so
 vendor/lib/libjpegdhw.so
 vendor/lib/libjpegehw.so
 vendor/lib/libmmcamera2_c2d_module.so
