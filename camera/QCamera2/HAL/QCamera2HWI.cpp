@@ -433,44 +433,48 @@ int QCamera2HardwareInterface::start_recording(struct camera_device *device)
     // Preview window changes for 720p and higher
     hw->mParameters.getVideoSize(&width, &height);
     if ((width * height) >= (1280 * 720)) {
-        android::CameraParameters params;
-        params.unflatten(android::String8(hw->get_parameters(device)));
+        char *orig_params = hw->getParameters();
+        if (orig_params) {
+            android::CameraParameters params;
+            params.unflatten(android::String8(orig_params));
+            hw->putParameters(orig_params);
 
-        // Set preview size and picture size to video size
-        if (width == 4096 && height == 2160) {
-            params.set("preview-size", "4096x2160");
-            params.set("picture-size", "4096x2160");
-        } else if (width == 3840 && height == 2160) {
-            params.set("preview-size", "3840x2160");
-            params.set("picture-size", "3840x2160");
-        } else if (width == 2560 && height == 1440) {
-            params.set("preview-size", "2560x1440");
-            params.set("picture-size", "2560x1440");
-        } else if (width == 1920 && height == 1080) {
-            params.set("preview-size", "1920x1080");
-            params.set("picture-size", "1920x1080");
-        } else if (width == 1280 && height == 960) {
-            params.set("preview-size", "1280x960");
-            params.set("picture-size", "1280x960");
-        } else if (width == 1280 && height == 720) {
-            params.set("preview-size", "1280x720");
-            params.set("picture-size", "1280x720");
-	}
+            // Set preview size and picture size to video size
+            if (width == 4096 && height == 2160) {
+                params.set("preview-size", "4096x2160");
+                params.set("picture-size", "4096x2160");
+            } else if (width == 3840 && height == 2160) {
+                params.set("preview-size", "3840x2160");
+                params.set("picture-size", "3840x2160");
+            } else if (width == 2560 && height == 1440) {
+                params.set("preview-size", "2560x1440");
+                params.set("picture-size", "2560x1440");
+            } else if (width == 1920 && height == 1080) {
+                params.set("preview-size", "1920x1080");
+                params.set("picture-size", "1920x1080");
+            } else if (width == 1280 && height == 960) {
+                params.set("preview-size", "1280x960");
+                params.set("picture-size", "1280x960");
+            } else if (width == 1280 && height == 720) {
+                params.set("preview-size", "1280x720");
+                params.set("picture-size", "1280x720");
+            }
 
-        const char *hfrStr = params.get("video-hfr");
-        const char *hsrStr = params.get("video-hsr");
+            const char *hfrStr = params.get("video-hfr");
+            const char *hsrStr = params.get("video-hsr");
 
-        // Use yuv420sp for high framerates
-        if ((hfrStr != NULL && strcmp(hfrStr, "off")) ||
-            (hsrStr != NULL && strcmp(hsrStr, "off")))
-            params.set("preview-format", "yuv420sp");
-        else
-            params.set("preview-format", "nv12-venus");
+            // Use yuv420sp for high framerates
+            if ((hfrStr != NULL && strcmp(hfrStr, "off")) ||
+                (hsrStr != NULL && strcmp(hsrStr, "off")))
+                params.set("preview-format", "yuv420sp");
+            else
+                params.set("preview-format", "nv12-venus");
 
-        hw->set_parameters(device, strdup(params.flatten().string()));
-        // Restart preview to propagate changes to preview window
-        hw->stop_preview(device);
-        hw->start_preview(device);
+            hw->set_parameters(device, params.flatten().string());
+            // Restart preview to propagate changes to preview window
+            hw->stop_preview(device);
+            hw->start_preview(device);
+        }
     }
     CDBG_HIGH("[KPI Perf] %s: E PROFILE_START_RECORDING", __func__);
     hw->lockAPI();
@@ -514,19 +518,23 @@ void QCamera2HardwareInterface::stop_recording(struct camera_device *device)
     hw->unlockAPI();
 
     // Fix panorama in Google Camera after recording video
-    android::CameraParameters params;
-    params.unflatten(android::String8(hw->get_parameters(device)));
+    char *orig_params = hw->getParameters();
+    if (orig_params) {
+        android::CameraParameters params;
+        params.unflatten(android::String8(orig_params));
+        hw->putParameters(orig_params);
 
-    // Set video size back to default (1080p) after 4k is used
-    const char *video_size = params.get("video-size");
-    if (video_size && (!strcmp(video_size, "3840x2160") ||
-                        !strcmp(video_size, "4096x2160"))) {
-        params.set("video-size", "1920x1080");
+        // Set video size back to default (1080p) after 4k is used
+        const char *video_size = params.get("video-size");
+        if (video_size && (!strcmp(video_size, "3840x2160") ||
+                            !strcmp(video_size, "4096x2160"))) {
+            params.set("video-size", "1920x1080");
+        }
+
+        // Disable recording hint
+        hw->mParameters.setRecordingHintValue(0);
+        hw->set_parameters(device, params.flatten().string());
     }
-
-    // Disable recording hint
-    hw->mParameters.setRecordingHintValue(0);
-    hw->set_parameters(device, strdup(params.flatten().string()));
 
     CDBG_HIGH("[KPI Perf] %s: X", __func__);
 }
@@ -808,19 +816,22 @@ char* QCamera2HardwareInterface::get_parameters(struct camera_device *device)
     if (rc == NO_ERROR) {
         hw->waitAPIResult(QCAMERA_SM_EVT_GET_PARAMS, &apiResult);
 
-        android::CameraParameters params;
-        params.unflatten(android::String8(apiResult.params));
+        if (apiResult.params) {
+            android::CameraParameters params;
+            params.unflatten(android::String8(apiResult.params));
+            hw->putParameters(apiResult.params);
 
-        // Hide nv12-venus from userspace to prevent framework crash
-        const char *fmt = params.get("preview-format");
-        if (fmt && !strcmp(fmt, "nv12-venus")) {
-            params.set("preview-format", "yuv420sp");
+            // Hide nv12-venus from userspace to prevent framework crash
+            const char *fmt = params.get("preview-format");
+            if (fmt && !strcmp(fmt, "nv12-venus")) {
+                params.set("preview-format", "yuv420sp");
+            }
+
+            // Set exposure-time-values param for CameraNext slow-shutter
+            params.set("exposure-time-values", "0");
+
+            ret = strdup(params.flatten().string());
         }
-
-        // Set exposure-time-values param for CameraNext slow-shutter
-        params.set("exposure-time-values", "0");
-
-        ret = strdup(params.flatten().string());
     }
     hw->unlockAPI();
 
