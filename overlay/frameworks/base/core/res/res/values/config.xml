@@ -317,9 +317,6 @@
         <item>"ehrpd:4094,87380,1048576,4096,16384,262144"</item>
     </string-array>
 
-    <!-- Enable doze powersaving -->
-    <bool name="config_enableAutoPowerModes">true</bool>
-
     <!-- Our modem doesn't support this query yet -->
     <string name="config_radio_access_family">GPRS|EDGE|UMTS|HSDPA|HSUPA|HSPA|LTE|HSPAP|GSM|TD_SCDMA|WCDMA|LTE_CA</string>
 
