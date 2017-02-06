@@ -440,25 +440,10 @@ int QCamera2HardwareInterface::start_recording(struct camera_device *device)
             hw->putParameters(orig_params);
 
             // Set preview size and picture size to video size
-            if (width == 4096 && height == 2160) {
-                params.set("preview-size", "4096x2160");
-                params.set("picture-size", "4096x2160");
-            } else if (width == 3840 && height == 2160) {
-                params.set("preview-size", "3840x2160");
-                params.set("picture-size", "3840x2160");
-            } else if (width == 2560 && height == 1440) {
-                params.set("preview-size", "2560x1440");
-                params.set("picture-size", "2560x1440");
-            } else if (width == 1920 && height == 1080) {
-                params.set("preview-size", "1920x1080");
-                params.set("picture-size", "1920x1080");
-            } else if (width == 1280 && height == 960) {
-                params.set("preview-size", "1280x960");
-                params.set("picture-size", "1280x960");
-            } else if (width == 1280 && height == 720) {
-                params.set("preview-size", "1280x720");
-                params.set("picture-size", "1280x720");
-            }
+            char video_dim[10];
+            snprintf(video_dim, sizeof(video_dim), "%dx%d", width, height);
+            params.set("preview-size", video_dim);
+            params.set("picture-size", video_dim);
 
             const char *hfrStr = params.get("video-hfr");
             const char *hsrStr = params.get("video-hsr");
