@@ -842,11 +842,13 @@ int QCameraHeapMemory::getMatchBufIndex(const void *opaque,
  * RETURN     : none
  *==========================================================================*/
 QCameraStreamMemory::QCameraStreamMemory(camera_request_memory getMemory,
+        void* cbCookie,
         bool cached,
         QCameraMemoryPool *pool,
         cam_stream_type_t streamType)
     :QCameraMemory(cached, pool, streamType),
-     mGetMemory(getMemory)
+     mGetMemory(getMemory),
+     mCallbackCookie(cbCookie)
 {
     for (int i = 0; i < MM_CAMERA_MAX_NUM_FRAMES; i ++)
         mCameraMemory[i] = NULL;
@@ -886,7 +888,7 @@ int QCameraStreamMemory::allocate(int count, int size)
         return rc;
 
     for (int i = 0; i < count; i ++) {
-        mCameraMemory[i] = mGetMemory(mMemInfo[i].fd, mMemInfo[i].size, 1, this);
+        mCameraMemory[i] = mGetMemory(mMemInfo[i].fd, mMemInfo[i].size, 1, mCallbackCookie);
     }
     mBufferCount = count;
     return NO_ERROR;
@@ -913,7 +915,7 @@ int QCameraStreamMemory::allocateMore(int count, int size)
         return rc;
 
     for (int i = mBufferCount; i < mBufferCount + count; i++) {
-        mCameraMemory[i] = mGetMemory(mMemInfo[i].fd, mMemInfo[i].size, 1, this);
+        mCameraMemory[i] = mGetMemory(mMemInfo[i].fd, mMemInfo[i].size, 1, mCallbackCookie);
     }
     mBufferCount += count;
     return NO_ERROR;
@@ -1166,9 +1168,10 @@ void *QCameraStreamMemory::getPtr(int index) const
  *
  * RETURN     : none
  *==========================================================================*/
-QCameraVideoMemory::QCameraVideoMemory(camera_request_memory getMemory,
+QCameraVideoMemory::QCameraVideoMemory(camera_request_memory memory,
+                                       void* cbCookie,
                                        bool cached)
-    : QCameraStreamMemory(getMemory, cached)
+    : QCameraStreamMemory(memory, cbCookie, cached)
 {
     memset(mMetadata, 0, sizeof(mMetadata));
     memset(mNativeHandle, 0, sizeof(mNativeHandle));
@@ -1209,7 +1212,7 @@ int QCameraVideoMemory::allocate(int count, int size)
 
     for (int i = 0; i < count; i ++) {
         mMetadata[i] = mGetMemory(-1,
-                sizeof(media_metadata_buffer), 1, this);
+                sizeof(media_metadata_buffer), 1, mCallbackCookie);
         if (!mMetadata[i]) {
             ALOGE("allocation of video metadata failed.");
             for (int j = 0; j <= i-1; j ++)
@@ -1279,7 +1282,7 @@ int QCameraVideoMemory::allocateMore(int count, int size)
 
     for (int i = mBufferCount; i < count + mBufferCount; i ++) {
         mMetadata[i] = mGetMemory(-1,
-                sizeof(media_metadata_buffer), 1, this);
+                sizeof(media_metadata_buffer), 1, mCallbackCookie);
         if (!mMetadata[i]) {
             ALOGE("allocation of video metadata failed.");
             for (int j = mBufferCount; j <= i-1; j ++) {
@@ -1406,7 +1409,7 @@ int QCameraVideoMemory::getMatchBufIndex(const void *opaque,
  *
  * RETURN     : none
  *==========================================================================*/
-QCameraGrallocMemory::QCameraGrallocMemory(camera_request_memory getMemory)
+QCameraGrallocMemory::QCameraGrallocMemory(camera_request_memory getMemory, void* cbCookie)
         : QCameraMemory(true)
 {
     mMinUndequeuedBuffers = 0;
@@ -1414,6 +1417,7 @@ QCameraGrallocMemory::QCameraGrallocMemory(camera_request_memory getMemory)
     mWidth = mHeight = mStride = mScanline = 0;
     mFormat = HAL_PIXEL_FORMAT_YCrCb_420_SP;
     mGetMemory = getMemory;
+    mCallbackCookie = cbCookie;
     for (int i = 0; i < MM_CAMERA_MAX_NUM_FRAMES; i ++) {
         mBufferHandle[i] = NULL;
         mLocalFlag[i] = BUFFER_NOT_OWNED;
@@ -1673,7 +1677,7 @@ int QCameraGrallocMemory::allocate(int count, int /*size*/)
             mGetMemory(mPrivateHandle[cnt]->fd,
                     mPrivateHandle[cnt]->size,
                     1,
-                    (void *)this);
+                    mCallbackCookie);
         CDBG("%s: idx = %d, fd = %d, size = %d, offset = %d",
               __func__, cnt, mPrivateHandle[cnt]->fd,
               mPrivateHandle[cnt]->size,
