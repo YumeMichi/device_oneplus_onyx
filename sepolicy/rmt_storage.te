@@ -1,2 +1,3 @@
 allow rmt_storage nvbackup_block_device:blk_file { read write open };
+allow rmt_storage modem_block_device:blk_file { read write open };
 allow rmt_storage self:capability dac_override;
