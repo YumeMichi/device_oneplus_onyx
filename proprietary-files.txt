@@ -197,9 +197,9 @@ etc/firmware/venus.b00
 etc/firmware/venus.mbn
 etc/firmware/venus.mdt
 
-# Perf
-bin/mpdecision
-vendor/lib/libqti-perfd-client.so
+# Perf (from ham)
+bin/mpdecision|9d637e787795719ad05758201f201d761f67dfb9
+vendor/lib/libqti-perfd-client.so|560e00d6cd9fd69fa8a47e3cc392d75d943f0dae
 
 # Postprocessing
 bin/mm-pp-daemon
