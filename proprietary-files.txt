@@ -160,6 +160,27 @@ vendor/lib/libgeofence.so|953c2720c98825cdfb2757839f5f86400c11a2d5
 vendor/lib/libizat_core.so|8d1b8f5c26cc9bcdacb402e253048211a6c07ba1
 vendor/lib/liblbs_core.so|aa2eaeccccda819ed213a56091b6beac23da2805
 
+# Graphics
+vendor/lib/egl/eglsubAndroid.so
+vendor/lib/egl/libEGL_adreno.so
+vendor/lib/egl/libGLESv1_CM_adreno.so
+vendor/lib/egl/libGLESv2_adreno.so
+vendor/lib/egl/libq3dtools_adreno.so
+vendor/lib/libC2D2.so
+vendor/lib/libCB.so
+vendor/lib/libOpenCL.so
+vendor/lib/libRSDriver_adreno.so
+vendor/lib/libadreno_utils.so
+vendor/lib/libbccQTI.so
+vendor/lib/libc2d30-a3xx.so
+vendor/lib/libgsl.so
+vendor/lib/libllvm-qcom.so
+vendor/lib/librs_adreno.so
+vendor/lib/librs_adreno_sha1.so
+vendor/lib/libsc-a3xx.so
+vendor/lib/libscale.so
+vendor/lib/libuiblur.so|12dd942092c05d978a2a2db3ea37e0b410427b52
+
 # Graphics firmware
 etc/firmware/a330_pfp.fw
 etc/firmware/a330_pm4.fw
