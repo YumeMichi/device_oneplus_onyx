@@ -39,7 +39,6 @@ LOCAL_C_INCLUDES:= \
     $(LOCAL_PATH)/platform_lib_abstractions
 
 LOCAL_MODULE := libgps.utils
-LOCAL_MODULE_OWNER := qcom
 LOCAL_VENDOR_MODULE := true
 
 LOCAL_MODULE_TAGS := optional
