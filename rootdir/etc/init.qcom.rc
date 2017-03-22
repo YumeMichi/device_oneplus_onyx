@@ -447,13 +447,7 @@ service time_daemon /vendor/bin/time_daemon
     group root
 
 on property:vold.decrypt=trigger_restart_framework
-    start config_bt_addr
     start wcnss-service
-
-service config_bt_addr /vendor/bin/btnvtool -O
-    class core
-    user bluetooth
-    group bluetooth radio
 
 service hciattach /system/bin/sh /init.qcom.bt.sh
     class late_start
