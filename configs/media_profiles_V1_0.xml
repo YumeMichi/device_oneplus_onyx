@@ -114,7 +114,7 @@
              channels="2" />
     </EncoderProfile>
 
-    <EncoderProfile quality="1440p" fileFormat="mp4" duration="30">
+    <EncoderProfile quality="qhd" fileFormat="mp4" duration="30">
       <Video codec="h264"
              bitRate="40000000"
              width="2560"
@@ -251,7 +251,7 @@
              channels="2" />
     </EncoderProfile>
 
-    <EncoderProfile quality="timelapse1440p" fileFormat="mp4" duration="30">
+    <EncoderProfile quality="timelapseqhd" fileFormat="mp4" duration="30">
       <Video codec="h264"
              bitRate="40000000"
              width="2560"
@@ -393,7 +393,7 @@
              channels="2" />
     </EncoderProfile>
 
-    <EncoderProfile quality="1440p" fileFormat="mp4" duration="30">
+    <EncoderProfile quality="qhd" fileFormat="mp4" duration="30">
       <Video codec="h264"
              bitRate="40000000"
              width="2560"
@@ -504,7 +504,7 @@
              channels="2" />
     </EncoderProfile>
 
-    <EncoderProfile quality="timelapse1440p" fileFormat="mp4" duration="30">
+    <EncoderProfile quality="timelapseqhd" fileFormat="mp4" duration="30">
       <Video codec="h264"
              bitRate="40000000"
              width="2560"
