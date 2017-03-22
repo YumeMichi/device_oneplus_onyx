@@ -49,9 +49,10 @@
 
 	<pcm_ids>
 		<!-- empty -->
-    </pcm_ids>
+	</pcm_ids>
 
 	<device_names>
-		<!-- empty -->
+		<device name="SND_DEVICE_IN_HDMI_MIC" alias="hdmi-tx" />
+		<device name="SND_DEVICE_IN_HANDSET_MIC" alias="voice-dmic-ef" />
 	</device_names>
 </audio_platform_info>
