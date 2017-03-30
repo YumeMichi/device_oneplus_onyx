@@ -6,9 +6,5 @@
   {
     "repository":  "android_kernel_oneplus_onyx",
     "target_path": "kernel/oneplus/onyx"
-  },
-  {
-    "repository": "android_packages_resources_devicesettings",
-    "target_path": "packages/resources/devicesettings"
   }
 ]
