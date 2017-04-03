@@ -13,6 +13,7 @@ LOCAL_C_INCLUDES := \
 LOCAL_SRC_FILES := qomx_core.c
 
 LOCAL_MODULE           := libqomx_core
+LOCAL_VENDOR_MODULE    := true
 LOCAL_SHARED_LIBRARIES := libcutils libdl liblog
 
 include $(BUILD_SHARED_LIBRARY)
