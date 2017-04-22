@@ -15,9 +15,6 @@
 # limitations under the License.
 #
 
-# inherit from Oppo common
--include device/oppo/common/BoardConfigCommon.mk
-
 PLATFORM_PATH := device/oneplus/onyx
 
 # Assertions
@@ -49,8 +46,8 @@ BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100
 BOARD_KERNEL_IMAGE_NAME := zImage-dtb
 TARGET_KERNEL_APPEND_DTB := true
 TARGET_KERNEL_ARCH := arm
-TARGET_KERNEL_CONFIG := lineageos_onyx_defconfig
-TARGET_KERNEL_SOURCE := kernel/oneplus/onyx
+TARGET_KERNEL_CONFIG := msm8974-perf_defconfig
+TARGET_KERNEL_SOURCE := kernel/oneplus/msm8974
 
 # ANT+
 BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
@@ -153,9 +150,6 @@ TARGET_USES_MEDIA_EXTENSIONS := true
 # Protobuf-c
 PROTOBUF_SUPPORTED := true
 
-# QCOM hardware
-BOARD_USES_QCOM_HARDWARE := true
-
 # Recovery
 TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/rootdir/etc/fstab.qcom
 
@@ -166,27 +160,21 @@ TARGET_RIL_VARIANT := caf
 TARGET_NO_RPC := true
 
 # SELinux
-include device/qcom/sepolicy/sepolicy.mk
-
 BOARD_SEPOLICY_DIRS += \
-    $(PLATFORM_PATH)/sepolicy
+     device/oneplus/onyx/sepolicy
 
 # SnapDragon LLVM Compiler
 TARGET_USE_SDCLANG := true
 
 # Wifi
 BOARD_HAS_QCOM_WLAN := true
-BOARD_HAS_QCOM_WLAN_SDK := true
 BOARD_WLAN_DEVICE := qcwcn
-BOARD_WPA_SUPPLICANT_DRIVER := NL80211
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_qcwcn
 BOARD_HOSTAPD_DRIVER := NL80211
-BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_qcwcn
-TARGET_USES_WCNSS_CTRL := true
-TARGET_USES_QCOM_WCNSS_QMI := true
-TARGET_USES_WCNSS_MAC_ADDR_REV := true
-WIFI_DRIVER_FW_PATH_STA := "sta"
+BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
+BOARD_WPA_SUPPLICANT_DRIVER := NL80211
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 WIFI_DRIVER_FW_PATH_AP := "ap"
+WIFI_DRIVER_FW_PATH_STA := "sta"
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 
 # QCNE

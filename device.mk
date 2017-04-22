@@ -15,8 +15,9 @@
 #
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
-$(call inherit-product, frameworks/native/build/phone-xxhdpi-3072-dalvik-heap.mk)
-$(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-3072-hwui-memory.mk)
+
+PRODUCT_AAPT_CONFIG += xxhdpi
+PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
@@ -100,8 +101,7 @@ PRODUCT_PACKAGES += \
 
 # Camera
 PRODUCT_PACKAGES += \
-    camera.msm8974 \
-    Snap
+    camera.msm8974
 
 # Data
 PRODUCT_PACKAGES += \
@@ -231,6 +231,3 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
     wcnss_service
-
-# Inherit from oppo-common
-$(call inherit-product, device/oppo/common/common.mk)
