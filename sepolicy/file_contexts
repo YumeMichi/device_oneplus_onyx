@@ -15,5 +15,8 @@
 # Old slim_ap executable
 /system/vendor/bin/slim_ap_daemon                       u:object_r:location_exec:s0
 
+# Vibrator config
+/sys/devices/virtual/timed_output/vibrator/vtg_level    u:object_r:vibeamp_sysfs:s0
+
 # Backlight
 /sys/class/leds/lcd-backlight/brightness                u:object_r:touchscreen_file:s0
