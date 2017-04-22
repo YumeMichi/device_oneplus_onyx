@@ -1,0 +1,5 @@
+allow mpdecision mediaserver:dir search;
+allow mpdecision mediaserver:file { open read };
+allow mpdecision mpctl_socket:sock_file rw_file_perms;
+allow mpdecision system_data_file:dir { write remove_name add_name };
+allow mpdecision system_data_file:sock_file { write create unlink setattr };

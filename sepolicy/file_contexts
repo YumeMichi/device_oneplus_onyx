@@ -1,22 +1,13 @@
-# NV backup partitions
+/dev/block/platform/msm_sdcc\.1/by-name/modem           u:object_r:modem_block_device:s0
+/dev/block/platform/msm_sdcc\.1/by-name/persist         u:object_r:persist_block_device:s0
+
 /dev/block/platform/msm_sdcc\.1/by-name/oppodycnvbk     u:object_r:nvbackup_block_device:s0
 /dev/block/platform/msm_sdcc\.1/by-name/oppostanvbk     u:object_r:nvbackup_block_device:s0
 
-# Persist filesystem
-/dev/block/platform/msm_sdcc\.1/by-name/persist         u:object_r:persist_block_device:s0
+/system/bin/mac-update                                  u:object_r:mac-update_exec:s0
+/system/bin/bdAddrLoader                                u:object_r:bluetooth_loader_exec:s0
+/dev/rfkill                                             u:object_r:bluetooth_device:s0
 
-# FRP partition
-/dev/block/bootdevice/by-name/config                    u:object_r:frp_block_device:s0
+/data/oemnvitems(/.*)?                                  u:object_r:nv_data_file:s0
 
-# Old camera socket
-/data/cam_socket1                                       u:object_r:camera_socket:s0
-/data/cam_socket2                                       u:object_r:camera_socket:s0
-
-# Old slim_ap executable
-/system/vendor/bin/slim_ap_daemon                       u:object_r:location_exec:s0
-
-# Vibrator config
-/sys/devices/virtual/timed_output/vibrator/vtg_level    u:object_r:vibeamp_sysfs:s0
-
-# Backlight
-/sys/class/leds/lcd-backlight/brightness                u:object_r:touchscreen_file:s0
+/data/misc/perfd/mpctl                                  u:object_r:mpctl_socket:s0

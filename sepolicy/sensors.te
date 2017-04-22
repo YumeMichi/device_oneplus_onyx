@@ -1,2 +1,4 @@
-allow sensors persist_file:dir { search write create add_name };
-allow sensors persist_file:file { create rw_file_perms setattr };
+allow sensors init:unix_stream_socket connectto;
+allow sensors persist_file:file { getattr open read write };
+allow sensors property_socket:sock_file write;
+allow sensors system_prop:property_service set;

@@ -1,2 +1,2 @@
-allow vold persist_file:dir r_file_perms;
-allow vold proc_touchpanel:dir { read open };
+allow vold persist_file:dir { open r_file_perms };
+allow vold proc_touchpanel:dir { open r_file_perms };

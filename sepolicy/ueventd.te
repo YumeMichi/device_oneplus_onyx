@@ -1,2 +1,2 @@
 allow ueventd vfat:dir search;
-allow ueventd vfat:file { read open getattr };
+allow ueventd vfat:file { read getattr open };

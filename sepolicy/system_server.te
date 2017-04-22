@@ -1,15 +1,12 @@
-# for CMHardwareService access to TapToWake
+allow system_server mpctl_socket:sock_file rw_file_perms;
+
 allow system_server proc_touchpanel:file rw_file_perms;
 allow system_server proc_touchpanel:dir { search };
-allow system_server touchscreen_file:file rw_file_perms;
 
-# for CMHardwareService access to VibratorHW
-allow system_server vibeamp_sysfs:file rw_file_perms;
+allow system_server sensors_persist_file:file { read getattr open };
+allow system_server sensors_persist_file:dir { open search };
 
-# examine battery state
-r_dir_file(system_server, sysfs_usb_supply);
+allow system_server sysfs_usb_supply:dir search;
+allow system_server sysfs_usb_supply:file { read getattr open };
 
-allow system_server sensors_persist_file:dir search;
-allow system_server sensors_persist_file:file read;
-allow system_server sensors_persist_file:file open;
-allow system_server sensors_persist_file:file getattr;
+allow system_server system_data_file:sock_file write;
