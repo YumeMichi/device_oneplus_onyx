@@ -91,6 +91,7 @@ PRODUCT_PACKAGES += \
 
 # Camera
 PRODUCT_PACKAGES += \
+    Camera2 \
     camera.msm8974
 
 # Data
