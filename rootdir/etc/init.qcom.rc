@@ -14,8 +14,8 @@
 # limitations under the License.
 #
 
-import init.qcom.usb.rc
-import init.qcom.power.rc
+import /vendor/etc/init/hw/init.qcom.usb.rc
+import /vendor/etc/init/hw/init.qcom.power.rc
 
 on early-init
     chown system system /sys/kernel/debug/kgsl/proc
