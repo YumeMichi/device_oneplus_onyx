@@ -48,7 +48,7 @@ BOARD_KERNEL_IMAGE_NAME := zImage-dtb
 TARGET_KERNEL_APPEND_DTB := true
 TARGET_KERNEL_ARCH := arm
 TARGET_KERNEL_CONFIG := msm8974-perf_defconfig
-TARGET_KERNEL_SOURCE := kernel/oneplus/msm8974
+TARGET_KERNEL_SOURCE := kernel/oneplus/onyx
 
 # ANT+
 BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
