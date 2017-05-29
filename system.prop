@@ -88,6 +88,9 @@ drm.service.enabled=true
 # QMI
 persist.data.qmi.adb_logmask=0
 
+# Qualcomm BT aptXHD
+persist.bt.enableAptXHD=true
+
 # Sensors
 ro.qc.sdk.sensors.gestures=true
 ro.qc.sdk.gestures.camera=false
