@@ -34,8 +34,6 @@
  |__________|_________________________________________|
  | h264     | 3840    2160    30      100     972000  |
  |          | 4096    2160    24      100     829440  |
- | hevc     | 1280    720     30      2       108000  |
- | hevchybd | 1920    1088    30      6       244800  |
  | mpeg4    | 1920    1088    60      60      489600  |
  | vc1      | 1920    1088    60      60      489600  |
  | vp8      | 3820    2160    30      20      972000  |
@@ -226,44 +224,6 @@
             <Feature name="adaptive-playback" />
             <Limit name="concurrent-instances" max="13" />
         </MediaCodec>
-        <MediaCodec name="OMX.qcom.video.decoder.hevc" type="video/hevc" >
-            <Quirk name="requires-allocate-on-input-ports" />
-            <Quirk name="requires-allocate-on-output-ports" />
-            <Limit name="size" min="64x64" max="1280x720" />
-            <Limit name="alignment" value="2x2" />
-            <Limit name="block-size" value="16x16" />
-            <Limit name="blocks-per-second" min="1" max="108000" />
-            <Limit name="bitrate" range="1-2000000" />
-            <Feature name="adaptive-playback" />
-            <Limit name="concurrent-instances" max="3" />
-        </MediaCodec>
-        <!-- guoguangyi@mutimedia,modify for fixs cts:
-        run cts class android.mediastress.cts.HEVCR1080pAacLongPlayerTest method testPlay00
-        original code:
-        <MediaCodec name="OMX.qcom.video.decoder.hevchybrid" type="video/hevc" >
-        <Quirk name="requires-allocate-on-input-ports" />
-        <Quirk name="requires-allocate-on-output-ports" />
-        <Limit name="size" min="64x64" max="1920x1088" />
-        <Limit name="alignment" value="2x2" />
-        <Limit name="block-size" value="16x16" />
-        <Limit name="blocks-per-second" min="1" max="244800" />
-        <Limit name="bitrate" range="1-6000000" />
-        <Feature name="adaptive-playback" />
-        <Limit name="concurrent-instances" max="2" />
-        </MediaCodec>
-       -->
-       <MediaCodec name="OMX.qcom.video.decoder.hevc.secure" type="video/hevc" >
-            <Quirk name="requires-allocate-on-input-ports" />
-            <Quirk name="requires-allocate-on-output-ports" />
-            <Limit name="size" min="64x64" max="4096x2160" />
-            <Limit name="alignment" value="2x2" />
-            <Limit name="block-size" value="16x16" />
-            <Limit name="blocks-per-second" min="1" max="972000" />
-            <Limit name="bitrate" range="1-100000000" />
-            <Feature name="adaptive-playback" />
-            <Feature name="secure-playback" required="true" />
-        </MediaCodec>
     </Decoders>
     <Include href="media_codecs_google_video.xml" />
-    <Include href="media_codecs_ffmpeg.xml" />
 </MediaCodecs>
