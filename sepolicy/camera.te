@@ -3,3 +3,6 @@ allow mm-qcamerad system_data_file:dir { write remove_name add_name };
 
 # Face detection cache in the old location
 allow mm-qcamerad camera_data_file:file create_file_perms;
+
+# Allow mm-qcamerad to connect to perfd socket
+unix_socket_connect(mm-qcamerad, mpctl, perfd);
