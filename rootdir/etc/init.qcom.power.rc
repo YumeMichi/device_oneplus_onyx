@@ -59,7 +59,7 @@ on enable-low-power
 
     write /sys/module/msm_thermal/core_control/enabled 0
 
-    write /sys/module/cpu_boost/parameters/input_boost_freq 1497600
+    write /sys/module/cpu_boost/parameters/input_boost_freq 1190400
     write /sys/module/cpu_boost/parameters/input_boost_ms 40
 
     write /sys/class/devfreq/qcom,cpubw.41/governor "msm_cpufreq"
