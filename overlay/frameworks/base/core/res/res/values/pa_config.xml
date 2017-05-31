@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 /*
-** Copyright 2016, The Paranoid Android Project
+** Copyright (C) 2016-2017 Paranoid Android
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
@@ -35,5 +35,22 @@
 
     <!-- Whether device has physical tri state switch -->
     <bool name="config_hasAlertSlider">true</bool>
+
+    <!-- Gesture KeyCodes -->
+    <integer name="config_doubleTapKeyCode">249</integer>
+    <integer name="config_drawVKeyCode">252</integer>
+    <integer name="config_drawOKeyCode">250</integer>
+    <integer name="config_twoFingerSwipeKeyCode">251</integer>
+    <integer name="config_drawArrowLeftKeyCode">253</integer>
+    <integer name="config_drawArrowRightKeyCode">254</integer>
+    <integer name="config_doubleTapDefault">1</integer>
+    <integer name="config_drawVDefault">2</integer>
+    <integer name="config_drawODefault">7</integer>
+    <integer name="config_drawArrowLeftDefault">6</integer>
+    <integer name="config_drawArrowRightDefault">5</integer>
+    <integer name="config_twoFingerSwipeDefault">4</integer>
+
+    <!-- Whether to to intercept inputs on screen off. -->
+    <bool name="config_enableKeyHandler">true</bool>
 
 </resources>
