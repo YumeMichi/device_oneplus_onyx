@@ -421,14 +421,6 @@ on property:sys.boot_completed=1
     # Temp hack to fix torch not being registered on boot
     restart media
 
-service cnd /system/bin/cnd
-    class late_start
-    socket cnd stream 660 root inet
-
-service dpmd /system/bin/dpmd
-    class late_start
-    socket dpmd stream 660 root system
-
 service irsc_util /system/bin/irsc_util "/etc/sec_config"
     class main
     user root
@@ -536,14 +528,6 @@ service hciattach /system/bin/sh /init.qcom.bt.sh
     group bluetooth net_bt_admin qcom_diag radio
     disabled
     oneshot
-
-service cnd /system/bin/cnd
-    class late_start
-    socket cnd stream 660 root inet
-
-service dpmd /system/bin/dpmd
-    class late_start
-    socket dpmd stream 660 root system
 
 on property:bluetooth.hciattach=true
     start hciattach
