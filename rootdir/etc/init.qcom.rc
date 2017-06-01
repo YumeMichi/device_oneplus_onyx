@@ -434,21 +434,11 @@ service qseecomd /system/bin/qseecomd
     user root
     group root
 
-service charger /sbin/healthd -c
+service charger /charger
     class charger
     critical
+    group system graphics
     seclabel u:r:healthd:s0
-
-service qbcharger /charger -m 1
-    disabled
-    oneshot
-    seclabel u:r:healthd:s0
-
-on property:sys.qbcharger.enable=true
-    start qbcharger
-
-on property:sys.qbcharger.enable=false
-    stop qbcharger
 
 service qcamerasvr /system/bin/mm-qcamera-daemon
     class late_start
