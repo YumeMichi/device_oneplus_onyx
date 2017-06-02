@@ -45,8 +45,6 @@ audio.offload.multiple.enabled=false
 audio.offload.gapless.enabled=true
 tunnel.audio.encode=false
 media.aac_51_output_enabled=true
-audio.offload.pcm.16bit.enable=true
-audio.offload.pcm.24bit.enable=true
 
 # Bluetooth
 bluetooth.hfp.client=1
@@ -63,7 +61,6 @@ persist.dpm.feature=3
 # GPS
 persist.gps.qc_nlp_in_use=0
 ro.gps.agps_provider=1
-ro.pip.gated=0
 
 # Graphics
 debug.sf.hw=1
@@ -92,27 +89,6 @@ persist.data.qmi.adb_logmask=0
 persist.bt.enableAptXHD=true
 
 # Sensors
-ro.qc.sdk.sensors.gestures=true
-ro.qc.sdk.gestures.camera=false
-ro.qc.sdk.camera.facialproc=false
-ro.prj_name=15055
-ro.qti.sensors.smd=true
-ro.qti.sensors.ir_proximity=true
-ro.qti.sensors.game_rv=true
-ro.qti.sensors.georv=true
-ro.qti.sensors.smgr_mag_cal_en=true
-ro.qti.sensors.step_detector=true
-ro.qti.sensors.step_counter=true
-ro.qti.sensors.tap=false
-ro.qti.sensors.facing=false
-ro.qti.sensors.tilt=false
-ro.qti.sensors.amd=false
-ro.qti.sensors.rmd=false
-ro.qti.sensors.vmd=false
-ro.qti.sensors.pedometer=false
-ro.qti.sensors.pam=false
-ro.qti.sdk.sensors.gestures=false
-ro.qti.sensors.bte=true
 ro.qti.sensors.gtap=true
 ro.qti.sensors.vmd=true
 
@@ -130,7 +106,7 @@ dalvik.vm.heaptargetutilization=0.75
 dalvik.vm.heapminfree=2m
 dalvik.vm.heapmaxfree=8m
 
-#hwui properties
+# hwui properties
 ro.hwui.texture_cache_size=96
 ro.hwui.layer_cache_size=64
 ro.hwui.r_buffer_cache_size=12
