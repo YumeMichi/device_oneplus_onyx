@@ -110,6 +110,10 @@ persist.timed.enable=true
 # Wifi
 wifi.interface=wlan0
 
+# Google WFD
+persist.debug.wfd.enable=1
+persist.sys.wfd.virtual=0
+
 # Dalvik VM Properties
 dalvik.vm.heapstartsize=24m
 dalvik.vm.heapgrowthlimit=320m
