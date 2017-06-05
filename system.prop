@@ -89,8 +89,20 @@ persist.data.qmi.adb_logmask=0
 persist.bt.enableAptXHD=true
 
 # Sensors
+ro.qc.sdk.gestures.camera=false
+ro.qc.sdk.camera.facialproc=false
+ro.qti.sdk.sensors.gestures=true
+ro.qti.sensors.bte=true
 ro.qti.sensors.gtap=true
 ro.qti.sensors.vmd=true
+ro.prj_name=15055
+ro.qti.sensors.smd=true
+ro.qti.sensors.ir_proximity=true
+ro.qti.sensors.game_rv=true
+ro.qti.sensors.georv=true
+ro.qti.sensors.smgr_mag_cal_en=true
+ro.qti.sensors.step_detector=true
+ro.qti.sensors.step_counter=true
 
 # Time services
 persist.timed.enable=true
