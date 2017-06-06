@@ -190,6 +190,9 @@ on post-fs
     write /proc/s1302/key_rep 1
 
     # Touchscreen
+    chown system radio /proc/touchpanel/gesture_enable
+    chmod 0660 /proc/touchpanel/gesture_enable
+
     chown system radio /proc/touchpanel/double_tap_enable
     chmod 0660 /proc/touchpanel/double_tap_enable
 
