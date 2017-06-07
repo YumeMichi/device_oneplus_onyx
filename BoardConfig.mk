@@ -155,7 +155,6 @@ BOARD_USES_QCOM_HARDWARE := true
 
 # Recovery
 TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/rootdir/etc/fstab.qcom
-WITH_LZMA_OTA := true
 
 # TWRP Recovery -- uncomment to build
 #BOARD_SUPPRESS_SECURE_ERASE := true
