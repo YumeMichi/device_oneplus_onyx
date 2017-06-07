@@ -336,6 +336,9 @@ const char QCameraParameters::CDS_MODE_AUTO[] = "auto";
 
 const char QCameraParameters::KEY_SELECTED_AUTO_SCENE[] = "selected-auto-scene";
 
+#define FOCUS_MODE_MANUAL_POSITION "manual"
+#define WHITE_BALANCE_MANUAL_CCT "manual-cct"
+
 static const char* portrait = "portrait";
 static const char* landscape = "landscape";
 
