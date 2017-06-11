@@ -46,19 +46,6 @@ on enable-low-power
     write /sys/kernel/cpu_input_boost/ib_duration_ms 1400
     write /sys/kernel/cpu_input_boost/enabled 1
 
-    write /sys/kernel/msm_thermal/enabled 0
-    write /sys/kernel/msm_thermal/zone0 "2265600 48 45"
-    write /sys/kernel/msm_thermal/zone1 "1958400 51 50"
-    write /sys/kernel/msm_thermal/zone2 "1728000 54 53"
-    write /sys/kernel/msm_thermal/zone3 "1497600 57 56"
-    write /sys/kernel/msm_thermal/zone4 "1267200 60 59"
-    write /sys/kernel/msm_thermal/zone5 "1190400 63 62"
-    write /sys/kernel/msm_thermal/zone6 "1036800 66 65"
-    write /sys/kernel/msm_thermal/zone7 "960000 69 68"
-    write /sys/kernel/msm_thermal/zone8 "729600 76 75"
-    write /sys/kernel/msm_thermal/sampling_ms 8000
-    write /sys/kernel/msm_thermal/enabled 1
-
     write /sys/block/mmcblk0/queue/scheduler "row"
     write /sys/block/mmcblk1/queue/scheduler "bfq"
     write /sys/block/mmcblk0/bdi/read_ahead_kb 512
@@ -82,15 +69,6 @@ on charger
     write /sys/devices/system/cpu/cpu3/online 0
     write /sys/module/lpm_levels/parameters/sleep_disabled 0
 
-on boot
-    # Set light thermal restrictions while optimizing apps
-    write /sys/kernel/msm_thermal/enabled 0
-    write /sys/kernel/msm_thermal/zone0 "1958400 63 60"
-    write /sys/kernel/msm_thermal/zone1 "1728000 71 68"
-    write /sys/kernel/msm_thermal/zone2 "1497600 80 76"
-    write /sys/kernel/msm_thermal/sampling_ms 1000
-    write /sys/kernel/msm_thermal/enabled 1
-
 on property:sys.boot_completed=1
     trigger enable-low-power
 
@@ -105,7 +83,6 @@ on property:recovery.perf.mode=0
 
 on property:sys.perf.profile=0
     stop mpdecision
-    write /sys/kernel/msm_thermal/user_maxfreq 1497600
     write /sys/devices/system/cpu/cpu1/online 1
     write /sys/devices/system/cpu/cpu2/online 1
     write /sys/devices/system/cpu/cpu3/online 1
@@ -122,19 +99,8 @@ on property:sys.perf.profile=0
     write /sys/class/devfreq/qcom,cpubw.40/governor "msm_cpufreq"
     write /sys/class/kgsl/kgsl-3d0/devfreq/governor "powersave"
 
-    # Set powersave thermal restrictions
-    write /sys/kernel/msm_thermal/enabled 0
-    write /sys/kernel/msm_thermal/zone0 "1728000 42 40"
-    write /sys/kernel/msm_thermal/zone1 "1497600 47 45"
-    write /sys/kernel/msm_thermal/zone2 "1190400 52 50"
-    write /sys/kernel/msm_thermal/zone3 "960000 57 55"
-    write /sys/kernel/msm_thermal/zone4 "729600 62 60"
-    write /sys/kernel/msm_thermal/sampling_ms 8000
-    write /sys/kernel/msm_thermal/enabled 1
-
 on property:sys.perf.profile=1
     stop mpdecision
-    write /sys/kernel/msm_thermal/user_maxfreq 0
     write /sys/devices/system/cpu/cpu1/online 1
     write /sys/devices/system/cpu/cpu2/online 1
     write /sys/devices/system/cpu/cpu3/online 1
@@ -157,23 +123,8 @@ on property:sys.perf.profile=1
     write /sys/class/devfreq/qcom,cpubw.40/governor "msm_cpufreq"
     write /sys/class/kgsl/kgsl-3d0/devfreq/governor "msm-adreno-tz"
 
-    # Set normal thermal restrictions
-    write /sys/kernel/msm_thermal/enabled 0
-    write /sys/kernel/msm_thermal/zone0 "2265600 48 45"
-    write /sys/kernel/msm_thermal/zone1 "1958400 51 50"
-    write /sys/kernel/msm_thermal/zone2 "1728000 54 53"
-    write /sys/kernel/msm_thermal/zone3 "1497600 57 56"
-    write /sys/kernel/msm_thermal/zone4 "1267200 60 59"
-    write /sys/kernel/msm_thermal/zone5 "1190400 63 62"
-    write /sys/kernel/msm_thermal/zone6 "1036800 66 65"
-    write /sys/kernel/msm_thermal/zone7 "960000 69 68"
-    write /sys/kernel/msm_thermal/zone8 "729600 76 75"
-    write /sys/kernel/msm_thermal/sampling_ms 8000
-    write /sys/kernel/msm_thermal/enabled 1
-
 on property:sys.perf.profile=2
     stop mpdecision
-    write /sys/kernel/msm_thermal/user_maxfreq 0
     write /sys/devices/system/cpu/cpu1/online 1
     write /sys/devices/system/cpu/cpu2/online 1
     write /sys/devices/system/cpu/cpu3/online 1
@@ -194,11 +145,3 @@ on property:sys.perf.profile=2
 
     write /sys/class/devfreq/qcom,cpubw.40/governor "performance"
     write /sys/class/kgsl/kgsl-3d0/devfreq/governor "performance"
-
-    # Set light thermal restrictions for performance mode
-    write /sys/kernel/msm_thermal/enabled 0
-    write /sys/kernel/msm_thermal/zone0 "1958400 63 60"
-    write /sys/kernel/msm_thermal/zone1 "1728000 71 68"
-    write /sys/kernel/msm_thermal/zone2 "1497600 80 76"
-    write /sys/kernel/msm_thermal/sampling_ms 1000
-    write /sys/kernel/msm_thermal/enabled 1
