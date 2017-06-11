@@ -190,10 +190,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     libshims_sensors
 
-# Thermal config
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/thermal-engine-8974.conf:system/etc/thermal-engine-8974.conf
-
 # USB
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
