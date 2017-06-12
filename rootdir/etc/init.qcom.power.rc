@@ -36,14 +36,14 @@ on post-boot
     write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor "interactive"
     write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor "interactive"
     write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor "interactive"
-    write /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay "19000 1400000:39000 1700000:19000"
+    write /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay "30000 1190400:50000 1497600:30000"
     write /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load 99
     write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1190400
     write /sys/devices/system/cpu/cpufreq/interactive/io_is_busy 1
-    write /sys/devices/system/cpu/cpufreq/interactive/target_loads "85 1500000:90 1800000:70"
-    write /sys/devices/system/cpu/cpufreq/interactive/min_sample_time 39000
-    write /sys/devices/system/cpu/cpufreq/interactive/timer_rate 30000
-    write /sys/devices/system/cpu/cpufreq/interactive/max_freq_hysteresis 99000
+    write /sys/devices/system/cpu/cpufreq/interactive/target_loads "99 422400:12 652800:36 729600:70 883200:19 960000:69 1190400:95 1497600:95"
+    write /sys/devices/system/cpu/cpufreq/interactive/min_sample_time 30000
+    write /sys/devices/system/cpu/cpufreq/interactive/timer_rate 20000
+    write /sys/devices/system/cpu/cpufreq/interactive/max_freq_hysteresis 100000
     write /sys/devices/system/cpu/cpufreq/interactive/timer_slack 30000
 
     chown root system /sys/devices/system/cpu/cpu1/online
@@ -55,8 +55,8 @@ on post-boot
 
     write /sys/module/msm_thermal/core_control/enabled 0
 
-    write /sys/module/cpu_boost/parameters/input_boost_freq 1190400
-    write /sys/module/cpu_boost/parameters/input_boost_ms 40
+    write /sys/module/cpu_boost/parameters/input_boost_freq "0:1190400 1:1190400"
+    write /sys/module/cpu_boost/parameters/input_boost_ms 80
 
     write /sys/class/devfreq/qcom,cpubw.41/governor "msm_cpufreq"
     write /sys/class/kgsl/kgsl-3d0/devfreq/governor msm-adreno-tz
