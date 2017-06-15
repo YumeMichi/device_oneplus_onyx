@@ -226,6 +226,7 @@ static const cam_scene_mode_type new_scene_modes[] = {
     CAM_SCENE_MODE_NIGHT_PORTRAIT,
     CAM_SCENE_MODE_THEATRE,
     CAM_SCENE_MODE_ACTION,
+    CAM_SCENE_MODE_HDR,
     CAM_SCENE_MODE_AR
 };
 
