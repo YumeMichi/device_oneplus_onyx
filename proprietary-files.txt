@@ -222,9 +222,6 @@ etc/firmware/widevine.b02:vendor/firmware/widevine.b02
 etc/firmware/widevine.b03:vendor/firmware/widevine.b03
 etc/firmware/widevine.mdt:vendor/firmware/widevine.mdt
 
-# Perf
-bin/mpdecision:vendor/bin/mpdecision
-
 # Qualcomm framework
 bin/irsc_util:vendor/bin/irsc_util
 vendor/lib/libdiag.so
