@@ -46,10 +46,6 @@ on enable-low-power
     write /sys/devices/system/cpu/cpufreq/interactive/max_freq_hysteresis 99000
     write /sys/devices/system/cpu/cpufreq/interactive/timer_slack 30000
 
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 1958400
-    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq 1958400
-    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq 1958400
-    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq 1958400
     chown root system /sys/devices/system/cpu/cpu1/online
     chown root system /sys/devices/system/cpu/cpu2/online
     chown root system /sys/devices/system/cpu/cpu3/online
@@ -101,7 +97,6 @@ on property:recovery.perf.mode=0
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "interactive"
 
 on property:dev.bootcomplete=1
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 300000
     rm /data/system/perfd/default_values
     write /sys/block/mmcblk0/queue/scheduler "deadline"
     write /sys/block/mmcblk0/bdi/read_ahead_kb 128
