@@ -53,8 +53,6 @@ on enable-low-power
 
     setprop vendor.post_boot.parsed 1
 
-    start mpdecision
-
 on charger
     write /sys/module/lpm_levels/enable_low_power/l2 2
     write /sys/module/msm_pm/modes/cpu0/power_collapse/suspend_enabled 1
@@ -84,7 +82,6 @@ on property:recovery.perf.mode=0
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "interactive"
 
 on property:sys.perf.profile=0
-    stop mpdecision
     write /sys/devices/system/cpu/cpu1/online 1
     write /sys/devices/system/cpu/cpu2/online 1
     write /sys/devices/system/cpu/cpu3/online 1
@@ -96,13 +93,11 @@ on property:sys.perf.profile=0
     write /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq 1958400
     write /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq 1958400
     write /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq 1958400
-    start mpdecision
 
     write /sys/class/devfreq/qcom,cpubw.40/governor "msm_cpufreq"
     write /sys/class/kgsl/kgsl-3d0/devfreq/governor "powersave"
 
 on property:sys.perf.profile=1
-    stop mpdecision
     write /sys/devices/system/cpu/cpu1/online 1
     write /sys/devices/system/cpu/cpu2/online 1
     write /sys/devices/system/cpu/cpu3/online 1
@@ -120,13 +115,11 @@ on property:sys.perf.profile=1
     write /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load 99
     write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1190400
     write /sys/devices/system/cpu/cpufreq/interactive/target_loads "99 422400:12 652800:36 729600:70 883200:19 960000:69 1190400:95 1497600:95"
-    start mpdecision
 
     write /sys/class/devfreq/qcom,cpubw.40/governor "msm_cpufreq"
     write /sys/class/kgsl/kgsl-3d0/devfreq/governor "msm-adreno-tz"
 
 on property:sys.perf.profile=2
-    stop mpdecision
     write /sys/devices/system/cpu/cpu1/online 1
     write /sys/devices/system/cpu/cpu2/online 1
     write /sys/devices/system/cpu/cpu3/online 1
