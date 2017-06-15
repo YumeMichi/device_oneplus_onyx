@@ -368,12 +368,6 @@ on property:init.svc.media=restarting
 on property:init.svc.servicemanager=restarting
     restart qcamerasvr
 
-service mpdecision /vendor/bin/mpdecision --avg_comp
-    class main
-    user root
-    group root readproc
-    disabled
-
 service time_daemon /vendor/bin/time_daemon
     class late_start
     user root
