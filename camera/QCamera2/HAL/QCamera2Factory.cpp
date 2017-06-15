@@ -51,8 +51,7 @@ QCamera2Factory gQCamera2Factory;
  *==========================================================================*/
 QCamera2Factory::QCamera2Factory()
 {
-    get_num_of_cameras();
-    mNumOfCameras = 2;
+    mNumOfCameras = get_num_of_cameras();
 }
 
 /*===========================================================================
