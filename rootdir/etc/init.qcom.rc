@@ -498,12 +498,6 @@ service qcamerasvr /system/bin/mm-qcamera-daemon
     user camera
     group camera system inet input graphics
 
-service mpdecision /system/bin/mpdecision --avg_comp
-   class main
-   user root
-   group system
-   disabled
-
 service time_daemon /system/bin/time_daemon
     class late_start
     user root
