@@ -439,11 +439,10 @@ int QCamera2HardwareInterface::start_recording(struct camera_device *device)
             params.unflatten(android::String8(orig_params));
             hw->putParameters(orig_params);
 
-            // Set preview size and picture size to video size
+            // Set preview size to video size
             char video_dim[10];
             snprintf(video_dim, sizeof(video_dim), "%dx%d", width, height);
             params.set("preview-size", video_dim);
-            params.set("picture-size", video_dim);
 
             const char *hfrStr = params.get("video-hfr");
             const char *hsrStr = params.get("video-hsr");
