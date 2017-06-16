@@ -57,19 +57,19 @@ void vendor_load_properties()
 
     if (rf_version == "101") {
         /* China */
-        property_set("ro.product.model", "ONE E1001");
+        property_override("ro.product.model", "ONE E1001");
         property_set("ro.rf_version", "TDD_FDD_Ch_All");
     } else if (rf_version == "102") {
         /* Asia/Europe */
-        property_set("ro.product.model", "ONE E1003");
+        property_override("ro.product.model", "ONE E1003");
         property_set("ro.rf_version", "TDD_FDD_Eu");
     } else if (rf_version == "103"){
         /* America */
-        property_set("ro.product.model", "ONE E1005");
+        property_override("ro.product.model", "ONE E1005");
         property_set("ro.rf_version", "TDD_FDD_Am");
     } else if (rf_version == "107"){
         /* China CTCC Version */
-        property_set("ro.product.model", "ONE E1000");
+        property_override("ro.product.model", "ONE E1000");
         property_set("ro.rf_version", "TDD_FDD_ALL_OPTR");
     }
     device = property_get("ro.product.device");
