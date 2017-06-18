@@ -78,6 +78,9 @@ ro.opengles.version=196608
 ro.sf.lcd_density=441
 ro.qualcomm.cabl=0
 
+# Storage
+sys.io.scheduler=deadline
+
 # QC vendor extension
 ro.vendor.extension_library=libqti-perfd-client.so
 drm.service.enabled=true

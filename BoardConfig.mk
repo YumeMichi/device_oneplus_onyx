@@ -30,8 +30,6 @@ TARGET_NO_RADIOIMAGE := true
 TARGET_BOARD_PLATFORM := msm8974
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno330
 
-USE_CLANG_PLATFORM_BUILD := true
-
 # Architecture
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
@@ -50,9 +48,6 @@ TARGET_KERNEL_APPEND_DTB := true
 TARGET_KERNEL_ARCH := arm
 TARGET_KERNEL_CONFIG := msm8974-perf_defconfig
 TARGET_KERNEL_SOURCE := kernel/oneplus/onyx
-
-# ANT+
-BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
 
 # Assert
 TARGET_OTA_ASSERT_DEVICE := onyx,OnePlus,E1003,ONE
@@ -88,9 +83,6 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 12611894272
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 
-# Workaround for factory issue
-BOARD_VOLD_CRYPTFS_MIGRATE := true
-
 # FM
 BOARD_HAVE_QCOM_FM := true
 TARGET_QCOM_NO_FM_FIRMWARE := true
@@ -104,15 +96,12 @@ USE_DEVICE_SPECIFIC_GPS := true
 USE_DEVICE_SPECIFIC_LOC_API := true
 
 # Graphics
-HAVE_ADRENO_SOURCE := false
 MAX_EGL_CACHE_KEY_SIZE := 12*1024
 MAX_EGL_CACHE_SIZE := 2048*1024
 OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
-TARGET_CONTINUOUS_SPLASH_ENABLED := true
 TARGET_USES_C2D_COMPOSITION := true
 TARGET_USES_ION := true
 USE_OPENGL_RENDERER := true
-TARGET_USE_COMPAT_GRALLOC_PERFORM := true
 
 # Include path
 TARGET_SPECIFIC_HEADER_PATH := $(PLATFORM_PATH)/include
@@ -122,23 +111,14 @@ TARGET_INIT_VENDOR_LIB := libinit_onyx
 TARGET_RECOVERY_DEVICE_MODULES := libinit_onyx
 TARGET_UNIFIED_DEVICE := true
 
-# Keymaster
-TARGET_KEYMASTER_WAIT_FOR_QSEE := true
-
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
 
 # Media
 TARGET_USES_MEDIA_EXTENSIONS := true
 
-# Protobuf-c
-PROTOBUF_SUPPORTED := true
-
 # Recovery
 TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/rootdir/etc/fstab.qcom
-
-# RIL
-TARGET_RIL_VARIANT := caf
 
 # RPC
 TARGET_NO_RPC := true
@@ -146,9 +126,6 @@ TARGET_NO_RPC := true
 # SELinux
 BOARD_SEPOLICY_DIRS += \
      device/oneplus/onyx/sepolicy
-
-# SnapDragon LLVM Compiler
-TARGET_USE_SDCLANG := true
 
 # Wifi
 BOARD_HAS_QCOM_WLAN              := true
@@ -164,12 +141,9 @@ WIFI_DRIVER_FW_PATH_AP           := "ap"
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 
 # QCNE
-BOARD_USES_QCNE := true
-
-ifeq ($(BOARD_USES_QCNE),true)
 TARGET_LDPRELOAD := libNimsWrap.so
-endif
 
+# Gestures
 TARGET_GESTURES_NODE := "/proc/touchpanel/gesture_enable"
 TARGET_POWER_GESTURE_FILE := device/oneplus/onyx/power/gestures.c
 TARGET_TAP_TO_WAKE_NODE := "/proc/touchpanel/double_tap_enable"
