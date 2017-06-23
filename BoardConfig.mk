@@ -151,9 +151,6 @@ WIFI_DRIVER_FW_PATH_STA          := "sta"
 WIFI_DRIVER_FW_PATH_AP           := "ap"
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 
-# QCNE
-TARGET_LDPRELOAD := libNimsWrap.so
-
 # Gestures
 TARGET_GESTURES_NODE := "/proc/touchpanel/gesture_enable"
 TARGET_POWER_GESTURE_FILE := device/oneplus/onyx/power/gestures.c
