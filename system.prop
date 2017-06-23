@@ -47,6 +47,7 @@ tunnel.audio.encode=false
 media.aac_51_output_enabled=true
 audio.offload.pcm.16bit.enable=true
 audio.offload.pcm.24bit.enable=true
+ro.config.media_vol_steps=25
 
 # Bluetooth
 qcom.bluetooth.soc=smd
