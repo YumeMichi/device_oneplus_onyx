@@ -209,6 +209,12 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     libshims_sensors
 
+# Weather providers
+PRODUCT_PACKAGES += \
+    OpenWeatherMapProvider \
+    YahooWeatherProvider \
+    WundergroundWeatherProvider
+
 # USB
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
