@@ -600,7 +600,6 @@ service ril-daemon2 /system/bin/rild -c 2
     user root
     group radio cache inet misc audio sdcard_r sdcard_rw diag qcom_diag log
 
-# Allow qcamerasvr to be restarted at the camera HAL's discretion
-# Dirty hack to fix rear camera not working/gone missing
-on property:camera.restart.qcamerasvr=1
+# Fix rear cam not working until next reboot
+on property:sys.boot_completed=1
     restart qcamerasvr
