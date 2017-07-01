@@ -18,3 +18,5 @@
 # Backlight
 /sys/class/leds/lcd-backlight/brightness                u:object_r:touchscreen_file:s0
 
+# Modem
+/dev/block/platform/msm_sdcc\.1/by-name/modem           u:object_r:modem_block_device:s0
