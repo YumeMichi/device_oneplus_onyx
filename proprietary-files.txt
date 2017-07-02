@@ -87,22 +87,12 @@ etc/firmware/cpp_firmware_v1_1_6.fw
 etc/firmware/cpp_firmware_v1_2_0.fw
 
 # DRM
--framework/com.google.widevine.software.drm.jar
 bin/qseecomd
-etc/permissions/com.google.widevine.software.drm.xml
 vendor/lib/libQSEEComAPI.so
-vendor/lib/libWVStreamControlAPI_L3.so
-vendor/lib/libdrmdiag.so
 vendor/lib/libdrmfs.so
 vendor/lib/libdrmtime.so
 vendor/lib/librpmb.so
 vendor/lib/libssd.so
-vendor/lib/libtzdrmgenprov.so
-vendor/lib/libwvdrm_L3.so
-vendor/lib/mediadrm/libwvdrmengine.so
-vendor/lib/qcdrm/playready/lib/drm/libdrmprplugin_customer.so
-vendor/lib/qcdrm/playready/lib/libprdrmdecrypt_customer.so
-vendor/lib/qcdrm/playready/lib/libtzplayready_customer.so
 
 # GPS
 bin/loc_launcher
@@ -312,3 +302,8 @@ etc/firmware/venus.mdt
 # WiFi
 -lib/libwpa_qmi_eap_proxy.so
 lib/libwcnss_qmi.so
+
+# Widevine
+vendor/lib/libwvdrm_L3.so
+vendor/lib/libWVStreamControlAPI_L3.so
+vendor/lib/mediadrm/libwvdrmengine.so
