@@ -5167,6 +5167,68 @@ typedef struct {
 #define RIL_REQUEST_GET_ACTIVITY_INFO 135
 
 /**
+ * RIL_REQUEST_SIM_GET_ATR
+ *
+ * Get the ATR from SIM Card
+ *
+ * Only valid when radio state is "RADIO_STATE_ON"
+ *
+ * "data" is const int *
+ * ((const int *)data)[0] contains the slot index on the SIM from which ATR is requested.
+ *
+ * "response" is a const char * containing the ATR, See ETSI 102.221 8.1 and ISO/IEC 7816 3
+ *
+ * Valid errors:
+ *
+ * SUCCESS
+ * RADIO_NOT_AVAILABLE (radio resetting)
+ * GENERIC_FAILURE
+ */
+#define RIL_REQUEST_SIM_GET_ATR 136
+
+/**
+ * Proprietary Requests for OnePlus Services
+ */
+#define RIL_REQUEST_OEM_BASE 137
+#define RIL_REQUEST_FACTORY_MODE_NV_PROCESS 138
+#define RIL_REQUEST_FACTORY_MODE_MODEM_GPIO 139
+#define RIL_REQUEST_GET_BAND_MODE 140
+#define RIL_REQUEST_REPORT_BOOTUPNVRESTOR_STATE 141
+#define RIL_REQUEST_GET_RFFE_DEV_INFO 142
+#define RIL_REQUEST_SIM_TRANSMIT_BASIC 144
+#define RIL_REQUEST_SIM_TRANSMIT_CHANNEL 147
+#define RIL_REQUEST_GO_TO_ERROR_FATAL 148
+#define RIL_REQUEST_GET_MDM_BASEBAND  149
+#define RIL_REQUEST_SET_TDD_LTE 150
+
+/**
+ * RIL_REQUEST_CAF_SIM_OPEN_CHANNEL_WITH_P2
+ *
+ * Open a new logical channel and select the given application. This command
+ * reflects TS 27.007 "open logical channel" operation (+CCHO). This request
+ * also specifies the P2 parameter.
+ *
+ * "data" is a const RIL_CafOpenChannelParam *
+ *
+ * "response" is int *
+ * ((int *)data)[0] contains the session id of the logical channel.
+ * ((int *)data)[1] onwards may optionally contain the select response for the
+ *     open channel command with one byte per integer.
+ *
+ * Valid errors:
+ *  SUCCESS
+ *  RADIO_NOT_AVAILABLE
+ *  GENERIC_FAILURE
+ *  MISSING_RESOURCE
+ *  NO_SUCH_ELEMENT
+ */
+#define RIL_REQUEST_CAF_SIM_OPEN_CHANNEL_WITH_P2 137
+
+/**
+ * THE FOLLOWING REQUEST NUMBERS ARE RELOCATED NOT TO CLASH WITH INTERNAL RESPONSES
+ */
+
+/**
  * RIL_REQUEST_SET_CARRIER_RESTRICTIONS
  *
  * Set carrier restrictions for this sim slot. Expected modem behavior:
@@ -5197,7 +5259,7 @@ typedef struct {
  *  RIL_E_RADIO_NOT_AVAILABLE
  *  RIL_E_REQUEST_NOT_SUPPORTED
  */
-#define RIL_REQUEST_SET_CARRIER_RESTRICTIONS 136
+#define RIL_REQUEST_SET_CARRIER_RESTRICTIONS 151
 
 /**
  * RIL_REQUEST_GET_CARRIER_RESTRICTIONS
@@ -5215,49 +5277,7 @@ typedef struct {
  *  RIL_E_RADIO_NOT_AVAILABLE
  *  RIL_E_REQUEST_NOT_SUPPORTED
  */
-#define RIL_REQUEST_GET_CARRIER_RESTRICTIONS 137
-/**
- * RIL_REQUEST_SIM_GET_ATR
- *
- * Get the ATR from SIM Card
- *
- * Only valid when radio state is "RADIO_STATE_ON"
- *
- * "data" is const int *
- * ((const int *)data)[0] contains the slot index on the SIM from which ATR is requested.
- *
- * "response" is a const char * containing the ATR, See ETSI 102.221 8.1 and ISO/IEC 7816 3
- *
- * Valid errors:
- *
- * SUCCESS
- * RADIO_NOT_AVAILABLE (radio resetting)
- * GENERIC_FAILURE
- */
-#define RIL_REQUEST_SIM_GET_ATR 138
-
-/**
- * RIL_REQUEST_CAF_SIM_OPEN_CHANNEL_WITH_P2
- *
- * Open a new logical channel and select the given application. This command
- * reflects TS 27.007 "open logical channel" operation (+CCHO). This request
- * also specifies the P2 parameter.
- *
- * "data" is a const RIL_CafOpenChannelParam *
- *
- * "response" is int *
- * ((int *)data)[0] contains the session id of the logical channel.
- * ((int *)data)[1] onwards may optionally contain the select response for the
- *     open channel command with one byte per integer.
- *
- * Valid errors:
- *  SUCCESS
- *  RADIO_NOT_AVAILABLE
- *  GENERIC_FAILURE
- *  MISSING_RESOURCE
- *  NO_SUCH_ELEMENT
- */
-#define RIL_REQUEST_CAF_SIM_OPEN_CHANNEL_WITH_P2 139
+#define RIL_REQUEST_GET_CARRIER_RESTRICTIONS 152
 
 /**
  * RIL_REQUEST_GET_ADN_RECORD
@@ -5276,7 +5296,7 @@ typedef struct {
  *  SUCCESS
  *  GENERIC_FAILURE
  */
-#define RIL_REQUEST_GET_ADN_RECORD 140
+#define RIL_REQUEST_GET_ADN_RECORD 153
 
 /**
  * RIL_REQUEST_UPDATE_ADN_RECORD
@@ -5290,7 +5310,7 @@ typedef struct {
  * Valid errors:
  *  Must never fail
  */
-#define RIL_REQUEST_UPDATE_ADN_RECORD 141
+#define RIL_REQUEST_UPDATE_ADN_RECORD 154
 
 /***********************************************************************/
 
