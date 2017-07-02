@@ -17,6 +17,8 @@
 
 set -e
 
+export INITIAL_COPYRIGHT_YEAR=2016
+
 # Required!
 DEVICE=onyx
 VENDOR=oneplus
