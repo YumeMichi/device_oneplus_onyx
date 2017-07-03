@@ -186,6 +186,14 @@ on post-fs
     chmod 0660 /proc/touchpanel/letter_m_enable
     chown root system /proc/touchpanel/letter_w_enable
     chmod 0660 /proc/touchpanel/letter_w_enable
+    chown root system /proc/touchpanel/ltr_swipe_enable
+    chmod 0660 /proc/touchpanel/ltr_swipe_enable
+    chown root system /proc/touchpanel/rtl_swipe_enable
+    chmod 0660 /proc/touchpanel/rtl_swipe_enable
+    chown root system /proc/touchpanel/utd_swipe_enable
+    chmod 0660 /proc/touchpanel/utd_swipe_enable
+    chown root system /proc/touchpanel/dtu_swipe_enable
+    chmod 0660 /proc/touchpanel/dtu_swipe_enable
 
     chown root system /proc/touchpanel/keypad_enable
     chmod 0660 /proc/touchpanel/keypad_enable
