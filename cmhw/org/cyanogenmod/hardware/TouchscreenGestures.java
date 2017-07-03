@@ -46,6 +46,10 @@ public class TouchscreenGestures {
         "/proc/touchpanel/letter_o_enable",
         "/proc/touchpanel/letter_m_enable",
         "/proc/touchpanel/letter_w_enable",
+        "/proc/touchpanel/ltr_swipe_enable",
+        "/proc/touchpanel/rtl_swipe_enable",
+        "/proc/touchpanel/utd_swipe_enable",
+        "/proc/touchpanel/dtu_swipe_enable",
     };
 
     // Id, name, keycode
@@ -58,6 +62,10 @@ public class TouchscreenGestures {
         new TouchscreenGesture(5, "Letter O", 250),
         new TouchscreenGesture(6, "Letter M", 257),
         new TouchscreenGesture(7, "Letter W", 256),
+        new TouchscreenGesture(8, "One finger right swipe", 258),
+        new TouchscreenGesture(9, "One finger left swipe", 259),
+        new TouchscreenGesture(10, "One finger down swipe", 260),
+        new TouchscreenGesture(11, "One finger up swipe", 261),
     };
 
     /**
