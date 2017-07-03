@@ -480,6 +480,10 @@ public:
     static const char FLIP_MODE_H[];
     static const char FLIP_MODE_VH[];
 
+    // Values missing in nougat
+    static const char FOCUS_MODE_MANUAL_POSITION[];
+    static const char WHITE_BALANCE_MANUAL_CCT[];
+
     //Values for CDS Mode
     static const char CDS_MODE_OFF[];
     static const char CDS_MODE_ON[];
