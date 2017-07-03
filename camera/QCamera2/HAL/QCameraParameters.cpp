@@ -336,6 +336,10 @@ const char QCameraParameters::CDS_MODE_AUTO[] = "auto";
 
 const char QCameraParameters::KEY_SELECTED_AUTO_SCENE[] = "selected-auto-scene";
 
+// Values missing in nougat
+const char QCameraParameters::FOCUS_MODE_MANUAL_POSITION[] = "manual";
+const char QCameraParameters::WHITE_BALANCE_MANUAL_CCT[] = "manual-cct";
+
 static const char* portrait = "portrait";
 static const char* landscape = "landscape";
 
