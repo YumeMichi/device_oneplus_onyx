@@ -80,7 +80,6 @@ ro.qualcomm.cabl=0
 sys.io.scheduler=deadline
 
 # QC vendor extension
-ro.vendor.extension_library=libqti-perfd-client.so
 drm.service.enabled=true
 
 # QMI
