@@ -5199,9 +5199,6 @@ int32_t QCameraParameters::setSharpness(int sharpness)
     CDBG("%s: Setting sharpness %s", __func__, val);
 
     int32_t value = sharpness;
-    if (value > MAX_REAL_SHARPNESS)
-        value = MAX_REAL_SHARPNESS;
-
     return AddSetParmEntryToBatch(m_pParamBuf,
                                   CAM_INTF_PARM_SHARPNESS,
                                   sizeof(value),
