@@ -1,2 +1,3 @@
 allow qti_init_shell bluetooth_data_file:file create_file_perms;
+allow qti_init_shell btnvtool_exec:file getattr;
 qmux_socket(qti_init_shell);

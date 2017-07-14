@@ -1,2 +1,3 @@
+allow tee drm_block_device:blk_file rw_file_perms;
 allow tee vfat:file { read getattr open };
 allow tee vfat:dir search;

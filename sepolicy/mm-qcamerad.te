@@ -1,1 +1,2 @@
+allow mm-qcamerad camera_data_file:file create_file_perms;
 allow mm-qcamerad system_data_file:dir { add_name create write };

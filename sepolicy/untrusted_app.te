@@ -1,1 +1,1 @@
-allow untrusted_app mpctl_socket:sock_file rw_file_perms;
+allow untrusted_app sysfs:file r_file_perms;
