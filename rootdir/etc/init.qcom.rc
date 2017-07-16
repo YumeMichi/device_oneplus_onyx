@@ -393,6 +393,9 @@ on property:persist.env.fastdorm.enabled=true
     setprop persist.radio.data_no_toggle 1
 
 on property:sys.boot_completed=1
+    # Improve color accuracy
+    write /sys/devices/platform/kcal_ctrl.0/kcal "245 245 256"
+    write /sys/devices/platform/kcal_ctrl.0/kcal_sat 278
     # Ensure gesture nodes are writable to
     write /proc/touchpanel/double_tap_enable 1
     write /proc/touchpanel/double_swipe_enable 1
