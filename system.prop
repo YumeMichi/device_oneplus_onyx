@@ -52,9 +52,6 @@ ro.bluetooth.sap=false
 # Camera
 persist.camera.cpp.duplication=false
 
-# CNE
-persist.cne.feature=0
-
 # GPS
 persist.gps.qc_nlp_in_use=0
 ro.gps.agps_provider=1
