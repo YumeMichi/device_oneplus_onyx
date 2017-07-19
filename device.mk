@@ -174,10 +174,6 @@ PRODUCT_PACKAGES += \
     libOmxVenc \
     libstagefrighthw
 
-# Power
-PRODUCT_PACKAGES += \
-    power.msm8974
-
 # RIL
 PRODUCT_PACKAGES += \
     libcnefeatureconfig \
