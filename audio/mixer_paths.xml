@@ -531,8 +531,12 @@
         <ctl name="MultiMedia8 Mixer AFE_PCM_TX" value="1" />
     </path>
 
+    <path name="fm-virtual-record">
+         <ctl name="MultiMedia2 Mixer INTERNAL_FM_TX" value="1" />
+     </path>
+
     <path name="fm-virtual-record capture-fm">
-        <ctl name="MultiMedia2 Mixer INTERNAL_FM_TX" value="1" />
+        <path name="fm-virtual-record" />
     </path>
 
     <path name="voice-call">
@@ -981,7 +985,6 @@
         <ctl name="LINEOUT3 Volume" value="13" />
         <ctl name="RX3 Digital Volume" value="80" />
         <ctl name="RX4 Digital Volume" value="80" />
-      	<ctl name="SPKR Enable" value="1" />
     </path>
 
     <path name="speaker-fluid">
@@ -1212,7 +1215,6 @@
         <ctl name="LINEOUT3 Volume" value="13" />
         <ctl name="RX3 Digital Volume" value="84" />
         <ctl name="RX4 Digital Volume" value="84" />
-        <ctl name="SPKR Enable" value="1" />
     </path>
 
     <path name="speaker-and-headphones-fluid">
