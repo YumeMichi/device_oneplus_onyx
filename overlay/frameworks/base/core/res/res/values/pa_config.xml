@@ -36,13 +36,31 @@
     <!-- Whether device has physical tri state switch -->
     <bool name="config_hasAlertSlider">true</bool>
 
-    <!-- Gesture KeyCodes -->
+    <!-- Gestures' key codes. If the gesture is not supported set it to 0. -->
     <integer name="config_doubleTapKeyCode">249</integer>
     <integer name="config_drawVKeyCode">252</integer>
     <integer name="config_drawOKeyCode">250</integer>
     <integer name="config_twoFingerSwipeKeyCode">251</integer>
     <integer name="config_drawArrowLeftKeyCode">253</integer>
     <integer name="config_drawArrowRightKeyCode">254</integer>
+    <integer name="config_drawInverseVKeyCode">255</integer>
+    <integer name="config_oneFingerSwipeLeftKeyCode">259</integer>
+    <integer name="config_oneFingerSwipeRightKeyCode">258</integer>
+    <integer name="config_drawMKeyCode">257</integer>
+    <integer name="config_drawWKeyCode">256</integer>
+    <integer name="config_oneFingerSwipeUpKeyCode">261</integer>
+    <integer name="config_oneFingerSwipeDownKeyCode">260</integer>
+
+    <!-- Default settings for gestures
+             0 - Disabled
+             1 - Wake device
+             2 - Toggle flashlight
+             3 - Toggle airplane mode
+             4 - Play/Pause music
+             5 - Next music
+             6 - Previous music
+             7 - Open camera
+             8 - Open dialer -->
     <integer name="config_doubleTapDefault">1</integer>
     <integer name="config_drawVDefault">2</integer>
     <integer name="config_drawODefault">7</integer>

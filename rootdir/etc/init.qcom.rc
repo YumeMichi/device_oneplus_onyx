@@ -189,25 +189,7 @@ on post-fs
     # Reverse Keys
     write /proc/s1302/key_rep 1
 
-    # Touchscreen
-    chown root system /proc/touchpanel/gesture_enable
-    chmod 0660 /proc/touchpanel/gesture_enable
-
-    chown root system /proc/touchpanel/double_tap_enable
-    chmod 0660 /proc/touchpanel/double_tap_enable
-
-    chown root system /proc/touchpanel/camera_enable
-    chmod 0660 /proc/touchpanel/camera_enable
-
-    chown root system /proc/touchpanel/music_enable
-    chmod 0660 /proc/touchpanel/music_enable
-
-    chown root system /proc/touchpanel/flashlight_enable
-    chmod 0660 /proc/touchpanel/flashlight_enable
-
-    chown root system /proc/touchpanel/glove_mode_enable
-    chmod 0660 /proc/touchpanel/glove_mode_enable
-
+    # Graphics
     chown system system /sys/devices/virtual/graphics/fb0/cabc
     chmod 0660 /sys/devices/virtual/graphics/fb0/cabc
 
@@ -409,6 +391,22 @@ on property:ro.data.large_tcp_window_size=true
 
 on property:persist.env.fastdorm.enabled=true
     setprop persist.radio.data_no_toggle 1
+
+on property:sys.boot_completed=1
+    # Ensure gesture nodes are writable to
+    write /proc/touchpanel/double_tap_enable 1
+    write /proc/touchpanel/double_swipe_enable 1
+    write /proc/touchpanel/dtu_swipe_enable 1
+    write /proc/touchpanel/utd_swipe_enable 1
+    write /proc/touchpanel/ltr_swipe_enable 1
+    write /proc/touchpanel/rtl_swipe_enable 1
+    write /proc/touchpanel/down_arrow_enable 1
+    write /proc/touchpanel/left_arrow_enable 1
+    write /proc/touchpanel/right_arrow_enable 1
+    write /proc/touchpanel/up_arrow_enable 1
+    write /proc/touchpanel/letter_o_enable 1
+    write /proc/touchpanel/letter_m_enable 1
+    write /proc/touchpanel/letter_w_enable 1
 
 service irsc_util /system/bin/irsc_util "/etc/sec_config"
     class main
