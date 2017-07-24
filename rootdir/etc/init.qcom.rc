@@ -410,10 +410,6 @@ on property:ro.data.large_tcp_window_size=true
 on property:persist.env.fastdorm.enabled=true
     setprop persist.radio.data_no_toggle 1
 
-on property:sys.boot_completed=1
-    # Temp hack to fix torch not being registered on boot
-    restart media
-
 service irsc_util /system/bin/irsc_util "/etc/sec_config"
     class main
     user root
