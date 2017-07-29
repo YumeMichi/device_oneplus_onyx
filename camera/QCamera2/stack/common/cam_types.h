@@ -45,6 +45,8 @@
 #define ASD_DEBUG_DATA_SIZE          (100)
 #define STATS_BUFFER_DEBUG_DATA_SIZE (74756)
 
+#define ARRAY_SIZE(a) (sizeof(a)/sizeof((a)[0]))
+
 #define CEILING64(X) (((X) + 0x0003F) & 0xFFFFFFC0)
 #define CEILING32(X) (((X) + 0x0001F) & 0xFFFFFFE0)
 #define CEILING16(X) (((X) + 0x000F) & 0xFFF0)
