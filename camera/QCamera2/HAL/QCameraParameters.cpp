@@ -530,6 +530,49 @@ const QCameraParameters::QCameraMap QCameraParameters::ANTIBANDING_MODES_MAP[] =
     { ANTIBANDING_AUTO, CAM_ANTIBANDING_MODE_AUTO }
 };
 
+// ISO codes for countries with a 60 Hz power grid. Codes list found in MccTable.java.
+static const char *countries_60hz[] = {
+    "as", // American Samoa
+    "ai", // Anguilla
+    "ag", // Antigua
+    "aw", // Aruba
+    "bs", // Bahamas
+    "bz", // Belize
+    "bm", // Bermuda
+    "br", // Brazil
+    "ca", // Canada
+    "ky", // Cayman Islands
+    "co", // Colombia
+    "cr", // Costa Rica
+    "cu", // Cuba
+    "do", // Dominican Republic
+    "ec", // Ecuador
+    "sv", // El Salvador
+    "gu", // Guam
+    "gt", // Guatemala
+    "gy", // Guyana
+    "ht", // Haiti
+    "hn", // Honduras
+    "lr", // Liberia
+    "mx", // Mexico
+    "fm", // Micronesia
+    "ms", // Montserrat
+    "ni", // Nicaragua
+    "pa", // Panama
+    "pe", // Peru
+    "ph", // Philippines
+    "pr", // Puerto Rico
+    "kn", // Saint Kitts and Nevis
+    "sa", // Saudi Arabia
+    "kr", // South Korea
+    "sr", // Suriname
+    "tw", // Taiwan
+    "tt", // Trinidad and Tobago
+    "us", // United States
+    "vi", // United States Virgin Islands
+    "ve"  // Venezuela
+};
+
 const QCameraParameters::QCameraMap QCameraParameters::ISO_MODES_MAP[] = {
     { ISO_AUTO,  CAM_ISO_MODE_AUTO },
     { ISO_HJR,   CAM_ISO_MODE_DEBLUR },
@@ -6101,16 +6144,15 @@ int32_t QCameraParameters::updateCCTValue(int32_t cct)
 
 int QCameraParameters::getAutoFlickerMode()
 {
-    /* Enable Advanced Auto Antibanding where we can set
-       any of the following option
-       ie. CAM_ANTIBANDING_MODE_AUTO
-           CAM_ANTIBANDING_MODE_AUTO_50HZ
-           CAM_ANTIBANDING_MODE_AUTO_60HZ
-      Currently setting it to default    */
     char prop[PROPERTY_VALUE_MAX];
-    memset(prop, 0, sizeof(prop));
-    property_get("persist.camera.set.afd", prop, "3");
-    return atoi(prop);
+
+    if (property_get("gsm.operator.iso-country", prop, NULL)) {
+        for (size_t i = 0; i < ARRAY_SIZE(countries_60hz); i++)
+            if (!memcmp(countries_60hz[i], prop, 2))
+                return CAM_ANTIBANDING_MODE_60HZ;
+    }
+
+    return CAM_ANTIBANDING_MODE_50HZ;
 }
 
 /*===========================================================================
