@@ -69,6 +69,7 @@ persist.sys.strictmode.disable=true
 ro.opengles.version=196608
 ro.sf.lcd_density=480
 ro.qualcomm.cabl=0
+debug.hwui.use_buffer_age=false
 
 # QC vendor extension
 ro.frp.pst=/dev/block/bootdevice/by-name/config
