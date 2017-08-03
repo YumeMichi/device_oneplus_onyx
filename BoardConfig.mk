@@ -38,6 +38,8 @@ TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_VARIANT := generic
 TARGET_CPU_VARIANT_RUNTIME := krait
 
+TARGET_CPU_MEMCPY_BASE_OPT_DISABLE := true
+
 # Binder API version
 TARGET_USES_64_BIT_BINDER := true
 
@@ -50,9 +52,6 @@ BOARD_KERNEL_IMAGE_NAME := zImage-dtb
 TARGET_KERNEL_ARCH := arm
 TARGET_KERNEL_CONFIG := onyx_defconfig
 TARGET_KERNEL_SOURCE := kernel/oneplus/onyx
-
-# Fixes Wifi-Mobile Data toggle issue
-MALLOC_SVELTE := true
 
 # ANT+
 BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
