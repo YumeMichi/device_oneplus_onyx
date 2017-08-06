@@ -9,7 +9,7 @@ vendor/lib/libscve_stub.so
 # Bluetooth
 bin/btnvtool
 # bin/hci_qcomm_init (from bacon)
-bin/hci_qcomm_init|5cb0f2d08acab2d995147c83ce500e16486692f9
+bin/hci_qcomm_init|022d27e7c7cba3c9bbb0deadaa1834a620eeb407
 vendor/lib/libbtnv.so
 
 # Audio
