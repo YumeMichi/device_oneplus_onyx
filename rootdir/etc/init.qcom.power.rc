@@ -38,11 +38,11 @@ on post-boot
     write /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load 99
     write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1190400
     write /sys/devices/system/cpu/cpufreq/interactive/io_is_busy 1
-    write /sys/devices/system/cpu/cpufreq/interactive/target_loads "99 422400:12 652800:36 729600:70 883200:19 960000:69 1190400:95 1497600:95"
+    write /sys/devices/system/cpu/cpufreq/interactive/target_loads "99 422400:18 652800:42 729600:70 883200:19 960000:69 1497600:95"
     write /sys/devices/system/cpu/cpufreq/interactive/min_sample_time 30000
     write /sys/devices/system/cpu/cpufreq/interactive/timer_rate 20000
     write /sys/devices/system/cpu/cpufreq/interactive/max_freq_hysteresis 100000
-    write /sys/devices/system/cpu/cpufreq/interactive/timer_slack 30000
+    write /sys/devices/system/cpu/cpufreq/interactive/timer_slack -1
 
     chown root system /sys/devices/system/cpu/cpu1/online
     chown root system /sys/devices/system/cpu/cpu2/online
