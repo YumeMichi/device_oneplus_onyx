@@ -397,19 +397,60 @@ on property:sys.boot_completed=1
     write /sys/devices/platform/kcal_ctrl.0/kcal "245 245 256"
     write /sys/devices/platform/kcal_ctrl.0/kcal_sat 278
     # Ensure gesture nodes are writable to
+    chown root system /proc/touchpanel/double_tap_enable
+    chmod 0666 /proc/touchpanel/double_tap_enable
     write /proc/touchpanel/double_tap_enable 1
+
+    chown root system /proc/touchpanel/double_swipe_enable
+    chmod 0666 /proc/touchpanel/double_swipe_enable
     write /proc/touchpanel/double_swipe_enable 1
-    write /proc/touchpanel/dtu_swipe_enable 1
-    write /proc/touchpanel/utd_swipe_enable 1
-    write /proc/touchpanel/ltr_swipe_enable 1
-    write /proc/touchpanel/rtl_swipe_enable 1
-    write /proc/touchpanel/down_arrow_enable 1
-    write /proc/touchpanel/left_arrow_enable 1
-    write /proc/touchpanel/right_arrow_enable 1
+
+    chown root system /proc/touchpanel/up_arrow_enable
+    chmod 0666 /proc/touchpanel/up_arrow_enable
     write /proc/touchpanel/up_arrow_enable 1
+
+    chown root system /proc/touchpanel/down_arrow_enable
+    chmod 0666 /proc/touchpanel/down_arrow_enable
+    write /proc/touchpanel/down_arrow_enable 1
+
+    chown root system /proc/touchpanel/left_arrow_enable
+    chmod 0666 /proc/touchpanel/left_arrow_enable
+    write /proc/touchpanel/left_arrow_enable 1
+
+    chown root system /proc/touchpanel/right_arrow_enable
+    chmod 0666 /proc/touchpanel/right_arrow_enable
+    write /proc/touchpanel/right_arrow_enable 1
+
+    chown root system /proc/touchpanel/letter_o_enable
+    chmod 0666 /proc/touchpanel/letter_o_enable
     write /proc/touchpanel/letter_o_enable 1
+
+    chown root system /proc/touchpanel/letter_m_enable
+    chmod 0666 /proc/touchpanel/letter_m_enable
     write /proc/touchpanel/letter_m_enable 1
+
+    chown root system /proc/touchpanel/letter_w_enable
+    chmod 0666 /proc/touchpanel/letter_w_enable
     write /proc/touchpanel/letter_w_enable 1
+
+    chown root system /proc/touchpanel/ltr_swipe_enable
+    chmod 0666 /proc/touchpanel/ltr_swipe_enable
+    write /proc/touchpanel/ltr_swipe_enable 1
+
+    chown root system /proc/touchpanel/rtl_swipe_enable
+    chmod 0666 /proc/touchpanel/rtl_swipe_enable
+    write /proc/touchpanel/rtl_swipe_enable 1
+
+    chown root system /proc/touchpanel/utd_swipe_enable
+    chmod 0666 /proc/touchpanel/utd_swipe_enable
+    write /proc/touchpanel/utd_swipe_enable 1
+
+    chown root system /proc/touchpanel/dtu_swipe_enable
+    chmod 0666 /proc/touchpanel/dtu_swipe_enable
+    write /proc/touchpanel/dtu_swipe_enable 1
+
+    chown root system /proc/touchpanel/keypad_enable
+    chmod 0666 /proc/touchpanel/keypad_enable
 
 service irsc_util /system/bin/irsc_util "/etc/sec_config"
     class main
