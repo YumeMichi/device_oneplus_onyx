@@ -27,20 +27,24 @@
 
 #include <stdlib.h>
 
-#include "vendor_init.h"
+#include <android-base/properties.h>
+#include <android-base/logging.h>
+
 #include "property_service.h"
-#include "log.h"
-#include "util.h"
+#include "vendor_init.h"
+
+using android::base::GetProperty;
+using android::init::property_set;
 
 void vendor_load_properties()
 {
     std::string platform, rf_version, device;
 
-    platform = property_get("ro.board.platform");
+    platform = GetProperty("ro.board.platform", "");
     if (platform != ANDROID_TARGET)
         return;
 
-    rf_version = property_get("ro.boot.rf_version");
+    rf_version = GetProperty("ro.boot.rf_version", "");
 
     if (rf_version == "101") {
         /* China */
@@ -59,6 +63,6 @@ void vendor_load_properties()
         property_set("ro.product.model", "ONE E1000");
         property_set("ro.rf_version", "TDD_FDD_ALL_OPTR");
     }
-    device = property_get("ro.product.device");
-    INFO("Found rf_version : %s setting build properties for %s device\n", rf_version.c_str(), device.c_str());
+    device = GetProperty("ro.product.device", "");
+    LOG(INFO) << "Found rf_version : " << rf_version.c_str() << " setting build properties for " << device.c_str() << " device\n";
 }
