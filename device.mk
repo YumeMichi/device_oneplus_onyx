@@ -235,6 +235,10 @@ PRODUCT_PACKAGES += \
     android.hardware.power@1.0-impl \
     power.msm8974
 
+# Recovery
+PRODUCT_PACKAGES += \
+    librecovery_updater_oppo
+
 # RIL
 PRODUCT_PACKAGES += \
     libcnefeatureconfig \
