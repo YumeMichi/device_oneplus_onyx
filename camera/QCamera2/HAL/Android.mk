@@ -36,6 +36,8 @@ endif
 LOCAL_C_INCLUDES := \
         $(LOCAL_PATH)/../stack/common \
         frameworks/native/include/media/openmax \
+        frameworks/native/libs/nativewindow/include \
+        frameworks/native/libs/nativebase/include \
         $(call project-path-for,qcom-display)/libgralloc \
         $(call project-path-for,qcom-media)/libstagefrighthw \
         system/media/camera/include \
@@ -55,7 +57,10 @@ LOCAL_C_INCLUDES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
 LOCAL_C_INCLUDES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include/media
 LOCAL_ADDITIONAL_DEPENDENCIES := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
 
-LOCAL_SHARED_LIBRARIES := libcamera_client liblog libhardware libutils libcutils libdl
+LOCAL_STATIC_LIBRARIES := libbase libarect
+LOCAL_SHARED_LIBRARIES := libcamera_client liblog libhardware libutils libcutils libdl \
+    android.hidl.token@1.0-utils \
+    android.hardware.graphics.bufferqueue@1.0
 LOCAL_SHARED_LIBRARIES += libmmcamera_interface libmmjpeg_interface
 LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw
 
