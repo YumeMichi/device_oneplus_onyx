@@ -260,10 +260,7 @@ PRODUCT_PACKAGES += \
     wpa_supplicant \
     wpa_supplicant.conf \
     wpa_supplicant_overlay.conf \
-    p2p_supplicant_overlay.conf \
-    hostapd_default.conf \
-    hostapd.accept \
-    hostapd.deny
+    p2p_supplicant_overlay.conf
 
 PRODUCT_PACKAGES += \
     wcnss_service \
