@@ -18,7 +18,7 @@ import init.qcom.usb.rc
 import init.qcom.power.rc
 
 on init
-    export LD_SHIM_LIBS "/system/vendor/lib/libqomx_jpegenc.so|libboringssl-compat.so:/system/lib/libgui.so|libshims_sensors.so"
+    export LD_SHIM_LIBS "/system/vendor/lib/libqomx_jpegenc.so|libboringssl-compat.so:/system/lib/libgui.so|libshims_sensors.so:/system/vendor/lib/libmmcamera2_stats_algorithm.so|libshims_atomic.so"
 
     # Set permissions for persist partition
     mkdir /persist 0771 system system

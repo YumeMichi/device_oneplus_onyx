@@ -113,6 +113,7 @@ PRODUCT_PACKAGES += \
     camera.msm8974 \
     libboringssl-compat \
     libstlport \
+    libshims_atomic \
     Snap
 
 # Data
