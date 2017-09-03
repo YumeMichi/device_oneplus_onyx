@@ -158,8 +158,8 @@ $(shell mkdir -p $(TARGET_OUT)/etc/firmware/wcd9320; \
 
 # Create a link for the WCNSS config file, which ends up as a writable
 # version in /data/misc/wifi
-$(shell mkdir -p $(TARGET_OUT)/etc/firmware/wlan/prima; \
+$(shell mkdir -p $(TARGET_OUT_VENDOR)/etc/firmware/wlan/prima; \
     ln -sf /data/misc/wifi/WCNSS_qcom_cfg.ini \
-	    $(TARGET_OUT)/etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini)
+	    $(TARGET_OUT_VENDOR)/etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini)
 
 endif
