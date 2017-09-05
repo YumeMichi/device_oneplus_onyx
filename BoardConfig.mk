@@ -183,6 +183,7 @@ BOARD_SEPOLICY_DIRS += \
 TARGET_LD_SHIM_LIBS := \
     /system/lib/libgui.so|libshims_sensors.so \
     /system/vendor/lib/hw/camera.vendor.msm8974.so|libshims_camera.so \
+    /system/vendor/lib/hw/camera.vendor.msm8974.so|libshims_camera_parameters.so \
     /system/vendor/lib/libmmcamera2_stats_algorithm.so|libshims_atomic.so
 
 # Vendor security patch level

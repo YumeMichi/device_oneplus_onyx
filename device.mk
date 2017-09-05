@@ -119,7 +119,8 @@ PRODUCT_PACKAGES += \
     camera.device@1.0-impl \
     camera.msm8974 \
     libshims_atomic \
-    libshims_camera
+    libshims_camera \
+    libshims_camera_parameters
 
 # Camera configurations
 PRODUCT_COPY_FILES += \
