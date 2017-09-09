@@ -158,7 +158,7 @@ PROTOBUF_SUPPORTED := true
 BOARD_USES_QCOM_HARDWARE := true
 
 # Recovery
-TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/rootdir/etc/fstab.qcom
+TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/rootdir/etc/fstab.full
 
 # RIL
 TARGET_RIL_VARIANT := caf
