@@ -270,6 +270,9 @@ on post-fs
     chmod 0660 /proc/tri-state-key/keyCode_middle
     chmod 0660 /proc/tri-state-key/keyCode_bottom
 
+    # Logcat
+    rm /data/logcat.txt
+
 on post-fs-data
     # Create directory for TZ Apps
     mkdir /data/misc/qsee 0770 system system
@@ -365,6 +368,12 @@ on property:hw.fm.init=1
 
 on property:hw.fm.init=0
     write /sys/module/radio_iris_transport/parameters/fmsmd_set 0
+
+# Logcat
+service logcat_debug /system/bin/logcat -b all -f /data/logcat.txt -v threadtime
+    class main
+    user root
+    group system
 
 service rmt_storage /vendor/bin/rmt_storage
     class core
