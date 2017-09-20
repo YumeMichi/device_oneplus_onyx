@@ -94,6 +94,9 @@ vendor/lib/libdrmtime.so
 vendor/lib/librpmb.so
 vendor/lib/libssd.so
 
+# Widevine
+vendor/lib/mediadrm/libwvdrmengine.so
+
 # GPS
 bin/loc_launcher
 lib/libloc_api_v02.so
@@ -304,8 +307,3 @@ etc/firmware/venus.mdt
 # WiFi
 -lib/libwpa_qmi_eap_proxy.so
 lib/libwcnss_qmi.so
-
-# Widevine
-vendor/lib/libwvdrm_L3.so
-vendor/lib/libWVStreamControlAPI_L3.so
-vendor/lib/mediadrm/libwvdrmengine.so
