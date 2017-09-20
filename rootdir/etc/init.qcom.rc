@@ -153,6 +153,10 @@ on boot
     chown radio radio /data/misc/radio/copy_complete
     chmod 0660 /data/misc/radio/copy_complete
 
+    # msm-thermal-simple (for power HAL usage)
+    chown system system /sys/kernel/msm_thermal/user_maxfreq
+    chmod 0660 /sys/kernel/msm_thermal/user_maxfreq
+
     # Adaptive LMK
     write /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk 1
     write /sys/module/lowmemorykiller/parameters/vmpressure_file_min 53059
