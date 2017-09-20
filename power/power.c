@@ -25,13 +25,9 @@
 #include <cutils/properties.h>
 #include <hardware/power.h>
 
-enum {
-    PROFILE_POWER_SAVE,
-    PROFILE_BALANCED,
-    PROFILE_HIGH_PERFORMANCE,
-};
-
-#define POWER_NR_OF_SUPPORTED_PROFILES 3
+#define PROFILE_POWER_SAVE       0
+#define PROFILE_BALANCED         1
+#define PROFILE_HIGH_PERFORMANCE 2
 
 #define POWER_PROFILE_PROPERTY  "sys.perf.profile"
 #define POWER_SAVE_PROP         "0"
@@ -96,8 +92,11 @@ static void set_power_profile(int profile)
 static void power_hint(struct power_module *module __unused, power_hint_t hint,
                 void *data __unused)
 {
-    if (hint == POWER_HINT_SET_PROFILE)
-        set_power_profile(*(int32_t *)data);
+    if (hint == POWER_HINT_LOW_POWER) {
+        set_power_profile(PROFILE_POWER_SAVE);
+    } else {
+        set_power_profile(PROFILE_BALANCED);
+    }
 }
 
 static void set_feature(struct power_module *module __unused,
@@ -111,13 +110,6 @@ static void set_feature(struct power_module *module __unused,
         sysfs_write(TAP_TO_WAKE_NODE, tmp_str);
     }
 #endif
-}
-
-static int get_feature(struct power_module *module __unused, feature_t feature)
-{
-    if (feature == POWER_FEATURE_SUPPORTED_PROFILES)
-        return POWER_NR_OF_SUPPORTED_PROFILES;
-    return -1;
 }
 
 static int power_open(const hw_module_t* module, const char* name,
@@ -145,7 +137,6 @@ static int power_open(const hw_module_t* module, const char* name,
     dev->powerHint = power_hint;
     dev->setInteractive = power_set_interactive;
     dev->setFeature = set_feature;
-    dev->getFeature = get_feature;
 
     *device = (hw_device_t*)dev;
 
@@ -171,6 +162,5 @@ struct power_module HAL_MODULE_INFO_SYM = {
     .init = power_init,
     .powerHint = power_hint,
     .setInteractive = power_set_interactive,
-    .setFeature = set_feature,
-    .getFeature = get_feature
+    .setFeature = set_feature
 };
