@@ -1,2 +1,1 @@
 allow bootanim mpctl_socket:dir search;
-unix_socket_send(bootanim, mpctl, perfd)
