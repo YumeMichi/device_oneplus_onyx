@@ -361,29 +361,29 @@ on property:hw.fm.init=1
 on property:hw.fm.init=0
     write /sys/module/radio_iris_transport/parameters/fmsmd_set 0
 
-service rmt_storage /system/bin/rmt_storage
+service rmt_storage /vendor/bin/rmt_storage
     class core
     user root
     group system wakelock
 
-service rfs_access /system/bin/rfs_access
+service rfs_access /vendor/bin/rfs_access
     class core
     user system
     group system net_raw
 
 # QMUX must be in multiple groups to support external process connections
-service qmuxd /system/bin/qmuxd
+service qmuxd /vendor/bin/qmuxd
     class main
     user radio
     group radio audio bluetooth gps diag qcom_diag
 
-service netmgrd /system/bin/netmgrd
+service netmgrd /vendor/bin/netmgrd
     class main
     user root
     group radio readproc system wakelock
 
 # QCOM sensor
-service sensors /system/bin/sensors.qcom
+service sensors /vendor/bin/sensors.qcom
     class late_start
     user root
     group root
@@ -393,16 +393,16 @@ service sensors /system/bin/sensors.qcom
 on property:ro.data.large_tcp_window_size=true
     write /proc/sys/net/ipv4/tcp_adv_win_scale  2
 
-service irsc_util /system/bin/irsc_util "/etc/sec_config"
+service irsc_util /vendor/bin/irsc_util "/vendor/etc/sec_config"
     class main
     user root
     oneshot
 
 service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
     -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf \
-    -I/system/etc/wifi/wpa_supplicant_overlay.conf -N \
+    -I/vendor/etc/wifi/wpa_supplicant_overlay.conf -N \
     -ip2p0 -Dnl80211 -c/data/misc/wifi/p2p_supplicant.conf \
-    -I/system/etc/wifi/p2p_supplicant_overlay.conf \
+    -I/vendor/etc/wifi/p2p_supplicant_overlay.conf \
     -puse_p2p_group_interface=1 -e/data/misc/wifi/entropy.bin \
     -g@android:wpa_wlan0
     #   we will start as root and wpa_supplicant will switch to user wifi
@@ -414,12 +414,12 @@ service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
     disabled
     oneshot
 
-service loc_launcher /system/bin/loc_launcher
+service loc_launcher /vendor/bin/loc_launcher
     #loc_launcher will start as root and set its uid to gps
     class late_start
     group gps inet net_raw diag qcom_diag net_admin wifi
 
-service qseecomd /system/bin/qseecomd
+service qseecomd /vendor/bin/qseecomd
     class core
     user root
     group root
@@ -430,18 +430,18 @@ service charger /charger
     group system graphics
     seclabel u:r:healthd:s0
 
-service qcamerasvr /system/bin/mm-qcamera-daemon
+service qcamerasvr /vendor/bin/mm-qcamera-daemon
     class late_start
     user camera
     group camera system inet input graphics
 
-service mpdecision /system/bin/mpdecision --avg_comp
+service mpdecision /vendor/bin/mpdecision --avg_comp
    class main
    user root
    group system
    disabled
 
-service time_daemon /system/bin/time_daemon
+service time_daemon /vendor/bin/time_daemon
     class late_start
     user root
     group root
@@ -450,7 +450,7 @@ on property:vold.decrypt=trigger_restart_framework
     start config_bt_addr
     start wcnss-service
 
-service config_bt_addr /system/bin/btnvtool -O
+service config_bt_addr /vendor/bin/btnvtool -O
     class core
     user bluetooth
     group bluetooth radio
@@ -468,17 +468,17 @@ on property:bluetooth.hciattach=true
 on property:bluetooth.hciattach=false
     setprop bluetooth.status off
 
-service adsprpcd /system/bin/adsprpcd
+service adsprpcd /vendor/bin/adsprpcd
    class main
    user media
    group media
 
-service audiod /system/bin/audiod
+service audiod /vendor/bin/audiod
    class late_start
    user system
    group system
 
-service wcnss-service /system/bin/wcnss_service
+service wcnss-service /vendor/bin/wcnss_service
     class main
     user system
     group system wifi qcom_diag diag radio
