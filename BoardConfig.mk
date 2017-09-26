@@ -140,6 +140,9 @@ TARGET_NO_RPC := true
 BOARD_SEPOLICY_DIRS += \
      device/oneplus/onyx/sepolicy
 
+# Treble
+PRODUCT_VENDOR_MOVE_ENABLED := true
+
 # Wifi
 BOARD_HAS_QCOM_WLAN              := true
 BOARD_WLAN_DEVICE                := qcwcn
