@@ -451,15 +451,17 @@ service time_daemon /vendor/bin/time_daemon
 on property:vold.decrypt=trigger_restart_framework
     start wcnss-service
 
-service hciattach /system/bin/sh /init.qcom.bt.sh
+service hciattach /vendor/bin/hci_qcomm_init -e
     class late_start
-    user root
+    user bluetooth
     group bluetooth net_bt_admin oem_2950 radio
     disabled
     oneshot
 
+## Properties start here
 on property:bluetooth.hciattach=true
     start hciattach
+    setprop bluetooth.status on
 
 on property:bluetooth.hciattach=false
     setprop bluetooth.status off
