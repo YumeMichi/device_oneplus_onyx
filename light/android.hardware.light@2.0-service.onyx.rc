@@ -27,9 +27,6 @@ on early-boot
     chown system system /sys/class/leds/green/brightness
     chown system system /sys/class/leds/blue/brightness
 
-    chown system system /sys/class/leds/button-backlight/brightness
-    chown system system /sys/class/leds/button-backlight1/brightness
-
     chown system system /sys/class/leds/rgb/rgb_blink
 
     chmod 660 /sys/class/leds/red/pause_lo
@@ -55,9 +52,6 @@ on early-boot
     chmod 0644 /sys/class/leds/red/brightness
     chmod 0644 /sys/class/leds/green/brightness
     chmod 0644 /sys/class/leds/blue/brightness
-
-    chmod 0660 /sys/class/leds/button-backlight/brightness
-    chmod 0660 /sys/class/leds/button-backlight1/brightness
 
     chmod 660 /sys/class/leds/rgb/rgb_blink
 
