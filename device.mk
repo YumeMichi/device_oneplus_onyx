@@ -214,7 +214,6 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_PACKAGES += \
     libc2dcolorconvert \
-    libdivxdrmdecrypt \
     libOmxAacEnc \
     libOmxAmrEnc \
     libOmxCore \
