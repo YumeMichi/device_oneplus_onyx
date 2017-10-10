@@ -62,6 +62,7 @@ ro.opengles.version=196608
 ro.sf.lcd_density=420
 ro.qualcomm.cabl=0
 debug.hwui.use_buffer_age=false
+debug.sf.latch_unsignaled=1
 
 # Media
 debug.stagefright.omx_default_rank.sw-audio=1
