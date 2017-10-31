@@ -432,7 +432,7 @@ service charger /charger
     class charger
     critical
     group system graphics
-    seclabel u:r:healthd:s0
+    seclabel u:r:charger:s0
 
 service qcamerasvr /vendor/bin/mm-qcamera-daemon
     class late_start
