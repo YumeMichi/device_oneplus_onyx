@@ -545,40 +545,6 @@ on property:init.svc.surfaceflinger=stopped
 on property:init.svc.surfaceflinger=running
     start ppd
 
-# diag logging
-service diag_mdlog_start /system/bin/diag_mdlog
-    class late_start
-    user shell
-    group system oem_2950 sdcard_rw sdcard_r media_rw
-    disabled
-    oneshot
-
-service diag_mdlog_stop /system/bin/diag_mdlog -k
-    class late_start
-    user shell
-    group system oem_2950 sdcard_rw sdcard_r media_rw
-    disabled
-    oneshot
-
-service qlogd /system/xbin/qlogd
-    class main
-    disabled
-on property:persist.sys.qlogd=1
-    start qlogd
-on property:persist.sys.qlogd=0
-    stop qlogd
-
-service ssr_diag /system/bin/ssr_diag
-    class late_start
-    disabled
-    user system
-    group system
-
-service pfm /system/bin/pfm
-    class late_start
-    user system
-    group system drmrpc mount
-
 service ril-daemon1 /vendor/bin/hw/rild -c 2
     class main
     user radio
