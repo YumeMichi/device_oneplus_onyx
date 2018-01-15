@@ -59,10 +59,6 @@ ro.bluetooth.sap=false
 camera2.portability.force_api=1
 persist.camera.cpp.duplication=false
 
-# GPS
-persist.gps.qc_nlp_in_use=0
-ro.gps.agps_provider=1
-
 # Graphics
 persist.hwc.mdpcomp.enable=true
 persist.sys.strictmode.disable=true
