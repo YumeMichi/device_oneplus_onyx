@@ -60,11 +60,6 @@ ro.bluetooth.sap=false
 # Camera
 persist.camera.cpp.duplication=false
 
-# GPS
-persist.gps.qc_nlp_in_use=0
-ro.gps.agps_provider=1
-ro.pip.gated=0
-
 # Graphics
 debug.sf.hw=1
 debug.egl.hw=1
