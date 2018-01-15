@@ -172,9 +172,6 @@ TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/rootdir/etc/fstab.full
 # RIL
 TARGET_RIL_VARIANT := caf
 
-# RPC
-TARGET_NO_RPC := true
-
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
 include device/qcom/sepolicy/legacy-sepolicy.mk
