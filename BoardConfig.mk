@@ -100,6 +100,9 @@ ifeq ($(HOST_OS),linux)
   endif
 endif
 
+# Exclude serif fonts for saving system.img size.
+EXCLUDE_SERIF_FONTS := true
+
 # Filesystem
 BOARD_FLASH_BLOCK_SIZE := 131072
 BOARD_BOOTIMAGE_PARTITION_SIZE     := 16777216
