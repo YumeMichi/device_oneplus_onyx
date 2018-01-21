@@ -380,7 +380,7 @@ service qmuxd /vendor/bin/qmuxd
 service netmgrd /vendor/bin/netmgrd
     class main
     user root
-    group radio readproc system wakelock
+    group radio readproc system wakelock oem_2950
 
 # QCOM sensor
 service sensors /vendor/bin/sensors.qcom
