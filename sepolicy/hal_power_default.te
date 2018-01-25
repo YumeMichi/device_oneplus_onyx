@@ -1,0 +1,3 @@
+allow hal_power_default proc_touchpanel:dir search;
+allow hal_power_default proc_touchpanel:file open;
+allow hal_power_default proc_touchpanel:file write;
