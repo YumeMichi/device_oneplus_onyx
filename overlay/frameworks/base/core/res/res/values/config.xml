@@ -322,4 +322,10 @@
 
     <!-- Whether to enable HumanInteractionController by default -->
     <bool name="config_HICEnabledDefault">false</bool>
+
+    <!-- Control the behavior when the user panic presses the back button.
+            0 - Nothing
+            1 - Go to home
+    -->
+    <integer name="config_backPanicBehavior">0</integer>
 </resources>
