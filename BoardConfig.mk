@@ -21,17 +21,18 @@ TARGET_KRAIT_BIONIC_PLDTHRESH := 10
 TARGET_KRAIT_BIONIC_BBTHRESH := 64
 TARGET_KRAIT_BIONIC_PLDSIZE := 64
 
-BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom user_debug=23 msm_rtb.filter=0x3b7 ehci-hcd.park=3 androidboot.bootdevice=msm_sdcc.1 androidboot.selinux=permissive
-
+# Kernel
 BOARD_KERNEL_BASE := 0x00000000
+BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom androidboot.bootdevice=msm_sdcc.1 ehci-hcd.park=3
+BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 BOARD_KERNEL_PAGESIZE := 2048
-BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 --tags_offset 0x00000100
-
-# prebuilt kernel
-TARGET_PREBUILT_KERNEL := device/oneplus/onyx/kernel
-# else uncomment below to build from sauce
-# TARGET_KERNEL_SOURCE := kernel/oneplus/onyx
-# TARGET_KERNEL_CONFIG := onyx_defconfig
+BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100
+BOARD_KERNEL_IMAGE_NAME := zImage-dtb
+TARGET_KERNEL_ARCH := arm
+TARGET_KERNEL_CONFIG := onyx_defconfig
+TARGET_KERNEL_SOURCE := kernel/oneplus/onyx
+KERNEL_TOOLCHAIN := $(ANDROID_BUILD_TOP)/prebuilts/gcc/$(HOST_OS)-x86/arm/arm-eabi-4.8/bin
+KERNEL_TOOLCHAIN_PREFIX := arm-eabi-
 
 BOARD_BOOTIMAGE_PARTITION_SIZE := 25165824
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 25165824

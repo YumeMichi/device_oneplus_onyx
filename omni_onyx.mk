@@ -30,19 +30,11 @@ PRODUCT_PACKAGES += \
     charger_res_images \
     charger
 
-PRODUCT_COPY_FILES += \
-    device/oneplus/onyx/kernel:kernel
-
 PRODUCT_NAME := omni_onyx
 PRODUCT_DEVICE := onyx
 PRODUCT_BRAND := OnePlus
 PRODUCT_MODEL := OnePlus X
 PRODUCT_MANUFACTURER := OnePlus
-
-# Kernel inline build
-#TARGET_KERNEL_CONFIG := onyx_defconfig
-#TARGET_VARIANT_CONFIG := onyx_defconfig
-#TARGET_SELINUX_CONFIG := onyx_defconfig
 
 # enable stock zip packages flash
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
