@@ -45,9 +45,8 @@ TARGET_USERIMAGES_USE_F2FS := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 
 # Vendor Init
-TARGET_INIT_VENDOR_LIB := libinit_msm
-TARGET_LIBINIT_DEFINES_FILE := device/oneplus/onyx/init/init_onyx.c
-TARGET_UNIFIED_DEVICE := true
+TARGET_INIT_VENDOR_LIB := libinit_onyx
+TARGET_RECOVERY_DEVICE_MODULES := libinit_onyx
 
 TW_THEME := portrait_hdpi
 TW_INCLUDE_CRYPTO := true

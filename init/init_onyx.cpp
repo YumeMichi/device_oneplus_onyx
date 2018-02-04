@@ -26,41 +26,56 @@
  */
 
 #include <stdlib.h>
+#define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
+#include <sys/_system_properties.h>
 
-#include "vendor_init.h"
+#include <android-base/properties.h>
+#include <android-base/logging.h>
+
 #include "property_service.h"
-#include "log.h"
-#include "util.h"
+#include "vendor_init.h"
 
-#include "init_msm.h"
+using android::base::GetProperty;
+using android::init::property_set;
 
-void init_msm_properties(unsigned long msm_id,unsigned long msm_ver, char *board_type) {
-    char device[PROP_VALUE_MAX];
-    char rf_version[PROP_VALUE_MAX];
-    int rc;
+void property_override(char const prop[], char const value[])
+{
+    prop_info *pi;
 
-    UNUSED(msm_id);
-    UNUSED(msm_ver);
-    UNUSED(board_type);
+    pi = (prop_info*) __system_property_find(prop);
+    if (pi)
+        __system_property_update(pi, value, strlen(value));
+    else
+        __system_property_add(prop, strlen(prop), value, strlen(value));
+}
 
-    rc = property_get("ro.omni.device", device);
-    if (!rc || !ISMATCH(device, "onyx"))
+void vendor_load_properties()
+{
+    std::string platform, rf_version, device;
+
+    platform = GetProperty("ro.board.platform", "");
+    if (platform != ANDROID_TARGET)
         return;
 
-    property_set("ro.product.device", "onyx");
-    property_get("ro.boot.rf_version", rf_version);
+    rf_version = GetProperty("ro.boot.rf_version", "");
 
-    if (strstr(rf_version, "101")) {
-        /* Chinese */
-        property_set("ro.product.model", "ONE E1001");
+    if (rf_version == "101") {
+        /* China */
+        property_override("ro.product.model", "ONE E1001");
         property_set("ro.rf_version", "TDD_FDD_Ch_All");
-    } else if (strstr(rf_version, "102")) {
+    } else if (rf_version == "102") {
         /* Asia/Europe */
-        property_set("ro.product.model", "ONE E1003");
+        property_override("ro.product.model", "ONE E1003");
         property_set("ro.rf_version", "TDD_FDD_Eu");
-    } else if (strstr(rf_version, "103")){
+    } else if (rf_version == "103"){
         /* America */
-        property_set("ro.product.model", "ONE E1005");
+        property_override("ro.product.model", "ONE E1005");
         property_set("ro.rf_version", "TDD_FDD_Am");
+    } else if (rf_version == "107"){
+        /* China CTCC Version */
+        property_override("ro.product.model", "ONE E1000");
+        property_set("ro.rf_version", "TDD_FDD_ALL_OPTR");
     }
+    device = GetProperty("ro.product.device", "");
+    LOG(INFO) << "Found rf_version : " << rf_version.c_str() << " setting build properties for " << device.c_str() << " device\n";
 }
