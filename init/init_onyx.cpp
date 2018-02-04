@@ -33,11 +33,12 @@
 #include <android-base/logging.h>
 
 #include "property_service.h"
-#include "vendor_init.h"
 
 using android::base::GetProperty;
 using android::init::property_set;
 
+namespace android {
+namespace init {
 void property_override(char const prop[], char const value[])
 {
     prop_info *pi;
@@ -79,3 +80,5 @@ void vendor_load_properties()
     device = GetProperty("ro.product.device", "");
     LOG(INFO) << "Found rf_version : " << rf_version.c_str() << " setting build properties for " << device.c_str() << " device\n";
 }
+}  // namespace init
+}  // namespace android
