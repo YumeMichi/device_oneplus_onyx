@@ -13,7 +13,3 @@ MicroSD | Up to 128 GB (uses SIM 2 slot)
 Battery | 2525 mAh
 Dimensions | 5.51 x 2.72 x 0.27 in
 Camera  | 13 MP, f/2.2, phase detection autofocus, LED flash
-
-
-kernel source: https://github.com/NachiketNamjoshi/BlackReactor_onyx/commits/BR-TWRP
-device tree: https://github.com/NachiketNamjoshi/android_device_oneplus_onyx-1
