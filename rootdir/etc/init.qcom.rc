@@ -346,7 +346,7 @@ on post-fs-data
     mkdir /data/misc/camera 0770 camera camera
 
 on fs
-    mount_all /fstab.qcom
+    mount_all /vendor/etc/fstab.qcom
     restorecon_recursive /persist
     mkdir /persist/data 0700 system system
     mkdir /persist/data/sfs 0700 system system
