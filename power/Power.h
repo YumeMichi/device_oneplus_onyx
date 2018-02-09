@@ -15,36 +15,32 @@
  * limitations under the License.
  */
 
-#ifndef ANDROID_HARDWARE_POWER_V1_1_POWER_H
-#define ANDROID_HARDWARE_POWER_V1_1_POWER_H
+#ifndef ANDROID_HARDWARE_POWER_V1_0_POWER_H
+#define ANDROID_HARDWARE_POWER_V1_0_POWER_H
 
-#ifdef V1_0_HAL
 #include <android/hardware/power/1.0/IPower.h>
-#else
-#include <android/hardware/power/1.1/IPower.h>
-#endif
 #include <vendor/lineage/power/1.0/ILineagePower.h>
 #include <hidl/MQDescriptor.h>
 #include <hidl/Status.h>
 #include <hardware/power.h>
 
+extern "C" {
+void power_init(void);
+void power_hint(power_hint_t hint, void *data);
+void power_set_interactive(int on);
+void set_feature(feature_t feature, int state);
+int __attribute__ ((weak)) get_number_of_profiles();
+}
+
 namespace android {
 namespace hardware {
 namespace power {
-#ifdef V1_0_HAL
 namespace V1_0 {
-#else
-namespace V1_1 {
-#endif
 namespace implementation {
 
 using ::android::hardware::power::V1_0::Feature;
 using ::android::hardware::power::V1_0::PowerHint;
-#ifdef V1_0_HAL
 using ::android::hardware::power::V1_0::IPower;
-#else
-using ::android::hardware::power::V1_1::IPower;
-#endif
 using ::vendor::lineage::power::V1_0::ILineagePower;
 using ::vendor::lineage::power::V1_0::LineageFeature;
 using ::android::hardware::Return;
@@ -61,12 +57,6 @@ struct Power : public IPower, public ILineagePower {
     Return<void> setFeature(Feature feature, bool activate) override;
     Return<void> getPlatformLowPowerStats(getPlatformLowPowerStats_cb _hidl_cb) override;
 
-#ifndef V1_0_HAL
-    // Methods from ::android::hardware::power::V1_1::IPower follow.
-    Return<void> getSubsystemLowPowerStats(getSubsystemLowPowerStats_cb _hidl_cb) override;
-    Return<void> powerHintAsync(PowerHint hint, int32_t data) override;
-#endif
-
     // Methods from ::vendor::lineage::power::V1_0::ILineagePower follow.
     Return<int32_t> getFeature(LineageFeature feature) override;
 
@@ -75,9 +65,9 @@ struct Power : public IPower, public ILineagePower {
 };
 
 }  // namespace implementation
-}  // namespace V1_0/1
+}  // namespace V1_0
 }  // namespace power
 }  // namespace hardware
 }  // namespace android
 
-#endif  // ANDROID_HARDWARE_POWER_V1_1_POWER_H
+#endif  // ANDROID_HARDWARE_POWER_V1_0_POWER_H
