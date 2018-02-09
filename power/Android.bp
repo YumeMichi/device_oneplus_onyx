@@ -1,0 +1,30 @@
+cc_binary {
+    proprietary: true,
+    defaults: ["hidl_defaults"],
+    relative_install_path: "hw",
+    name: "android.hardware.power@1.0-service.onyx",
+    init_rc: ["android.hardware.power@1.0-service.onyx.rc"],
+    srcs: [
+        "service.cpp",
+        "Power.cpp",
+        "power.c",
+    ],
+
+    cflags: [
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+    ],
+
+    shared_libs: [
+        "liblog",
+        "libcutils",
+        "libdl",
+        "libutils",
+        "libhardware",
+        "libhidlbase",
+        "libhidltransport",
+        "android.hardware.power@1.0",
+        "vendor.lineage.power@1.0",
+    ],
+}
