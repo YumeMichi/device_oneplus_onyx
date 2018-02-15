@@ -170,6 +170,9 @@ include device/qcom/sepolicy/legacy-sepolicy.mk
 BOARD_SEPOLICY_DIRS += \
     $(PLATFORM_PATH)/sepolicy
 
+# SHIMS
+TARGET_LD_SHIM_LIBS := /system/vendor/lib/libqomx_jpegenc.so|libboringssl-compat.so:/system/lib/libgui.so|libshims_sensors.so:/system/vendor/lib/libmmcamera2_stats_algorithm.so|libshims_atomic.so
+
 # SnapDragon LLVM Compiler
 TARGET_USE_SDCLANG := true
 
