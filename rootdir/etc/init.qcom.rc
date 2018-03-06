@@ -390,8 +390,17 @@ service charger /charger
     critical
     seclabel u:r:charger:s0
 
+service chargerled /vendor/bin/init.chargerled.sh
+    class late_start
+    user root
+    group root system
+    disabled
+    oneshot
+
 on charger
     write /sys/class/leds/lcd-backlight/brightness 100
+
+    start chargerled
 
 service qcamerasvr /vendor/bin/mm-qcamera-daemon
     class late_start
