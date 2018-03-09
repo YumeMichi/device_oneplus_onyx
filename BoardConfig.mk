@@ -61,6 +61,7 @@ TW_INCLUDE_CRYPTO            := true
 TW_NO_USB_STORAGE            := true
 TW_TARGET_USES_QCOM_BSP      := true
 TW_THEME                     := portrait_hdpi
+TW_DEVICE_VERSION            := YumeMichi
 
 # Assertions
 TARGET_BOARD_INFO_FILE         := $(PLATFORM_PATH)/board-info.txt
