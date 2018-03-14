@@ -95,6 +95,11 @@ public class Startup extends BroadcastReceiver {
             restore(HBMModeSwitch.getFile(), "2");
         }
 
+        enabled = sharedPrefs.getBoolean(DeviceSettings.KEY_SWAP_BACK_RECENTS, true);
+        if (enabled) {
+            restore(SwapBackRecents.getFile(), "1");
+        }
+
         VibratorStrengthPreference.restore(context);
     }
 }
