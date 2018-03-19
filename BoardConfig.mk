@@ -84,6 +84,7 @@ BOARD_HAVE_BLUETOOTH_QCOM := true
 # Camera
 MALLOC_SVELTE_FOR_LIBC32 := true
 USE_DEVICE_SPECIFIC_CAMERA := true
+TARGET_HAS_LEGACY_CAMERA_HAL1 := true
 TARGET_PROCESS_SDK_VERSION_OVERRIDE := \
     /system/bin/mediaserver=22 \
     /system/vendor/bin/mm-qcamera-daemon=22
@@ -177,8 +178,6 @@ BOARD_SEPOLICY_DIRS += \
 
 # SHIMS
 TARGET_LD_SHIM_LIBS := \
-    /system/bin/cameraserver|libshims_unwind.so \
-    /system/vendor/lib/libqomx_jpegenc.so|libboringssl-compat.so \
     /system/vendor/lib/libril-qc-qmi-1.so|libaudioclient_shim.so \
     /system/lib/libgui.so|libshims_sensors.so \
     /system/vendor/lib/libmmcamera2_stats_algorithm.so|libshims_atomic.so

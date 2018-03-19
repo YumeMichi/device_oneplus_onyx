@@ -46,6 +46,8 @@ persist.bluetooth.sbc_hd_higher_bitrate=true
 # Camera
 camera2.portability.force_api=1
 persist.camera.cpp.duplication=false
+media.stagefright.legacyencoder=true
+media.stagefright.less-secure=true
 
 # Graphics
 persist.hwc.mdpcomp.enable=true
