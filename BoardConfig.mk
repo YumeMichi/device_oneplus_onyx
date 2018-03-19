@@ -86,6 +86,7 @@ BOARD_HAVE_BLUETOOTH_QCOM := true
 
 # Camera
 USE_DEVICE_SPECIFIC_CAMERA := true
+TARGET_HAS_LEGACY_CAMERA_HAL1 := true
 TARGET_PROCESS_SDK_VERSION_OVERRIDE := \
     /system/bin/mediaserver=22 \
     /system/vendor/bin/mm-qcamera-daemon=22
@@ -180,7 +181,6 @@ TARGET_RIL_VARIANT := caf
 
 # SHIMS
 TARGET_LD_SHIM_LIBS := \
-    /system/vendor/lib/libqomx_jpegenc.so|libboringssl-compat.so \
     /system/lib/libgui.so|libshims_sensors.so \
     /system/vendor/lib/libmmcamera2_stats_algorithm.so|libshims_atomic.so
 
