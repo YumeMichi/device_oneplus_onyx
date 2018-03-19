@@ -18,7 +18,7 @@ LOCAL_SRC_FILES := \
     QCameraThermalAdapter.cpp \
     wrapper/QualcommCamera.cpp
 
-LOCAL_CFLAGS = -Wall
+LOCAL_CFLAGS += -Wall -Werror
 LOCAL_CFLAGS += -DDISABLE_DEBUG_LOG
 
 # Use media extension
