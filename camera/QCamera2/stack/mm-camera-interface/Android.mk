@@ -32,7 +32,7 @@ LOCAL_ADDITIONAL_DEPENDENCIES := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
 
 LOCAL_C_INCLUDES += $(call project-path-for,qcom-media)/mm-core/inc
 
-LOCAL_CFLAGS += -Wall 
+LOCAL_CFLAGS += -Wall -Werror
 
 LOCAL_MODULE           := libmmcamera_interface
 LOCAL_SHARED_LIBRARIES := libdl libcutils liblog

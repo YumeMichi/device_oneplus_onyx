@@ -18,7 +18,7 @@ LOCAL_SRC_FILES := \
     QCameraThermalAdapter.cpp \
     wrapper/QualcommCamera.cpp
 
-LOCAL_CFLAGS = -Wall
+LOCAL_CFLAGS += -Wall -Werror
 
 ifeq ($(TARGET_USES_MEDIA_EXTENSIONS), true)
 LOCAL_CFLAGS += -DUSE_MEDIA_EXTENSIONS

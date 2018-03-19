@@ -125,7 +125,6 @@ typedef struct {
 #define QCAMERA_ION_USE_CACHE   true
 #define QCAMERA_ION_USE_NOCACHE false
 #define MAX_ONGOING_JOBS 25
-#define QCAMERA_MAX_FILEPATH_LENGTH 50
 
 extern volatile uint32_t gCamHalLogLevel;
 
