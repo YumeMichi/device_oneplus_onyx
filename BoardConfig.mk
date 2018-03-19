@@ -83,6 +83,7 @@ BOARD_HAVE_BLUETOOTH_QCOM := true
 
 # Camera
 USE_DEVICE_SPECIFIC_CAMERA := true
+TARGET_HAS_LEGACY_CAMERA_HAL1 := true
 TARGET_PROCESS_SDK_VERSION_OVERRIDE := \
     /system/bin/mediaserver=22 \
     /system/vendor/bin/mm-qcamera-daemon=22
