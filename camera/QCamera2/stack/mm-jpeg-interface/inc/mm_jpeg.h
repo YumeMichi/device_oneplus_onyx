@@ -381,10 +381,6 @@ typedef struct mm_jpeg_obj_t {
   int32_t max_pic_h;
   int work_buf_cnt;
 
-#ifdef LOAD_ADSP_RPC_LIB
-  void *adsprpc_lib_handle;
-#endif
-
   int num_sessions;
 
 } mm_jpeg_obj;
