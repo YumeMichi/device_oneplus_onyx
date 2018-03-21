@@ -468,7 +468,7 @@ int32_t mm_stream_fsm_inited(mm_stream_t *my_obj,
             break;
         }
         strcpy(t_devname, mm_camera_util_get_dev_name(my_obj->ch_obj->cam_obj->my_hdl));
-        if (t_devname == NULL) {
+        if (t_devname[0] == '\0') {
             rc = -1;
             break;
         }

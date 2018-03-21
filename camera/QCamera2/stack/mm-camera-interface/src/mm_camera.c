@@ -254,7 +254,7 @@ int32_t mm_camera_open(mm_camera_obj_t *my_obj)
     CDBG("%s:  begin\n", __func__);
 
     strcpy(t_devname, mm_camera_util_get_dev_name(my_obj->my_hdl));
-    if (t_devname == NULL) {
+    if (t_devname[0] == '\0') {
         rc = -1;
         goto on_error;
     }
