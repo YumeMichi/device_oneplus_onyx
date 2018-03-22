@@ -293,4 +293,7 @@
          during initialization when the setting is still null. -->
     <bool name="config_dozeAlwaysOnEnabled">false</bool>
 
+    <!-- Allow automatic adjusting of the screen brightness while dozing in low power state. -->
+    <bool name="config_allowAutoBrightnessWhileDozing">true</bool>
+
 </resources>
