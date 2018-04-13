@@ -47,7 +47,14 @@ on fs
     wait /dev/block/platform/${ro.boot.bootdevice}
     symlink /dev/block/platform/${ro.boot.bootdevice} /dev/block/bootdevice
 
-service qseecomd /sbin/qseecomd
+on property:ro.crypto.state=encrypted
+    start sbinqseecomd
+
+service sbinqseecomd /sbin/qseecomd
+    disabled
+    user root
+    group root
+    seclabel u:r:recovery:s0
 
 on property:recovery.perf.mode=1
     write /sys/devices/system/cpu/cpu1/online 1
