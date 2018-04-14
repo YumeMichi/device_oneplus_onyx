@@ -2,10 +2,6 @@
 # system.prop for OnePlus X
 #
 
-ro.build.product=OnePlus
-ro.product.device=OnePlus
-ro.build.description=OnePlus
-ro.build.fingerprint=OnePlus/OnePlus/OnePlus:6.0.1/MMB29M/10281213:user/release-keys
 ro.prj_name=15055
 
 # RIL
