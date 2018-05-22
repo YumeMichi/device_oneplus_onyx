@@ -407,6 +407,9 @@ on property:vendor.bluetooth.hciattach=true
 on property:vendor.bluetooth.hciattach=false
     setprop vendor.bluetooth.status off
 
+on property:sys.boot_completed=1
+    restart cameraserver
+
 service adsprpcd /vendor/bin/adsprpcd
     class main
     user media
