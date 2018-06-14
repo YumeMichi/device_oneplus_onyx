@@ -1,55 +1,37 @@
 /*
- * Copyright (c) 2013, The Linux Foundation. All rights reserved.
- * Copyright (C) 2018 The LineageOS Project
+ * Copyright (C) 2015 The Android Open Source Project
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are
- * met:
- * *    * Redistributions of source code must retain the above copyright
- *       notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above
- *       copyright notice, this list of conditions and the following
- *       disclaimer in the documentation and/or other materials provided
- *       with the distribution.
- *     * Neither the name of The Linux Foundation nor the names of its
- *       contributors may be used to endorse or promote products derived
- *       from this software without specific prior written permission.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
- * BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
- * BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
- * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-#define LOG_NIDEBUG 0
 
 #include <errno.h>
-#include <string.h>
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <fcntl.h>
-#include <dlfcn.h>
+#include <string.h>
 #include <stdlib.h>
 
-#define LOG_TAG "QCOM PowerHAL"
-#include <log/log.h>
-#include <hardware/hardware.h>
-#include <hardware/power.h>
-#include <cutils/properties.h>
+#define LOG_TAG "PowerHal"
+#include <utils/Log.h>
 
+#include <cutils/properties.h>
+#include <hardware/power.h>
+
+enum {
+    PROFILE_POWER_SAVE,
+    PROFILE_BALANCED,
+    PROFILE_HIGH_PERFORMANCE,
+};
 
 #define POWER_NR_OF_SUPPORTED_PROFILES 3
-enum {
-    PROFILE_POWER_SAVE = 0,
-    PROFILE_BALANCED,
-    PROFILE_HIGH_PERFORMANCE
-};
 
 #define POWER_PROFILE_PROPERTY  "sys.perf.profile"
 #define POWER_SAVE_PROP         "0"
@@ -57,8 +39,6 @@ enum {
 #define HIGH_PERFORMANCE_PROP   "2"
 
 static int current_power_profile = PROFILE_BALANCED;
-
-#define TAP_TO_WAKE_NODE "/proc/touchpanel/double_tap_enable"
 
 static int sysfs_write(const char *path, char *s)
 {
@@ -83,8 +63,14 @@ static int sysfs_write(const char *path, char *s)
     return 0;
 }
 
-void power_init(void) {
+static void power_init(struct power_module *module __unused)
+{
     ALOGI("%s", __func__);
+}
+
+static void power_set_interactive(struct power_module *module __unused,
+                int on __unused)
+{
 }
 
 static void set_power_profile(int profile)
@@ -107,29 +93,84 @@ static void set_power_profile(int profile)
     current_power_profile = profile;
 }
 
-void set_feature(feature_t feature, int state)
+static void power_hint(struct power_module *module __unused, power_hint_t hint,
+                void *data __unused)
 {
-    switch (feature) {
-        case POWER_FEATURE_DOUBLE_TAP_TO_WAKE:
-            sysfs_write(TAP_TO_WAKE_NODE, state ? "1" : "0");
-            break;
-        default:
-            break;
-    }
-}
-
-void power_hint(power_hint_t hint, void *data)
-{
-    if (hint == POWER_HINT_SET_PROFILE) {
+    if (hint == POWER_HINT_SET_PROFILE)
         set_power_profile(*(int32_t *)data);
+}
+
+static void set_feature(struct power_module *module __unused,
+                feature_t feature, int state)
+{
+#ifdef TAP_TO_WAKE_NODE
+    char tmp_str[64];
+
+    if (feature == POWER_FEATURE_DOUBLE_TAP_TO_WAKE) {
+        snprintf(tmp_str, 64, "%d", state);
+        sysfs_write(TAP_TO_WAKE_NODE, tmp_str);
     }
+#endif
 }
 
-void power_set_interactive(int on __unused)
+static int get_feature(struct power_module *module __unused, feature_t feature)
 {
+    if (feature == POWER_FEATURE_SUPPORTED_PROFILES)
+        return POWER_NR_OF_SUPPORTED_PROFILES;
+    return -1;
 }
 
-int get_number_of_profiles()
+static int power_open(const hw_module_t* module, const char* name,
+                    hw_device_t** device)
 {
-    return POWER_NR_OF_SUPPORTED_PROFILES;
+    ALOGD("%s: enter; name=%s", __FUNCTION__, name);
+
+    if (strcmp(name, POWER_HARDWARE_MODULE_ID)) {
+        return -EINVAL;
+    }
+
+    power_module_t *dev = (power_module_t *)calloc(1,
+            sizeof(power_module_t));
+
+    if (!dev) {
+        ALOGD("%s: failed to allocate memory", __FUNCTION__);
+        return -ENOMEM;
+    }
+
+    dev->common.tag = HARDWARE_MODULE_TAG;
+    dev->common.module_api_version = POWER_MODULE_API_VERSION_0_3;
+    dev->common.hal_api_version = HARDWARE_HAL_API_VERSION;
+
+    dev->init = power_init;
+    dev->powerHint = power_hint;
+    dev->setInteractive = power_set_interactive;
+    dev->setFeature = set_feature;
+    dev->getFeature = get_feature;
+
+    *device = (hw_device_t*)dev;
+
+    ALOGD("%s: exit", __FUNCTION__);
+
+    return 0;
 }
+
+static struct hw_module_methods_t power_module_methods = {
+    .open = power_open,
+};
+
+struct power_module HAL_MODULE_INFO_SYM = {
+    .common = {
+        .tag = HARDWARE_MODULE_TAG,
+        .module_api_version = POWER_MODULE_API_VERSION_0_3,
+        .hal_api_version = HARDWARE_HAL_API_VERSION,
+        .id = POWER_HARDWARE_MODULE_ID,
+        .name = "Onyx Power HAL",
+        .author = "The CyanogenMod Project",
+        .methods = &power_module_methods,
+    },
+    .init = power_init,
+    .powerHint = power_hint,
+    .setInteractive = power_set_interactive,
+    .setFeature = set_feature,
+    .getFeature = get_feature
+};
