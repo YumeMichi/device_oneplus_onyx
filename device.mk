@@ -232,7 +232,8 @@ PRODUCT_PACKAGES += \
 
 # Power
 PRODUCT_PACKAGES += \
-    android.hardware.power@1.1-service.onyx
+    android.hardware.power@1.0-impl \
+    power.msm8974
 
 # RIL
 PRODUCT_PACKAGES += \
