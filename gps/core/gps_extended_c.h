@@ -256,7 +256,7 @@ typedef struct {
 
 /** Represents SV status. */
 typedef struct {
-    /** set to sizeof(HaxxSvStatus) */
+    /** set to sizeof(GnssSvStatus) */
     size_t          size;
 
     /** Number of SVs currently visible. */
@@ -293,7 +293,7 @@ typedef struct {
      */
     uint64_t    bds_used_in_fix_mask;
 
-} HaxxSvStatus;
+} GnssSvStatus;
 
 enum loc_sess_status {
     LOC_SESS_SUCCESS,
@@ -418,6 +418,7 @@ typedef enum loc_api_adapter_msg_to_check_supported {
     LOC_API_ADAPTER_MESSAGE_DISTANCE_BASE_TRACKING,          // DBT 2.0
     LOC_API_ADAPTER_MESSAGE_ADAPTIVE_LOCATION_BATCHING,      // Batching 1.5
     LOC_API_ADAPTER_MESSAGE_DISTANCE_BASE_LOCATION_BATCHING, // Batching 2.0
+    LOC_API_ADAPTER_MESSAGE_UPDATE_TBF_ON_THE_FLY,           // Updating Tracking TBF On The Fly
 
     LOC_API_ADAPTER_MESSAGE_MAX
 } LocCheckingMessagesID;

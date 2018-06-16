@@ -1,4 +1,4 @@
-/* Copyright (c) 2012, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2011, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -24,20 +24,29 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
  */
 
-#ifndef LOC_ENG_NMEA_H
-#define LOC_ENG_NMEA_H
+#include <rpc/rpc.h>
 
-#include <hardware/gps.h>
-#include <gps_extended.h>
+#include "loc_api_fixup.h"
 
-#define NMEA_SENTENCE_MAX_LENGTH 200
+#ifdef ADD_XDR_FLOAT
 
-void loc_eng_nmea_send(char *pNmea, int length, loc_eng_data_s_type *loc_eng_data_p);
-int loc_eng_nmea_put_checksum(char *pNmea, int maxSize);
-void loc_eng_nmea_generate_sv(loc_eng_data_s_type *loc_eng_data_p, const GnssSvStatus &svStatus, const GpsLocationExtended &locationExtended);
-void loc_eng_nmea_generate_pos(loc_eng_data_s_type *loc_eng_data_p, const UlpLocation &location, const GpsLocationExtended &locationExtended, unsigned char generate_nmea);
+int
+xdr_float(xdrp, fp)
+        XDR *xdrp;
+        float *fp;
+{
+        return xdr_long(xdrp, (long*)fp);
+}
 
-#endif // LOC_ENG_NMEA_H
+int
+xdr_double(xdrp, dp)
+        XDR *xdrp;
+        double *dp;
+{
+                return xdr_long(xdrp, (long*)dp + 1)
+                                && xdr_long(xdrp, (long*)dp);
+}
+
+#endif /* ADD_XDR_FLOAT */

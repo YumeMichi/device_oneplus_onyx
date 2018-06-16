@@ -1,4 +1,4 @@
-/* Copyright (c) 2012, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2011 The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -27,17 +27,33 @@
  *
  */
 
-#ifndef LOC_ENG_NMEA_H
-#define LOC_ENG_NMEA_H
+#ifndef LOC_API_LOG_H
+#define LOC_API_LOG_H
 
-#include <hardware/gps.h>
-#include <gps_extended.h>
+#ifdef __cplusplus
+extern "C"
+{
+#endif
 
-#define NMEA_SENTENCE_MAX_LENGTH 200
+#include <ctype.h>
+#include "loc_api_rpcgen_common_rpc.h"
 
-void loc_eng_nmea_send(char *pNmea, int length, loc_eng_data_s_type *loc_eng_data_p);
-int loc_eng_nmea_put_checksum(char *pNmea, int maxSize);
-void loc_eng_nmea_generate_sv(loc_eng_data_s_type *loc_eng_data_p, const GnssSvStatus &svStatus, const GpsLocationExtended &locationExtended);
-void loc_eng_nmea_generate_pos(loc_eng_data_s_type *loc_eng_data_p, const UlpLocation &location, const GpsLocationExtended &locationExtended, unsigned char generate_nmea);
+extern int loc_callback_log(
+      rpc_loc_event_mask_type               loc_event,              /* event mask           */
+      const rpc_loc_event_payload_u_type*   loc_event_payload       /* payload              */
+);
 
-#endif // LOC_ENG_NMEA_H
+extern const char* loc_get_event_atl_open_name(rpc_loc_server_request_e_type loc_event_atl_open);
+extern const char* loc_get_event_name(rpc_loc_event_mask_type loc_event_mask);
+extern const char* loc_get_ioctl_type_name(rpc_loc_ioctl_e_type ioctl_type);
+extern const char* loc_get_ioctl_status_name(uint32 status);
+extern const char* loc_get_sess_status_name(rpc_loc_session_status_e_type status);
+extern const char* loc_get_engine_state_name(rpc_loc_engine_state_e_type state);
+extern const char* loc_get_fix_session_state_name(rpc_loc_fix_session_state_e_type state);
+extern const char* loc_get_rpc_reset_event_name(enum rpc_reset_event event);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* LOC_API_LOG_H */
