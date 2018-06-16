@@ -1,4 +1,4 @@
-/* Copyright (c) 2012, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2011, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -24,20 +24,22 @@
  * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
  */
 
-#ifndef LOC_ENG_NMEA_H
-#define LOC_ENG_NMEA_H
+#ifndef LOC_APICB_APPINIT_H
+#define LOC_APICB_APPINIT_H
 
-#include <hardware/gps.h>
-#include <gps_extended.h>
+#ifdef __cplusplus
+extern "C"
+{
+#endif
 
-#define NMEA_SENTENCE_MAX_LENGTH 200
+ /* Initialization function for callbacks */
+extern int loc_apicb_app_init();
+extern void loc_apicb_app_deinit();
 
-void loc_eng_nmea_send(char *pNmea, int length, loc_eng_data_s_type *loc_eng_data_p);
-int loc_eng_nmea_put_checksum(char *pNmea, int maxSize);
-void loc_eng_nmea_generate_sv(loc_eng_data_s_type *loc_eng_data_p, const GnssSvStatus &svStatus, const GpsLocationExtended &locationExtended);
-void loc_eng_nmea_generate_pos(loc_eng_data_s_type *loc_eng_data_p, const UlpLocation &location, const GpsLocationExtended &locationExtended, unsigned char generate_nmea);
+#ifdef __cplusplus
+}
+#endif
 
-#endif // LOC_ENG_NMEA_H
+#endif /* LOC_APICB_APPINIT_H */
