@@ -1,4 +1,4 @@
-/* Copyright (c) 2012, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2011, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -26,18 +26,49 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
+#include "librpc.h"
+#include "loc_api_rpcgen_rpc.h"
+#include "loc_api_rpcgen_cb_rpc.h"
 
-#ifndef LOC_ENG_NMEA_H
-#define LOC_ENG_NMEA_H
 
-#include <hardware/gps.h>
-#include <gps_extended.h>
+#define RPC_FUNC_VERSION_BASE(a,b) a ## b
+#define RPC_CB_FUNC_VERS(a,b) RPC_FUNC_VERSION_BASE(a,b)
 
-#define NMEA_SENTENCE_MAX_LENGTH 200
 
-void loc_eng_nmea_send(char *pNmea, int length, loc_eng_data_s_type *loc_eng_data_p);
-int loc_eng_nmea_put_checksum(char *pNmea, int maxSize);
-void loc_eng_nmea_generate_sv(loc_eng_data_s_type *loc_eng_data_p, const GnssSvStatus &svStatus, const GpsLocationExtended &locationExtended);
-void loc_eng_nmea_generate_pos(loc_eng_data_s_type *loc_eng_data_p, const UlpLocation &location, const GpsLocationExtended &locationExtended, unsigned char generate_nmea);
+static SVCXPRT* svrPort = NULL;
 
-#endif // LOC_ENG_NMEA_H
+extern void RPC_CB_FUNC_VERS(loc_apicbprog_,LOC_APICBVERS_0001)(struct svc_req *rqstp, register SVCXPRT *transp);
+
+int loc_apicb_app_init(void)
+{
+
+  /* Register a callback server to use the loc_apicbprog_0x00010001  */
+  if (svrPort == NULL) {
+        svrPort = svcrtr_create();
+  }
+  if (!svrPort) return -1;
+
+  xprt_register(svrPort);
+
+
+
+  if(svc_register(svrPort, LOC_APICBPROG,LOC_APICBVERS_0001, RPC_CB_FUNC_VERS(loc_apicbprog_,LOC_APICBVERS_0001),0))
+  {
+     return 0;
+  }
+  else
+  {
+    return -1;
+  }
+}
+void loc_apicb_app_deinit(void)
+{
+
+   if (svrPort == NULL)
+   {
+      return;
+   }
+
+
+  svc_unregister(svrPort, LOC_APICBPROG,LOC_APICBVERS_0001);
+}
