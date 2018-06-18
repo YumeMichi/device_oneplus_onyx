@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2014-2016 The OmniROM Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources>
+    <string name="app_name">附加设置</string>
+    <string name="category_gestures_title">关屏手势</string>
+    <string name="double_tap_wake_title_head">点按唤醒</string>
+    <string name="double_tap_wake_summary_head">在屏幕上的任意位置点按两次即可唤醒设备</string>
+    <string name="camera_title_head">相机</string>
+    <string name="camera_summary_head">画一个圆圈以启动相机</string>
+    <string name="torch_title_head">手电筒</string>
+    <string name="torch_summary_head">画 \'V\' 以启动手电筒</string>
+    <string name="category_vibrator">振动</string>
+    <string name="vib_strength_title_head">强度</string>
+    <string name="vib_strength_summary_head">定义振动的强度</string>
+    <string name="vib_test">测试</string>
+    <string name="advanced_settings">高级设置</string>
+    <string name="music_title_head">音乐</string>
+    <string name="music_summary_head">使用手势控制音乐播放 \n
+        • 两个手指垂直滑动来播放或暂停\n 
+        • 画左箭头 (\'&lt;\') 切换到上一首\n 
+        • 画右箭头 (\'&gt;\') 切换到下一首</string>
+    <string name="category_slider">三段式通知滑钮</string>
+    <string name="slider_mode_off">无</string>
+    <string name="slider_mode_vibrate">振动</string>
+    <string name="slider_mode_silent">静音</string>
+    <string name="slider_mode_priority">仅限优先</string>
+    <string name="slider_mode_alarm">仅限闹铃</string>
+    <string name="slider_mode_dnd">总是静音</string>
+    <string name="slider_mode_title_top">顶部位置</string>
+    <string name="slider_mode_title_center">中间位置</string>
+    <string name="slider_mode_title_bottom">底部位置</string>
+    <string name="buttons_title">按钮</string>
+    <string name="swap_back_recents_summary">交换最近应用和后退按钮的顺序</string>
+    <string name="swap_back_recents_title">交换按钮</string>
+    <string name="graphics_title">图形</string>
+    <string name="hbm_mode_summary">最大化屏幕亮度以便于能在阳光下看清屏幕内容</string>
+    <string name="hbm_mode_title">高亮模式</string>
+    <string name="tile_hbm_mode">高亮模式</string>
+    <string name="proxi_summary_head">处理手势前先检查距离传感器</string>
+    <string name="proxi_title_head">距离检查</string>
+    <string name="doze_category_title">主动显示</string>
+    <string name="doze_category_summary">当接收到通知时唤醒屏幕</string>
+    <string name="wave_check_summary">挥手时闪烁通知呼吸灯</string>
+    <string name="wave_check_title">挥手</string>
+    <string name="tilt_check_summary">拿起设备时闪烁通知呼吸灯</string>
+    <string name="tilt_check_title">拿起</string>
+    <string name="pocket_check_summary">从口袋中拿出时闪烁通知呼吸灯</string>
+    <string name="pocket_check_title">口袋</string>
+    <string name="ambient_display_enable">必须在显示设置中启用主动显示</string>
+</resources>

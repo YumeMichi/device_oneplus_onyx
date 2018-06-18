@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2014-2017 The OmniROM Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources>
+    <string name="app_name">Additional settings</string>
+    <string name="category_gestures_title">Off screen gestures</string>
+    <string name="double_tap_wake_title_head">Tap to wake</string>
+    <string name="double_tap_wake_summary_head">Double-tap anywhere on the screen to wake device</string>
+    <string name="camera_title_head">Camera</string>
+    <string name="camera_summary_head">Draw a circle to activate camera</string>
+    <string name="torch_title_head">Torch</string>
+    <string name="torch_summary_head">Draw a \'V\' to toggle torch</string>
+    <string name="category_vibrator">Vibrator</string>
+    <string name="vib_strength_title_head">Strength</string>
+    <string name="vib_strength_summary_head">Define the strength of the vibrator</string>
+    <string name="vib_test">Test</string>
+    <string name="advanced_settings">Advanced</string>
+    <string name="music_title_head">Music</string>
+    <string name="music_summary_head">Use gestures to control music playback \n
+        • Two fingers vertically to play/pause\n
+        • Draw left arrow (\'&#60;\') for previous track\n
+        • Draw right arrow (\'&#62;\') for next track</string>
+    <string name="category_slider">Notification Slider</string>
+    <string name="slider_mode_off">Off</string>
+    <string name="slider_mode_vibrate">Vibrate</string>
+    <string name="slider_mode_silent">Silent</string>
+    <string name="slider_mode_priority">Priority only</string>
+    <string name="slider_mode_alarm">Alarms only</string>
+    <string name="slider_mode_dnd">Total silence</string>
+    <string name="slider_mode_title_top">Top position</string>
+    <string name="slider_mode_title_center">Center position</string>
+    <string name="slider_mode_title_bottom">Bottom position</string>
+    <string name="buttons_title">Buttons</string>
+    <string name="swap_back_recents_title">Swap buttons</string>
+    <string name="swap_back_recents_summary">Swap the order of recents and back buttons</string>
+    <string name="graphics_title">Graphics</string>
+    <string name="hbm_mode_summary"></string>
+    <string name="hbm_mode_title">High brightness mode</string>
+    <string name="tile_hbm_mode">High brightness mode</string>
+    <string name="proxi_summary_head">Check proximity sensor for handling gestures</string>
+    <string name="proxi_title_head">Proximity check</string>
+    <string name="doze_category_title">Ambient display</string>
+    <string name="doze_category_summary">Wake screen when you receive notifications</string>
+    <string name="wave_check_summary">Pulse notifications on hand wave</string>
+    <string name="wave_check_title">Hand wave</string>
+    <string name="tilt_check_summary">Pulse notifications when device is picked up</string>
+    <string name="tilt_check_title">Pick up</string>
+    <string name="pocket_check_summary">Pulse notifications on removal from pocket</string>
+    <string name="pocket_check_title">Pocket</string>
+    <string name="ambient_display_enable">Ambient display must be enabled in display settings</string>
+</resources>
