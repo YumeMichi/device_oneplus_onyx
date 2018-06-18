@@ -218,6 +218,46 @@ on post-fs
     chown system system /sys/devices/virtual/graphics/fb0/dyn_pu
     chmod 0660 /sys/devices/virtual/graphics/fb0/dyn_pu
 
+    # LEDs
+    chown system system /sys/class/leds/rgb/rgb_blink
+    chown system system /sys/class/leds/red/brightness
+    chown system system /sys/class/leds/red/duty_pcts
+    chown system system /sys/class/leds/red/pause_hi
+    chown system system /sys/class/leds/red/pause_lo
+    chown system system /sys/class/leds/red/ramp_step_ms
+    chown system system /sys/class/leds/red/start_idx
+    chown system system /sys/class/leds/green/brightness
+    chown system system /sys/class/leds/green/duty_pcts
+    chown system system /sys/class/leds/green/pause_hi
+    chown system system /sys/class/leds/green/pause_lo
+    chown system system /sys/class/leds/green/ramp_step_ms
+    chown system system /sys/class/leds/green/start_idx
+    chown system system /sys/class/leds/blue/brightness
+    chown system system /sys/class/leds/blue/duty_pcts
+    chown system system /sys/class/leds/blue/pause_hi
+    chown system system /sys/class/leds/blue/pause_lo
+    chown system system /sys/class/leds/blue/ramp_step_ms
+    chown system system /sys/class/leds/blue/start_idx
+    chmod 0644 /sys/class/leds/rgb/rgb_blink
+    chmod 0644 /sys/class/leds/red/brightness
+    chmod 0644 /sys/class/leds/red/duty_pcts
+    chmod 0644 /sys/class/leds/red/pause_hi
+    chmod 0644 /sys/class/leds/red/pause_lo
+    chmod 0644 /sys/class/leds/red/ramp_step_ms
+    chmod 0644 /sys/class/leds/red/start_idx
+    chmod 0644 /sys/class/leds/green/brightness
+    chmod 0644 /sys/class/leds/green/duty_pcts
+    chmod 0644 /sys/class/leds/green/pause_hi
+    chmod 0644 /sys/class/leds/green/pause_lo
+    chmod 0644 /sys/class/leds/green/ramp_step_ms
+    chmod 0644 /sys/class/leds/green/start_idx
+    chmod 0644 /sys/class/leds/blue/brightness
+    chmod 0644 /sys/class/leds/blue/duty_pcts
+    chmod 0644 /sys/class/leds/blue/pause_hi
+    chmod 0644 /sys/class/leds/blue/pause_lo
+    chmod 0644 /sys/class/leds/blue/ramp_step_ms
+    chmod 0644 /sys/class/leds/blue/start_idx
+
     # Torch
     chown system camera /sys/class/leds/led:flash_torch/brightness
     chmod 0660 /sys/class/leds/led:flash_torch/brightness
