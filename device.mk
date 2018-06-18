@@ -230,6 +230,10 @@ PRODUCT_PACKAGES += \
     libnl_2 \
     libtinyxml
 
+# OnyxParts
+PRODUCT_PACKAGES += \
+    OnyxParts
+
 # Power
 PRODUCT_PACKAGES += \
     android.hardware.power@1.0-impl \
