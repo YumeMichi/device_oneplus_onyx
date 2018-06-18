@@ -21,13 +21,18 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_l_mr1.mk
 # Inherit from onyx device
 $(call inherit-product, device/oneplus/onyx/device.mk)
 
-# Inherit some common LineageOS stuff.
-$(call inherit-product, vendor/lineage/config/common_full_phone.mk)
-
 # Call the proprietary setup
 $(call inherit-product, vendor/oneplus/onyx/onyx-vendor.mk)
 
-PRODUCT_NAME := lineage_onyx
+# GApps
+TARGET_GAPPS_ARCH := arm
+TARGET_BOOT_ANIMATION_RES := 1080
+TARGET_USE_OLD_SOUND_PICKER := true
+
+# Inherit some common PixelExperience stuff.
+$(call inherit-product, vendor/aosp/config/common_full_phone.mk)
+
+PRODUCT_NAME := aosp_onyx
 PRODUCT_DEVICE := onyx
 PRODUCT_MANUFACTURER := OnePlus
 PRODUCT_MODEL := OnePlus
@@ -45,6 +50,3 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
     PRIVATE_BUILD_DESC="OnePlus-user 6.0.1 MMB29M 10281213 release-keys"
 
 BUILD_FINGERPRINT := OnePlus/OnePlus/OnePlus:6.0.1/MMB29M/10281213:user/release-keys
-
-# Unofficial build ID
-TARGET_UNOFFICIAL_BUILD_ID := YumeMichi
