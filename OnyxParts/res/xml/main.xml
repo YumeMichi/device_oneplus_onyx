@@ -14,37 +14,25 @@
      limitations under the License.
 -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory
+    <Preference
         android:key="gesture_category"
-        android:title="@string/category_gestures_title" >
+        android:title="@string/category_gestures_title"
+        android:summary="@string/category_gestures_summary"
+        android:persistent="false" >
+        <intent android:action="android.intent.action.MAIN"
+                android:targetPackage="org.omnirom.device"
+                android:targetClass="org.omnirom.device.GestureSettingsActivity" />
+    </Preference>
 
-        <SwitchPreference
-            android:key="double_tap"
-            android:summary="@string/double_tap_wake_summary_head"
-            android:title="@string/double_tap_wake_title_head" />
-
-        <SwitchPreference
-            android:key="camera"
-            android:summary="@string/camera_summary_head"
-            android:title="@string/camera_title_head" />
-
-        <SwitchPreference
-            android:key="torch"
-            android:summary="@string/torch_summary_head"
-            android:title="@string/torch_title_head" />
-
-        <SwitchPreference
-            android:key="music"
-            android:summary="@string/music_summary_head"
-            android:title="@string/music_title_head" />
-
-        <SwitchPreference
-            android:key="proxi"
-            android:summary="@string/proxi_summary_head"
-            android:title="@string/proxi_title_head"
-            android:persistent="false" />
-
-    </PreferenceCategory>
+    <Preference
+        android:key="doze_category"
+        android:title="@string/doze_category_title"
+        android:summary="@string/doze_category_summary"
+        android:persistent="false" >
+        <intent android:action="android.intent.action.MAIN"
+                android:targetPackage="org.omnirom.device"
+                android:targetClass="org.omnirom.device.DozeSettingsActivity" />
+    </Preference>
 
     <PreferenceCategory
         android:title="@string/category_vibrator">
@@ -52,6 +40,7 @@
             android:key="vib_strength"
             android:title="@string/vib_strength_title_head"
             android:summary="@string/vib_strength_summary_head" />
+
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -76,25 +65,17 @@
             android:persistent="false" />
     </PreferenceCategory>
 
-    <Preference
-        android:key="doze_category"
-        android:title="@string/doze_category_title"
-        android:summary="@string/doze_category_summary"
-        android:persistent="false" >
-        <intent android:action="android.intent.action.MAIN"
-            android:targetPackage="org.omnirom.device"
-            android:targetClass="org.omnirom.device.DozeSettingsActivity" />
-    </Preference>
-
     <PreferenceCategory
         android:title="@string/buttons_title">
         <SwitchPreference
             android:key="swap_back_recents"
             android:summary="@string/swap_back_recents_summary"
-            android:title="@string/swap_back_recents_title" />
+            android:title="@string/swap_back_recents_title"
+            android:persistent="false" />
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:key="graphics"
         android:title="@string/graphics_title">
         <SwitchPreference
             android:key="hbm"
