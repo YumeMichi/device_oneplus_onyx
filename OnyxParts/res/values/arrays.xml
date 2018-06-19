@@ -17,7 +17,6 @@
     <string-array name="slider_key_action_entries" translatable="false">
         <item>@string/slider_mode_off</item>
         <item>@string/slider_mode_vibrate</item>
-        <item>@string/slider_mode_silent</item>
         <item>@string/slider_mode_priority</item>
         <item>@string/slider_mode_alarm</item>
         <item>@string/slider_mode_dnd</item>
@@ -29,6 +28,5 @@
         <item>2</item>
         <item>3</item>
         <item>4</item>
-        <item>5</item>
     </string-array>
 </resources>

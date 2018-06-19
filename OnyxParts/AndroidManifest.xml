@@ -11,8 +11,8 @@
     <protected-broadcast android:name="com.android.systemui.doze.pulse" />
 
     <uses-sdk
-        android:minSdkVersion="18"
-        android:targetSdkVersion="21" />
+        android:minSdkVersion="26"
+        android:targetSdkVersion="26" />
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/advanced_settings"
@@ -40,6 +40,16 @@
             </intent-filter>
         </activity-alias>
         <activity
+            android:name="org.omnirom.device.GestureSettingsActivity"
+            android:exported="false"
+            android:label="@string/category_gestures_title"
+            android:launchMode="singleTask" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name="org.omnirom.device.DozeSettingsActivity"
             android:exported="false"
             android:label="@string/doze_category_title"
@@ -54,14 +64,5 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <service
-            android:name="org.omnirom.device.HBMModeTileService"
-            android:icon="@drawable/ic_hbm_tile"
-            android:label="@string/tile_hbm_mode"
-            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" >
-            <intent-filter>
-                <action android:name="android.service.quicksettings.action.QS_TILE" />
-            </intent-filter>
-        </service>
     </application>
 </manifest>

@@ -35,43 +35,17 @@ public class HBMModeSwitch implements OnPreferenceChangeListener {
     }
 
     public static boolean isSupported() {
-        return Utils.fileWritable(FILE);
+        return Utils.fileWritable(getFile());
     }
 
     public static boolean isCurrentlyEnabled(Context context) {
-        return Utils.getFileValueAsBoolean(FILE, false);
-    }
-
-    public static boolean isEnabled(Context context) {
-        boolean enabled = Utils.getFileValueAsBoolean(FILE, false);
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        return sharedPrefs.getBoolean(DeviceSettings.KEY_HBM_SWITCH, enabled);
-    }
-
-    /**
-     * Restore setting from SharedPreferences. (Write to kernel.)
-     * @param context       The context to read the SharedPreferences from
-     */
-    public static void restore(Context context) {
-        if (!isSupported()) {
-            return;
-        }
-
-        boolean enabled = isEnabled(context);
-        if (enabled)
-            Utils.writeValue(FILE, "1");
-        else
-            Utils.writeValue(FILE, "0");
+        return Utils.getFileValueAsBoolean(getFile(), false);
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         Boolean enabled = (Boolean) newValue;
-        if (enabled)
-            Utils.writeValue(FILE, "1");
-        else
-            Utils.writeValue(FILE, "0");
+        Utils.writeValue(getFile(), enabled ? "1" : "0");
         return true;
     }
-
 }

@@ -21,7 +21,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.preference.Preference;
-import android.support.v7.preference.Preference.OnPreferenceChangeListener;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.preference.PreferenceViewHolder;
 import android.database.ContentObserver;
@@ -45,7 +44,7 @@ public class VibratorStrengthPreference extends Preference implements
     private static final String FILE_LEVEL = "/sys/devices/virtual/timed_output/vibrator/vtg_level";
     private static final String FILE_MIN = "/sys/devices/virtual/timed_output/vibrator/vtg_min";
     private static final String FILE_MAX = "/sys/devices/virtual/timed_output/vibrator/vtg_max";
-    private static final long testVibrationPattern[] = {0,250};
+    private static final long testVibrationPattern[] = {0, 250};
 
     public VibratorStrengthPreference(Context context, AttributeSet attrs) {
         super(context, attrs);

@@ -14,25 +14,25 @@
      limitations under the License.
 -->
 <resources>
-    <string name="app_name">Additional settings</string>
+    <string name="app_name">OnyxParts</string>
     <string name="category_gestures_title">Off screen gestures</string>
-    <string name="double_tap_wake_title_head">Tap to wake</string>
-    <string name="double_tap_wake_summary_head">Double-tap anywhere on the screen to wake device</string>
-    <string name="camera_title_head">Camera</string>
-    <string name="camera_summary_head">Draw a circle to activate camera</string>
-    <string name="torch_title_head">Torch</string>
-    <string name="torch_summary_head">Draw a \'V\' to toggle torch</string>
     <string name="category_vibrator">Vibrator</string>
     <string name="vib_strength_title_head">Strength</string>
     <string name="vib_strength_summary_head">Define the strength of the vibrator</string>
     <string name="vib_test">Test</string>
     <string name="advanced_settings">Advanced</string>
-    <string name="music_title_head">Music</string>
-    <string name="music_summary_head">Use gestures to control music playback \n
-        • Two fingers vertically to play/pause\n
-        • Draw left arrow (\'&#60;\') for previous track\n
-        • Draw right arrow (\'&#62;\') for next track</string>
-    <string name="category_slider">Notification Slider</string>
+    <string name="category_slider">Slider</string>
+    <string name="slider_mode_title">Slider mode</string>
+    <string name="buttons_title">Buttons</string>
+    <string name="swap_back_recents_summary"></string>
+    <string name="swap_back_recents_title">Swap back and recents button</string>
+    <string name="graphics_title">Graphics</string>
+    <string name="hbm_mode_summary"></string>
+    <string name="hbm_mode_title">High brightness mode</string>
+    <string name="proxi_summary_head">Check proximity sensor before handling gesture</string>
+    <string name="proxi_title_head">Proximity check</string>
+    <string name="off_screen_gesture_feedback_summary_head">Enable haptic feedback for gestures</string>
+    <string name="off_screen_gesture_feedback_title_head">Haptic feedback</string>
     <string name="slider_mode_off">Off</string>
     <string name="slider_mode_vibrate">Vibrate</string>
     <string name="slider_mode_silent">Silent</string>
@@ -42,15 +42,30 @@
     <string name="slider_mode_title_top">Top position</string>
     <string name="slider_mode_title_center">Center position</string>
     <string name="slider_mode_title_bottom">Bottom position</string>
-    <string name="buttons_title">Buttons</string>
-    <string name="swap_back_recents_title">Swap buttons</string>
-    <string name="swap_back_recents_summary">Swap the order of recents and back buttons</string>
-    <string name="graphics_title">Graphics</string>
-    <string name="hbm_mode_summary"></string>
-    <string name="hbm_mode_title">High brightness mode</string>
-    <string name="tile_hbm_mode">High brightness mode</string>
-    <string name="proxi_summary_head">Check proximity sensor for handling gestures</string>
-    <string name="proxi_title_head">Proximity check</string>
+
+    <string name="choose_app">Choose app</string>
+    <string name="category_double_swipe_gesture">II gesture</string>
+    <string name="gesture_app_title">Launch app</string>
+    <string name="category_circle_gesture">O gesture</string>
+    <string name="category_down_arrow_gesture">V gesture</string>
+    <string name="category_up_arrow_gesture">A gesture</string>
+    <string name="category_left_arrow_gesture">&lt; gesture</string>
+    <string name="category_right_arrow_gesture">&gt; gesture</string>
+    <string name="category_gestures_summary">Configure off screen gesture actions</string>
+    <string name="torch_entry">Flashlight</string>
+    <string name="disabled_entry">Disabled</string>
+    <string name="camera_entry">Camera</string>
+    <string name="music_play_entry">Play / pause music</string>
+    <string name="music_prev_entry">Prev track</string>
+    <string name="music_next_entry">Next track</string>
+    <string name="not_ready_summary">Resolving...</string>
+    <string name="resolve_failed_summary">Resolving app failed</string>
+    <string name="category_down_swipe_gesture">Down swipe</string>
+    <string name="category_up_swipe_gesture">Up swipe</string>
+    <string name="category_left_swipe_gesture">Left swipe</string>
+    <string name="category_right_swipe_gesture">Right swipe</string>
+    <string name="wake_entry">Wakeup</string>
+
     <string name="doze_category_title">Ambient display</string>
     <string name="doze_category_summary">Wake screen when you receive notifications</string>
     <string name="wave_check_summary">Pulse notifications on hand wave</string>

@@ -217,6 +217,13 @@ on post-fs
     chown system system /sys/devices/virtual/graphics/fb0/dyn_pu
     chmod 0660 /sys/devices/virtual/graphics/fb0/dyn_pu
 
+    chown system system /sys/class/timed_output/vibrator/vtg_level
+    chown system system /sys/class/timed_output/vibrator/vtg_max
+    chown system system /sys/class/timed_output/vibrator/vtg_min
+    chmod 0644 /sys/class/timed_output/vibrator/vtg_level
+    chmod 0644 /sys/class/timed_output/vibrator/vtg_max
+    chmod 0644 /sys/class/timed_output/vibrator/vtg_min
+
     # Torch
     chown system camera /sys/class/leds/led:flash_torch/brightness
     chmod 0660 /sys/class/leds/led:flash_torch/brightness
