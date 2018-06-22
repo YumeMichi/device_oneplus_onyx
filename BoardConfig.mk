@@ -15,6 +15,8 @@
 # limitations under the License.
 #
 
+BUILD_BROKEN_DUP_RULES := true
+
 PLATFORM_PATH := device/oneplus/onyx
 
 BOARD_VENDOR := oneplus
