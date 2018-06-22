@@ -19,6 +19,8 @@ PLATFORM_PATH := device/oneplus/onyx
 
 BOARD_VENDOR := oneplus
 
+BUILD_BROKEN_DUP_RULES := true
+
 # Include path
 TARGET_SPECIFIC_HEADER_PATH := $(PLATFORM_PATH)/include
 
