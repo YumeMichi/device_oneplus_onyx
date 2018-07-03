@@ -4,6 +4,9 @@
 
 ro.prj_name=15055
 
+# API level (for CTS backward compatibility)
+ro.product.first_api_level=22
+
 # RIL
 DEVICE_PROVISIONED=1
 persist.data.netmgrd.qos.enable=true
