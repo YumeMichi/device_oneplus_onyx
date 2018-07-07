@@ -70,10 +70,10 @@ public class KeyHandler implements DeviceKeyHandler {
     private static final int GESTURE_LEFT_V_SCANCODE = 253;
     private static final int GESTURE_RIGHT_V_SCANCODE = 254;
     private static final int GESTURE_A_SCANCODE = 255;
-    private static final int GESTURE_RIGHT_SWIPE_SCANCODE = 63;
-    private static final int GESTURE_LEFT_SWIPE_SCANCODE = 64;
-    private static final int GESTURE_DOWN_SWIPE_SCANCODE = 65;
-    private static final int GESTURE_UP_SWIPE_SCANCODE = 66;
+    private static final int GESTURE_RIGHT_SWIPE_SCANCODE = 258;
+    private static final int GESTURE_LEFT_SWIPE_SCANCODE = 259;
+    private static final int GESTURE_DOWN_SWIPE_SCANCODE = 260;
+    private static final int GESTURE_UP_SWIPE_SCANCODE = 261;
 
     private static final int KEY_DOUBLE_TAP = 143;
     private static final int KEY_HOME = 102;
