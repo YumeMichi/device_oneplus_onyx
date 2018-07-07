@@ -64,12 +64,14 @@ public class KeyHandler implements DeviceKeyHandler {
     private static final int GESTURE_WAKELOCK_DURATION = 2000;
     private static final String KEY_CONTROL_PATH = "/proc/touchpanel/keypad_enable";
 
-    private static final int GESTURE_CIRCLE_SCANCODE = 250;
-    private static final int GESTURE_V_SCANCODE = 252;
+    private static final int GESTURE_O_SCANCODE = 250;
     private static final int GESTURE_II_SCANCODE = 251;
-    private static final int GESTURE_LEFT_V_SCANCODE = 253;
-    private static final int GESTURE_RIGHT_V_SCANCODE = 254;
-    private static final int GESTURE_A_SCANCODE = 255;
+    private static final int GESTURE_UP_SCANCODE = 252;
+    private static final int GESTURE_DOWN_SCANCODE = 253;
+    private static final int GESTURE_LEFT_V_SCANCODE = 254;
+    private static final int GESTURE_RIGHT_V_SCANCODE = 255;
+    private static final int GESTURE_W_SCANCODE = 256;
+    private static final int GESTURE_M_SCANCODE = 257;
     private static final int GESTURE_RIGHT_SWIPE_SCANCODE = 258;
     private static final int GESTURE_LEFT_SWIPE_SCANCODE = 259;
     private static final int GESTURE_DOWN_SWIPE_SCANCODE = 260;
@@ -90,12 +92,14 @@ public class KeyHandler implements DeviceKeyHandler {
     private static final int POCKET_MIN_DELTA_MS = 5000;
 
     private static final int[] sSupportedGestures = new int[]{
+        GESTURE_O_SCANCODE,
         GESTURE_II_SCANCODE,
-        GESTURE_CIRCLE_SCANCODE,
-        GESTURE_V_SCANCODE,
-        GESTURE_A_SCANCODE,
+        GESTURE_UP_SCANCODE,
+        GESTURE_DOWN_SCANCODE,
         GESTURE_LEFT_V_SCANCODE,
         GESTURE_RIGHT_V_SCANCODE,
+        GESTURE_W_SCANCODE,
+        GESTURE_M_SCANCODE,
         GESTURE_DOWN_SWIPE_SCANCODE,
         GESTURE_UP_SWIPE_SCANCODE,
         GESTURE_LEFT_SWIPE_SCANCODE,
@@ -113,12 +117,14 @@ public class KeyHandler implements DeviceKeyHandler {
     };
 
     private static final int[] sProxiCheckedGestures = new int[]{
+        GESTURE_O_SCANCODE,
         GESTURE_II_SCANCODE,
-        GESTURE_CIRCLE_SCANCODE,
-        GESTURE_V_SCANCODE,
-        GESTURE_A_SCANCODE,
+        GESTURE_UP_SCANCODE,
+        GESTURE_DOWN_SCANCODE,
         GESTURE_LEFT_V_SCANCODE,
         GESTURE_RIGHT_V_SCANCODE,
+        GESTURE_W_SCANCODE,
+        GESTURE_M_SCANCODE,
         GESTURE_DOWN_SWIPE_SCANCODE,
         GESTURE_UP_SWIPE_SCANCODE,
         GESTURE_LEFT_SWIPE_SCANCODE,
@@ -506,16 +512,16 @@ public class KeyHandler implements DeviceKeyHandler {
 
     private String getGestureValueForScanCode(int scanCode) {
         switch(scanCode) {
-            case GESTURE_II_SCANCODE:
+            case GESTURE_O_SCANCODE:
                 return Settings.System.getStringForUser(mContext.getContentResolver(),
                     GestureSettings.DEVICE_GESTURE_MAPPING_0, UserHandle.USER_CURRENT);
-            case GESTURE_CIRCLE_SCANCODE:
+            case GESTURE_II_SCANCODE:
                 return Settings.System.getStringForUser(mContext.getContentResolver(),
                     GestureSettings.DEVICE_GESTURE_MAPPING_1, UserHandle.USER_CURRENT);
-            case GESTURE_V_SCANCODE:
+            case GESTURE_UP_SCANCODE:
                 return Settings.System.getStringForUser(mContext.getContentResolver(),
                     GestureSettings.DEVICE_GESTURE_MAPPING_2, UserHandle.USER_CURRENT);
-            case GESTURE_A_SCANCODE:
+            case GESTURE_DOWN_SCANCODE:
                 return Settings.System.getStringForUser(mContext.getContentResolver(),
                     GestureSettings.DEVICE_GESTURE_MAPPING_3, UserHandle.USER_CURRENT);
             case GESTURE_LEFT_V_SCANCODE:
@@ -524,18 +530,24 @@ public class KeyHandler implements DeviceKeyHandler {
             case GESTURE_RIGHT_V_SCANCODE:
                 return Settings.System.getStringForUser(mContext.getContentResolver(),
                     GestureSettings.DEVICE_GESTURE_MAPPING_5, UserHandle.USER_CURRENT);
-            case GESTURE_DOWN_SWIPE_SCANCODE:
+            case GESTURE_W_SCANCODE:
                 return Settings.System.getStringForUser(mContext.getContentResolver(),
                     GestureSettings.DEVICE_GESTURE_MAPPING_6, UserHandle.USER_CURRENT);
-            case GESTURE_UP_SWIPE_SCANCODE:
+            case GESTURE_M_SCANCODE:
                 return Settings.System.getStringForUser(mContext.getContentResolver(),
                     GestureSettings.DEVICE_GESTURE_MAPPING_7, UserHandle.USER_CURRENT);
-            case GESTURE_LEFT_SWIPE_SCANCODE:
+            case GESTURE_DOWN_SWIPE_SCANCODE:
                 return Settings.System.getStringForUser(mContext.getContentResolver(),
                     GestureSettings.DEVICE_GESTURE_MAPPING_8, UserHandle.USER_CURRENT);
-            case GESTURE_RIGHT_SWIPE_SCANCODE:
+            case GESTURE_UP_SWIPE_SCANCODE:
                 return Settings.System.getStringForUser(mContext.getContentResolver(),
                     GestureSettings.DEVICE_GESTURE_MAPPING_9, UserHandle.USER_CURRENT);
+            case GESTURE_LEFT_SWIPE_SCANCODE:
+                return Settings.System.getStringForUser(mContext.getContentResolver(),
+                    GestureSettings.DEVICE_GESTURE_MAPPING_10, UserHandle.USER_CURRENT);
+            case GESTURE_RIGHT_SWIPE_SCANCODE:
+                return Settings.System.getStringForUser(mContext.getContentResolver(),
+                    GestureSettings.DEVICE_GESTURE_MAPPING_11, UserHandle.USER_CURRENT);
         }
         return null;
     }

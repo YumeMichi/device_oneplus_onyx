@@ -46,7 +46,9 @@
     <string name="choose_app">Choose app</string>
     <string name="category_double_swipe_gesture">II gesture</string>
     <string name="gesture_app_title">Launch app</string>
-    <string name="category_circle_gesture">O gesture</string>
+    <string name="category_o_gesture">O gesture</string>
+    <string name="category_w_gesture">W gesture</string>
+    <string name="category_m_gesture">M gesture</string>
     <string name="category_down_arrow_gesture">V gesture</string>
     <string name="category_up_arrow_gesture">A gesture</string>
     <string name="category_left_arrow_gesture">&lt; gesture</string>
