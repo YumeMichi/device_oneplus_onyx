@@ -51,19 +51,19 @@ public class Startup extends BroadcastReceiver {
     public void onReceive(final Context context, final Intent bootintent) {
         String value = Settings.System.getString(context.getContentResolver(), GestureSettings.DEVICE_GESTURE_MAPPING_0);
         boolean enabled = !TextUtils.isEmpty(value) && !value.equals(AppSelectListPreference.DISABLED_ENTRY);
-        restore(getGestureFile(GestureSettings.KEY_DOUBLE_SWIPE_APP), enabled);
+        restore(getGestureFile(GestureSettings.KEY_O_APP), enabled);
 
         value = Settings.System.getString(context.getContentResolver(), GestureSettings.DEVICE_GESTURE_MAPPING_1);
         enabled = !TextUtils.isEmpty(value) && !value.equals(AppSelectListPreference.DISABLED_ENTRY);
-        restore(getGestureFile(GestureSettings.KEY_CIRCLE_APP), enabled);
+        restore(getGestureFile(GestureSettings.KEY_DOUBLE_SWIPE_APP), enabled);
 
         value = Settings.System.getString(context.getContentResolver(), GestureSettings.DEVICE_GESTURE_MAPPING_2);
         enabled = !TextUtils.isEmpty(value) && !value.equals(AppSelectListPreference.DISABLED_ENTRY);
-        restore(getGestureFile(GestureSettings.KEY_DOWN_ARROW_APP), enabled);
+        restore(getGestureFile(GestureSettings.KEY_UP_ARROW_APP), enabled);
 
         value = Settings.System.getString(context.getContentResolver(), GestureSettings.DEVICE_GESTURE_MAPPING_3);
         enabled = !TextUtils.isEmpty(value) && !value.equals(AppSelectListPreference.DISABLED_ENTRY);
-        restore(getGestureFile(GestureSettings.KEY_UP_ARROW_APP), enabled);
+        restore(getGestureFile(GestureSettings.KEY_DOWN_ARROW_APP), enabled);
 
         value = Settings.System.getString(context.getContentResolver(), GestureSettings.DEVICE_GESTURE_MAPPING_4);
         enabled = !TextUtils.isEmpty(value) && !value.equals(AppSelectListPreference.DISABLED_ENTRY);
@@ -75,17 +75,25 @@ public class Startup extends BroadcastReceiver {
 
         value = Settings.System.getString(context.getContentResolver(), GestureSettings.DEVICE_GESTURE_MAPPING_6);
         enabled = !TextUtils.isEmpty(value) && !value.equals(AppSelectListPreference.DISABLED_ENTRY);
-        restore(getGestureFile(GestureSettings.KEY_DOWN_SWIPE_APP), enabled);
+        restore(getGestureFile(GestureSettings.KEY_W_APP), enabled);
 
         value = Settings.System.getString(context.getContentResolver(), GestureSettings.DEVICE_GESTURE_MAPPING_7);
         enabled = !TextUtils.isEmpty(value) && !value.equals(AppSelectListPreference.DISABLED_ENTRY);
-        restore(getGestureFile(GestureSettings.KEY_UP_SWIPE_APP), enabled);
+        restore(getGestureFile(GestureSettings.KEY_M_APP), enabled);
 
         value = Settings.System.getString(context.getContentResolver(), GestureSettings.DEVICE_GESTURE_MAPPING_8);
         enabled = !TextUtils.isEmpty(value) && !value.equals(AppSelectListPreference.DISABLED_ENTRY);
-        restore(getGestureFile(GestureSettings.KEY_LEFT_SWIPE_APP), enabled);
+        restore(getGestureFile(GestureSettings.KEY_DOWN_SWIPE_APP), enabled);
 
         value = Settings.System.getString(context.getContentResolver(), GestureSettings.DEVICE_GESTURE_MAPPING_9);
+        enabled = !TextUtils.isEmpty(value) && !value.equals(AppSelectListPreference.DISABLED_ENTRY);
+        restore(getGestureFile(GestureSettings.KEY_UP_SWIPE_APP), enabled);
+
+        value = Settings.System.getString(context.getContentResolver(), GestureSettings.DEVICE_GESTURE_MAPPING_10);
+        enabled = !TextUtils.isEmpty(value) && !value.equals(AppSelectListPreference.DISABLED_ENTRY);
+        restore(getGestureFile(GestureSettings.KEY_LEFT_SWIPE_APP), enabled);
+
+        value = Settings.System.getString(context.getContentResolver(), GestureSettings.DEVICE_GESTURE_MAPPING_11);
         enabled = !TextUtils.isEmpty(value) && !value.equals(AppSelectListPreference.DISABLED_ENTRY);
         restore(getGestureFile(GestureSettings.KEY_RIGHT_SWIPE_APP), enabled);
 

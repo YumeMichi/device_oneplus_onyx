@@ -31,8 +31,8 @@
         android:title="@string/gesture_app_title">
 
         <org.omnirom.device.AppSelectListPreference
-            android:key="circle_gesture_app"
-            android:title="@string/category_circle_gesture"
+            android:key="o_gesture_app"
+            android:title="@string/category_o_gesture"
             android:persistent="false" />
 
         <org.omnirom.device.AppSelectListPreference
@@ -58,6 +58,16 @@
         <org.omnirom.device.AppSelectListPreference
             android:key="down_arrow_gesture_app"
             android:title="@string/category_down_arrow_gesture"
+            android:persistent="false"/>
+
+        <org.omnirom.device.AppSelectListPreference
+            android:key="w_gesture_app"
+            android:title="@string/category_w_gesture"
+            android:persistent="false"/>
+
+        <org.omnirom.device.AppSelectListPreference
+            android:key="m_gesture_app"
+            android:title="@string/category_m_gesture"
             android:persistent="false"/>
 
         <org.omnirom.device.AppSelectListPreference

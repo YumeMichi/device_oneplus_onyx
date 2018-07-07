@@ -47,7 +47,9 @@
   <string name="choose_app">选择应用</string>
   <string name="category_double_swipe_gesture">II 手势</string>
   <string name="gesture_app_title">启动应用程序</string>
-  <string name="category_circle_gesture">O 手势</string>
+  <string name="category_o_gesture">O 手势</string>
+  <string name="category_w_gesture">W 手势</string>
+  <string name="category_m_gesture">M 手势</string>
   <string name="category_down_arrow_gesture">V 手势</string>
   <string name="category_up_arrow_gesture">A 手势</string>
   <string name="category_left_arrow_gesture">&lt; 手势</string>
