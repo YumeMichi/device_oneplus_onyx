@@ -201,6 +201,10 @@ PRODUCT_PACKAGES += \
     android.hardware.health@2.1-impl \
     android.hardware.health@2.1-service
 
+# KeyHandler
+PRODUCT_PACKAGES += \
+    KeyHandler
+
 # Lights
 PRODUCT_PACKAGES += \
     android.hardware.light@2.0-service.onyx
