@@ -31,18 +31,18 @@ telephony.lteOnGsmDevice=1
 # Audio
 mm.enable.smoothstreaming=true
 af.fast_track_multiplier=1
-audio_hal.period_size=192
-audio.offload.buffer.size.kb=32
 audio.offload.video=true
-audio.offload.multiple.enabled=false
-audio.offload.gapless.enabled=true
+vendor.audio_hal.period_size=192
+vendor.audio.offload.buffer.size.kb=32
+vendor.audio.offload.multiple.enabled=false
+vendor.audio.offload.gapless.enabled=true
 media.aac_51_output_enabled=true
 audio.deep_buffer.media=true
 ro.config.media_vol_steps=25
 ro.config.vc_call_vol_steps=7
-ro.qc.sdk.audio.fluencetype=fluence
-persist.audio.fluence.speaker=true
-persist.audio.fluence.voicecall=true
+ro.vendor.audio.sdk.fluencetype=fluence
+persist.vendor.audio.fluence.speaker=true
+persist.vendor.audio.fluence.voicecall=true
 
 # Bluetooth
 qcom.bluetooth.soc=smd
