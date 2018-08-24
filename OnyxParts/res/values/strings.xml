@@ -35,7 +35,6 @@
     <string name="off_screen_gesture_feedback_title_head">Haptic feedback</string>
     <string name="slider_mode_off">Off</string>
     <string name="slider_mode_vibrate">Vibrate</string>
-    <string name="slider_mode_silent">Silent</string>
     <string name="slider_mode_priority">Priority only</string>
     <string name="slider_mode_alarm">Alarms only</string>
     <string name="slider_mode_dnd">Total silence</string>

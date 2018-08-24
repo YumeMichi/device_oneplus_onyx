@@ -35,7 +35,6 @@
   <string name="off_screen_gesture_feedback_title_head">振动反馈</string>
   <string name="slider_mode_off">关闭</string>
   <string name="slider_mode_vibrate">振动</string>
-  <string name="slider_mode_silent">静音</string>
   <string name="slider_mode_priority">仅优先打扰</string>
   <string name="slider_mode_alarm">仅闹钟</string>
   <string name="slider_mode_dnd">完全静音</string>
