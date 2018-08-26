@@ -51,7 +51,6 @@ ro.config.media_vol_steps=25
 ro.config.vc_call_vol_steps=7
 
 # Bluetooth
-qcom.bluetooth.soc=smd
 ro.bluetooth.hfp.ver=1.7
 ro.qualcomm.bt.hci_transport=smd
 
