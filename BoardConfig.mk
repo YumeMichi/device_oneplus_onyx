@@ -95,9 +95,6 @@ BACKLIGHT_PATH := /sys/class/leds/lcd-backlight/brightness
 # Display
 TARGET_SCREEN_DENSITY := 420
 
-# Exclude serif fonts for saving system.img size.
-EXCLUDE_SERIF_FONTS := true
-
 # Filesystem
 BOARD_FLASH_BLOCK_SIZE := 131072
 BOARD_BOOTIMAGE_PARTITION_SIZE     := 16777216
@@ -121,6 +118,10 @@ TARGET_FS_CONFIG_GEN := $(PLATFORM_PATH)/config.fs
 # FM
 BOARD_HAVE_QCOM_FM := true
 TARGET_QCOM_NO_FM_FIRMWARE := true
+
+# Fonts
+EXCLUDE_SERIF_FONTS := true
+SMALLER_FONT_FOOTPRINT := true
 
 # Graphics
 MAX_EGL_CACHE_KEY_SIZE := 12*1024
