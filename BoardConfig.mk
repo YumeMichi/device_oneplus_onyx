@@ -82,6 +82,9 @@ BOARD_HAVE_BLUETOOTH_QCOM := true
 
 # Camera
 USE_DEVICE_SPECIFIC_CAMERA := true
+TARGET_PROCESS_SDK_VERSION_OVERRIDE := \
+    /system/bin/mediaserver=22 \
+    /system/vendor/bin/mm-qcamera-daemon=22
 
 # Charger
 BOARD_CHARGER_DISABLE_INIT_BLANK := true
