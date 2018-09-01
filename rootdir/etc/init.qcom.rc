@@ -452,7 +452,6 @@ service chargerled /vendor/bin/init.chargerled.sh
     user root
     group root system
     disabled
-    seclabel u:r:charger_led:s0
     oneshot
 
 on charger
@@ -484,7 +483,6 @@ service hciattach /vendor/bin/init.qcom.bt.sh
     user bluetooth
     group bluetooth net_bt_admin oem_2950 radio
     disabled
-    seclabel u:r:bluetooth_loader:s0
     oneshot
 
 ## Properties start here
