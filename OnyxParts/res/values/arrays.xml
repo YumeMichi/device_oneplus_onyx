@@ -17,16 +17,12 @@
     <string-array name="slider_key_action_entries" translatable="false">
         <item>@string/slider_mode_off</item>
         <item>@string/slider_mode_vibrate</item>
-        <item>@string/slider_mode_priority</item>
-        <item>@string/slider_mode_alarm</item>
-        <item>@string/slider_mode_dnd</item>
+        <item>@string/slider_mode_zen</item>
     </string-array>
 
     <string-array name="slider_key_action_values" translatable="false">
         <item>0</item>
         <item>1</item>
         <item>2</item>
-        <item>3</item>
-        <item>4</item>
     </string-array>
 </resources>

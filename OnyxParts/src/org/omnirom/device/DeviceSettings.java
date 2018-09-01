@@ -50,7 +50,7 @@ public class DeviceSettings extends PreferenceFragment implements
 
     public static final String KEY_HBM_SWITCH = "hbm";
 
-    public static final String SLIDER_DEFAULT_VALUE = "4,2,0";
+    public static final String SLIDER_DEFAULT_VALUE = "2,1,0";
 
     private VibratorStrengthPreference mVibratorStrength;
     private ListPreference mSliderModeTop;
