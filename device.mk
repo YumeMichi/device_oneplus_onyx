@@ -118,6 +118,10 @@ PRODUCT_PACKAGES += \
     libshims_atomic \
     Snap
 
+# Camera configurations
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/external_camera_config.xml:system/vendor/etc/external_camera_config.xml
+
 # Data
 PRODUCT_PACKAGES += \
     librmnetctl \
