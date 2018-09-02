@@ -33,8 +33,8 @@ BOARD_KERNEL_IMAGE_NAME := zImage-dtb
 TARGET_KERNEL_ARCH      := arm
 TARGET_KERNEL_CONFIG    := onyx_defconfig
 TARGET_KERNEL_SOURCE    := kernel/oneplus/onyx
-KERNEL_TOOLCHAIN        := $(ANDROID_BUILD_TOP)/prebuilts/gcc/$(HOST_OS)-x86/arm/arm-eabi-4.8/bin
-KERNEL_TOOLCHAIN_PREFIX := arm-eabi-
+KERNEL_TOOLCHAIN        := $(shell pwd)/prebuilts/gcc/$(HOST_OS)-x86/arm/arm-linux-androideabi-4.9/bin
+TARGET_KERNEL_CROSS_COMPILE_PREFIX := arm-linux-androidkernel-
 
 BOARD_BOOTIMAGE_PARTITION_SIZE     := 25165824
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 25165824
