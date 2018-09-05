@@ -121,6 +121,11 @@ PRODUCT_PACKAGES += \
     libshims_atomic \
     Snap
 
+# Charger
+WITH_LINEAGE_CHARGER := false
+PRODUCT_PACKAGES += \
+    charger_res_images
+
 # Data
 PRODUCT_PACKAGES += \
     librmnetctl

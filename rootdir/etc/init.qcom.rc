@@ -392,8 +392,10 @@ service qseecomd /vendor/bin/qseecomd
 service charger /charger
     class charger
     critical
-    group system graphics
     seclabel u:r:charger:s0
+
+on charger
+    write /sys/class/leds/lcd-backlight/brightness 100
 
 service qcamerasvr /vendor/bin/mm-qcamera-daemon
     class late_start
