@@ -16,6 +16,9 @@
 #define LOG_TAG "android.hardware.light@2.0-service.onyx"
 #include <android-base/logging.h>
 #include <hidl/HidlTransportSupport.h>
+#ifdef ARCH_ARM_32
+#include <hwbinder/ProcessState.h>
+#endif
 #include <utils/Errors.h>
 #include "Light.h"
 
@@ -53,6 +56,9 @@ const static std::string kBlueBlinkPath = "/sys/class/leds/blue/blink";
 const static std::string kRgbBlinkPath = "/sys/class/leds/rgb/rgb_blink";
 
 int main() {
+#ifdef ARCH_ARM_32
+    android::hardware::ProcessState::initWithMmapSize((size_t)(32768));
+#endif
     uint32_t lcdMaxBrightness = 255;
     std::ofstream lcdBacklight(kLcdBacklightPath);
     if (!lcdBacklight) {
