@@ -27,5 +27,12 @@
         "libutils",
         "android.hardware.light@2.0",
     ],
+    arch: {
+        arm: {
+            cflags: [
+                "-DARCH_ARM_32"
+            ],
+        },
+    },
     proprietary: true,
 }
