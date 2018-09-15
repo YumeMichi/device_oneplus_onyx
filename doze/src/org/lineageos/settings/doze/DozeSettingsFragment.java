@@ -101,20 +101,21 @@ public class DozeSettingsFragment extends PreferenceFragment implements OnPrefer
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
+        Utils.enableGesture(getActivity(), preference.getKey(), (Boolean) newValue);
         Utils.checkDozeService(getActivity());
         return true;
     }
 
     @Override
-    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        Utils.enableDoze(b, getActivity());
+    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+        Utils.enableDoze(getActivity(), isChecked);
         Utils.checkDozeService(getActivity());
 
-        mTextView.setText(getString(b ? R.string.switch_bar_on : R.string.switch_bar_off));
+        mTextView.setText(getString(isChecked ? R.string.switch_bar_on : R.string.switch_bar_off));
 
-        mPickUpPreference.setEnabled(b);
-        mHandwavePreference.setEnabled(b);
-        mPocketPreference.setEnabled(b);
+        mPickUpPreference.setEnabled(isChecked);
+        mHandwavePreference.setEnabled(isChecked);
+        mPocketPreference.setEnabled(isChecked);
     }
 
     @Override
