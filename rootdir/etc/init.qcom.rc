@@ -395,6 +395,7 @@ service chargerled /vendor/bin/init.chargerled.sh
     user root
     group root system
     disabled
+    seclabel u:r:charger_led:s0
     oneshot
 
 on charger
