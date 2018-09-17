@@ -18,6 +18,9 @@
 /system/vendor/bin/init.chargerled.sh                   u:object_r:charger_led_exec:s0
 /sys/devices/qpnp-charger-14/power_supply(/.*)?         u:object_r:sysfs_battery_supply:s0
 
+# Camera HAL
+/system/vendor/bin/hw/android\.hardware\.camera\.provider@2\.4-service\.onyx       u:object_r:hal_camera_default_exec:s0
+
 # Light HAL
 /system/vendor/bin/hw/android\.hardware\.light@2\.0-service\.onyx                  u:object_r:hal_light_default_exec:s0
 /sys/class/leds/lcd-backlight(/.*)?                                                u:object_r:sysfs_leds:s0
