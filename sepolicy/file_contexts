@@ -11,15 +11,18 @@
 # Reserve2 filesystem for encryption
 /dev/block/platform/msm_sdcc\.1/by-name/reserve2        u:object_r:reserve2_block_device:s0
 
-# Backlight
-/sys/class/leds/lcd-backlight/brightness                u:object_r:touchscreen_file:s0
-
 # Modem
 /dev/block/platform/msm_sdcc\.1/by-name/modem           u:object_r:modem_block_device:s0
 
 # Offline charging LED controller
 /system/vendor/bin/init.chargerled.sh                   u:object_r:charger_led_exec:s0
 /sys/devices/qpnp-charger-14/power_supply(/.*)?         u:object_r:sysfs_battery_supply:s0
+
+# Light HAL
+/system/vendor/bin/hw/android\.hardware\.light@2\.0-service\.onyx                  u:object_r:hal_light_default_exec:s0
+/sys/class/leds/lcd-backlight(/.*)?                                                u:object_r:sysfs_leds:s0
+/sys/devices/mdp\.0/qcom\,mdss_fb_primary\.171/leds/lcd-backlight(/.*)?            u:object_r:sysfs_leds:s0
+/sys/devices/leds-qpnp-25/leds(/.*)?                                               u:object_r:sysfs_leds:s0
 
 # Power HAL
 /system/vendor/bin/hw/android\.hardware\.power@1\.0-service\.onyx                  u:object_r:hal_power_default_exec:s0
