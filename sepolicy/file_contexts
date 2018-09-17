@@ -20,3 +20,6 @@
 # Offline charging LED controller
 /system/vendor/bin/init.chargerled.sh                   u:object_r:charger_led_exec:s0
 /sys/devices/qpnp-charger-14/power_supply(/.*)?         u:object_r:sysfs_battery_supply:s0
+
+# Power HAL
+/system/vendor/bin/hw/android\.hardware\.power@1\.0-service\.onyx                  u:object_r:hal_power_default_exec:s0
