@@ -8,15 +8,8 @@
 # FRP partition
 /dev/block/bootdevice/by-name/config                    u:object_r:frp_block_device:s0
 
-# Reserve4 filesystem for encryption
+# Reserve2 filesystem for encryption
 /dev/block/platform/msm_sdcc\.1/by-name/reserve2        u:object_r:reserve2_block_device:s0
-
-# Old camera socket
-/data/cam_socket1                                       u:object_r:camera_socket:s0
-/data/cam_socket2                                       u:object_r:camera_socket:s0
-
-# Old slim_ap executable
-/system/vendor/bin/slim_ap_daemon                       u:object_r:location_exec:s0
 
 # Backlight
 /sys/class/leds/lcd-backlight/brightness                u:object_r:touchscreen_file:s0
