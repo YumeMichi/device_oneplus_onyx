@@ -186,4 +186,4 @@
 /dev/uio2                 0660   system     system
 
 # Add device block for FRP
-/dev/block/bootdevice/by-name/config    0660   system     system
+/dev/block/platform/msm_sdcc.1/by-name/config    0660   system     system
