@@ -1,16 +1,15 @@
 # ADSP
-bin/adsprpcd
+bin/adsprpcd:vendor/bin/adsprpcd
 vendor/lib/libadsprpc.so
 vendor/lib/libfastcvadsp_stub.so
 vendor/lib/libfastcvopt.so
 
-# Bluetooth
-bin/btnvtool
-bin/hci_qcomm_init
+# Bluetooth (from bacon)
+bin/hci_qcomm_init:vendor/bin/hci_qcomm_init|022d27e7c7cba3c9bbb0deadaa1834a620eeb407
 vendor/lib/libbtnv.so
 
 # Audio
-etc/firmware/tfa98xx.cnt
+etc/firmware/tfa98xx.cnt:vendor/firmware/tfa98xx.cnt
 vendor/lib/libacdbloader.so
 vendor/lib/libacdbrtac.so
 vendor/lib/libadiertac.so
@@ -20,7 +19,7 @@ vendor/lib/soundfx/libqcreverb.so
 vendor/lib/soundfx/libqcvirt.so
 
 # Camera
-bin/mm-qcamera-daemon
+bin/mm-qcamera-daemon:vendor/bin/mm-qcamera-daemon
 vendor/lib/libjpegdhw.so
 vendor/lib/libjpegehw.so
 vendor/lib/libmmcamera2_c2d_module.so
@@ -82,25 +81,23 @@ vendor/lib/libchromatix_s5k3m2_snapshot.so
 vendor/lib/libchromatix_s5k3m2_zsl.so
 
 # Camera firmware
-etc/firmware/cpp_firmware_v1_1_1.fw
-etc/firmware/cpp_firmware_v1_1_6.fw
-etc/firmware/cpp_firmware_v1_2_0.fw
+etc/firmware/cpp_firmware_v1_2_0.fw:vendor/firmware/cpp_firmware_v1_2_0.fw
 
-# DRM
-bin/qseecomd
+# Recovery
+bin/qseecomd:vendor/bin/qseecomd
 vendor/lib/libQSEEComAPI.so
 vendor/lib/libdrmfs.so
 vendor/lib/libdrmtime.so
 vendor/lib/librpmb.so
 vendor/lib/libssd.so
 
-# Widevine
-vendor/lib/mediadrm/libwvdrmengine.so
+# Widevine DRM (from angler)
+vendor/lib/mediadrm/libwvdrmengine.so|66ba66d047044f92eb0eada1faf6a5799ded90ab
 
 # GPS
-bin/loc_launcher
-lib/libloc_api_v02.so
-lib/libloc_ds_api.so
+bin/loc_launcher:vendor/bin/loc_launcher
+lib/libloc_api_v02.so:vendor/lib/libloc_api_v02.so
+lib/libloc_ds_api.so:vendor/lib/libloc_ds_api.so
 vendor/lib/hw/flp.default.so
 vendor/lib/libflp.so
 vendor/lib/libgeofence.so
@@ -125,8 +122,8 @@ vendor/lib/libsc-a3xx.so
 vendor/lib/libscale.so
 
 # Graphics firmware
-etc/firmware/a330_pfp.fw
-etc/firmware/a330_pm4.fw
+etc/firmware/a330_pfp.fw:vendor/firmware/a330_pfp.fw
+etc/firmware/a330_pm4.fw:vendor/firmware/a330_pm4.fw
 
 # Listen service
 vendor/lib/liblisten.so
@@ -134,101 +131,102 @@ vendor/lib/liblistenhardware.so
 vendor/lib/liblistenjni.so
 vendor/lib/liblistensoundmodel.so
 
-# Media
-vendor/lib/libDivxDrm.so
-vendor/lib/libI420colorconvert.so
-vendor/lib/libmm-color-convertor.so
-vendor/lib/libmmosal.so
-vendor/lib/libSHIMDivxDrm.so
+# OMX
+vendor/lib/libOmxAacDec.so
+vendor/lib/libOmxAmrwbplusDec.so
+vendor/lib/libOmxEvrcDec.so
+vendor/lib/libOmxQcelp13Dec.so
+vendor/lib/libOmxVdecHevc.so
+vendor/lib/libOmxWmaDec.so
 
 # Modem firmware
-etc/firmware/adsp.b00
-etc/firmware/adsp.b01
-etc/firmware/adsp.b02
-etc/firmware/adsp.b03
-etc/firmware/adsp.b04
-etc/firmware/adsp.b05
-etc/firmware/adsp.b06
-etc/firmware/adsp.b07
-etc/firmware/adsp.b08
-etc/firmware/adsp.b09
-etc/firmware/adsp.b10
-etc/firmware/adsp.b11
-etc/firmware/adsp.b12
-etc/firmware/adsp.mdt
-etc/firmware/cmnlib.b00
-etc/firmware/cmnlib.b01
-etc/firmware/cmnlib.b02
-etc/firmware/cmnlib.b03
-etc/firmware/cmnlib.mdt
-etc/firmware/isdbtmm.b00
-etc/firmware/isdbtmm.b01
-etc/firmware/isdbtmm.b02
-etc/firmware/isdbtmm.b03
-etc/firmware/isdbtmm.mdt
-etc/firmware/keymaste.b00
-etc/firmware/keymaste.b01
-etc/firmware/keymaste.b02
-etc/firmware/keymaste.b03
-etc/firmware/keymaste.mdt
-etc/firmware/mba.b00
-etc/firmware/mba.mdt
-etc/firmware/mc_v2.b00
-etc/firmware/mc_v2.b01
-etc/firmware/mc_v2.b02
-etc/firmware/mc_v2.b03
-etc/firmware/mc_v2.mdt
-etc/firmware/modem.b00
-etc/firmware/modem.b01
-etc/firmware/modem.b03
-etc/firmware/modem.b04
-etc/firmware/modem.b07
-etc/firmware/modem.b09
-etc/firmware/modem.b10
-etc/firmware/modem.b12
-etc/firmware/modem.b13
-etc/firmware/modem.b14
-etc/firmware/modem.b15
-etc/firmware/modem.b16
-etc/firmware/modem.b17
-etc/firmware/modem.b18
-etc/firmware/modem.b19
-etc/firmware/modem.b20
-etc/firmware/modem.b24
-etc/firmware/modem.b25
-etc/firmware/modem.b26
-etc/firmware/modem.b27
-etc/firmware/modem.mdt
-etc/firmware/playread.b00
-etc/firmware/playread.b01
-etc/firmware/playread.b02
-etc/firmware/playread.b03
-etc/firmware/playread.mdt
-etc/firmware/tqs.b00
-etc/firmware/tqs.b01
-etc/firmware/tqs.b02
-etc/firmware/tqs.b03
-etc/firmware/tqs.mdt
-etc/firmware/wcnss.b00
-etc/firmware/wcnss.b01
-etc/firmware/wcnss.b02
-etc/firmware/wcnss.b04
-etc/firmware/wcnss.b06
-etc/firmware/wcnss.b07
-etc/firmware/wcnss.b08
-etc/firmware/wcnss.b09
-etc/firmware/wcnss.mdt
-etc/firmware/widevine.b00
-etc/firmware/widevine.b01
-etc/firmware/widevine.b02
-etc/firmware/widevine.b03
-etc/firmware/widevine.mdt
+etc/firmware/adsp.b00:vendor/firmware/adsp.b00
+etc/firmware/adsp.b01:vendor/firmware/adsp.b01
+etc/firmware/adsp.b02:vendor/firmware/adsp.b02
+etc/firmware/adsp.b03:vendor/firmware/adsp.b03
+etc/firmware/adsp.b04:vendor/firmware/adsp.b04
+etc/firmware/adsp.b05:vendor/firmware/adsp.b05
+etc/firmware/adsp.b06:vendor/firmware/adsp.b06
+etc/firmware/adsp.b07:vendor/firmware/adsp.b07
+etc/firmware/adsp.b08:vendor/firmware/adsp.b08
+etc/firmware/adsp.b09:vendor/firmware/adsp.b09
+etc/firmware/adsp.b10:vendor/firmware/adsp.b10
+etc/firmware/adsp.b11:vendor/firmware/adsp.b11
+etc/firmware/adsp.b12:vendor/firmware/adsp.b12
+etc/firmware/adsp.mdt:vendor/firmware/adsp.mdt
+etc/firmware/cmnlib.b00:vendor/firmware/cmnlib.b00
+etc/firmware/cmnlib.b01:vendor/firmware/cmnlib.b01
+etc/firmware/cmnlib.b02:vendor/firmware/cmnlib.b02
+etc/firmware/cmnlib.b03:vendor/firmware/cmnlib.b03
+etc/firmware/cmnlib.mdt:vendor/firmware/cmnlib.mdt
+etc/firmware/isdbtmm.b00:vendor/firmware/isdbtmm.b00
+etc/firmware/isdbtmm.b01:vendor/firmware/isdbtmm.b01
+etc/firmware/isdbtmm.b02:vendor/firmware/isdbtmm.b02
+etc/firmware/isdbtmm.b03:vendor/firmware/isdbtmm.b03
+etc/firmware/isdbtmm.mdt:vendor/firmware/isdbtmm.mdt
+etc/firmware/keymaste.b00:vendor/firmware/keymaste.b00
+etc/firmware/keymaste.b01:vendor/firmware/keymaste.b01
+etc/firmware/keymaste.b02:vendor/firmware/keymaste.b02
+etc/firmware/keymaste.b03:vendor/firmware/keymaste.b03
+etc/firmware/keymaste.mdt:vendor/firmware/keymaste.mdt
+etc/firmware/mba.b00:vendor/firmware/mba.b00
+etc/firmware/mba.mdt:vendor/firmware/mba.mdt
+etc/firmware/mc_v2.b00:vendor/firmware/mc_v2.b00
+etc/firmware/mc_v2.b01:vendor/firmware/mc_v2.b01
+etc/firmware/mc_v2.b02:vendor/firmware/mc_v2.b02
+etc/firmware/mc_v2.b03:vendor/firmware/mc_v2.b03
+etc/firmware/mc_v2.mdt:vendor/firmware/mc_v2.mdt
+etc/firmware/modem.b00:vendor/firmware/modem.b00
+etc/firmware/modem.b01:vendor/firmware/modem.b01
+etc/firmware/modem.b03:vendor/firmware/modem.b03
+etc/firmware/modem.b04:vendor/firmware/modem.b04
+etc/firmware/modem.b07:vendor/firmware/modem.b07
+etc/firmware/modem.b09:vendor/firmware/modem.b09
+etc/firmware/modem.b10:vendor/firmware/modem.b10
+etc/firmware/modem.b12:vendor/firmware/modem.b12
+etc/firmware/modem.b13:vendor/firmware/modem.b13
+etc/firmware/modem.b14:vendor/firmware/modem.b14
+etc/firmware/modem.b15:vendor/firmware/modem.b15
+etc/firmware/modem.b16:vendor/firmware/modem.b16
+etc/firmware/modem.b17:vendor/firmware/modem.b17
+etc/firmware/modem.b18:vendor/firmware/modem.b18
+etc/firmware/modem.b19:vendor/firmware/modem.b19
+etc/firmware/modem.b20:vendor/firmware/modem.b20
+etc/firmware/modem.b24:vendor/firmware/modem.b24
+etc/firmware/modem.b25:vendor/firmware/modem.b25
+etc/firmware/modem.b26:vendor/firmware/modem.b26
+etc/firmware/modem.b27:vendor/firmware/modem.b27
+etc/firmware/modem.mdt:vendor/firmware/modem.mdt
+etc/firmware/playread.b00:vendor/firmware/playread.b00
+etc/firmware/playread.b01:vendor/firmware/playread.b01
+etc/firmware/playread.b02:vendor/firmware/playread.b02
+etc/firmware/playread.b03:vendor/firmware/playread.b03
+etc/firmware/playread.mdt:vendor/firmware/playread.mdt
+etc/firmware/tqs.b00:vendor/firmware/tqs.b00
+etc/firmware/tqs.b01:vendor/firmware/tqs.b01
+etc/firmware/tqs.b02:vendor/firmware/tqs.b02
+etc/firmware/tqs.b03:vendor/firmware/tqs.b03
+etc/firmware/tqs.mdt:vendor/firmware/tqs.mdt
+etc/firmware/wcnss.b00:vendor/firmware/wcnss.b00
+etc/firmware/wcnss.b01:vendor/firmware/wcnss.b01
+etc/firmware/wcnss.b02:vendor/firmware/wcnss.b02
+etc/firmware/wcnss.b04:vendor/firmware/wcnss.b04
+etc/firmware/wcnss.b06:vendor/firmware/wcnss.b06
+etc/firmware/wcnss.b07:vendor/firmware/wcnss.b07
+etc/firmware/wcnss.b08:vendor/firmware/wcnss.b08
+etc/firmware/wcnss.b09:vendor/firmware/wcnss.b09
+etc/firmware/wcnss.mdt:vendor/firmware/wcnss.mdt
+etc/firmware/widevine.b00:vendor/firmware/widevine.b00
+etc/firmware/widevine.b01:vendor/firmware/widevine.b01
+etc/firmware/widevine.b02:vendor/firmware/widevine.b02
+etc/firmware/widevine.b03:vendor/firmware/widevine.b03
+etc/firmware/widevine.mdt:vendor/firmware/widevine.mdt
 
 # Perf
-bin/mpdecision
+bin/mpdecision:vendor/bin/mpdecision
 
 # Qualcomm framework
-bin/irsc_util
+bin/irsc_util:vendor/bin/irsc_util
 vendor/lib/libdiag.so
 vendor/lib/libdsi_netctrl.so
 vendor/lib/libdsutils.so
@@ -248,22 +246,22 @@ vendor/lib/libsmemlog.so
 vendor/lib/libsystem_health_mon.so
 
 # Radio
--app/shutdownlistener/shutdownlistener.apk
+-app/shutdownlistener/shutdownlistener.apk:vendor/app/shutdownlistener/shutdownlistener.apk
 -priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk
-bin/netmgrd
-bin/qmuxd
-bin/radish
-bin/rfs_access
-bin/rmt_storage
-etc/data/dsi_config.xml
-etc/data/netmgr_config.xml
-etc/permissions/qcnvitems.xml
-etc/permissions/qcrilhook.xml
--framework/ConnectivityExt.jar
--framework/qcnvitems.jar
--framework/qcrilhook.jar
-lib/libmdmdetect.so
-lib/libparam.so
+bin/netmgrd:vendor/bin/netmgrd
+bin/qmuxd:vendor/bin/qmuxd
+bin/radish:vendor/bin/radish
+bin/rfs_access:vendor/bin/rfs_access
+bin/rmt_storage:vendor/bin/rmt_storage
+etc/data/dsi_config.xml:vendor/etc/data/dsi_config.xml
+etc/data/netmgr_config.xml:vendor/etc/data/netmgr_config.xml
+etc/permissions/qcnvitems.xml:vendor/etc/permissions/qcnvitems.xml
+etc/permissions/qcrilhook.xml:vendor/etc/permissions/qcrilhook.xml
+-framework/ConnectivityExt.jar:vendor/framework/ConnectivityExt.jar
+-framework/qcnvitems.jar:vendor/framework/qcnvitems.jar
+-framework/qcrilhook.jar:vendor/framework/qcrilhook.jar
+lib/libmdmdetect.so:vendor/lib/libmdmdetect.so
+lib/libparam.so:vendor/lib/libparam.so
 vendor/lib/libcneapiclient.so
 vendor/lib/libconfigdb.so
 vendor/lib/liblqe.so
@@ -280,7 +278,7 @@ vendor/lib/librs_adreno.so|cceaf847d749ac2f1a3af3a1ae6ba653d93e0ed9
 vendor/lib/librs_adreno_sha1.so|e797997d3ac69dfa87904863672c5b9769c796cc
 
 # Sensors
-bin/sensors.qcom
+bin/sensors.qcom:vendor/bin/sensors.qcom
 vendor/lib/hw/activity_recognition.msm8974.so
 vendor/lib/hw/sensors.msm8974.so
 vendor/lib/libsensor1.so
@@ -290,20 +288,20 @@ vendor/lib/libsensor_reg.so
 vendor/lib/libthermalclient.so
 
 # Time services
--app/TimeService/TimeService.apk
-bin/time_daemon
+-app/TimeService/TimeService.apk:vendor/app/TimeService/TimeService.apk
+bin/time_daemon:vendor/bin/time_daemon
 -vendor/lib/libtime_genoff.so
 -vendor/lib/libTimeService.so
 
 # Venus (media) firmware
-etc/firmware/venus.b00
-etc/firmware/venus.b01
-etc/firmware/venus.b02
-etc/firmware/venus.b03
-etc/firmware/venus.b04
-etc/firmware/venus.mbn
-etc/firmware/venus.mdt
+etc/firmware/venus.b00:vendor/firmware/venus.b00
+etc/firmware/venus.b01:vendor/firmware/venus.b01
+etc/firmware/venus.b02:vendor/firmware/venus.b02
+etc/firmware/venus.b03:vendor/firmware/venus.b03
+etc/firmware/venus.b04:vendor/firmware/venus.b04
+etc/firmware/venus.mbn:vendor/firmware/venus.mbn
+etc/firmware/venus.mdt:vendor/firmware/venus.mdt
 
-# WiFi
--lib/libwpa_qmi_eap_proxy.so
-lib/libwcnss_qmi.so
+# WiFi (from hammerhead)
+-lib/libwpa_qmi_eap_proxy.so:vendor/lib/libwpa_qmi_eap_proxy.so|6e41d63f973cbd20448f29f5b0b81780cc3f2694
+lib/libwcnss_qmi.so:vendor/lib/libwcnss_qmi.so|7aa2b3b41b0293316e06fd9ace837e7d8c3e7e7f
