@@ -24,7 +24,6 @@ on init
     # Set permissions for persist partition
     mkdir /persist 0771 system system
     mkdir /firmware 0771 system system
-    symlink /sdcard /storage/sdcard0
 
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
