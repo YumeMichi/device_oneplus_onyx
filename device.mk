@@ -93,7 +93,6 @@ PRODUCT_PACKAGES += \
     android.hardware.audio@2.0-impl \
     android.hardware.audio@2.0-service \
     android.hardware.audio.effect@2.0-impl \
-    android.hardware.audio.effect@2.0-service \
     audio.a2dp.default \
     audio_policy.msm8974 \
     audio.primary.msm8974 \
