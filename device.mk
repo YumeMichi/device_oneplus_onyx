@@ -18,8 +18,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
-	$(LOCAL_PATH)/overlay \
-	$(LOCAL_PATH)/overlay-lineage
+    $(LOCAL_PATH)/overlay
 
 # Boot animation
 TARGET_BOOTANIMATION_HALF_RES := true
@@ -40,7 +39,6 @@ PRODUCT_PACKAGES += \
 
 # Permissions
 PRODUCT_COPY_FILES += \
-    external/ant-wireless/antradio-library/com.dsi.ant.antradio_library.xml:system/vendor/etc/permissions/com.dsi.ant.antradio_library.xml \
     frameworks/native/data/etc/handheld_core_hardware.xml:system/vendor/etc/permissions/handheld_core_hardware.xml \
     frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/vendor/etc/permissions/android.hardware.audio.low_latency.xml \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/vendor/etc/permissions/android.hardware.bluetooth_le.xml \
@@ -62,12 +60,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/vendor/etc/permissions/android.hardware.usb.host.xml \
     frameworks/native/data/etc/android.hardware.wifi.xml:system/vendor/etc/permissions/android.hardware.wifi.xml \
     frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/vendor/etc/permissions/android.hardware.wifi.direct.xml
-
-# ANT+
-PRODUCT_PACKAGES += \
-    AntHalService \
-    com.dsi.ant.antradio_library \
-    libantradio
 
 # Audio
 PRODUCT_COPY_FILES += \
@@ -118,8 +110,7 @@ PRODUCT_PACKAGES += \
     camera.msm8974 \
     libboringssl-compat \
     libstlport \
-    libshims_atomic \
-    Snap
+    libshims_atomic
 
 # Charger
 WITH_LINEAGE_CHARGER := false
@@ -259,12 +250,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.hardware.vibrator@1.0-impl
 
-# Weather providers
-PRODUCT_PACKAGES += \
-    OpenWeatherMapWeatherProvider \
-    YahooWeatherProvider \
-    WundergroundWeatherProvider
-
 # USB
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
@@ -297,10 +282,3 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.heaptargetutilization=0.75 \
     dalvik.vm.heapminfree=2m \
     dalvik.vm.heapmaxfree=8m
-
-# Vendor security patch level
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.lineage.build.vendor_security_patch=2016-11-10
-
-# Inherit from oppo-common
-$(call inherit-product, device/oppo/common/common.mk)

@@ -15,9 +15,6 @@
 # limitations under the License.
 #
 
-# inherit from Oppo common
--include device/oppo/common/BoardConfigCommon.mk
-
 PLATFORM_PATH := device/oneplus/onyx
 
 # Include path
@@ -45,12 +42,14 @@ TARGET_USES_64_BIT_BINDER := true
 # Kernel
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom androidboot.bootdevice=msm_sdcc.1 ehci-hcd.park=3
+BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100
 BOARD_KERNEL_IMAGE_NAME := zImage-dtb
 TARGET_KERNEL_ARCH := arm
 TARGET_KERNEL_CONFIG := onyx_defconfig
 TARGET_KERNEL_SOURCE := kernel/oneplus/onyx
+KERNEL_TOOLCHAIN := $(shell pwd)/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := arm-linux-androidkernel-
 
 # Fixes Wifi-Mobile Data toggle issue
@@ -91,8 +90,7 @@ BOARD_CHARGER_ENABLE_SUSPEND := true
 BOARD_HEALTHD_CUSTOM_CHARGER_RES := $(PLATFORM_PATH)/charger/images
 BACKLIGHT_PATH := /sys/class/leds/lcd-backlight/brightness
 
-# CM Hardware
-BOARD_HARDWARE_CLASS += $(PLATFORM_PATH)/lineagehw
+# Power
 TARGET_TAP_TO_WAKE_NODE := "/proc/touchpanel/double_tap_enable"
 
 # Enable dexpreopt to speed boot time
@@ -161,6 +159,9 @@ TARGET_KEYMASTER_WAIT_FOR_QSEE := true
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
 
+# Media
+TARGET_USES_MEDIA_EXTENSIONS := true
+
 # QCOM hardware
 BOARD_USES_QCOM_HARDWARE := true
 
@@ -171,11 +172,11 @@ TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/rootdir/etc/fstab.qcom
 TARGET_RIL_VARIANT := caf
 
 # SELinux
-include device/qcom/sepolicy/sepolicy.mk
-include device/qcom/sepolicy/legacy-sepolicy.mk
+# include device/qcom/sepolicy/sepolicy.mk
+# include device/qcom/sepolicy/legacy-sepolicy.mk
 
-BOARD_SEPOLICY_DIRS += \
-    $(PLATFORM_PATH)/sepolicy
+# BOARD_SEPOLICY_DIRS += \
+#     $(PLATFORM_PATH)/sepolicy
 
 # SHIMS
 TARGET_LD_SHIM_LIBS := \
@@ -190,9 +191,9 @@ TARGET_USE_SDCLANG := true
 BOARD_HAS_QCOM_WLAN              := true
 BOARD_WLAN_DEVICE                := qcwcn
 BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_qcwcn
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 BOARD_HOSTAPD_DRIVER             := NL80211
-BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_qcwcn
+BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 PRODUCT_VENDOR_MOVE_ENABLED      := true
 TARGET_USES_QCOM_WCNSS_QMI       := true
 TARGET_USES_WCNSS_MAC_ADDR_REV   := true
