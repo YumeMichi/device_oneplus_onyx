@@ -91,6 +91,7 @@ BOARD_HEALTHD_CUSTOM_CHARGER_RES := $(PLATFORM_PATH)/charger/images
 BACKLIGHT_PATH := /sys/class/leds/lcd-backlight/brightness
 
 # Power
+TARGET_USES_DEVICE_SPECIFIC_POWERHAL := true
 TARGET_TAP_TO_WAKE_NODE := "/proc/touchpanel/double_tap_enable"
 
 # Enable dexpreopt to speed boot time
