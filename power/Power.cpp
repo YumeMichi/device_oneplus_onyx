@@ -15,18 +15,17 @@
  * limitations under the License.
  */
 
-#define LOG_TAG "android.hardware.power@1.0-service.onyx"
+#define LOG_TAG "android.hardware.power@1.1-service.onyx"
 
 // #define LOG_NDEBUG 0
 
-#include <android/log.h>
 #include <log/log.h>
 #include "Power.h"
 
 namespace android {
 namespace hardware {
 namespace power {
-namespace V1_0 {
+namespace V1_1 {
 namespace implementation {
 
 using ::android::hardware::power::V1_0::Feature;
@@ -64,6 +63,18 @@ Return<void> Power::getPlatformLowPowerStats(getPlatformLowPowerStats_cb _hidl_c
     return Void();
 }
 
+Return<void> Power::getSubsystemLowPowerStats(getSubsystemLowPowerStats_cb _hidl_cb) {
+    hidl_vec<PowerStateSubsystem> subsystems;
+    subsystems.resize(0);
+    _hidl_cb(subsystems, Status::SUCCESS);
+    return Void();
+}
+
+Return<void> Power::powerHintAsync(PowerHint hint, int32_t data) {
+    // just call the normal power hint in this oneway function
+    return powerHint(hint, data);
+}
+
 Return<int32_t> Power::getFeature(LineageFeature feature)  {
     if (feature == LineageFeature::SUPPORTED_PROFILES) {
         return get_number_of_profiles();
@@ -95,7 +106,7 @@ fail:
 }
 
 }  // namespace implementation
-}  // namespace V1_0
+}  // namespace V1_1
 }  // namespace power
 }  // namespace hardware
 }  // namespace android

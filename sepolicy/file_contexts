@@ -28,4 +28,4 @@
 /sys/devices/leds-qpnp-25/leds(/.*)?                                               u:object_r:sysfs_leds:s0
 
 # Power HAL
-/system/vendor/bin/hw/android\.hardware\.power@1\.0-service\.onyx                  u:object_r:hal_power_default_exec:s0
+/system/vendor/bin/hw/android\.hardware\.power@1\.1-service\.onyx                  u:object_r:hal_power_default_exec:s0
