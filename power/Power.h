@@ -15,10 +15,10 @@
  * limitations under the License.
  */
 
-#ifndef ANDROID_HARDWARE_POWER_V1_0_POWER_H
-#define ANDROID_HARDWARE_POWER_V1_0_POWER_H
+#ifndef ANDROID_HARDWARE_POWER_V1_1_POWER_H
+#define ANDROID_HARDWARE_POWER_V1_1_POWER_H
 
-#include <android/hardware/power/1.0/IPower.h>
+#include <android/hardware/power/1.1/IPower.h>
 #include <vendor/lineage/power/1.0/ILineagePower.h>
 #include <hidl/MQDescriptor.h>
 #include <hidl/Status.h>
@@ -35,12 +35,12 @@ int __attribute__ ((weak)) get_number_of_profiles();
 namespace android {
 namespace hardware {
 namespace power {
-namespace V1_0 {
+namespace V1_1 {
 namespace implementation {
 
 using ::android::hardware::power::V1_0::Feature;
 using ::android::hardware::power::V1_0::PowerHint;
-using ::android::hardware::power::V1_0::IPower;
+using ::android::hardware::power::V1_1::IPower;
 using ::vendor::lineage::power::V1_0::ILineagePower;
 using ::vendor::lineage::power::V1_0::LineageFeature;
 using ::android::hardware::Return;
@@ -57,6 +57,10 @@ struct Power : public IPower, public ILineagePower {
     Return<void> setFeature(Feature feature, bool activate) override;
     Return<void> getPlatformLowPowerStats(getPlatformLowPowerStats_cb _hidl_cb) override;
 
+    // Methods from ::android::hardware::power::V1_1::IPower follow.
+    Return<void> getSubsystemLowPowerStats(getSubsystemLowPowerStats_cb _hidl_cb) override;
+    Return<void> powerHintAsync(PowerHint hint, int32_t data) override;
+
     // Methods from ::vendor::lineage::power::V1_0::ILineagePower follow.
     Return<int32_t> getFeature(LineageFeature feature) override;
 
@@ -65,9 +69,9 @@ struct Power : public IPower, public ILineagePower {
 };
 
 }  // namespace implementation
-}  // namespace V1_0
+}  // namespace V1_1
 }  // namespace power
 }  // namespace hardware
 }  // namespace android
 
-#endif  // ANDROID_HARDWARE_POWER_V1_0_POWER_H
+#endif  // ANDROID_HARDWARE_POWER_V1_1_POWER_H
