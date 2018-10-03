@@ -20,6 +20,21 @@
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
+    <!-- Hardware keys present on the device, stored as a bit field.
+         This integer should equal the sum of the corresponding value for each
+         of the following keys present:
+             1 - Home
+             2 - Back
+             4 - Menu
+             8 - Assistant (search)
+            16 - App switch
+            32 - Camera
+            64 - Volume rocker
+            83 - Profile Toggle
+         For example, a device with Home, Back and Menu keys would set this
+         config to 7. -->
+    <integer name="config_deviceHardwareKeys">83</integer>
+
     <!-- Boolean indicating whether the wifi chipset has background scan support -->
     <bool translatable="false" name="config_wifi_background_scan_support">true</bool>
 
@@ -121,6 +136,9 @@
     <!-- Is the notification LED intrusive? Used to decide if there should be a disable option -->
     <bool name="config_intrusiveNotificationLed">true</bool>
 
+    <!-- Is the battery LED intrusive? Used to decide if there should be a disable option -->
+    <bool name="config_intrusiveBatteryLed">true</bool>
+
     <!-- Flag indicating whether the we should enable the automatic brightness in Settings.
          Software implementation will be used if config_hardware_auto_brightness_available is not set -->
     <bool name="config_automatic_brightness_available">true</bool>
@@ -136,6 +154,13 @@
 
     <!-- Is the device capable of hot swapping an ICC Card -->
     <bool name="config_hotswapCapable">true</bool>
+
+    <!-- Flag specifying whether VoLTE & VT is availasble on device -->
+    <bool name="config_device_volte_available">false</bool>
+    <bool name="config_carrier_volte_tty_supported">false</bool>
+
+    <!-- Device doesnt support dual band WiFi-Required for roms which doesnt have it disabled by default -->
+    <bool name="config_wifi_dual_band_support">false</bool>
 
     <!--  Maximum number of supported users -->
     <integer name="config_multiuserMaximumUsers">4</integer>
@@ -200,6 +225,16 @@
          The user is forbidden from setting the brightness below this level. -->
     <integer name="config_screenBrightnessSettingMinimum">2</integer>
 
+    <!-- Maximum screen brightness allowed by the power manager.
+         The user is forbidden from setting the brightness above this level. -->
+    <integer name="config_screenBrightnessSettingMaximum">255</integer>
+
+    <!-- Whether the always on display mode is available. -->
+    <bool name="config_dozeAlwaysOnDisplayAvailable">true</bool>
+
+    <!-- Whether the display blanks itself when transition from a doze to a non-doze state -->
+    <bool name="config_displayBlanksAfterDoze">true</bool>
+
     <!-- Default screen brightness setting.
          Must be in the range specified by minimum and maximum. -->
     <integer name="config_screenBrightnessSettingDefault">79</integer>
@@ -213,6 +248,10 @@
 
     <!-- Default color for notification LED is white. -->
     <color name="config_defaultNotificationColor">#ffffffff</color>
+
+    <!-- Does the battery LED support multiple colors?
+         Used to decide if the user can change the colors -->
+    <!-- <bool name="config_multiColorBatteryLed">true</bool> -->
 
     <!-- Base "touch slop" value used by ViewConfiguration as a
          movement threshold where scrolling should begin. -->
@@ -265,8 +304,25 @@
          rmem_min,rmem_def,rmem_max,wmem_min,wmem_def,wmem_max -->
     <string name="config_wifi_tcp_buffers" translatable="false">524288,2097152,4194304,262144,524288,1048576</string>
 
+    <!-- Enable doze powersaving -->
+    <bool name="config_enableAutoPowerModes">true</bool>
+
+    <!-- Disable wakeup during Netwoek Sampling -->
+    <bool name="config_networkSamplingWakesDevice">false</bool>
+
     <!-- Our modem doesn't support this query yet -->
     <string name="config_radio_access_family">GPRS|EDGE|UMTS|HSDPA|HSUPA|HSPA|LTE|HSPAP|GSM|TD_SCDMA|WCDMA|LTE_CA</string>
+
+    <!-- Whether safe headphone volume is enabled or not (country specific). -->
+    <bool name="config_safe_media_volume_enabled">false</bool>
+
+    <!-- Night display  -->
+    <bool name="config_nightDisplayAvailable">true</bool>
+
+    <!-- Default value for proximity check on screen wake
+         NOTE ! - Enable for devices that have a fast response
+         proximity sensor (ideally < 300ms) -->
+    <bool name="config_proximityCheckOnWake">true</bool>
 
     <!-- Control the behavior when the user panic presses the back button.
             0 - Nothing
