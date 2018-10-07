@@ -1,3 +1,5 @@
 genfscon proc /touchpanel      u:object_r:proc_touchpanel:s0
 genfscon proc /tri-state-key   u:object_r:proc_touchpanel:s0
 genfscon proc /s1302           u:object_r:proc_touchpanel:s0
+
+genfscon sysfs /devices/mdp.0  u:object_r:sysfs_graphics:s0
