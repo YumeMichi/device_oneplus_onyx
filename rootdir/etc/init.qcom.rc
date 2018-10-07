@@ -230,10 +230,6 @@ on post-fs-data
     # Create directory used by display clients
     mkdir /data/misc/display 0770 root system
 
-    # We chown/chmod /persist again so because mount is run as root + defaults
-    chown system system /persist
-    chmod 0771 /persist
-
     # Create directory from IMS services
     mkdir /data/shared 0755
     chown system system /data/shared
