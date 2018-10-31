@@ -175,9 +175,6 @@ TARGET_LD_SHIM_LIBS := \
     /system/lib/libgui.so|libshims_sensors.so \
     /system/vendor/lib/libmmcamera2_stats_algorithm.so|libshims_atomic.so
 
-# SnapDragon LLVM Compiler
-TARGET_USE_SDCLANG := true
-
 # Wifi
 BOARD_HAS_QCOM_WLAN := true
 BOARD_WLAN_DEVICE := qcwcn
