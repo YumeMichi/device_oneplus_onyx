@@ -334,14 +334,6 @@ on post-fs-data
     chown system system /persist
     chmod 0771 /persist
 
-    # Create directories for Location services
-    mkdir /data/misc/location 0770 gps gps
-    mkdir /data/misc/location/mq 0770 gps gps
-    mkdir /data/misc/location/xtwifi 0770 gps gps
-    mkdir /data/misc/location/gpsone_d 0770 system gps
-    mkdir /data/misc/location/quipc 0770 gps gps
-    mkdir /data/misc/location/gsiff 0770 gps gps
-
     # Create directory from IMS services
     mkdir /data/shared 0755
     chown system system /data/shared
