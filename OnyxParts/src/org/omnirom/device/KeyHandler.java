@@ -48,19 +48,17 @@ import android.provider.Settings.Global;
 import android.util.Log;
 import android.view.KeyEvent;
 
-import com.android.internal.util.ArrayUtils;
-import com.android.internal.util.omni.DeviceKeyHandler;
-import com.android.internal.util.omni.OmniUtils;
+import com.android.internal.os.AlternativeDeviceKeyHandler;
 import com.android.internal.statusbar.IStatusBarService;
+import com.android.internal.util.ArrayUtils;
 
-public class KeyHandler implements DeviceKeyHandler {
+public class KeyHandler implements AlternativeDeviceKeyHandler {
 
     private static final String TAG = "KeyHandler";
     private static final boolean DEBUG = true;
     private static final boolean DEBUG_SENSOR = false;
 
     private static final int GESTURE_WAKELOCK_DURATION = 2000;
-    private static final String KEY_CONTROL_PATH = "/proc/touchpanel/keypad_enable";
 
     private static final int GESTURE_O_SCANCODE = 250;
     private static final int GESTURE_II_SCANCODE = 251;
@@ -204,13 +202,10 @@ public class KeyHandler implements DeviceKeyHandler {
 
         void observe() {
             mContext.getContentResolver().registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.OMNI_HARDWARE_KEYS_DISABLE),
+                    Settings.System.CUSTOM_DEVICE_PROXI_CHECK_ENABLED),
                     false, this);
             mContext.getContentResolver().registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.OMNI_DEVICE_PROXI_CHECK_ENABLED),
-                    false, this);
-            mContext.getContentResolver().registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.OMNI_DEVICE_FEATURE_SETTINGS),
+                    Settings.System.CUSTOM_DEVICE_FEATURE_SETTINGS),
                     false, this);
             update();
             updateDozeSettings();
@@ -224,7 +219,7 @@ public class KeyHandler implements DeviceKeyHandler {
         @Override
         public void onChange(boolean selfChange, Uri uri) {
             if (uri.equals(Settings.System.getUriFor(
-                    Settings.System.OMNI_DEVICE_FEATURE_SETTINGS))) {
+                    Settings.System.CUSTOM_DEVICE_FEATURE_SETTINGS))) {
                 updateDozeSettings();
                 return;
             }
@@ -232,9 +227,8 @@ public class KeyHandler implements DeviceKeyHandler {
         }
 
         public void update() {
-            setButtonDisable(mContext);
             mUseProxiCheck = Settings.System.getIntForUser(
-                    mContext.getContentResolver(), Settings.System.OMNI_DEVICE_PROXI_CHECK_ENABLED, 1,
+                    mContext.getContentResolver(), Settings.System.CUSTOM_DEVICE_PROXI_CHECK_ENABLED, 1,
                     UserHandle.USER_CURRENT) == 1;
         }
     }
@@ -320,17 +314,6 @@ public class KeyHandler implements DeviceKeyHandler {
             return true;
         }
         return false;
-    }
-
-    public static void setButtonDisable(Context context) {
-        mButtonDisabled = Settings.System.getIntForUser(
-                context.getContentResolver(), Settings.System.OMNI_HARDWARE_KEYS_DISABLE, 0,
-                UserHandle.USER_CURRENT) == 1;
-        if (DEBUG) Log.i(TAG, "setButtonDisable=" + mButtonDisabled);
-        if (mButtonDisabled)
-            Utils.writeValue(KEY_CONTROL_PATH, "0");
-        else
-            Utils.writeValue(KEY_CONTROL_PATH, "1");
     }
 
     @Override
@@ -432,7 +415,7 @@ public class KeyHandler implements DeviceKeyHandler {
 
     private int getSliderAction(int position) {
         String value = Settings.System.getStringForUser(mContext.getContentResolver(),
-                    Settings.System.OMNI_BUTTON_EXTRA_KEY_MAPPING,
+                    Settings.System.CUSTOM_BUTTON_EXTRA_KEY_MAPPING,
                     UserHandle.USER_CURRENT);
         final String defaultValue = DeviceSettings.SLIDER_DEFAULT_VALUE;
 
@@ -566,7 +549,7 @@ public class KeyHandler implements DeviceKeyHandler {
 
     private void updateDozeSettings() {
         String value = Settings.System.getStringForUser(mContext.getContentResolver(),
-                    Settings.System.OMNI_DEVICE_FEATURE_SETTINGS,
+                    Settings.System.CUSTOM_DEVICE_FEATURE_SETTINGS,
                     UserHandle.USER_CURRENT);
         if (DEBUG) Log.i(TAG, "Doze settings = " + value);
         if (!TextUtils.isEmpty(value)) {
@@ -579,7 +562,7 @@ public class KeyHandler implements DeviceKeyHandler {
 
     private void vibe() {
         boolean doVibrate = Settings.System.getIntForUser(mContext.getContentResolver(),
-                Settings.System.OMNI_DEVICE_GESTURE_FEEDBACK_ENABLED, 0,
+                Settings.System.CUSTOM_DEVICE_GESTURE_FEEDBACK_ENABLED, 0,
                 UserHandle.USER_CURRENT) == 1;
         if (doVibrate && mVibrator != null) {
             mVibrator.vibrate(50);
