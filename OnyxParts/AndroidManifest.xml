@@ -14,7 +14,6 @@
         android:minSdkVersion="26"
         android:targetSdkVersion="26" />
     <application
-        android:icon="@drawable/ic_launcher"
         android:label="@string/advanced_settings"
         android:theme="@style/AppTheme"
         android:supportsRtl="true" >
@@ -34,10 +33,17 @@
             android:label="@string/advanced_settings"
             android:targetActivity="DeviceSettingsActivity" >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="com.android.settings.action.IA_SETTINGS" />
             </intent-filter>
+            <meta-data
+                android:name="com.android.settings.category"
+                android:value="com.android.settings.category.ia.system" />
+            <meta-data
+                android:name="com.android.settings.icon"
+                android:resource="@drawable/ic_device_parts" />
+            <meta-data
+                android:name="com.android.settings.summary"
+                android:resource="@string/advanced_settings_summary" />
         </activity-alias>
         <activity
             android:name="org.omnirom.device.GestureSettingsActivity"

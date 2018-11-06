@@ -21,7 +21,8 @@
   <string name="vib_strength_title_head">强度</string>
   <string name="vib_strength_summary_head">设置振动强度</string>
   <string name="vib_test">测试</string>
-  <string name="advanced_settings">高级选项</string>
+  <string name="advanced_settings">一加设置</string>
+  <string name="advanced_settings_summary">自定义设置</string>
   <string name="category_slider">滑块</string>
   <string name="slider_mode_title">滑块模式</string>
   <string name="buttons_title">按钮</string>
