@@ -95,15 +95,6 @@ BACKLIGHT_PATH := /sys/class/leds/lcd-backlight/brightness
 # Display
 TARGET_SCREEN_DENSITY := 420
 
-# Enable dexpreopt to speed boot time
-ifeq ($(HOST_OS),linux)
-  ifeq ($(call match-word-in-list,$(TARGET_BUILD_VARIANT),user),true)
-    ifeq ($(WITH_DEXPREOPT_BOOT_IMG_ONLY),)
-      WITH_DEXPREOPT_BOOT_IMG_ONLY := true
-    endif
-  endif
-endif
-
 # Exclude serif fonts for saving system.img size.
 EXCLUDE_SERIF_FONTS := true
 
