@@ -55,8 +55,10 @@ on early-boot
 
     chmod 660 /sys/class/leds/rgb/rgb_blink
 
-service light-hal-2-0 /vendor/bin/hw/android.hardware.light@2.0-service.onyx
+service vendor.light-hal-2-0 /vendor/bin/hw/android.hardware.light@2.0-service.onyx
+    interface android.hardware.light@2.0::ILight default
     class hal
     user system
     group system
+    # shutting off lights while powering-off
     shutdown critical
