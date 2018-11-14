@@ -116,7 +116,8 @@ PRODUCT_PACKAGES += \
     camera.msm8974 \
     libshims_atomic \
     libshims_camera \
-    libshims_camera_parameters
+    libshims_camera_parameters \
+    Snap
 
 # Camera configurations
 PRODUCT_COPY_FILES += \
