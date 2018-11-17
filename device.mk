@@ -306,9 +306,5 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.heapminfree=2m \
     dalvik.vm.heapmaxfree=8m
 
-# Vendor security patch level
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.lineage.build.vendor_security_patch=2016-11-10
-
 # Inherit from oppo-common
 $(call inherit-product, device/oppo/common/common.mk)
