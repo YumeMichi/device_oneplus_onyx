@@ -42,16 +42,20 @@ import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.os.SystemClock;
 import android.os.UserHandle;
+import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.provider.Settings;
 import android.provider.Settings.Global;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.HapticFeedbackConstants;
 
 import com.android.internal.util.ArrayUtils;
 import com.android.internal.util.omni.DeviceKeyHandler;
 import com.android.internal.util.omni.OmniUtils;
 import com.android.internal.statusbar.IStatusBarService;
+
+import org.omnirom.omnilib.utils.OmniVibe;
 
 public class KeyHandler implements DeviceKeyHandler {
 
@@ -150,7 +154,6 @@ public class KeyHandler implements DeviceKeyHandler {
     private long mProxySensorTimestamp;
     private boolean mUseWaveCheck;
     private boolean mUsePocketCheck;
-    private Vibrator mVibrator;
 
     private SensorEventListener mProximitySensor = new SensorEventListener() {
         @Override
@@ -266,11 +269,6 @@ public class KeyHandler implements DeviceKeyHandler {
         IntentFilter screenStateFilter = new IntentFilter(Intent.ACTION_SCREEN_ON);
         screenStateFilter.addAction(Intent.ACTION_SCREEN_OFF);
         mContext.registerReceiver(mScreenStateReceiver, screenStateFilter);
-
-        mVibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-        if (mVibrator == null || !mVibrator.hasVibrator()) {
-            mVibrator = null;
-        }
     }
 
     private class EventHandler extends Handler {
@@ -575,12 +573,7 @@ public class KeyHandler implements DeviceKeyHandler {
     }
 
     private void vibe() {
-        boolean doVibrate = Settings.System.getIntForUser(mContext.getContentResolver(),
-                Settings.System.OMNI_DEVICE_GESTURE_FEEDBACK_ENABLED, 0,
-                UserHandle.USER_CURRENT) == 1;
-        if (doVibrate && mVibrator != null) {
-            mVibrator.vibrate(50);
-        }
+        OmniVibe.performHapticFeedbackLw(HapticFeedbackConstants.LONG_PRESS, false, mContext);
     }
 
     IStatusBarService getStatusBarService() {
