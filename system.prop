@@ -72,6 +72,9 @@ ro.sf.lcd_density=480
 ro.qualcomm.cabl=0
 debug.hwui.use_buffer_age=false
 
+# Memory optimizations
+ro.vendor.qti.sys.fw.bservice_enable=true
+
 # QC vendor extension
 ro.vendor.extension_library=libqti-perfd-client.so
 drm.service.enabled=true
