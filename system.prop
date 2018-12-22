@@ -71,6 +71,9 @@ ro.sf.lcd_density=420
 ro.qualcomm.cabl=0
 debug.hwui.use_buffer_age=false
 
+# Memory optimizations
+ro.vendor.qti.sys.fw.bservice_enable=true
+
 # QC vendor extension
 ro.frp.pst=/dev/block/platform/msm_sdcc.1/by-name/config
 drm.service.enabled=true
