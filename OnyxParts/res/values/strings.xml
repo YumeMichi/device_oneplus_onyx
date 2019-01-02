@@ -35,8 +35,9 @@
     <string name="off_screen_gesture_feedback_summary_head">Enable haptic feedback for gestures</string>
     <string name="off_screen_gesture_feedback_title_head">Haptic feedback</string>
     <string name="slider_mode_off">Off</string>
-    <string name="slider_mode_vibrate">Vibrate</string>
-    <string name="slider_mode_zen">Do not disturb</string>
+    <string name="slider_mode_vibration">Vibration</string>
+    <string name="slider_mode_priority_only">Priority only</string>
+    <string name="slider_mode_total_silence">Total silence</string>
     <string name="slider_mode_title_top">Top position</string>
     <string name="slider_mode_title_center">Center position</string>
     <string name="slider_mode_title_bottom">Bottom position</string>

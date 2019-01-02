@@ -35,8 +35,9 @@
   <string name="off_screen_gesture_feedback_summary_head">为手势启用触觉反馈</string>
   <string name="off_screen_gesture_feedback_title_head">振动反馈</string>
   <string name="slider_mode_off">关闭</string>
-  <string name="slider_mode_vibrate">振动</string>
-  <string name="slider_mode_zen">请勿打扰</string>
+  <string name="slider_mode_vibration">振动</string>
+  <string name="slider_mode_priority_only">仅限优先</string>
+  <string name="slider_mode_total_silence">总是静音</string>
   <string name="slider_mode_title_top">顶部位置</string>
   <string name="slider_mode_title_center">中心位置</string>
   <string name="slider_mode_title_bottom">底部位置</string>
