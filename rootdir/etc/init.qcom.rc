@@ -337,7 +337,7 @@ service rfs_access /vendor/bin/rfs_access
 # QMUX must be in multiple groups to support external process connections
 service qmuxd /vendor/bin/qmuxd
     class main
-    user radio
+    user root
     group radio audio bluetooth gps oem_2950
 
 service netmgrd /vendor/bin/netmgrd
