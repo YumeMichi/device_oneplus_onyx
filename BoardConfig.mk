@@ -123,9 +123,6 @@ TARGET_USES_MKE2FS := true
 # Extended filesystem support
 TARGET_EXFAT_DRIVER := sdfat
 
-# Workaround for factory issue
-BOARD_VOLD_CRYPTFS_MIGRATE := true
-
 # Filesystem
 TARGET_FS_CONFIG_GEN := $(PLATFORM_PATH)/config.fs
 
