@@ -53,6 +53,7 @@ TARGET_KERNEL_ARCH := arm
 TARGET_KERNEL_CONFIG := onyx_defconfig
 TARGET_KERNEL_SOURCE := kernel/oneplus/onyx
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := arm-linux-androidkernel-
+KERNEL_TOOLCHAIN := $(shell pwd)/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin
 
 # Fixes Wifi-Mobile Data toggle issue
 MALLOC_SVELTE := true
