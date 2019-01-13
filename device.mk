@@ -242,6 +242,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     textclassifier.bundle1
 
+# Touch features
+PRODUCT_PACKAGES += \
+    vendor.lineage.touch@1.0-service.onyx
+
 # Trust HAL
 PRODUCT_PACKAGES += \
     vendor.lineage.trust@1.0-service
