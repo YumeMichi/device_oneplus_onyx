@@ -1,0 +1,33 @@
+on boot
+    chown system system /proc/touchpanel/double_swipe_enable
+    chmod 0660 /proc/touchpanel/double_swipe_enable
+    chown system system /proc/touchpanel/up_arrow_enable
+    chmod 0660 /proc/touchpanel/up_arrow_enable
+    chown system system /proc/touchpanel/down_arrow_enable
+    chmod 0660 /proc/touchpanel/down_arrow_enable
+    chown system system /proc/touchpanel/left_arrow_enable
+    chmod 0660 /proc/touchpanel/left_arrow_enable
+    chown system system /proc/touchpanel/right_arrow_enable
+    chmod 0660 /proc/touchpanel/right_arrow_enable
+    chown system system /proc/touchpanel/letter_o_enable
+    chmod 0660 /proc/touchpanel/letter_o_enable
+    chown system system /proc/touchpanel/letter_m_enable
+    chmod 0660 /proc/touchpanel/letter_m_enable
+    chown system system /proc/touchpanel/letter_w_enable
+    chmod 0660 /proc/touchpanel/letter_w_enable
+    chown system system /proc/touchpanel/ltr_swipe_enable
+    chmod 0660 /proc/touchpanel/ltr_swipe_enable
+    chown system system /proc/touchpanel/rtl_swipe_enable
+    chmod 0660 /proc/touchpanel/rtl_swipe_enable
+    chown system system /proc/touchpanel/utd_swipe_enable
+    chmod 0660 /proc/touchpanel/utd_swipe_enable
+    chown system system /proc/touchpanel/dtu_swipe_enable
+    chmod 0660 /proc/touchpanel/dtu_swipe_enable
+
+    chown system system /proc/touchpanel/keypad_enable
+    chmod 0660 /proc/touchpanel/keypad_enable
+
+service vendor.touch-hal-1-0 /vendor/bin/hw/vendor.lineage.touch@1.0-service.onyx
+    class hal
+    user system
+    group system
