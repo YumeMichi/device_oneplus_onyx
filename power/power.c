@@ -35,6 +35,7 @@
 #define HIGH_PERFORMANCE_PROP   "2"
 
 static int current_power_profile = PROFILE_BALANCED;
+static power_hint_t current_power_hint = 0;
 
 static int sysfs_write(const char *path, char *s)
 {
@@ -71,19 +72,20 @@ static void power_set_interactive(struct power_module *module __unused,
 
 static void set_power_profile(int profile)
 {
-    if (profile == current_power_profile)
+    if (profile == current_power_profile) {
         return;
+    }
 
     switch (profile) {
-    case PROFILE_POWER_SAVE:
-        property_set(POWER_PROFILE_PROPERTY, POWER_SAVE_PROP);
-        break;
-    case PROFILE_BALANCED:
-        property_set(POWER_PROFILE_PROPERTY, BALANCED_PROP);
-        break;
-    case PROFILE_HIGH_PERFORMANCE:
-        property_set(POWER_PROFILE_PROPERTY, HIGH_PERFORMANCE_PROP);
-        break;
+        case PROFILE_POWER_SAVE:
+            property_set(POWER_PROFILE_PROPERTY, POWER_SAVE_PROP);
+            break;
+        case PROFILE_BALANCED:
+            property_set(POWER_PROFILE_PROPERTY, BALANCED_PROP);
+            break;
+        case PROFILE_HIGH_PERFORMANCE:
+            property_set(POWER_PROFILE_PROPERTY, HIGH_PERFORMANCE_PROP);
+            break;
     }
 
     current_power_profile = profile;
@@ -92,11 +94,21 @@ static void set_power_profile(int profile)
 static void power_hint(struct power_module *module __unused, power_hint_t hint,
                 void *data __unused)
 {
-    if (hint == POWER_HINT_LOW_POWER) {
-        set_power_profile(PROFILE_POWER_SAVE);
-    } else {
-        set_power_profile(PROFILE_BALANCED);
+    if (hint == current_power_hint) {
+        return;
     }
+
+    switch (hint) {
+        case POWER_HINT_LOW_POWER:
+            set_power_profile(PROFILE_POWER_SAVE);
+            break;
+        default:
+            if (current_power_hint == POWER_HINT_LOW_POWER) {
+                set_power_profile(PROFILE_BALANCED);
+            }
+    }
+
+    current_power_hint = hint;
 }
 
 static void set_feature(struct power_module *module __unused,
@@ -112,10 +124,10 @@ static void set_feature(struct power_module *module __unused,
 #endif
 }
 
-static int power_open(const hw_module_t* module, const char* name,
-                    hw_device_t** device)
+static int power_open(const hw_module_t* module __unused, const char* name,
+                hw_device_t** device)
 {
-    ALOGD("%s: enter; name=%s", __FUNCTION__, name);
+    ALOGD("%s: enter; name=%s", __func__, name);
 
     if (strcmp(name, POWER_HARDWARE_MODULE_ID)) {
         return -EINVAL;
@@ -125,7 +137,7 @@ static int power_open(const hw_module_t* module, const char* name,
             sizeof(power_module_t));
 
     if (!dev) {
-        ALOGD("%s: failed to allocate memory", __FUNCTION__);
+        ALOGD("%s: failed to allocate memory", __func__);
         return -ENOMEM;
     }
 
@@ -140,7 +152,7 @@ static int power_open(const hw_module_t* module, const char* name,
 
     *device = (hw_device_t*)dev;
 
-    ALOGD("%s: exit", __FUNCTION__);
+    ALOGD("%s: exit", __func__);
 
     return 0;
 }
