@@ -56,11 +56,6 @@ on enable-low-power
     write /sys/kernel/msm_thermal/sampling_ms 8000
     write /sys/kernel/msm_thermal/enabled 1
 
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1958400
-    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq 1958400
-    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq 1958400
-    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq 1958400
-
     setprop sys.io.scheduler deadline
     start mpdecision
 
@@ -107,6 +102,10 @@ on property:sys.perf.profile=0
     write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor "conservative"
     write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor "conservative"
     write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor "conservative"
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1958400
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq 1958400
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq 1958400
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq 1958400
     start mpdecision
 
     write /sys/class/devfreq/qcom,cpubw.40/governor "msm_cpufreq"
@@ -135,6 +134,10 @@ on property:sys.perf.profile=1
     write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor "interactive"
     write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor "interactive"
     write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor "interactive"
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1958400
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq 1958400
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq 1958400
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq 1958400
 
     # Set normal performance settings
     write /sys/kernel/cpu_input_boost/ib_freqs "1190400 1497600"
@@ -169,9 +172,13 @@ on property:sys.perf.profile=2
     write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor "interactive"
     write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor "interactive"
     write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor "interactive"
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 2265600
+    write /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq 2265600
+    write /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq 2265600
+    write /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq 2265600
 
     # Keep all CPUs online and make Interactive + CPU boost more aggressive
-    write /sys/kernel/cpu_input_boost/ib_freqs "1497600 1497600"
+    write /sys/kernel/cpu_input_boost/ib_freqs "1497600 1728000"
     write /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load 35
     write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1497600
     write /sys/devices/system/cpu/cpufreq/interactive/target_loads "45 1700000:40 1900000:50"
@@ -181,13 +188,13 @@ on property:sys.perf.profile=2
 
     # Set light thermal restrictions for performance mode
     write /sys/kernel/msm_thermal/enabled 0
-    write /sys/kernel/msm_thermal/zone0 "1728000 46 45"
-    write /sys/kernel/msm_thermal/zone1 "1574400 49 47"
-    write /sys/kernel/msm_thermal/zone2 "1497600 52 50"
-    write /sys/kernel/msm_thermal/zone3 "1267200 56 53"
-    write /sys/kernel/msm_thermal/zone4 "1190400 60 57"
-    write /sys/kernel/msm_thermal/zone5 "1036800 63 61"
-    write /sys/kernel/msm_thermal/zone6 "960000 69 67"
-    write /sys/kernel/msm_thermal/zone7 "729600 80 76"
+    write /sys/kernel/msm_thermal/zone0 "1958400 55 50"
+    write /sys/kernel/msm_thermal/zone1 "1728000 57 56"
+    write /sys/kernel/msm_thermal/zone2 "1574400 60 58"
+    write /sys/kernel/msm_thermal/zone3 "1497600 62 61"
+    write /sys/kernel/msm_thermal/zone4 "1267200 65 63"
+    write /sys/kernel/msm_thermal/zone5 "1190400 68 66"
+    write /sys/kernel/msm_thermal/zone6 "1036800 70 69"
+    write /sys/kernel/msm_thermal/zone7 "960000 80 71"
     write /sys/kernel/msm_thermal/sampling_ms 1000
     write /sys/kernel/msm_thermal/enabled 1
