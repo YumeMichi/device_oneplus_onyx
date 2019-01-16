@@ -27,9 +27,6 @@
     <string name="buttons_title">Buttons</string>
     <string name="swap_back_recents_summary"></string>
     <string name="swap_back_recents_title">Swap back and recents button</string>
-    <string name="graphics_title">Graphics</string>
-    <string name="hbm_mode_summary"></string>
-    <string name="hbm_mode_title">High brightness mode</string>
     <string name="proxi_summary_head">Check proximity sensor before handling gesture</string>
     <string name="proxi_title_head">Proximity check</string>
     <string name="off_screen_gesture_feedback_summary_head">Enable haptic feedback for gestures</string>

@@ -48,7 +48,6 @@ public class DeviceSettings extends PreferenceFragment implements
     private static final String KEY_SLIDER_MODE_BOTTOM = "slider_mode_bottom";
     public static final String KEY_SWAP_BACK_RECENTS = "swap_back_recents";
     private static final String KEY_CATEGORY_GRAPHICS = "graphics";
-    public static final String KEY_HBM_SWITCH = "hbm";
     private static final String KEY_PERF_PROFILE = "perf_profile";
     private static final String KEY_PERF_PROFILE_PROP = "sys.perf.profile";
 
@@ -60,7 +59,6 @@ public class DeviceSettings extends PreferenceFragment implements
     private ListPreference mSliderModeCenter;
     private ListPreference mSliderModeBottom;
     private TwoStatePreference mSwapBackRecents;
-    private TwoStatePreference mHBMModeSwitch;
     private ListPreference mPerfProfile;
 
     @Override
@@ -97,11 +95,6 @@ public class DeviceSettings extends PreferenceFragment implements
         mSwapBackRecents.setEnabled(SwapBackRecents.isSupported());
         mSwapBackRecents.setChecked(SwapBackRecents.isCurrentlyEnabled(this.getContext()));
         mSwapBackRecents.setOnPreferenceChangeListener(new SwapBackRecents());
-
-        mHBMModeSwitch = (TwoStatePreference) findPreference(KEY_HBM_SWITCH);
-        mHBMModeSwitch.setEnabled(HBMModeSwitch.isSupported());
-        mHBMModeSwitch.setChecked(HBMModeSwitch.isCurrentlyEnabled(this.getContext()));
-        mHBMModeSwitch.setOnPreferenceChangeListener(new HBMModeSwitch());
 
         mPerfProfile = (ListPreference) findPreference(KEY_PERF_PROFILE);
         mPerfProfile.setOnPreferenceChangeListener(this);
