@@ -76,4 +76,10 @@
     <string name="pocket_check_summary">Pulse notifications on removal from pocket</string>
     <string name="pocket_check_title">Pocket</string>
     <string name="ambient_display_enable">Ambient display must be enabled in display settings</string>
+
+    <string name="category_perf">Performance</string>
+    <string name="perf_profile_title">Performance profiles</string>
+    <string name="perf_profile_powersave">Powersave</string>
+    <string name="perf_profile_balanced">Balanced</string>
+    <string name="perf_profile_performance">Performance</string>
 </resources>

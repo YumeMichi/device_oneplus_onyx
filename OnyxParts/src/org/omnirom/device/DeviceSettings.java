@@ -22,6 +22,7 @@ import android.app.Dialog;
 import android.content.res.Resources;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemProperties;
 import android.support.v14.preference.PreferenceFragment;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
@@ -47,10 +48,12 @@ public class DeviceSettings extends PreferenceFragment implements
     private static final String KEY_SLIDER_MODE_BOTTOM = "slider_mode_bottom";
     public static final String KEY_SWAP_BACK_RECENTS = "swap_back_recents";
     private static final String KEY_CATEGORY_GRAPHICS = "graphics";
-
     public static final String KEY_HBM_SWITCH = "hbm";
+    private static final String KEY_PERF_PROFILE = "perf_profile";
+    private static final String KEY_PERF_PROFILE_PROP = "sys.perf.profile";
 
     public static final String SLIDER_DEFAULT_VALUE = "2,1,0";
+    public static final String PERF_PROFILE_DEFAULT_VALUE = "1";
 
     private VibratorStrengthPreference mVibratorStrength;
     private ListPreference mSliderModeTop;
@@ -58,6 +61,7 @@ public class DeviceSettings extends PreferenceFragment implements
     private ListPreference mSliderModeBottom;
     private TwoStatePreference mSwapBackRecents;
     private TwoStatePreference mHBMModeSwitch;
+    private ListPreference mPerfProfile;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -98,6 +102,13 @@ public class DeviceSettings extends PreferenceFragment implements
         mHBMModeSwitch.setEnabled(HBMModeSwitch.isSupported());
         mHBMModeSwitch.setChecked(HBMModeSwitch.isCurrentlyEnabled(this.getContext()));
         mHBMModeSwitch.setOnPreferenceChangeListener(new HBMModeSwitch());
+
+        mPerfProfile = (ListPreference) findPreference(KEY_PERF_PROFILE);
+        mPerfProfile.setOnPreferenceChangeListener(this);
+        int perfProfile = getPerfProfile();
+        valueIndex = mPerfProfile.findIndexOfValue(String.valueOf(perfProfile));
+        mPerfProfile.setValueIndex(valueIndex);
+        mPerfProfile.setSummary(mPerfProfile.getEntries()[valueIndex]);
     }
 
     @Override
@@ -125,6 +136,12 @@ public class DeviceSettings extends PreferenceFragment implements
             setSliderAction(2, sliderMode);
             int valueIndex = mSliderModeBottom.findIndexOfValue(value);
             mSliderModeBottom.setSummary(mSliderModeBottom.getEntries()[valueIndex]);
+        } else if (preference == mPerfProfile) {
+            String value = (String) newValue;
+            int perfProfile = Integer.valueOf(value);
+            setPerfProfile(perfProfile);
+            int valueIndex = mPerfProfile.findIndexOfValue(value);
+            mPerfProfile.setSummary(mPerfProfile.getEntries()[valueIndex]);
         }
         return true;
     }
@@ -167,5 +184,26 @@ public class DeviceSettings extends PreferenceFragment implements
         } catch (Exception e) {
             // Ignore
         }
+    }
+
+    private int getPerfProfile() {
+        String value = SystemProperties.get(KEY_PERF_PROFILE_PROP,
+                PERF_PROFILE_DEFAULT_VALUE);
+
+        return Integer.valueOf(value);
+    }
+
+    private void setPerfProfile(int profile) {
+        String value = String.valueOf(profile);
+        final String defaultValue = PERF_PROFILE_DEFAULT_VALUE;
+        final String currentValue = SystemProperties.get(KEY_PERF_PROFILE_PROP,
+                PERF_PROFILE_DEFAULT_VALUE);
+
+        if (value == null) {
+            value = defaultValue;
+        } else if (value == currentValue) {
+            return;
+        }
+        SystemProperties.set(KEY_PERF_PROFILE_PROP, value);
     }
 }
