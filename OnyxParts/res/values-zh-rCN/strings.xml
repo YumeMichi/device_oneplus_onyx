@@ -27,9 +27,6 @@
     <string name="slider_mode_title">滑块模式</string>
     <string name="buttons_title">按钮</string>
     <string name="swap_back_recents_title">切换 返回/最近任务 按键</string>
-    <string name="graphics_title">图形</string>
-    <string name="srgb_mode_title">sRGB 模式</string>
-    <string name="hbm_mode_title">高亮模式</string>
     <string name="proxi_summary_head">处理手势前检查距离传感器</string>
     <string name="proxi_title_head">接近检查</string>
     <string name="off_screen_gesture_feedback_summary_head">为手势启用触觉反馈</string>
@@ -76,11 +73,6 @@
     <string name="pocket_check_summary">从口袋中拿出时闪烁通知呼吸灯</string>
     <string name="pocket_check_title">口袋</string>
     <string name="ambient_display_enable">必须在显示设置中启用主动显示</string>
-    <string name="panel_category_title">面板模式</string>
-    <string name="panel_category_summary">面板颜色校正模式</string>
-    <string name="off_mode_title">关闭</string>
-    <string name="tile_panel_mode">面板模式</string>
-    <string name="tile_hbm_mode">高亮模式</string>
     <string name="category_perf">性能</string>
     <string name="perf_profile_title">性能模式</string>
     <string name="perf_profile_powersave">省电模式</string>

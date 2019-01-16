@@ -134,14 +134,8 @@ public class Startup extends BroadcastReceiver {
         enabled = !TextUtils.isEmpty(value) && !value.equals(AppSelectListPreference.DISABLED_ENTRY);
         restore(getGestureFile(GestureSettings.KEY_RIGHT_SWIPE_APP), enabled);
 
-        // high brightness mode
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        enabled = sharedPrefs.getBoolean(DeviceSettings.KEY_HBM_SWITCH, false);
-        if (enabled) {
-            restore(HBMModeSwitch.getFile(), "2");
-        }
-
         // back and recents
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
         enabled = sharedPrefs.getBoolean(DeviceSettings.KEY_SWAP_BACK_RECENTS, true);
         if (enabled) {
             restore(SwapBackRecents.getFile(), "1");
