@@ -27,4 +27,16 @@
         <item>2</item>
         <item>3</item>
     </string-array>
+
+    <string-array name="perf_profile_entries" translatable="false">
+        <item>@string/perf_profile_powersave</item>
+        <item>@string/perf_profile_balanced</item>
+        <item>@string/perf_profile_performance</item>
+    </string-array>
+
+    <string-array name="perf_profile_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 </resources>

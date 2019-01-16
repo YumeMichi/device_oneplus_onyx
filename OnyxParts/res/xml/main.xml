@@ -81,4 +81,14 @@
             android:summary="@string/hbm_mode_summary"
             android:title="@string/hbm_mode_title" />
     </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/category_perf">
+        <ListPreference
+            android:key="perf_profile"
+            android:title="@string/perf_profile_title"
+            android:entries="@array/perf_profile_entries"
+            android:entryValues="@array/perf_profile_values"
+            android:persistent="false" />
+    </PreferenceCategory>
 </PreferenceScreen>
