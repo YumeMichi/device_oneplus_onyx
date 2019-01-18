@@ -1,4 +1,0 @@
-service vendor.touch-hal-1-0-onyx /vendor/bin/hw/vendor.lineage.touch@1.0-service.onyx
-    class hal
-    user system
-    group system

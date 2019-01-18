@@ -1,3 +1,7 @@
+# for CMHardwareService access to TapToWake
+allow system_server proc_touchpanel:dir search;
+allow system_server proc_touchpanel:file rw_file_perms;
+
 allow system_server sysfs_leds:file rw_file_perms;
 
 # examine battery state
