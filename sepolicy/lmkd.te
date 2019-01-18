@@ -1,0 +1,1 @@
+allow lmkd lmkd:capability2 { block_suspend };
