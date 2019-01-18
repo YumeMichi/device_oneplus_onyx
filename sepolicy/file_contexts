@@ -2,30 +2,29 @@
 /dev/block/platform/msm_sdcc\.1/by-name/oppodycnvbk     u:object_r:nvbackup_block_device:s0
 /dev/block/platform/msm_sdcc\.1/by-name/oppostanvbk     u:object_r:nvbackup_block_device:s0
 
-# Persist filesystem
+# Persist partition
 /dev/block/platform/msm_sdcc\.1/by-name/persist         u:object_r:persist_block_device:s0
 
 # FRP partition
 /dev/block/platform/msm_sdcc\.1/by-name/config          u:object_r:frp_block_device:s0
 
-# Reserve2 filesystem for encryption
+# Reserve2 partition
 /dev/block/platform/msm_sdcc\.1/by-name/reserve2        u:object_r:reserve2_block_device:s0
 
-# Modem
+# Modem partition
 /dev/block/platform/msm_sdcc\.1/by-name/modem           u:object_r:modem_block_device:s0
 
-# Offline charging LED controller
-/system/vendor/bin/init.chargerled.sh                   u:object_r:charger_led_exec:s0
-/sys/devices/qpnp-charger-14/power_supply(/.*)?         u:object_r:sysfs_battery_supply:s0
+# Persist files
+/persist/sns.reg                                        u:object_r:sensors_persist_file:s0
 
-# Camera HAL
-/system/vendor/bin/hw/android\.hardware\.camera\.provider@2\.4-service\.onyx       u:object_r:hal_camera_default_exec:s0
+# Sysfs nodes
+/sys/devices/qpnp-bms-10/power_supply/bms(/.*)?         u:object_r:sysfs_battery_supply:s0
+
+# Offline charging LED
+/system/vendor/bin/init.chargerled.sh                   u:object_r:charger_led_exec:s0
 
 # Light HAL
 /system/vendor/bin/hw/android\.hardware\.light@2\.0-service\.onyx                  u:object_r:hal_light_default_exec:s0
-/sys/class/leds/lcd-backlight(/.*)?                                                u:object_r:sysfs_leds:s0
-/sys/devices/mdp\.0/qcom\,mdss_fb_primary\.171/leds/lcd-backlight(/.*)?            u:object_r:sysfs_leds:s0
-/sys/devices/leds-qpnp-25/leds(/.*)?                                               u:object_r:sysfs_leds:s0
 
 # Power HAL
 /system/vendor/bin/hw/android\.hardware\.power@1\.1-service\.onyx                  u:object_r:hal_power_default_exec:s0

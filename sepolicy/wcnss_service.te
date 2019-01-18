@@ -1,2 +1,0 @@
-allow wcnss_service nv_data_file:dir { search };
-allow wcnss_service nv_data_file:file { open read getattr };
