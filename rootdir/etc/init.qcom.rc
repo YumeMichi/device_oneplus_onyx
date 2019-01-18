@@ -387,8 +387,9 @@ service qseecomd /vendor/bin/qseecomd
 
 service charger /charger
     class charger
+    group system graphics
     critical
-    seclabel u:r:charger:s0
+    seclabel u:r:healthd:s0
 
 service chargerled /vendor/bin/init.chargerled.sh
     class late_start
