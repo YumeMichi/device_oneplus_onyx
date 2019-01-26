@@ -1,0 +1,3 @@
+qmux_socket(hal_gnss_default)
+
+allow hal_gnss_default ssr_device:chr_file r_file_perms;
