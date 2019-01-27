@@ -28,7 +28,8 @@ $(call inherit-product, vendor/omni/config/common.mk)
 
 PRODUCT_PACKAGES += \
     charger_res_images \
-    charger
+    charger \
+    file_contexts_text
 
 PRODUCT_NAME := omni_onyx
 PRODUCT_DEVICE := onyx
