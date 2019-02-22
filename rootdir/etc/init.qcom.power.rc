@@ -57,6 +57,7 @@ on enable-low-power
     write /sys/kernel/msm_thermal/enabled 1
 
     setprop sys.io.scheduler deadline
+    setprop vendor.post_boot.parsed 1
     start mpdecision
 
 on charger
