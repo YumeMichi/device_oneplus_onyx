@@ -64,6 +64,7 @@ on enable-low-power
     write /sys/block/mmcblk0/bdi/read_ahead_kb 512
     write /sys/block/mmcblk1/bdi/read_ahead_kb 2048
 
+    setprop vendor.post_boot.parsed 1
     start mpdecision
 
 on charger
