@@ -417,10 +417,10 @@ service qcamerasvr /vendor/bin/mm-qcamera-daemon
     group camera system inet input graphics
 
 service mpdecision /vendor/bin/mpdecision --avg_comp
-   class main
-   user root
-   group system
-   disabled
+    class main
+    user root
+    group system
+    disabled
 
 service time_daemon /vendor/bin/time_daemon
     class late_start
@@ -446,9 +446,9 @@ on property:bluetooth.hciattach=false
     setprop bluetooth.status off
 
 service adsprpcd /vendor/bin/adsprpcd
-   class main
-   user media
-   group media
+    class main
+    user media
+    group media
 
 service wcnss-service /vendor/bin/wcnss_service
     class main
