@@ -400,10 +400,10 @@ on property:init.svc.servicemanager=restarting
     restart qcamerasvr
 
 service mpdecision /vendor/bin/mpdecision --avg_comp
-   class main
-   user root
-   group system
-   disabled
+    class main
+    user root
+    group system
+    disabled
 
 service time_daemon /vendor/bin/time_daemon
     class late_start
@@ -429,9 +429,9 @@ on property:vendor.bluetooth.hciattach=false
     setprop vendor.bluetooth.status off
 
 service adsprpcd /vendor/bin/adsprpcd
-   class main
-   user media
-   group media
+    class main
+    user media
+    group media
 
 service wcnss-service /vendor/bin/wcnss_service
     class main
