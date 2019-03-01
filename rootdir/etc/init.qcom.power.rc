@@ -30,15 +30,17 @@ on enable-low-power
     write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor "interactive"
     write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor "interactive"
     write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor "interactive"
-    write /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay "20000 1400000:40000 1700000:20000"
-    write /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load 70
-    write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1497600
+    write /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay "30000 1190400:50000 1497600:30000"
+    write /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load 99
+    write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1190400
+    write /sys/devices/system/cpu/cpufreq/interactive/boostpulse_duration 0
     write /sys/devices/system/cpu/cpufreq/interactive/io_is_busy 1
-    write /sys/devices/system/cpu/cpufreq/interactive/target_loads "85 1500000:35 1600000:50 1700000:75 1800000:95"
-    write /sys/devices/system/cpu/cpufreq/interactive/min_sample_time 40000
-    write /sys/devices/system/cpu/cpufreq/interactive/max_freq_hysteresis 100000
-    write /sys/devices/system/cpu/cpufreq/interactive/timer_rate 30000
-    write /sys/devices/system/cpu/cpufreq/interactive/timer_slack -1
+    write /sys/devices/system/cpu/cpufreq/interactive/target_loads "99 422400:12 652800:36 729600:70 883200:19 960000:69 1190400:95 1497600:95"
+    write /sys/devices/system/cpu/cpufreq/interactive/min_sample_time 30000
+    write /sys/devices/system/cpu/cpufreq/interactive/sampling_down_factor 100000
+    write /sys/devices/system/cpu/cpufreq/interactive/timer_rate 20000
+    write /sys/devices/system/cpu/cpufreq/interactive/timer_slack 30000
+    write /sys/devices/system/cpu/sched_mc_power_savings 2
 
     write /sys/kernel/cpu_input_boost/ib_freqs "1190400 1497600"
     write /sys/kernel/cpu_input_boost/ib_duration_ms 1400
@@ -57,9 +59,10 @@ on enable-low-power
     write /sys/kernel/msm_thermal/sampling_ms 8000
     write /sys/kernel/msm_thermal/enabled 1
 
-    write /sys/block/mmcblk0/queue/scheduler "deadline"
-    write /sys/block/mmcblk1/queue/scheduler "deadline"
+    write /sys/block/mmcblk0/queue/scheduler "row"
+    write /sys/block/mmcblk1/queue/scheduler "bfq"
     write /sys/block/mmcblk0/bdi/read_ahead_kb 512
+    write /sys/block/mmcblk1/bdi/read_ahead_kb 2048
 
     start mpdecision
 
@@ -143,9 +146,9 @@ on property:sys.perf.profile=1
 
     # Set normal performance settings
     write /sys/kernel/cpu_input_boost/ib_freqs "1190400 1497600"
-    write /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load 70
-    write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1497600
-    write /sys/devices/system/cpu/cpufreq/interactive/target_loads "85 1500000:35 1600000:50 1700000:75 1800000:95"
+    write /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load 99
+    write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1190400
+    write /sys/devices/system/cpu/cpufreq/interactive/target_loads "99 422400:12 652800:36 729600:70 883200:19 960000:69 1190400:95 1497600:95"
     start mpdecision
 
     write /sys/class/devfreq/qcom,cpubw.40/governor "msm_cpufreq"
