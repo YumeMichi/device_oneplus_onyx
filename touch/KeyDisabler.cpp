@@ -40,11 +40,11 @@ Return<bool> KeyDisabler::isEnabled() {
         return false;
     }
 
-    return std::stoi(android::base::Trim(buf)) == 1;
+    return std::stoi(android::base::Trim(buf)) == 0;
 }
 
 Return<bool> KeyDisabler::setEnabled(bool enabled) {
-    if (!android::base::WriteStringToFile((enabled ? "1" : "0"), kControlPath)) {
+    if (!android::base::WriteStringToFile((enabled ? "0" : "1"), kControlPath)) {
         LOG(ERROR) << "Failed to write " << kControlPath;
         return false;
     }
