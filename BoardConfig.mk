@@ -154,6 +154,9 @@ DEVICE_MATRIX_FILE := $(PLATFORM_PATH)/compatibility_matrix.xml
 TARGET_INIT_VENDOR_LIB := libinit_onyx
 TARGET_RECOVERY_DEVICE_MODULES := libinit_onyx
 
+# KeyDisabler
+JAVA_SOURCE_OVERLAYS := org.pixelexperience.keydisabler|$(PLATFORM_PATH)/keydisabler|**/*.java
+
 # Keymaster
 TARGET_PROVIDES_KEYMASTER := true
 
