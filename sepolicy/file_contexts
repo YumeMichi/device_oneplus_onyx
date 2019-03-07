@@ -2,9 +2,6 @@
 /dev/block/platform/msm_sdcc\.1/by-name/oppodycnvbk     u:object_r:nvbackup_block_device:s0
 /dev/block/platform/msm_sdcc\.1/by-name/oppostanvbk     u:object_r:nvbackup_block_device:s0
 
-# Persist partition
-/dev/block/platform/msm_sdcc\.1/by-name/persist         u:object_r:persist_block_device:s0
-
 # FRP partition
 /dev/block/platform/msm_sdcc\.1/by-name/config          u:object_r:frp_block_device:s0
 
