@@ -118,9 +118,9 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl \
     camera.device@1.0-impl \
     camera.msm8974 \
+    libboringssl-compat \
+    libstlport \
     libshims_atomic \
-    libshims_camera \
-    libshims_camera_parameters \
     Snap
 
 # Camera configurations
