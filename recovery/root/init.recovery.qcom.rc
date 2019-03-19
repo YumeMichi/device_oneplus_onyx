@@ -49,6 +49,11 @@ on fs
     wait /dev/block/platform/${ro.boot.bootdevice}
     symlink /dev/block/platform/${ro.boot.bootdevice} /dev/block/bootdevice
 
+on post-fs
+    # Avoid USB crash
+    setprop persist.adb.nonblocking_ffs 0
+    setprop ro.adb.nonblocking_ffs 0
+
 on property:ro.crypto.state=encrypted
     start sbinqseecomd
 
