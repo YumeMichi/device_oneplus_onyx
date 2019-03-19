@@ -1481,7 +1481,7 @@
 
     <path name="voice-dmic-ef">
         <path name="speaker-dmic-endfire" />
-        <ctl name="ADC3 Volume" value="19" />
+        <ctl name="ADC3 Volume" value="8" />
         <ctl name="ADC4 Volume" value="8" />
         <ctl name="DEC3 Volume" value="84" />
         <ctl name="DEC4 Volume" value="84" />
