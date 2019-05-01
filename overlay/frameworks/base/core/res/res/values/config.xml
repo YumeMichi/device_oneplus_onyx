@@ -304,9 +304,9 @@
         <item>"/system/framework/arm/boot-core-libart.oat"</item>
         <item>"/system/framework/boot-core-libart.vdex"</item>
         <item>"/system/priv-app/SystemUI/SystemUI.apk"</item>
-        <item>"/data/dalvik-cache/arm64/system@priv-app@SystemUI@SystemUI.apk@classes.dex"</item>
-        <item>"/data/dalvik-cache/arm64/system@priv-app@SystemUI@SystemUI.apk@classes.vdex"</item>
-        <item>"/system/lib64/libsurfaceflinger.so"</item>
+        <item>"/data/dalvik-cache/arm/system@priv-app@SystemUI@SystemUI.apk@classes.dex"</item>
+        <item>"/data/dalvik-cache/arm/system@priv-app@SystemUI@SystemUI.apk@classes.vdex"</item>
+        <item>"/system/lib/libsurfaceflinger.so"</item>
     </string-array>
 
     <!-- Keep chosen default camera app pinned in memory for faster launching -->
