@@ -1,0 +1,4 @@
+allow mm-qcamerad vendor_file:file execmod;
+allow mm-qcamerad system_data_file:dir write;
+allow sensors unlabeled:dir { getattr search read write open };
+
