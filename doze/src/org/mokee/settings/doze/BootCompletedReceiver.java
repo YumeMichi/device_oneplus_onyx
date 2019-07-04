@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2015-2016 The CyanogenMod Project
- *               2017 The LineageOS Project
+ * Copyright (C) 2015 The CyanogenMod Project
+ *               2017-2019 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,20 +15,21 @@
  * limitations under the License.
  */
 
-package org.lineageos.settings.doze;
+package org.mokee.settings.doze;
 
-import android.os.Bundle;
-import android.preference.PreferenceActivity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 
-public class DozeSettingsActivity extends PreferenceActivity {
+public class BootCompletedReceiver extends BroadcastReceiver {
 
-    private static final String TAG_DOZE = "doze";
+    private static final boolean DEBUG = false;
+    private static final String TAG = "OnyxDoze";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        getFragmentManager().beginTransaction().replace(android.R.id.content,
-                new DozeSettingsFragment(), TAG_DOZE).commit();
+    public void onReceive(final Context context, Intent intent) {
+        if (DEBUG) Log.d(TAG, "Received boot completed intent");
+        Utils.checkDozeService(context);
     }
 }

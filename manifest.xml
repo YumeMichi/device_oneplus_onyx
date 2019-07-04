@@ -259,7 +259,7 @@
         </interface>
     </hal>
     <hal format="hidl">
-        <name>vendor.lineage.livedisplay</name>
+        <name>vendor.mokee.livedisplay</name>
         <transport>hwbinder</transport>
         <version>2.0</version>
         <interface>
@@ -280,16 +280,16 @@
         </interface>
     </hal>
     <hal format="hidl">
-        <name>vendor.lineage.power</name>
+        <name>vendor.mokee.power</name>
         <transport>hwbinder</transport>
         <version>1.0</version>
         <interface>
-            <name>ILineagePower</name>
+            <name>IMoKeePower</name>
             <instance>default</instance>
         </interface>
     </hal>
     <hal format="hidl">
-        <name>vendor.lineage.touch</name>
+        <name>vendor.mokee.touch</name>
         <transport>hwbinder</transport>
         <version>1.0</version>
         <interface>
@@ -302,7 +302,7 @@
         </interface>
     </hal>
     <hal format="hidl">
-        <name>vendor.lineage.trust</name>
+        <name>vendor.mokee.trust</name>
         <transport>hwbinder</transport>
         <version>1.0</version>
         <interface>

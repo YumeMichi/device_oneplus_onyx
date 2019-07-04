@@ -36,7 +36,7 @@ cc_binary {
         "libutils",
         "libhardware",
         "android.hardware.power@1.1",
-        "vendor.lineage.power@1.0",
+        "vendor.mokee.power@1.0",
     ],
     arch: {
         arm: {

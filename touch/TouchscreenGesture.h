@@ -19,11 +19,11 @@
 
 #include <hidl/MQDescriptor.h>
 #include <hidl/Status.h>
-#include <vendor/lineage/touch/1.0/ITouchscreenGesture.h>
+#include <vendor/mokee/touch/1.0/ITouchscreenGesture.h>
 #include <map>
 
 namespace vendor {
-namespace lineage {
+namespace mokee {
 namespace touch {
 namespace V1_0 {
 namespace implementation {
@@ -34,9 +34,9 @@ using ::android::sp;
 
 class TouchscreenGesture : public ITouchscreenGesture {
   public:
-    // Methods from ::vendor::lineage::touch::V1_0::ITouchscreenGesture follow.
+    // Methods from ::vendor::mokee::touch::V1_0::ITouchscreenGesture follow.
     Return<void> getSupportedGestures(getSupportedGestures_cb resultCb) override;
-    Return<bool> setGestureEnabled(const ::vendor::lineage::touch::V1_0::Gesture& gesture,
+    Return<bool> setGestureEnabled(const ::vendor::mokee::touch::V1_0::Gesture& gesture,
                                    bool enabled) override;
 
   private:
@@ -51,7 +51,7 @@ class TouchscreenGesture : public ITouchscreenGesture {
 }  // namespace implementation
 }  // namespace V1_0
 }  // namespace touch
-}  // namespace lineage
+}  // namespace mokee
 }  // namespace vendor
 
 #endif  // VENDOR_LINEAGE_TOUCH_V1_0_TOUCHSCREENGESTURE_H

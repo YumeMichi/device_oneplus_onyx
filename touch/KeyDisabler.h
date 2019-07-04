@@ -19,10 +19,10 @@
 
 #include <hidl/MQDescriptor.h>
 #include <hidl/Status.h>
-#include <vendor/lineage/touch/1.0/IKeyDisabler.h>
+#include <vendor/mokee/touch/1.0/IKeyDisabler.h>
 
 namespace vendor {
-namespace lineage {
+namespace mokee {
 namespace touch {
 namespace V1_0 {
 namespace implementation {
@@ -33,7 +33,7 @@ using ::android::sp;
 
 class KeyDisabler : public IKeyDisabler {
   public:
-    // Methods from ::vendor::lineage::touch::V1_0::IKeyDisabler follow.
+    // Methods from ::vendor::mokee::touch::V1_0::IKeyDisabler follow.
     Return<bool> isEnabled() override;
     Return<bool> setEnabled(bool enabled) override;
 };
@@ -41,7 +41,7 @@ class KeyDisabler : public IKeyDisabler {
 }  // namespace implementation
 }  // namespace V1_0
 }  // namespace touch
-}  // namespace lineage
+}  // namespace mokee
 }  // namespace vendor
 
 #endif  // VENDOR_LINEAGE_TOUCH_V1_0_KEYDISABLER_H
