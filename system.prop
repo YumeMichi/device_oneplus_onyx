@@ -63,6 +63,10 @@ ro.sf.lcd_density=420
 ro.qualcomm.cabl=0
 debug.hwui.use_buffer_age=false
 
+# Media
+debug.stagefright.omx_default_rank.sw-audio=1
+debug.stagefright.omx_default_rank=0
+
 # Memory optimizations
 ro.vendor.qti.sys.fw.bservice_enable=true
 
