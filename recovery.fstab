@@ -1,6 +1,6 @@
 # mount point    fstype  device             [device2]
 /firmware        vfat    /dev/block/platform/msm_sdcc.1/by-name/modem          flags=mounttodecrypt;fsflags=ro;display="Firmware"
-/system          ext4    /dev/block/platform/msm_sdcc.1/by-name/system
+/system_root     ext4    /dev/block/platform/msm_sdcc.1/by-name/system         flags=display="System"
 /data            ext4    /dev/block/platform/msm_sdcc.1/by-name/userdata       flags=encryptable=/dev/block/platform/msm_sdcc.1/by-name/reserve2
 /cache           ext4    /dev/block/platform/msm_sdcc.1/by-name/cache
 /persist         ext4    /dev/block/platform/msm_sdcc.1/by-name/persist        flags=backup=1;display="Persist"
