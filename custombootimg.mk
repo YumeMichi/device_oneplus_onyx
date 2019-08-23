@@ -1,10 +1,14 @@
-$(INSTALLED_RECOVERYIMAGE_TARGET): $(MKBOOTIMG) $(MINIGZIP) \
-		$(recovery_uncompressed_ramdisk) \
+LZMA_BIN := $(shell which lzma)
+
+$(INSTALLED_RECOVERYIMAGE_TARGET): $(MKBOOTIMG) \
+		$(recovery_ramdisk) \
 		$(recovery_kernel)
-	@echo ----- Compressing recovery ramdisk ------
+	@echo ----- Compressing recovery ramdisk with LZMA ------
 	sed -i 's/ro.product.model=OnePlus X//' $(TARGET_RECOVERY_ROOT_OUT)/default.prop
 	sed -i 's/ro.vendor.product.model=OnePlus X//' $(TARGET_RECOVERY_ROOT_OUT)/default.prop
-	$(MKBOOTFS) $(TARGET_RECOVERY_ROOT_OUT) | $(MINIGZIP) > $(recovery_ramdisk)
+	rm -f $(recovery_uncompressed_ramdisk).lzma
+	$(LZMA_BIN) $(recovery_uncompressed_ramdisk)
+	$(hide) cp $(recovery_uncompressed_ramdisk).lzma $(recovery_ramdisk)
 	@echo ----- Making recovery image ------
 	$(MKBOOTIMG) $(INTERNAL_RECOVERYIMAGE_ARGS) $(BOARD_MKBOOTIMG_ARGS) --output $@
 	@echo ----- Made recovery image -------- $@
