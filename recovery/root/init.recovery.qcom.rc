@@ -49,8 +49,6 @@ on fs
     wait /dev/block/platform/${ro.boot.bootdevice}
     symlink /dev/block/platform/${ro.boot.bootdevice} /dev/block/bootdevice
 
-    export ANDROID_ROOT /system_root
-
 on property:ro.crypto.state=encrypted
     start sbinqseecomd
 
