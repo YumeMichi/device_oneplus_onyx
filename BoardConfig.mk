@@ -47,11 +47,14 @@ BOARD_SUPPRESS_SECURE_ERASE  := true
 DEVICE_RESOLUTION            := 1080x1920
 RECOVERY_SDCARD_ON_DATA      := true
 TARGET_RECOVERY_PIXEL_FORMAT := "RGB_565"
-# TW_EXTRA_LANGUAGES           := true
+TW_EXTRA_LANGUAGES           := true
 TW_INCLUDE_CRYPTO            := true
 TW_NO_USB_STORAGE            := true
 TW_THEME                     := portrait_hdpi
 TW_DEVICE_VERSION            := YumeMichi
+TW_USE_TOOLBOX               := true
+PLATFORM_SECURITY_PATCH      := 2099-12-31
+TW_EXCLUDE_TWRPAPP           := true
 
 # Assertions
 TARGET_BOARD_INFO_FILE       := $(PLATFORM_PATH)/board-info.txt
