@@ -5,11 +5,11 @@
 # FRP partition
 /dev/block/platform/msm_sdcc\.1/by-name/config          u:object_r:frp_block_device:s0
 
-# Reserve2 partition
-/dev/block/platform/msm_sdcc\.1/by-name/reserve2        u:object_r:reserve2_block_device:s0
-
 # Modem partition
 /dev/block/platform/msm_sdcc\.1/by-name/modem           u:object_r:modem_block_device:s0
+
+# Reserve2 partition
+/dev/block/platform/msm_sdcc\.1/by-name/reserve2        u:object_r:reserve2_block_device:s0
 
 # Persist files
 /persist/sns.reg                                        u:object_r:sensors_persist_file:s0
@@ -22,9 +22,6 @@
 
 # Light HAL
 /system/vendor/bin/hw/android\.hardware\.light@2\.0-service\.onyx                  u:object_r:hal_light_default_exec:s0
-
-# Power HAL
-/system/vendor/bin/hw/android\.hardware\.power@1\.1-service\.onyx                  u:object_r:hal_power_default_exec:s0
 
 # Touch features
 /system/vendor/bin/hw/vendor\.lineage\.touch@1\.0-service\.onyx                    u:object_r:hal_lineage_touch_default_exec:s0
