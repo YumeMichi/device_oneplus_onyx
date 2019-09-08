@@ -1,1 +1,1 @@
-sys.perf.profile                   u:object_r:perf_prop:s0
+wifi.active.interface              u:object_r:wifi_prop:s0
