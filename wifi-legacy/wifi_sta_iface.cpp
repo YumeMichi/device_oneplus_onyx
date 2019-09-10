@@ -635,9 +635,8 @@ WifiStatus WifiStaIface::setMacAddressInternal(
 
 std::pair<WifiStatus, std::array<uint8_t, 6>>
 WifiStaIface::getFactoryMacAddressInternal() {
-    std::array<uint8_t, 6> mac =
-        iface_util_.lock()->getFactoryMacAddress(ifname_);
-    return {createWifiStatus(WifiStatusCode::SUCCESS), mac};
+    std::array<uint8_t, 6> mac;
+    return {createWifiStatus(WifiStatusCode::ERROR_NOT_SUPPORTED), mac};
 }
 
 }  // namespace implementation
