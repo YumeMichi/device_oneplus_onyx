@@ -57,11 +57,7 @@ void property_override_dual(char const system_prop[], char const vendor_prop[], 
 
 void vendor_load_properties()
 {
-    std::string platform, rf_version, device;
-
-    platform = GetProperty("ro.board.platform", "");
-    if (platform != ANDROID_TARGET)
-        return;
+    std::string rf_version, device;
 
     rf_version = GetProperty("ro.boot.rf_version", "");
 
