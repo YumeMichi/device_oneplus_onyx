@@ -174,11 +174,11 @@ static const std::vector<IWifiChip::ChipMode> kChipModes{
 #undef P2P
 #undef NAN
 
-#ifdef WIFI_HIDL_FEATURE_DISABLE_AP_MAC_RANDOMIZATION
+#ifndef WIFI_HIDL_FEATURE_AP_MAC_RANDOMIZATION
 static const bool wifiHidlFeatureDisableApMacRandomization = true;
 #else
 static const bool wifiHidlFeatureDisableApMacRandomization = false;
-#endif  // WIFI_HIDL_FEATURE_DISABLE_AP
+#endif  // WIFI_HIDL_FEATURE_AP_MAC_RANDOMIZATION
 
 WifiFeatureFlags::WifiFeatureFlags() {}
 
