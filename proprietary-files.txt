@@ -242,6 +242,7 @@ etc/firmware/widevine.mdt:vendor/firmware/widevine.mdt
 
 # Perf
 bin/mpdecision:vendor/bin/mpdecision
+vendor/lib/libqti-perfd-client.so
 
 # Qualcomm framework
 bin/irsc_util:vendor/bin/irsc_util
@@ -303,7 +304,9 @@ vendor/lib/libsensor1.so
 vendor/lib/libsensor_reg.so
 
 # Thermal
+vendor/bin/thermal-engine
 vendor/lib/libthermalclient.so
+vendor/lib/libthermalioctl.so
 
 # Time services
 -app/TimeService/TimeService.apk:vendor/app/TimeService/TimeService.apk
