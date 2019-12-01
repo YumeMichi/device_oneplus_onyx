@@ -193,6 +193,9 @@ TARGET_RELEASETOOLS_EXTENSIONS := $(PLATFORM_PATH)
 # Recovery
 TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/rootdir/etc/fstab.qcom
 
+# RIL
+DISABLE_RILD_OEM_HOOK := false
+
 # SELinux
 include device/qcom/sepolicy-legacy/sepolicy.mk
 
