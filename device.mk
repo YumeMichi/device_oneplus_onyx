@@ -210,6 +210,15 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     vendor.lineage.livedisplay@2.0-service-sysfs
 
+# LMKD
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.lmk.critical_upgrade=true \
+    ro.lmk.downgrade_pressure=60 \
+    ro.lmk.kill_heaviest_task=false \
+    ro.lmk.log_stats=true \
+    ro.lmk.upgrade_pressure=40 \
+    ro.lmk.use_psi=false
+
 # Media
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml \
