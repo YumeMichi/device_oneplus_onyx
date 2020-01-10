@@ -25,7 +25,8 @@
    IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <stdlib.h>
+#include <vector>
+
 #define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
 #include <sys/_system_properties.h>
 
@@ -38,26 +39,34 @@
 using android::base::GetProperty;
 using android::init::property_set;
 
-void property_override(char const prop[], char const value[])
+std::vector<std::string> ro_props_default_source_order = {
+    "",
+    "odm.",
+    "product.",
+    "system.",
+    "vendor.",
+};
+
+void property_override(char const prop[], char const value[], bool add = true)
 {
     prop_info *pi;
 
     pi = (prop_info*) __system_property_find(prop);
     if (pi)
         __system_property_update(pi, value, strlen(value));
-    else
+    else if (add)
         __system_property_add(prop, strlen(prop), value, strlen(value));
-}
-
-void property_override_dual(char const system_prop[], char const vendor_prop[], char const value[])
-{
-    property_override(system_prop, value);
-    property_override(vendor_prop, value);
 }
 
 void vendor_load_properties()
 {
     std::string rf_version, device;
+
+    const auto set_ro_product_prop = [](const std::string &source,
+            const std::string &prop, const std::string &value) {
+        auto prop_name = "ro.product." + source + prop;
+        property_override(prop_name.c_str(), value.c_str(), false);
+    };
 
     rf_version = GetProperty("ro.boot.rf_version", "");
 
@@ -66,20 +75,28 @@ void vendor_load_properties()
 
     if (rf_version == "101") {
         /* China */
-        property_override_dual("ro.product.model", "ro.vendor.product.model", "ONE E1001");
         property_set("ro.rf_version", "TDD_FDD_Ch_All");
+        for (const auto &source : ro_props_default_source_order) {
+            set_ro_product_prop(source, "model", "ONE E1001");
+        }
     } else if (rf_version == "102") {
         /* Asia/Europe */
-        property_override_dual("ro.product.model", "ro.vendor.product.model", "ONE E1003");
         property_set("ro.rf_version", "TDD_FDD_Eu");
+        for (const auto &source : ro_props_default_source_order) {
+            set_ro_product_prop(source, "model", "ONE E1003");
+        }
     } else if (rf_version == "103"){
         /* America */
-        property_override_dual("ro.product.model", "ro.vendor.product.model", "ONE E1005");
         property_set("ro.rf_version", "TDD_FDD_Am");
+        for (const auto &source : ro_props_default_source_order) {
+            set_ro_product_prop(source, "model", "ONE E1005");
+        }
     } else if (rf_version == "107"){
         /* China CTCC Version */
-        property_override_dual("ro.product.model", "ro.vendor.product.model", "ONE E1000");
         property_set("ro.rf_version", "TDD_FDD_ALL_OPTR");
+        for (const auto &source : ro_props_default_source_order) {
+            set_ro_product_prop(source, "model", "ONE E1000");
+        }
     }
     device = GetProperty("ro.product.device", "");
     LOG(INFO) << "Found rf_version : " << rf_version.c_str() << " setting build properties for " << device.c_str() << " device\n";
