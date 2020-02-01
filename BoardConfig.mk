@@ -129,10 +129,6 @@ TARGET_USES_MEDIA_EXTENSIONS := true
 # Recovery
 TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/rootdir/etc/fstab.qcom
 
-# RIL
-BOARD_PROVIDES_LIBRIL := true
-BOARD_PROVIDES_RILD := true
-
 # RPC
 TARGET_NO_RPC := true
 
