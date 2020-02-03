@@ -4,10 +4,6 @@ vendor/lib/libadsprpc.so
 vendor/lib/libfastcvadsp_stub.so
 vendor/lib/libfastcvopt.so
 
-# Bluetooth (from bacon)
-bin/hci_qcomm_init:vendor/bin/hci_qcomm_init|022d27e7c7cba3c9bbb0deadaa1834a620eeb407
-vendor/lib/libbtnv.so
-
 # Audio
 etc/firmware/tfa98xx.cnt:vendor/firmware/tfa98xx.cnt
 vendor/lib/libacdbloader.so
@@ -17,6 +13,10 @@ vendor/lib/libaudcal.so
 vendor/lib/soundfx/libqcbassboost.so
 vendor/lib/soundfx/libqcreverb.so
 vendor/lib/soundfx/libqcvirt.so
+
+# Bluetooth (from bacon)
+bin/hci_qcomm_init:vendor/bin/hci_qcomm_init|022d27e7c7cba3c9bbb0deadaa1834a620eeb407
+vendor/lib/libbtnv.so
 
 # Camera
 bin/mm-qcamera-daemon:vendor/bin/mm-qcamera-daemon
@@ -125,6 +125,9 @@ vendor/lib/libscale.so
 etc/firmware/a330_pfp.fw:vendor/firmware/a330_pfp.fw
 etc/firmware/a330_pm4.fw:vendor/firmware/a330_pm4.fw
 
+# Keystore
+lib/hw/keystore.qcom.so:vendor/lib/hw/keystore.msm8974.so
+
 # Listen service
 vendor/lib/liblisten.so
 vendor/lib/liblistenhardware.so
@@ -133,10 +136,7 @@ vendor/lib/liblistensoundmodel.so
 
 # OMX
 vendor/lib/libOmxAacDec.so
-vendor/lib/libOmxAmrwbplusDec.so
 vendor/lib/libOmxEvrcDec.so
-vendor/lib/libOmxQcelp13Dec.so
-vendor/lib/libOmxVdecHevc.so
 vendor/lib/libOmxWmaDec.so
 
 # Modem firmware
