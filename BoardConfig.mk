@@ -17,6 +17,8 @@
 
 PLATFORM_PATH := device/oneplus/onyx
 
+BOARD_VENDOR := oneplus
+
 # Include path
 TARGET_SPECIFIC_HEADER_PATH := $(PLATFORM_PATH)/include
 
