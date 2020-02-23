@@ -183,7 +183,7 @@ TARGET_LD_SHIM_LIBS := \
     /system/vendor/lib/libmmcamera2_stats_algorithm.so|libshims_atomic.so
 
 # Vendor security patch level
-VENDOR_SECURITY_PATCH := 2016-11-10
+VENDOR_SECURITY_PATCH := 2016-11-01
 
 # Wifi
 BOARD_HAS_QCOM_WLAN              := true
