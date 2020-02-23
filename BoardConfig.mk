@@ -184,6 +184,9 @@ TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/rootdir/etc/fstab.qcom
 # BOARD_SEPOLICY_DIRS += \
 #     $(PLATFORM_PATH)/sepolicy
 
+BOARD_SEPOLICY_DIRS += \
+    $(PLATFORM_PATH)/sepolicy-minimal
+
 # SHIMS
 TARGET_LD_SHIM_LIBS := \
     /system/bin/cameraserver|libshims_unwind.so \
