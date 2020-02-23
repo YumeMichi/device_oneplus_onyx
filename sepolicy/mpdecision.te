@@ -1,0 +1,1 @@
+allow mpdecision sysfs_kgsl:dir r_dir_perms;

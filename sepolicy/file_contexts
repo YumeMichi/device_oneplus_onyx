@@ -1,41 +1,27 @@
-# NV backup partitions
+# /dev partitions
+/dev/block/platform/msm_sdcc\.1/by-name/config          u:object_r:frp_block_device:s0
+/dev/block/platform/msm_sdcc\.1/by-name/modem           u:object_r:modem_block_device:s0
 /dev/block/platform/msm_sdcc\.1/by-name/oppodycnvbk     u:object_r:nvbackup_block_device:s0
 /dev/block/platform/msm_sdcc\.1/by-name/oppostanvbk     u:object_r:nvbackup_block_device:s0
-
-# FRP partition
-/dev/block/platform/msm_sdcc\.1/by-name/config          u:object_r:frp_block_device:s0
-
-# Modem partition
-/dev/block/platform/msm_sdcc\.1/by-name/modem           u:object_r:modem_block_device:s0
-
-# Reserve2 partition
 /dev/block/platform/msm_sdcc\.1/by-name/reserve2        u:object_r:reserve2_block_device:s0
 
-# cgroup
+# /dev devices
 /dev/cpuset(/.*)?                                       u:object_r:cgroup:s0
 /dev/stune(/.*)?                                        u:object_r:cgroup:s0
 
-# Persist files
+# /persist
 /persist/sns.reg                                        u:object_r:sensors_persist_file:s0
 
-# Rootfs files
-/tombstones                                                                          u:object_r:rootfs:s0
+# / rootfs
+/tombstones                                             u:object_r:rootfs:s0
 
-# Sysfs nodes
+# /sys
 /sys/devices/qpnp-bms-10/power_supply/bms(/.*)?         u:object_r:sysfs_battery_supply:s0
+/sys/devices/qpnp-rtc-17/rtc/rtc0(/.*)?                 u:object_r:sysfs_rtc:s0
 
-# Offline charging LED
-/system/vendor/bin/init.chargerled.sh                   u:object_r:charger_led_exec:s0
-
-# GNSS HAL
-/system/vendor/bin/hw/android\.hardware\.gnss@1\.0-service\.onyx                   u:object_r:hal_gnss_default_exec:s0
-
-# Light HAL
-/system/vendor/bin/hw/android\.hardware\.light@2\.0-service\.onyx                  u:object_r:hal_light_default_exec:s0
-
-# TimeKeep
-/sys/devices/qpnp-rtc-17/rtc/rtc0(/.*)?                                            u:object_r:sysfs_rtc:s0
-/system/vendor/bin/timekeep                                                        u:object_r:timekeep_exec:s0
-
-# Touch features
-/system/vendor/bin/hw/vendor\.lineage\.touch@1\.0-service\.onyx                    u:object_r:hal_lineage_touch_default_exec:s0
+# /vendor
+/(vendor|system/vendor)/bin/hw/android\.hardware\.gnss@1\.0-service\.onyx         u:object_r:hal_gnss_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.light@2\.0-service\.onyx        u:object_r:hal_light_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.wifi@1\.0-service\.onyx         u:object_r:hal_wifi_default_exec:s0
+/(vendor|system/vendor)/bin/init.chargerled.sh                                    u:object_r:charger_led_exec:s0
+/(vendor|system/vendor)/bin/timekeep                                              u:object_r:timekeep_exec:s0
