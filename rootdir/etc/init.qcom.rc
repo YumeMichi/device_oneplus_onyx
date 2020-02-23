@@ -346,7 +346,6 @@ service chargerled /vendor/bin/init.chargerled.sh
     user root
     group root system
     disabled
-    seclabel u:r:charger_led:s0
     oneshot
 
 on charger
@@ -387,7 +386,6 @@ service hciattach /vendor/bin/init.qcom.bt.sh
     user bluetooth
     group bluetooth net_bt_admin oem_2950 radio
     disabled
-    seclabel u:r:bluetooth_loader:s0
     oneshot
 
 ## Properties start here
@@ -413,6 +411,12 @@ service ril-daemon1 /vendor/bin/hw/rild -c 2
     user radio
     group radio cache inet misc audio log readproc wakelock
     capabilities BLOCK_SUSPEND NET_ADMIN NET_RAW
+
+# Logcat
+service logcat_debug /system/bin/logcat -b all -f /data/logcat.txt -v threadtime
+    class main
+    user root
+    group system
 
 on property:apexd.status=ready
     mount none /system/etc/swcodec/ld.config.txt /apex/com.android.media.swcodec/etc/ld.config.txt bind
