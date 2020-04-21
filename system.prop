@@ -65,7 +65,6 @@ ro.surface_flinger.vsync_event_phase_offset_ns=4000000
 ro.surface_flinger.vsync_sf_event_phase_offset_ns=8000000
 debug.hwui.use_buffer_age=false
 debug.sf.disable_backpressure=1
-debug.sf.enable_gl_backpressure=1
 debug.sf.latch_unsignaled=1
 
 # Media
