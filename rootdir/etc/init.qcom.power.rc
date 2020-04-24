@@ -56,8 +56,6 @@ on enable-low-power
 
     setprop vendor.post_boot.parsed 1
 
-    rm /data/system/perfd/default_values
-
     start mpdecision
 
 on charger
