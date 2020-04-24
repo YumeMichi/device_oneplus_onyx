@@ -222,9 +222,9 @@ etc/firmware/widevine.b02:vendor/firmware/widevine.b02
 etc/firmware/widevine.b03:vendor/firmware/widevine.b03
 etc/firmware/widevine.mdt:vendor/firmware/widevine.mdt
 
-# Perf (from ham)
-bin/mpdecision:vendor/bin/mpdecision|9d637e787795719ad05758201f201d761f67dfb9
-vendor/lib/libqti-perfd-client.so|560e00d6cd9fd69fa8a47e3cc392d75d943f0dae
+# Perf
+bin/mpdecision:vendor/bin/mpdecision
+vendor/lib/libqti-perfd-client.so
 
 # Qualcomm framework
 bin/irsc_util:vendor/bin/irsc_util
