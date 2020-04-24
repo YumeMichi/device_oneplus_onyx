@@ -54,6 +54,8 @@ BOARD_KERNEL_IMAGE_NAME := zImage-dtb
 TARGET_KERNEL_ARCH := arm
 TARGET_KERNEL_CONFIG := onyx_defconfig
 TARGET_KERNEL_SOURCE := kernel/oneplus/onyx
+TARGET_KERNEL_CROSS_COMPILE_PREFIX := arm-eabi-
+KERNEL_TOOLCHAIN := $(PWD)/prebuilts/gcc/linux-x86/arm/linaro-arm-eabi-4.9/bin
 
 # ANT+
 BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
