@@ -14,10 +14,10 @@
 // limitations under the License.
 
 cc_binary {
-    name: "android.hardware.power@1.1-service.onyx",
+    name: "android.hardware.power@1.2-service.onyx",
     defaults: ["hidl_defaults"],
     relative_install_path: "hw",
-    init_rc: ["android.hardware.power@1.1-service.onyx.rc"],
+    init_rc: ["android.hardware.power@1.2-service.onyx.rc"],
     srcs: [
         "service.cpp",
         "Power.cpp",
@@ -35,7 +35,7 @@ cc_binary {
         "libhwbinder",
         "libutils",
         "libhardware",
-        "android.hardware.power@1.1",
+        "android.hardware.power@1.2",
         "vendor.lineage.power@1.0",
     ],
     arch: {
