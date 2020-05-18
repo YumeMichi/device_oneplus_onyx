@@ -27,6 +27,9 @@
 # Offline charging LED
 /system/vendor/bin/init.chargerled.sh                   u:object_r:charger_led_exec:s0
 
+# GNSS HAL
+/system/vendor/bin/hw/android\.hardware\.gnss@1\.0-service\.onyx                   u:object_r:hal_gnss_default_exec:s0
+
 # Light HAL
 /system/vendor/bin/hw/android\.hardware\.light@2\.0-service\.onyx                  u:object_r:hal_light_default_exec:s0
 
