@@ -30,5 +30,9 @@
 # Light HAL
 /system/vendor/bin/hw/android\.hardware\.light@2\.0-service\.onyx                  u:object_r:hal_light_default_exec:s0
 
+# TimeKeep
+/sys/devices/qpnp-rtc-17/rtc/rtc0(/.*)?                                            u:object_r:sysfs_rtc:s0
+/system/vendor/bin/timekeep                                                        u:object_r:timekeep_exec:s0
+
 # Touch features
 /system/vendor/bin/hw/vendor\.lineage\.touch@1\.0-service\.onyx                    u:object_r:hal_lineage_touch_default_exec:s0
