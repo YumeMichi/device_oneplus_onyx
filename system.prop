@@ -85,8 +85,5 @@ persist.data.qmi.adb_logmask=0
 ro.qti.sensors.gtap=true
 ro.qti.sensors.vmd=true
 
-# Time services
-persist.timed.enable=true
-
 # Wifi
 wifi.interface=wlan0
