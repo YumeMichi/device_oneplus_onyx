@@ -234,9 +234,6 @@ on post-fs-data
     mkdir /data/shared 0755
     chown system system /data/shared
 
-    # Create /data/time folder for time-services
-    mkdir /data/time/ 0700 system system
-
     mkdir /data/audio/ 0770 media audio
 
     setprop vold.post_fs_data_done 1
@@ -367,11 +364,6 @@ on property:init.svc.media=restarting
 
 on property:init.svc.servicemanager=restarting
     restart qcamerasvr
-
-service time_daemon /vendor/bin/time_daemon
-    class late_start
-    user root
-    group root
 
 on property:vold.decrypt=trigger_restart_framework
     start wcnss-service

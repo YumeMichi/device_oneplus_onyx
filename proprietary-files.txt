@@ -285,10 +285,7 @@ vendor/lib/libsensor_reg.so
 vendor/lib/libthermalclient.so
 
 # Time services
--app/TimeService/TimeService.apk:vendor/app/TimeService/TimeService.apk
-bin/time_daemon:vendor/bin/time_daemon
 -vendor/lib/libtime_genoff.so
--vendor/lib/libTimeService.so
 
 # Venus (media) firmware
 etc/firmware/venus.b00:vendor/firmware/venus.b00
