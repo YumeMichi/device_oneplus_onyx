@@ -146,6 +146,9 @@ USE_OPENGL_RENDERER := true
 DEVICE_MANIFEST_FILE := $(PLATFORM_PATH)/manifest.xml
 DEVICE_MATRIX_FILE := $(PLATFORM_PATH)/compatibility_matrix.xml
 
+# HW Keys
+TARGET_USES_HARDWARE_KEYS := true
+
 # Init
 TARGET_INIT_VENDOR_LIB := libinit_onyx
 TARGET_RECOVERY_DEVICE_MODULES := libinit_onyx
