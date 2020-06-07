@@ -222,6 +222,10 @@ etc/firmware/widevine.b02:vendor/firmware/widevine.b02
 etc/firmware/widevine.b03:vendor/firmware/widevine.b03
 etc/firmware/widevine.mdt:vendor/firmware/widevine.mdt
 
+# Perf
+bin/mpdecision:vendor/bin/mpdecision
+vendor/lib/libqti-perfd-client.so
+
 # Qualcomm framework
 bin/irsc_util:vendor/bin/irsc_util
 vendor/lib/libdiag.so
@@ -282,7 +286,9 @@ vendor/lib/libsensor1.so
 vendor/lib/libsensor_reg.so
 
 # Thermal
+vendor/bin/thermal-engine
 vendor/lib/libthermalclient.so
+vendor/lib/libthermalioctl.so
 
 # Time services
 -vendor/lib/libtime_genoff.so
