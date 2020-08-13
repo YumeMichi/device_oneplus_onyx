@@ -124,6 +124,7 @@ PRODUCT_PACKAGES += \
     camera.msm8974 \
     libboringssl-compat \
     libshims_atomic \
+    libshims_unwind \
     Snap
 
 # Charger

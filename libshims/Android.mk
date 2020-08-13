@@ -18,3 +18,12 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_VENDOR_MODULE := true
 
 include $(BUILD_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
+
+LOCAL_SRC_FILES := unwind.cpp
+LOCAL_MODULE := libshims_unwind
+LOCAL_MODULE_TAGS := optional
+LOCAL_VENDOR_MODULE := true
+
+include $(BUILD_SHARED_LIBRARY)
