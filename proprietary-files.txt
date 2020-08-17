@@ -51,7 +51,7 @@ vendor/lib/libmmcamera_tintless_algo.so
 vendor/lib/libmmcamera_tintless_bg_pca_algo.so
 vendor/lib/libmmcamera_wavelet_lib.so
 vendor/lib/libmmipl.so
-vendor/lib/libmmjpeg.so|ff0783087cdfa7347976470989fc3fc0dbbff89e
+vendor/lib/libmmjpeg.so
 vendor/lib/libmmqjpeg_codec.so
 vendor/lib/liboemcamera.so
 vendor/lib/libqomx_jpegdec.so
