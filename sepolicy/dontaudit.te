@@ -1,0 +1,1 @@
+dontaudit domain cameraserver_exec:file { getattr read };
