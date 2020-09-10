@@ -21,13 +21,13 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_l_mr1.mk
 # Inherit from onyx device
 $(call inherit-product, device/oneplus/onyx/device.mk)
 
-# Inherit some common LineageOS stuff.
-$(call inherit-product, vendor/lineage/config/common_full_phone.mk)
+# Inherit some common Lemon stuff.
+$(call inherit-product, vendor/lemon/config/common.mk)
 
 # Call the proprietary setup
 $(call inherit-product, vendor/oneplus/onyx/onyx-vendor.mk)
 
-PRODUCT_NAME := lineage_onyx
+PRODUCT_NAME := lemon_onyx
 PRODUCT_DEVICE := onyx
 PRODUCT_BRAND := OnePlus
 PRODUCT_MANUFACTURER := OnePlus
@@ -42,5 +42,4 @@ BUILD_FINGERPRINT := OnePlus/OnePlus/OnePlus:6.0.1/MMB29M/10281213:user/release-
 TARGET_VENDOR := oneplus
 TARGET_VENDOR_PRODUCT_NAME := onyx
 
-# Unofficial build ID
-TARGET_UNOFFICIAL_BUILD_ID := YumeMichi
+TARGET_BUILD_USER_ID := YumeMichi
