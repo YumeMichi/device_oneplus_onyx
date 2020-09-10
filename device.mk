@@ -233,8 +233,8 @@ PRODUCT_PACKAGES += \
 #     android.hardware.power@1.2-service-qti
 
 # Recovery
-PRODUCT_PACKAGES += \
-    librecovery_updater_onyx
+# PRODUCT_PACKAGES += \
+#     librecovery_updater_onyx
 
 # RIL
 PRODUCT_PACKAGES += \
