@@ -305,6 +305,10 @@ PRODUCT_PACKAGES += \
     android.hardware.usb@1.0-service.basic \
     com.android.future.usb.accessory
 
+# Widevine DRM
+PRODUCT_PACKAGES += \
+    libprotobuf_shim
+
 # WiFi
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/WCNSS_cfg.dat:$(TARGET_COPY_OUT_VENDOR)/firmware/wlan/prima/WCNSS_cfg.dat \
