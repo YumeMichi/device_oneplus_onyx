@@ -318,6 +318,10 @@ on post-fs-data
     # Camera sockets
     mkdir /data/misc/camera 0770 camera camera
 
+    # Clear existing log and start the service
+    rm /cache/boot_log.txt
+    start logger
+
 on fs
     mount_all /vendor/etc/fstab.qcom
     restorecon_recursive /persist
@@ -481,10 +485,12 @@ service ril-daemon1 /vendor/bin/hw/rild -c 2
     capabilities BLOCK_SUSPEND NET_ADMIN NET_RAW
 
 # Logcat
-service logcat_debug /system/bin/logcat -b all -f /data/logcat.txt -v threadtime
+service logger /system/bin/logcat -b all -D -f /cache/boot_log.txt
     class main
     user root
-    group system
+    group root system
+    disabled
+    oneshot
 
 on property:apexd.status=ready
     mount none /system/etc/swcodec/ld.config.txt /apex/com.android.media.swcodec/etc/ld.config.txt bind
