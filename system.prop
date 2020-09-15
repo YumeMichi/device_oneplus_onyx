@@ -64,6 +64,9 @@ debug.stagefright.omx_default_rank=0
 # Memory optimizations
 ro.vendor.qti.sys.fw.bservice_enable=true
 
+# Priv-app permissions
+ro.control_privapp_permissions=log
+
 # QC vendor extension
 ro.frp.pst=/dev/block/platform/msm_sdcc.1/by-name/config
 ro.vendor.extension_library=libqti-perfd-client.so
