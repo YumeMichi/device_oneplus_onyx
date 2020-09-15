@@ -15,4 +15,7 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Do not translate. Default access point SSID used for tethering -->
     <string name="wifi_tether_configure_ssid_default" translatable="false">OnePlus X</string>
+
+    <!-- Indicates that AP mode MAC randomization is supported on this device -->
+    <bool translatable="false" name="config_wifi_ap_mac_randomization_supported">false</bool>
 </resources>
