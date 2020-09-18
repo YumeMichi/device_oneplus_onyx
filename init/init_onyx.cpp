@@ -33,11 +33,10 @@
 #include <android-base/properties.h>
 #include <android-base/logging.h>
 
-#include "property_service.h"
 #include "vendor_init.h"
 
 using android::base::GetProperty;
-using android::init::property_set;
+using android::init::InitSetProperty;
 
 std::vector<std::string> ro_props_default_source_order = {
     "",
@@ -71,29 +70,29 @@ void vendor_load_properties()
     rf_version = GetProperty("ro.boot.rf_version", "");
 
     // Init a dummy BT MAC address, will be overwritten later
-    property_set("ro.boot.btmacaddr", "00:00:00:00:00:00");
+    InitSetProperty("ro.boot.btmacaddr", "00:00:00:00:00:00");
 
     if (rf_version == "101") {
         /* China */
-        property_set("ro.rf_version", "TDD_FDD_Ch_All");
+        InitSetProperty("ro.rf_version", "TDD_FDD_Ch_All");
         for (const auto &source : ro_props_default_source_order) {
             set_ro_product_prop(source, "model", "ONE E1001");
         }
     } else if (rf_version == "102") {
         /* Asia/Europe */
-        property_set("ro.rf_version", "TDD_FDD_Eu");
+        InitSetProperty("ro.rf_version", "TDD_FDD_Eu");
         for (const auto &source : ro_props_default_source_order) {
             set_ro_product_prop(source, "model", "ONE E1003");
         }
     } else if (rf_version == "103"){
         /* America */
-        property_set("ro.rf_version", "TDD_FDD_Am");
+        InitSetProperty("ro.rf_version", "TDD_FDD_Am");
         for (const auto &source : ro_props_default_source_order) {
             set_ro_product_prop(source, "model", "ONE E1005");
         }
     } else if (rf_version == "107"){
         /* China CTCC Version */
-        property_set("ro.rf_version", "TDD_FDD_ALL_OPTR");
+        InitSetProperty("ro.rf_version", "TDD_FDD_ALL_OPTR");
         for (const auto &source : ro_props_default_source_order) {
             set_ro_product_prop(source, "model", "ONE E1000");
         }
