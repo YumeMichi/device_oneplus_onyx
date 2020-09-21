@@ -226,52 +226,48 @@ etc/firmware/widevine.mdt:vendor/firmware/widevine.mdt
 bin/mpdecision:vendor/bin/mpdecision|9d637e787795719ad05758201f201d761f67dfb9
 vendor/lib/libqti-perfd-client.so|560e00d6cd9fd69fa8a47e3cc392d75d943f0dae
 
-# Qualcomm framework
-bin/irsc_util:vendor/bin/irsc_util
-vendor/lib/libdiag.so
-vendor/lib/libdsi_netctrl.so
-vendor/lib/libdsutils.so
-vendor/lib/libidl.so
-vendor/lib/libqcci_legacy.so
-vendor/lib/libqdi.so
-vendor/lib/libqdp.so
-vendor/lib/libqmi.so
-vendor/lib/libqmi_cci.so
-vendor/lib/libqmi_client_helper.so
-vendor/lib/libqmi_client_qmux.so
-vendor/lib/libqmi_common_so.so
-vendor/lib/libqmi_csi.so
-vendor/lib/libqmi_encdec.so
-vendor/lib/libqmiservices.so
-vendor/lib/libsmemlog.so
-vendor/lib/libsystem_health_mon.so
+# Qualcomm framework - Pinned blobs from bacon
+bin/irsc_util:vendor/bin/irsc_util|aba0bc2531cf5cf55169b00e40a3132e8c64fbd8
+vendor/lib/libdiag.so|7a59646f81f1d880929de08ce4dbbf863c674d52
+vendor/lib/libdsi_netctrl.so|6e832938764a46fa784e604782473c95088907ca
+vendor/lib/libdsutils.so|063d1c1edaff39c98ade040d68b444e1ca870c84
+vendor/lib/libidl.so|c0bc243786409b1714d9c8fd9dbbdeca36fcc49d
+vendor/lib/libqcci_legacy.so|a7912e0fa4df5019f42ce00ebedda0ec0487477d
+vendor/lib/libqdi.so|75549f2776ddc386aa5a9c8e0df0fa76548bc26f
+vendor/lib/libqdp.so|f7f43ee66981d1a70bddef6256352a08f44b7a9a
+vendor/lib/libqmi.so|488f7e8b375cd06572e6c805b29bb8ce80f41ca5
+vendor/lib/libqmi_cci.so|e8014ff4365f625c6638100fcc91e3a5ea0d6b9f
+vendor/lib/libqmi_client_helper.so|f0552c88290eaf8614c4188b4d3fe6ac6166b933
+vendor/lib/libqmi_client_qmux.so|e8c9ece6003f46ba2a102c282ed1dfc338b41cac
+vendor/lib/libqmi_common_so.so|0e9c0c826b3c0e13e4dfafe8f03d46991f90a089
+vendor/lib/libqmi_csi.so|2dbce711878d6a28d17545f9251ff3269ae24885
+vendor/lib/libqmi_encdec.so|58bfd54c0263bb8cada29121b4945b96329b047b
+vendor/lib/libqmiservices.so|9156f5897693ee2ce9ac034c876ec74eb18dd618
+vendor/lib/libsmemlog.so|cd0182685a1bfdb8a74bce3b2e072e62824d9f17
+vendor/lib/libsystem_health_mon.so|3ce9447831c7cda94cd5cdcf1dbe50f2265b0d8b
 
-# Radio
--app/shutdownlistener/shutdownlistener.apk:vendor/app/shutdownlistener/shutdownlistener.apk
--priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk
-bin/netmgrd:vendor/bin/netmgrd
-bin/qmuxd:vendor/bin/qmuxd
-bin/radish:vendor/bin/radish
-bin/rfs_access:vendor/bin/rfs_access
+# Radio - Pinned blobs from bacon
+-app/shutdownlistener/shutdownlistener.apk:vendor/app/shutdownlistener/shutdownlistener.apk|75e726b39b54fcdaded9c54def66c252222ed6c7
+bin/netmgrd:vendor/bin/netmgrd|6d953fa4d4614ff6a56db9b7078be343da093e44
+bin/qmuxd:vendor/bin/qmuxd|7a8bdefeea75aa24abb12049a3e3c215de098b62
+bin/rfs_access:vendor/bin/rfs_access|a4735d8c0c435552940828078bb8a30d48b168c6
 bin/rmt_storage:vendor/bin/rmt_storage
-etc/data/dsi_config.xml:vendor/etc/data/dsi_config.xml
-etc/data/netmgr_config.xml:vendor/etc/data/netmgr_config.xml
+etc/data/dsi_config.xml:vendor/etc/data/dsi_config.xml|7285bcaa59a3d15aa337dc16485a70cf46ff1113
+etc/data/netmgr_config.xml:vendor/etc/data/netmgr_config.xml|e59952d9d99fb012347662868f8a8ceac97ff5bd
 etc/permissions/qcnvitems.xml:vendor/etc/permissions/qcnvitems.xml
 etc/permissions/qcrilhook.xml:vendor/etc/permissions/qcrilhook.xml
--framework/ConnectivityExt.jar:vendor/framework/ConnectivityExt.jar
--framework/qcnvitems.jar:vendor/framework/qcnvitems.jar
--framework/qcrilhook.jar:vendor/framework/qcrilhook.jar
-lib/libmdmdetect.so:vendor/lib/libmdmdetect.so
-lib/libparam.so:vendor/lib/libparam.so
-vendor/lib/libcneapiclient.so
-vendor/lib/libconfigdb.so
-vendor/lib/liblqe.so
-vendor/lib/libnetmgr.so
-vendor/lib/libperipheral_client.so
-vendor/lib/libril-qc-qmi-1.so
-vendor/lib/libril-qc-radioconfig.so
-vendor/lib/libril-qcril-hook-oem.so
-vendor/lib/libxml.so
+-framework/qcnvitems.jar:vendor/framework/qcnvitems.jar|36d8367fedcbfccab889c3212a7a476761449548
+-framework/qcrilhook.jar:vendor/framework/qcrilhook.jar|0caef7161a69ccebeb1289ae166007dc26a9163f
+lib/libmdmdetect.so:vendor/lib/libmdmdetect.so|950663e81783608fceca569dd98588e69d909136
+-priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk|d6b0264be76386b5edf7f2ba94178f41a9de34f9
+vendor/lib/libcneapiclient.so|b01a71ce28e9e33a7d6d88a90d37a1aa977abce9
+vendor/lib/libconfigdb.so|0cdb1f905e4d996ddba1e7cee6ddddc9bf62da39
+vendor/lib/liblqe.so|c0bc243786409b1714d9c8fd9dbbdeca36fcc49d
+vendor/lib/libnetmgr.so|509e53a3c4841326bfba838a6fc9300089d85915
+vendor/lib/libperipheral_client.so|1f2f9a26706bd929c5993cfbd53c12561e2b3111
+vendor/lib/libril-qc-qmi-1.so|7c9e49e1d56aeedb9d73c3efcec0e8e955b43c9b
+vendor/lib/libril-qcril-hook-oem.so|57eb11d00f5997d9d18835fffc92d42a60adfd5a
+vendor/lib/libxml.so|d93c3ea398ea9e2bc1813f3511e9ae4f1c6925ea
 
 # RenderScript - Pinned blobs from bullhead
 vendor/lib/libRSDriver_adreno.so|2044baf0169177e52aba6d7138f80559ecf2b58d
@@ -302,6 +298,6 @@ etc/firmware/venus.b04:vendor/firmware/venus.b04
 etc/firmware/venus.mbn:vendor/firmware/venus.mbn
 etc/firmware/venus.mdt:vendor/firmware/venus.mdt
 
-# WiFi - Pinned blobs from hammerhead
--lib/libwpa_qmi_eap_proxy.so:vendor/lib/libwpa_qmi_eap_proxy.so|6e41d63f973cbd20448f29f5b0b81780cc3f2694
-lib/libwcnss_qmi.so:vendor/lib/libwcnss_qmi.so|7aa2b3b41b0293316e06fd9ace837e7d8c3e7e7f
+# WiFi - Pinned blobs from bacon
+-lib/libwpa_qmi_eap_proxy.so:vendor/lib/libwpa_qmi_eap_proxy.so|bc3e47c756106d43903beacfa726ee4f0bc369d3
+lib/libwcnss_qmi.so:vendor/lib/libwcnss_qmi.so|98fb6166d7f23f6263d6224fe6d239656140e1d3
