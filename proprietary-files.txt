@@ -14,7 +14,7 @@ vendor/lib/soundfx/libqcbassboost.so
 vendor/lib/soundfx/libqcreverb.so
 vendor/lib/soundfx/libqcvirt.so
 
-# Bluetooth (from bacon)
+# Bluetooth - Pinned blobs from bacon
 bin/hci_qcomm_init:vendor/bin/hci_qcomm_init|022d27e7c7cba3c9bbb0deadaa1834a620eeb407
 vendor/lib/libbtnv.so
 
@@ -91,10 +91,10 @@ vendor/lib/libdrmtime.so
 vendor/lib/librpmb.so
 vendor/lib/libssd.so
 
-# Widevine DRM (from angler)
+# Widevine DRM - Pinned blobs from angler
 vendor/lib/mediadrm/libwvdrmengine.so|66ba66d047044f92eb0eada1faf6a5799ded90ab
 
-# GPS (from bacon)
+# GPS - Pinned blobs from bacon
 bin/loc_launcher:vendor/bin/loc_launcher|b920649a5a083473b51a6234783befc7c61978da
 lib/libloc_api_v02.so:vendor/lib/libloc_api_v02.so|9a8401afc86b54e73aa29995f228fd0243cee793
 lib/libloc_ds_api.so:vendor/lib/libloc_ds_api.so|ccce9d3c3fa4cadafd13b63c90d3ab8c115dd7b0
@@ -222,7 +222,7 @@ etc/firmware/widevine.b02:vendor/firmware/widevine.b02
 etc/firmware/widevine.b03:vendor/firmware/widevine.b03
 etc/firmware/widevine.mdt:vendor/firmware/widevine.mdt
 
-# Perf (from ham)
+# Perf - Pinned blobs from ham
 bin/mpdecision:vendor/bin/mpdecision|9d637e787795719ad05758201f201d761f67dfb9
 vendor/lib/libqti-perfd-client.so|560e00d6cd9fd69fa8a47e3cc392d75d943f0dae
 
@@ -273,7 +273,7 @@ vendor/lib/libril-qc-radioconfig.so
 vendor/lib/libril-qcril-hook-oem.so
 vendor/lib/libxml.so
 
-# RenderScript (from bullhead)
+# RenderScript - Pinned blobs from bullhead
 vendor/lib/libRSDriver_adreno.so|2044baf0169177e52aba6d7138f80559ecf2b58d
 vendor/lib/librs_adreno.so|cceaf847d749ac2f1a3af3a1ae6ba653d93e0ed9
 vendor/lib/librs_adreno_sha1.so|e797997d3ac69dfa87904863672c5b9769c796cc
@@ -302,6 +302,6 @@ etc/firmware/venus.b04:vendor/firmware/venus.b04
 etc/firmware/venus.mbn:vendor/firmware/venus.mbn
 etc/firmware/venus.mdt:vendor/firmware/venus.mdt
 
-# WiFi (from hammerhead)
+# WiFi - Pinned blobs from hammerhead
 -lib/libwpa_qmi_eap_proxy.so:vendor/lib/libwpa_qmi_eap_proxy.so|6e41d63f973cbd20448f29f5b0b81780cc3f2694
 lib/libwcnss_qmi.so:vendor/lib/libwcnss_qmi.so|7aa2b3b41b0293316e06fd9ace837e7d8c3e7e7f
