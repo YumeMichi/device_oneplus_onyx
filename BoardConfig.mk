@@ -154,6 +154,9 @@ TARGET_RECOVERY_DEVICE_MODULES := libinit_onyx
 # Keymaster
 TARGET_PROVIDES_KEYMASTER := true
 
+# Legacy memfd
+TARGET_HAS_MEMFD_BACKPORT := true
+
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
 
