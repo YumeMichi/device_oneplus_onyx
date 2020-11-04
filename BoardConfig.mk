@@ -161,9 +161,6 @@ TARGET_HAS_MEMFD_BACKPORT := true
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
 
-# LMKD stats logging
-TARGET_LMKD_STATS_LOG := true
-
 # Media
 TARGET_USES_MEDIA_EXTENSIONS := true
 
