@@ -158,6 +158,8 @@ on boot
     chown system system /proc/touchpanel/double_tap_enable
     chmod 0660 /proc/touchpanel/double_tap_enable
 
+    setprop init.svc.console stopped
+
 on post-fs
     # Buttons
     chown system system /proc/s1302/key_rep
