@@ -92,7 +92,7 @@ vendor/lib/librpmb.so
 vendor/lib/libssd.so
 
 # Widevine DRM - Pinned blobs from angler
-vendor/lib/mediadrm/libwvdrmengine.so|66ba66d047044f92eb0eada1faf6a5799ded90ab
+vendor/lib/mediadrm/libwvdrmengine.so|2f70d96729bc35389d98ab3a1e8f48f4f7b659c2
 
 # GPS - Pinned blobs from bacon
 bin/loc_launcher:vendor/bin/loc_launcher|b920649a5a083473b51a6234783befc7c61978da
