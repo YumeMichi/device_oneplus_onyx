@@ -27,6 +27,9 @@ on boot
     chown system system /proc/touchpanel/keypad_enable
     chmod 0660 /proc/touchpanel/keypad_enable
 
+    chown system system /proc/s1302/key_rep
+    chmod 0660 /proc/s1302/key_rep
+
 service vendor.touch-hal-1-0 /vendor/bin/hw/vendor.lineage.touch@1.0-service.onyx
     interface vendor.lineage.touch@1.0::ITouchscreenGesture default
     class hal

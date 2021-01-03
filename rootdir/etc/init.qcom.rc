@@ -161,10 +161,6 @@ on boot
     setprop init.svc.console stopped
 
 on post-fs
-    # Buttons
-    chown system system /proc/s1302/key_rep
-    chmod 0660 /proc/s1302/key_rep
-
     chown system system /sys/devices/virtual/graphics/fb0/cabc
     chmod 0660 /sys/devices/virtual/graphics/fb0/cabc
 
