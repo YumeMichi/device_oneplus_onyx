@@ -269,11 +269,6 @@ vendor/lib/libril-qc-qmi-1.so|7c9e49e1d56aeedb9d73c3efcec0e8e955b43c9b
 vendor/lib/libril-qcril-hook-oem.so|57eb11d00f5997d9d18835fffc92d42a60adfd5a
 vendor/lib/libxml.so|d93c3ea398ea9e2bc1813f3511e9ae4f1c6925ea
 
-# RenderScript - Pinned blobs from bullhead
-vendor/lib/libRSDriver_adreno.so|2044baf0169177e52aba6d7138f80559ecf2b58d
-vendor/lib/librs_adreno.so|cceaf847d749ac2f1a3af3a1ae6ba653d93e0ed9
-vendor/lib/librs_adreno_sha1.so|e797997d3ac69dfa87904863672c5b9769c796cc
-
 # Sensors
 bin/sensors.qcom:vendor/bin/sensors.qcom
 vendor/lib/hw/activity_recognition.msm8974.so
