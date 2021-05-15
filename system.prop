@@ -41,6 +41,8 @@ ro.qualcomm.bt.hci_transport=smd
 ro.bluetooth.dun=false
 ro.bluetooth.sap=false
 
+persist.bluetooth.sbc_hd_higher_bitrate=true
+
 # Camera
 camera2.portability.force_api=1
 persist.camera.cpp.duplication=false
