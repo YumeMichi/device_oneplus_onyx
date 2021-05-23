@@ -75,20 +75,16 @@ int main() {
         int err;
         struct input_event event {};
 
-        if (uevent.action != "change" || uevent.name != "soc:tri_state_key") {
+        if (uevent.action != "change" || uevent.name != "tri-state-key") {
             return;
         }
 
-        bool none = uevent.state.find("USB=0") != std::string::npos;
-        bool vibration = uevent.state.find("USB_HOST=0") != std::string::npos;
-        bool silent = uevent.state.find("null)=0") != std::string::npos;
-
         int keyCode;
-        if (none && !vibration && !silent) {
+        if (!strcmp(uevent.state.c_str(), "3")) {
             keyCode = KEY_MODE_NORMAL;
-        } else if (!none && vibration && !silent) {
+        } else if (!strcmp(uevent.state.c_str(), "2")) {
             keyCode = KEY_MODE_VIBRATION;
-        } else if (!none && !vibration && silent) {
+        } else if (!strcmp(uevent.state.c_str(), "1")) {
             keyCode = KEY_MODE_SILENCE;
         } else {
             // Ignore intermediate states

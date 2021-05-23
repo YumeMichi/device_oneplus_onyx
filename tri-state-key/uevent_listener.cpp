@@ -37,11 +37,11 @@ static void ParseEvent(const char* msg, Uevent* uevent) {
         if (!strncmp(msg, "ACTION=", 7)) {
             msg += 7;
             uevent->action = msg;
-        } else if (!strncmp(msg, "NAME=", 5)) {
-            msg += 5;
+        } else if (!strncmp(msg, "SWITCH_NAME=", 12)) {
+            msg += 12;
             uevent->name = msg;
-        } else if (!strncmp(msg, "STATE=", 6)) {
-            msg += 6;
+        } else if (!strncmp(msg, "SWITCH_STATE=", 13)) {
+            msg += 13;
             uevent->state = msg;
         }
         // advance to after the next \0
