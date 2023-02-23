@@ -109,6 +109,9 @@ vendor/lib/libchromatix_s5k3m2_zsl.so
 # Camera firmware
 etc/firmware/cpp_firmware_v1_2_0.fw:vendor/firmware/cpp_firmware_v1_2_0.fw
 
+# Camera STLport - from OnePlusOSS
+vendor/lib/libstlport.so|cdc5b1678b85720deb5723cc4002e053c4f3ef28
+
 # Recovery
 bin/qseecomd:vendor/bin/qseecomd
 vendor/lib/libQSEEComAPI.so
