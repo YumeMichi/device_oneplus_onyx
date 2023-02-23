@@ -14,4 +14,7 @@ Battery | 2525 mAh
 Dimensions | 5.51 x 2.72 x 0.27 in
 Camera  | 13 MP, f/2.2, phase detection autofocus, LED flash
 
+## Addition patch
+OnePlus Camera HQ mode: [libcutils: fs_config: Update permissions for /system/build.prop](https://github.com/Pie-onyx/system_core_old/commit/36aaaa813baf0bf0dc29b4ccb8bdf0b96b2e3a83)
+
 Copyright 2016, The CyanogenMod Project
