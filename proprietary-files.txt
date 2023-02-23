@@ -125,9 +125,6 @@ vendor/lib/libscale.so
 etc/firmware/a330_pfp.fw:vendor/firmware/a330_pfp.fw
 etc/firmware/a330_pm4.fw:vendor/firmware/a330_pm4.fw
 
-# Keystore
-lib/hw/keystore.qcom.so:vendor/lib/hw/keystore.msm8974.so
-
 # Listen service
 vendor/lib/liblisten.so
 vendor/lib/liblistenhardware.so
